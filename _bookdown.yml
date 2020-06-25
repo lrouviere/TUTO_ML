@@ -1,6 +1,7 @@
 book_filename: "TUTO_ML"
 delete_merged_file: true
-output_dir: "docs/docs1"
+#output_dir: "docs" #sujet
+output_dir: "docs/doc1" #corrigé
 language:
   ui:
     chapter_name: "Chapitre "
