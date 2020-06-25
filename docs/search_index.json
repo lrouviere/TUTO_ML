@@ -1,0 +1,5 @@
+[
+["index.html", "Machine learning Présentation", " Machine learning Laurent Rouvière 2020-06-25 Présentation Ce tutoriel présente une introduction au machine learning avec R. Les thèmes suivants sont abordés : Estimation du risque, présentation du package caret SVM Arbres (essentiellement avec dplyr) Agrégation (représentations standards et avec ggplot2) On pourra trouver des supports de cours ainsi que les données utilisées à l’adresse suivante https://lrouviere.github.io/ml_lecture/. Des compléments sur les outils du tidyverse pourront être consultés dans le très complet document de (???) ainsi que les ouvrages de (???) et de (???). "],
+["caret.html", "Chapitre 1 Estimation du risque avec caret", " Chapitre 1 Estimation du risque avec caret "],
+["references.html", "References", " References "]
+]

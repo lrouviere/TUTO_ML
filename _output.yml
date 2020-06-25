@@ -11,7 +11,7 @@ bookdown::gitbook:
         github: yes
         twitter: yes
     fontsettings:
-        theme: sepia #white #night sepia
+        theme: white #night sepia
         size: 2
         family: sans
     highlight: tango #default #tango  
