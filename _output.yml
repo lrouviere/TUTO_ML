@@ -1,5 +1,6 @@
 bookdown::gitbook:
-  css: ~/Dropbox/FICHIERS_STYLE/style_bdown.css
+#  css: ~/Dropbox/FICHIERS_STYLE/style_bdown.css (fonctionne pas)
+  css: style.css
   config:
     toc:
       before: |
@@ -25,3 +26,6 @@ bookdown::pdf_book:
   citation_package: natbib
   keep_tex: yes
 bookdown::epub_book: default
+bookdown::html_book:
+    includes:
+      in_header: style.css

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Machine learning</title>
   <meta name="description" content="Machine learning" />
-  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Machine learning" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Laurent Rouvière" />
 
 
-<meta name="date" content="2020-06-25" />
+<meta name="date" content="2020-06-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,6 +50,7 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 <style type="text/css">
@@ -117,7 +118,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-<link rel="stylesheet" href="/Users/laurent/Dropbox/FICHIERS_STYLE/style_bdown.css" type="text/css" />
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -134,8 +135,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Présentation</a></li>
-<li class="chapter" data-level="1" data-path="caret.html"><a href="caret.html"><i class="fa fa-check"></i><b>1</b> Estimation du risque avec caret</a></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="1" data-path="caret.html"><a href="caret.html"><i class="fa fa-check"></i><b>1</b> Estimation du risque avec caret</a><ul>
+<li class="chapter" data-level="1.1" data-path="caret.html"><a href="caret.html#notion-de-risque-en-apprentissage-supervisé"><i class="fa fa-check"></i><b>1.1</b> Notion de risque en apprentissage supervisé</a></li>
+<li class="chapter" data-level="1.2" data-path="caret.html"><a href="caret.html#la-validation-croisée"><i class="fa fa-check"></i><b>1.2</b> La validation croisée</a></li>
+<li class="chapter" data-level="1.3" data-path="caret.html"><a href="caret.html#le-package-caret"><i class="fa fa-check"></i><b>1.3</b> Le package caret</a></li>
+<li class="chapter" data-level="1.4" data-path="caret.html"><a href="caret.html#compléments"><i class="fa fa-check"></i><b>1.4</b> Compléments</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="caret.html"><a href="caret.html#calcul-parallèle"><i class="fa fa-check"></i><b>1.4.1</b> Calcul parallèle</a></li>
+<li class="chapter" data-level="1.4.2" data-path="caret.html"><a href="caret.html#répéter-les-méthodes-de-rééchantillonnage"><i class="fa fa-check"></i><b>1.4.2</b> Répéter les méthodes de rééchantillonnage</a></li>
+<li class="chapter" data-level="1.4.3" data-path="caret.html"><a href="caret.html#modifier-le-risque"><i class="fa fa-check"></i><b>1.4.3</b> Modifier le risque</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="SVM.html"><a href="SVM.html"><i class="fa fa-check"></i><b>2</b> Support Vector Machine (SVM)</a><ul>
+<li class="chapter" data-level="2.1" data-path="SVM.html"><a href="SVM.html#cas-séparable"><i class="fa fa-check"></i><b>2.1</b> Cas séparable</a></li>
+<li class="chapter" data-level="2.2" data-path="SVM.html"><a href="SVM.html#cas-non-séparable"><i class="fa fa-check"></i><b>2.2</b> Cas non séparable</a></li>
+<li class="chapter" data-level="2.3" data-path="SVM.html"><a href="SVM.html#lastuce-du-noyau"><i class="fa fa-check"></i><b>2.3</b> L’astuce du noyau</a></li>
+<li class="chapter" data-level="2.4" data-path="SVM.html"><a href="SVM.html#exercices"><i class="fa fa-check"></i><b>2.4</b> Exercices</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="références.html"><a href="références.html"><i class="fa fa-check"></i>Références</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -159,7 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Machine learning</h1>
 <p class="author"><em>Laurent Rouvière</em></p>
-<p class="date"><em>2020-06-25</em></p>
+<p class="date"><em>2020-06-30</em></p>
 </div>
 <div id="Presentation" class="section level1 unnumbered">
 <h1>Présentation</h1>
