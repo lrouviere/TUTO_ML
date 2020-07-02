@@ -1,3 +1,10 @@
+\newcommand{\ps}[2]{\langle #1,#2\rangle}
+\newcommand{\argmin}{\mathop{\mathrm{argmin}}}
+\newcommand{\lt}{<}
+\newcommand{\mt}{>}
+\newcommand{\andand}{&}
+
+
 # Estimation du risque avec caret {#caret}
 
 ## Notion de risque en apprentissage supervisé

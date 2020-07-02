@@ -24,7 +24,7 @@
 <meta name="author" content="Laurent Rouvière" />
 
 
-<meta name="date" content="2020-06-30" />
+<meta name="date" content="2020-07-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,6 +51,18 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="libs/vis-4.20.1/vis.css" rel="stylesheet" />
+<script src="libs/vis-4.20.1/vis.min.js"></script>
+<script src="libs/visNetwork-binding-2.0.9/visNetwork.js"></script>
+<script src="libs/FileSaver-1.1.20151003/FileSaver.min.js"></script>
+<script src="libs/Blob-1.0/Blob.js"></script>
+<script src="libs/canvas-toBlob-1.0/canvas-toBlob.js"></script>
+<script src="libs/html2canvas-0.5.0/html2canvas.js"></script>
+<script src="libs/jspdf-1.3.2/jspdf.debug.js"></script>
+<link href="libs/jquery-sparkline-2.1.2/jquery.sparkline.css" rel="stylesheet" />
+<script src="libs/jquery-sparkline-2.1.2/jquery.sparkline.js"></script>
+<script src="libs/sparkline-binding-2.0/sparkline.js"></script>
 
 
 <style type="text/css">
@@ -151,6 +163,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="SVM.html"><a href="SVM.html#lastuce-du-noyau"><i class="fa fa-check"></i><b>2.3</b> L’astuce du noyau</a></li>
 <li class="chapter" data-level="2.4" data-path="SVM.html"><a href="SVM.html#exercices"><i class="fa fa-check"></i><b>2.4</b> Exercices</a></li>
 </ul></li>
+<li class="chapter" data-level="3" data-path="arbres.html"><a href="arbres.html"><i class="fa fa-check"></i><b>3</b> Arbres</a><ul>
+<li class="chapter" data-level="3.1" data-path="arbres.html"><a href="arbres.html#coupures-cart-en-fonction-de-la-nature-des-variables"><i class="fa fa-check"></i><b>3.1</b> Coupures CART en fonction de la nature des variables</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="arbres.html"><a href="arbres.html#arbres-de-régression"><i class="fa fa-check"></i><b>3.1.1</b> Arbres de régression</a></li>
+<li class="chapter" data-level="3.1.2" data-path="arbres.html"><a href="arbres.html#arbres-de-classification"><i class="fa fa-check"></i><b>3.1.2</b> Arbres de classification</a></li>
+<li class="chapter" data-level="3.1.3" data-path="arbres.html"><a href="arbres.html#entrée-qualitative"><i class="fa fa-check"></i><b>3.1.3</b> Entrée qualitative</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="arbres.html"><a href="arbres.html#élagage"><i class="fa fa-check"></i><b>3.2</b> Élagage</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="arbres.html"><a href="arbres.html#élagage-pour-un-problème-de-régression"><i class="fa fa-check"></i><b>3.2.1</b> Élagage pour un problème de régression</a></li>
+<li class="chapter" data-level="3.2.2" data-path="arbres.html"><a href="arbres.html#élagage-en-classification-binaire-et-matrice-de-coût"><i class="fa fa-check"></i><b>3.2.2</b> Élagage en classification binaire et matrice de coût</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="références.html"><a href="références.html"><i class="fa fa-check"></i>Références</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -175,7 +198,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Machine learning</h1>
 <p class="author"><em>Laurent Rouvière</em></p>
-<p class="date"><em>2020-06-30</em></p>
+<p class="date"><em>2020-07-02</em></p>
 </div>
 <div id="Presentation" class="section level1 unnumbered">
 <h1>Présentation</h1>

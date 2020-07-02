@@ -1,7 +1,7 @@
 --- 
 title: "Machine learning"
 author: "Laurent Rouvière"
-date: "2020-06-30"
+date: "2020-07-02"
 site: bookdown::bookdown_site
 #documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -26,7 +26,12 @@ link-citations: yes
 
 
 
+
+
+
+
 # Présentation {-#Presentation}
+
 
 
 Ce tutoriel  présente une introduction au machine learning avec R. Les thèmes suivants sont abordés :
