@@ -1,0 +1,28 @@
+\babel@toc {french}{}
+\contentsline {section}{Pr\IeC {\'e}sentation}{1}{section*.2}
+\contentsline {section}{\numberline {1}Estimation du risque avec caret}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Notion de risque en apprentissage supervis\IeC {\'e}}{2}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}La validation crois\IeC {\'e}e}{2}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}Le package caret}{5}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.4}Compl\IeC {\'e}ments}{7}{subsection.1.4}
+\contentsline {subsubsection}{\numberline {1.4.1}Calcul parall\IeC {\`e}le}{7}{subsubsection.1.4.1}
+\contentsline {subsubsection}{\numberline {1.4.2}R\IeC {\'e}p\IeC {\'e}ter les m\IeC {\'e}thodes de r\IeC {\'e}\IeC {\'e}chantillonnage}{7}{subsubsection.1.4.2}
+\contentsline {subsubsection}{\numberline {1.4.3}Modifier le risque}{8}{subsubsection.1.4.3}
+\contentsline {section}{\numberline {2}Support Vector Machine (SVM)}{9}{section.2}
+\contentsline {subsection}{\numberline {2.1}Cas s\IeC {\'e}parable}{9}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Cas non s\IeC {\'e}parable}{13}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}L'astuce du noyau}{16}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Exercices}{24}{subsection.2.4}
+\contentsline {section}{\numberline {3}Arbres}{27}{section.3}
+\contentsline {subsection}{\numberline {3.1}Coupures CART en fonction de la nature des variables}{27}{subsection.3.1}
+\contentsline {subsubsection}{\numberline {3.1.1}Arbres de r\IeC {\'e}gression}{28}{subsubsection.3.1.1}
+\contentsline {subsubsection}{\numberline {3.1.2}Arbres de classification}{31}{subsubsection.3.1.2}
+\contentsline {subsubsection}{\numberline {3.1.3}Entr\IeC {\'e}e qualitative}{33}{subsubsection.3.1.3}
+\contentsline {subsection}{\numberline {3.2}\IeC {\'E}lagage}{34}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}\IeC {\'E}lagage pour un probl\IeC {\`e}me de r\IeC {\'e}gression}{34}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}\IeC {\'E}lagage en classification binaire et matrice de co\IeC {\^u}t}{51}{subsubsection.3.2.2}
+\contentsline {section}{\numberline {4}Agr\IeC {\'e}gation : for\IeC {\^e}ts al\IeC {\'e}atoires et gradient boosting}{56}{section.4}
+\contentsline {subsection}{\numberline {4.1}For\IeC {\^e}ts al\IeC {\'e}atoires}{56}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Gradient boosting}{60}{subsection.4.2}
+\contentsline {subsubsection}{\numberline {4.2.1}Un exemple simple en r\IeC {\'e}gression}{61}{subsubsection.4.2.1}
+\contentsline {subsubsection}{\numberline {4.2.2}Adaboost et logitboost pour la classification binaire.}{65}{subsubsection.4.2.2}

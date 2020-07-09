@@ -24,7 +24,7 @@
 <meta name="author" content="Laurent Rouvière" />
 
 
-<meta name="date" content="2020-07-02" />
+<meta name="date" content="2020-07-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="SVM.html"/>
-<link rel="next" href="références.html"/>
+<link rel="next" href="agregation.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -172,6 +172,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2" data-path="arbres.html"><a href="arbres.html#élagage"><i class="fa fa-check"></i><b>3.2</b> Élagage</a><ul>
 <li class="chapter" data-level="3.2.1" data-path="arbres.html"><a href="arbres.html#élagage-pour-un-problème-de-régression"><i class="fa fa-check"></i><b>3.2.1</b> Élagage pour un problème de régression</a></li>
 <li class="chapter" data-level="3.2.2" data-path="arbres.html"><a href="arbres.html#élagage-en-classification-binaire-et-matrice-de-coût"><i class="fa fa-check"></i><b>3.2.2</b> Élagage en classification binaire et matrice de coût</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="agregation.html"><a href="agregation.html"><i class="fa fa-check"></i><b>4</b> Agrégation : forêts aléatoires et gradient boosting</a><ul>
+<li class="chapter" data-level="4.1" data-path="agregation.html"><a href="agregation.html#forets"><i class="fa fa-check"></i><b>4.1</b> Forêts aléatoires</a></li>
+<li class="chapter" data-level="4.2" data-path="agregation.html"><a href="agregation.html#boosting"><i class="fa fa-check"></i><b>4.2</b> Gradient boosting</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="agregation.html"><a href="agregation.html#un-exemple-simple-en-régression"><i class="fa fa-check"></i><b>4.2.1</b> Un exemple simple en régression</a></li>
+<li class="chapter" data-level="4.2.2" data-path="agregation.html"><a href="agregation.html#adaboost-et-logitboost-pour-la-classification-binaire."><i class="fa fa-check"></i><b>4.2.2</b> Adaboost et logitboost pour la classification binaire.</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="références.html"><a href="références.html"><i class="fa fa-check"></i>Références</a></li>
@@ -780,8 +787,16 @@ n= 400
 292 1.0000e-05    312 0.00027584 0.61200 0.043160</code></pre>
 <div class="corR">
 <p>
-On obtient ici une suite de près de 300 arbres. On remarque que * l’erreur d’ajustement ne cesse de décroitre, ceci est logique vu le procédé de construction : on ajuste de mieux en mieux lorsqu’on augmente le nombre de coupures ; * l’erreur de prévision décroit avant de d’augmenter à nouveau. C’est le phénomène bien connu du <strong>sur-apprentissage</strong>.
+<p>On obtient ici une suite de près de 300 arbres. On remarque que</p>
 </p>
+<ul>
+<li>
+<p>l’erreur d’ajustement ne cesse de décroitre, ceci est logique vu le procédé de construction : on ajuste de mieux en mieux lorsqu’on augmente le nombre de coupures ;</p>
+</li>
+<li>
+<p>l’erreur de prévision décroit avant de d’augmenter à nouveau. C’est le phénomène bien connu du <strong>sur-apprentissage</strong>.</p>
+</li>
+</ul>
 </div></li>
 <li><p>Expliquer la sortie de la fonction <strong>plotcp</strong> appliquée à l’arbre de la question précédente.</p>
 <div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="arbres.html#cb69-1"></a><span class="kw">plotcp</span>(tree1)</span></code></pre></div>
@@ -1320,6 +1335,8 @@ Cette stratégie de changer la matrice de coût peut se révéler intéressante 
 </div></li>
 </ol>
 
+
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="arbres.html#cb96-1"></a>correct &lt;-<span class="st"> </span><span class="ot">TRUE</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -1335,7 +1352,7 @@ Cette stratégie de changer la matrice de coût peut se révéler intéressante 
         </div>
       </div>
 <a href="SVM.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="références.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="agregation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

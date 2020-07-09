@@ -24,7 +24,7 @@
 <meta name="author" content="Laurent Rouvière" />
 
 
-<meta name="date" content="2020-07-02" />
+<meta name="date" content="2020-07-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -174,6 +174,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.2" data-path="arbres.html"><a href="arbres.html#élagage-en-classification-binaire-et-matrice-de-coût"><i class="fa fa-check"></i><b>3.2.2</b> Élagage en classification binaire et matrice de coût</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="4" data-path="agregation.html"><a href="agregation.html"><i class="fa fa-check"></i><b>4</b> Agrégation : forêts aléatoires et gradient boosting</a><ul>
+<li class="chapter" data-level="4.1" data-path="agregation.html"><a href="agregation.html#forets"><i class="fa fa-check"></i><b>4.1</b> Forêts aléatoires</a></li>
+<li class="chapter" data-level="4.2" data-path="agregation.html"><a href="agregation.html#boosting"><i class="fa fa-check"></i><b>4.2</b> Gradient boosting</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="agregation.html"><a href="agregation.html#un-exemple-simple-en-régression"><i class="fa fa-check"></i><b>4.2.1</b> Un exemple simple en régression</a></li>
+<li class="chapter" data-level="4.2.2" data-path="agregation.html"><a href="agregation.html#adaboost-et-logitboost-pour-la-classification-binaire."><i class="fa fa-check"></i><b>4.2.2</b> Adaboost et logitboost pour la classification binaire.</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="références.html"><a href="références.html"><i class="fa fa-check"></i>Références</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -198,19 +205,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Machine learning</h1>
 <p class="author"><em>Laurent Rouvière</em></p>
-<p class="date"><em>2020-07-02</em></p>
+<p class="date"><em>2020-07-09</em></p>
 </div>
 <div id="Presentation" class="section level1 unnumbered">
 <h1>Présentation</h1>
-<p>Ce tutoriel présente une introduction au machine learning avec R. Les thèmes suivants sont abordés :</p>
+<p>Ce tutoriel présente une introduction au machine learning avec <strong>R</strong>. On pourra trouver les supports de cours associés à ce tutoriel ainsi que les données utilisées à l’adresse suivante <a href="https://lrouviere.github.io/ml_lecture/" class="uri">https://lrouviere.github.io/ml_lecture/</a>. Les thèmes suivants sont abordés :</p>
 <ul>
 <li><strong>Estimation du risque</strong>, présentation du package <strong>caret</strong></li>
 <li><strong>SVM</strong></li>
-<li><strong>Arbres</strong> (essentiellement avec <code>dplyr</code>)</li>
-<li><strong>Agrégation</strong> (représentations standards et avec <code>ggplot2</code>)</li>
+<li><strong>Arbres</strong></li>
+<li><strong>Agrégation d’arbres</strong> : forêts aléatoires et gradient boosting</li>
+<li><strong>Réseaux de neuronnes et introduction au deep learning</strong></li>
 </ul>
-<p>On pourra trouver des supports de cours ainsi que les données utilisées à l’adresse suivante <a href="https://lrouviere.github.io/ml_lecture/" class="uri">https://lrouviere.github.io/ml_lecture/</a>. Des compléments sur les outils du tidyverse pourront être consultés dans le très complet document de <span class="citation">(<span class="citeproc-not-found" data-reference-id="barnier20"><strong>???</strong></span>)</span> ainsi que les ouvrages de <span class="citation">(<span class="citeproc-not-found" data-reference-id="gro-wick17"><strong>???</strong></span>)</span> et de <span class="citation">(<span class="citeproc-not-found" data-reference-id="rstat18"><strong>???</strong></span>)</span>.</p>
+<p>Il existe de nombreuses références sur le machne learning, la plus connue étant certainement <span class="citation">Hastie, Tibshirani, and Friedman (<a href="#ref-hastibfri09" role="doc-biblioref">2009</a>)</span>, disponible en ligne à l’url <a href="https://web.stanford.edu/~hastie/ElemStatLearn/" class="uri">https://web.stanford.edu/~hastie/ElemStatLearn/</a>. On pourra également consulter <span class="citation">Boehmke and Greenwell (<a href="#ref-boegre19" role="doc-biblioref">2019</a>)</span> qui propose une présentation très claire des algorithmes machine learning avec <strong>R</strong>. Cet ouvrage est également disponible en ligne à l’url <a href="https://bradleyboehmke.github.io/HOML/" class="uri">https://bradleyboehmke.github.io/HOML/</a>.</p>
 
+</div>
+<h3>Références</h3>
+<div id="refs" class="references">
+<div id="ref-boegre19">
+<p>Boehmke, B., and B. Greenwell. 2019. <em>Hands-on Machine Learning with R</em>. CRC Press. <a href="https://bradleyboehmke.github.io/HOML/">https://bradleyboehmke.github.io/HOML/</a>.</p>
+</div>
+<div id="ref-hastibfri09">
+<p>Hastie, T., R. Tibshirani, and J. Friedman. 2009. <em>The Elements of Statistical Learning: Data Mining, Inference, and Prediction</em>. Second. Springer. <a href="https://web.stanford.edu/~hastie/ElemStatLearn/">https://web.stanford.edu/~hastie/ElemStatLearn/</a>.</p>
+</div>
 </div>
             </section>
 
