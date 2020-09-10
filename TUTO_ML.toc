@@ -26,3 +26,4 @@
 \contentsline {subsection}{\numberline {4.2}Gradient boosting}{60}{subsection.4.2}
 \contentsline {subsubsection}{\numberline {4.2.1}Un exemple simple en r\IeC {\'e}gression}{61}{subsubsection.4.2.1}
 \contentsline {subsubsection}{\numberline {4.2.2}Adaboost et logitboost pour la classification binaire.}{65}{subsubsection.4.2.2}
+\contentsline {section}{\numberline {5}R\IeC {\'e}seaux de neurones avec Keras}{70}{section.5}
