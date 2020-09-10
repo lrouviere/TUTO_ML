@@ -196,7 +196,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Etant donnée un échantillon <span class="math inline">\((x_1,y_1),\dots,(x_n,y_n)\)</span> où les <span class="math inline">\(x_i\)</span> sont à valeurs dans <span class="math inline">\(\mathbb R^p\)</span> et les <span class="math inline">\(y_i\)</span> sont binaires à valeurs dans <span class="math inline">\(\{-1,1\}\)</span>, l’approche <strong>SVM</strong> cherche le <strong>meilleur hyperplan</strong> en terme de séparation des données. Globalement on veut que les <code>1</code> se trouvent d’un coté de l’hyperplan et les <code>-1</code> de l’autre. Dans cette partie on propose d’étudier la mise en œuvre de cet algorithme tout d’abord dans le cas idéal où les données sont séparables puis dans le cas plus réel où elles ne le sont pas. Nous verrons ensuite comment introduire de la non linéarité ne utilisant l’<strong>astuce du noyau</strong>.</p>
 <div id="cas-séparable" class="section level2">
 <h2><span class="header-section-number">2.1</span> Cas séparable</h2>
-<p>Le cas séparable est le cas facile : il correspond à la situation où il existe effectivement un (même plusieurs) hyperplan(s) qui sépare(nt) parfaitement les 1 des -1. Il n’arrive jamais en pratique mais il convient de l’étudier pour comprendre comment est construit l’algorithme. Dans ce cas on cherche l’hyperplan d’équation <span class="math inline">\(\langle w,x\rangle+b=w^tx+b=0\)</span> tel que la <strong>marge</strong> (qui peut être vue comme la distance entre les observations les plus priche de l’hyperplan et l’hyperplan) soit maximale. Mathématiquement le problème se réécrit comme un problème d’optimisation sous contraintes :</p>
+<p>Le cas séparable est le cas facile : il correspond à la situation où il existe effectivement un (même plusieurs) hyperplan(s) qui sépare(nt) parfaitement les 1 des -1. Il ne se produit quasiment jamais en pratique mais il convient de l’étudier pour comprendre comment est construit l’algorithme. Dans ce cas on cherche l’hyperplan d’équation <span class="math inline">\(\langle w,x\rangle+b=w^tx+b=0\)</span> tel que la <strong>marge</strong> (qui peut être vue comme la distance entre les observations les plus proches de l’hyperplan et l’hyperplan) soit maximale. Mathématiquement le problème se réécrit comme un problème d’optimisation sous contraintes :</p>
 <p><span class="math display" id="eq:svm-non-sep">\[\begin{equation}
 \min_{w,b}\frac{1}{2}\|w\|^2
 \tag{2.1}
@@ -212,30 +212,30 @@ De plus, les conditions <strong>KKT</strong> impliquent que pour tout <span clas
 <ul>
 <li><span class="math inline">\(y_i(x_i^tw+b)-1=0.\)</span></li>
 </ul>
-<p>Ces conditions entraînent que <span class="math inline">\(w^\star\)</span> s’écrit comme uen combinaison linéaire de <strong>quelques points</strong> qui se trouvent <strong>sur la marge</strong>. Nous proposons maintenant de retrouver ces points et de tracer la marge sur un exemple simple.</p>
+<p>Ces conditions impliquent que <span class="math inline">\(w^\star\)</span> s’écrit comme une combinaison linéaire de quelques points, appelés <strong>vecteurs supports</strong> qui se trouvent <strong>sur la marge</strong>. Nous proposons maintenant de retrouver ces points et de tracer la marge sur un exemple simple.</p>
 <p>On considère le nuage de points suivant :</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="SVM.html#cb12-1"></a>n &lt;-<span class="st"> </span><span class="dv">20</span></span>
-<span id="cb12-2"><a href="SVM.html#cb12-2"></a><span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb12-3"><a href="SVM.html#cb12-3"></a>X1 &lt;-<span class="st"> </span><span class="kw">scale</span>(<span class="kw">runif</span>(n))</span>
-<span id="cb12-4"><a href="SVM.html#cb12-4"></a><span class="kw">set.seed</span>(<span class="dv">567</span>)</span>
-<span id="cb12-5"><a href="SVM.html#cb12-5"></a>X2 &lt;-<span class="st"> </span><span class="kw">scale</span>(<span class="kw">runif</span>(n))</span>
-<span id="cb12-6"><a href="SVM.html#cb12-6"></a>Y &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="op">-</span><span class="dv">1</span>,n)</span>
-<span id="cb12-7"><a href="SVM.html#cb12-7"></a>Y[X1<span class="op">&gt;</span>X2] &lt;-<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb12-8"><a href="SVM.html#cb12-8"></a>Y &lt;-<span class="st"> </span><span class="kw">as.factor</span>(Y)</span>
-<span id="cb12-9"><a href="SVM.html#cb12-9"></a>donnees &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X1=</span>X1,<span class="dt">X2=</span>X2,<span class="dt">Y=</span>Y)</span>
-<span id="cb12-10"><a href="SVM.html#cb12-10"></a>p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(donnees)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X2,<span class="dt">y=</span>X1,<span class="dt">color=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()</span>
-<span id="cb12-11"><a href="SVM.html#cb12-11"></a>p</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="SVM.html#cb13-1"></a>n &lt;-<span class="st"> </span><span class="dv">20</span></span>
+<span id="cb13-2"><a href="SVM.html#cb13-2"></a><span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb13-3"><a href="SVM.html#cb13-3"></a>X1 &lt;-<span class="st"> </span><span class="kw">scale</span>(<span class="kw">runif</span>(n))</span>
+<span id="cb13-4"><a href="SVM.html#cb13-4"></a><span class="kw">set.seed</span>(<span class="dv">567</span>)</span>
+<span id="cb13-5"><a href="SVM.html#cb13-5"></a>X2 &lt;-<span class="st"> </span><span class="kw">scale</span>(<span class="kw">runif</span>(n))</span>
+<span id="cb13-6"><a href="SVM.html#cb13-6"></a>Y &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="op">-</span><span class="dv">1</span>,n)</span>
+<span id="cb13-7"><a href="SVM.html#cb13-7"></a>Y[X1<span class="op">&gt;</span>X2] &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb13-8"><a href="SVM.html#cb13-8"></a>Y &lt;-<span class="st"> </span><span class="kw">as.factor</span>(Y)</span>
+<span id="cb13-9"><a href="SVM.html#cb13-9"></a>donnees &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X1=</span>X1,<span class="dt">X2=</span>X2,<span class="dt">Y=</span>Y)</span>
+<span id="cb13-10"><a href="SVM.html#cb13-10"></a>p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(donnees)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X2,<span class="dt">y=</span>X1,<span class="dt">color=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()</span>
+<span id="cb13-11"><a href="SVM.html#cb13-11"></a>p</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>La fonction <strong>svm</strong> du package <strong>e1071</strong> permet d’ajuster une SVM :</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="SVM.html#cb13-1"></a><span class="kw">library</span>(e1071)</span>
-<span id="cb13-2"><a href="SVM.html#cb13-2"></a>mod.svm &lt;-<span class="st"> </span><span class="kw">svm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>donnees,<span class="dt">kernel=</span><span class="st">&quot;linear&quot;</span>,<span class="dt">cost=</span><span class="dv">10000000000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="SVM.html#cb14-1"></a><span class="kw">library</span>(e1071)</span>
+<span id="cb14-2"><a href="SVM.html#cb14-2"></a>mod.svm &lt;-<span class="st"> </span><span class="kw">svm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>donnees,<span class="dt">kernel=</span><span class="st">&quot;linear&quot;</span>,<span class="dt">cost=</span><span class="dv">10000000000</span>)</span></code></pre></div>
 <ol style="list-style-type: decimal">
-<li><p>Récupérer les vecteurs supports et visualiser les sur le graphe. On les affectera à un <strong>data.frame</strong> dont les 2 premières colonnes représenteront les valeurs de <span class="math inline">\(X_1\)</span> et <span class="math inline">\(X_2\)</span> des vecteurs supports.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="SVM.html#cb14-1"></a>ind.svm &lt;-<span class="st"> </span>mod.svm<span class="op">$</span>index</span>
-<span id="cb14-2"><a href="SVM.html#cb14-2"></a>sv &lt;-<span class="st"> </span>donnees <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice</span>(ind.svm)</span>
-<span id="cb14-3"><a href="SVM.html#cb14-3"></a>...</span></code></pre></div></li>
+<li><p>Récupérer les vecteurs supports et visualiser les sur le graphe (en utilisant une autre couleur par exemple). On les affectera à un <strong>data.frame</strong> dont les 2 premières colonnes représenteront les valeurs de <span class="math inline">\(X_1\)</span> et <span class="math inline">\(X_2\)</span> des vecteurs supports.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="SVM.html#cb15-1"></a>ind.svm &lt;-<span class="st"> </span>mod.svm<span class="op">$</span>index</span>
+<span id="cb15-2"><a href="SVM.html#cb15-2"></a>sv &lt;-<span class="st"> </span>donnees <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice</span>(ind.svm)</span>
+<span id="cb15-3"><a href="SVM.html#cb15-3"></a>...</span></code></pre></div></li>
 <li><p>Retrouver ce graphe à l’aide de la fonction <strong>plot</strong>.</p></li>
-<li><p>Rappeler la règle de décision associée la méthode SVM. Donner les estimations des paramètres de la règle de décision sur cet exemple. On pourra notamment regarder la sortie <code>coef</code> de la fonction <strong>svm</strong>.</p></li>
+<li><p>Rappeler la règle de décision associée à la méthode SVM. Donner les estimations des paramètres de la règle de décision sur cet exemple. On pourra notamment regarder la sortie <code>coef</code> de la fonction <strong>svm</strong>.</p></li>
 <li><p>On dispose d’un nouvel individu <span class="math inline">\(x=(-0.5,0.5)\)</span>. Expliquer comment on peut prédire son groupe.</p></li>
 <li><p>Retrouver les résultats de la question précédente à l’aide de la fonction <strong>predict</strong>. On pourra utiliser l’option <code>decision.values = TRUE</code>.</p></li>
 <li><p>Obtenir les probabilités prédites à l’aide de la fonction <strong>predict</strong>. On pourra utiliser <code>probability=TRUE</code> dans la fonction <strong>svm</strong>.</p></li>
@@ -256,7 +256,7 @@ De plus, les conditions <strong>KKT</strong> impliquent que pour tout <span clas
 <li><span class="math inline">\(\xi_i\in [0,1]\Longrightarrow\)</span> <span class="math inline">\(i\)</span> bien classé mais <strong>dans</strong> la région définie par la <strong>marge</strong> ;</li>
 <li><span class="math inline">\(\xi_i&gt;1 \Longrightarrow\)</span> <span class="math inline">\(i\)</span> <strong>mal classé</strong>.</li>
 </ul>
-<p>Le problème d’optimisation devient alors minimiser en <span class="math inline">\((w,b,\xi)\)</span>
+<p>Le problème d’optimisation est alors de minimiser en <span class="math inline">\((w,b,\xi)\)</span>
 <span class="math display">\[\frac{1}{2}\|w\|^2 +C\sum_{i=1}^n\xi_i\]</span>
 <span class="math display">\[\textrm{sous les contraintes } 
 \left\{
@@ -264,9 +264,9 @@ De plus, les conditions <strong>KKT</strong> impliquent que pour tout <span clas
 y_i(w^tx_i+b)\geq 1 -\xi_i \\ 
 \xi_i\geq 0, i=1,\dots,n.
   \end{array}\right.\]</span>
-Le paramètre <span class="math inline">\(C&gt;0\)</span> est à <strong>calibrer</strong> et on remarque que le cas séparable correspond à <span class="math inline">\(C\to +\infty\)</span>. Les solutions de ce nouveau problème d’ptimisation s’obtiennent de la même façon que dans le cas séparable, en particulier <span class="math inline">\(w^\star\)</span> s’écrite toujours comme une combinaison linéaire
+Le paramètre <span class="math inline">\(C&gt;0\)</span> est à <strong>calibrer</strong> et on remarque que le cas séparable correspond à <span class="math inline">\(C\to +\infty\)</span>. Les solutions de ce nouveau problème d’optimisation s’obtiennent de la même façon que dans le cas séparable, en particulier <span class="math inline">\(w^\star\)</span> s’écrite toujours comme une combinaison linéaire
 <span class="math display">\[w^\star=\sum_{i=1}^n\alpha_i^\star y_ix_i.\]</span>
-de <strong>vecteurs supports</strong> sauf qu’on distingue deux cas de vecteurs supports (<span class="math inline">\(\alpha_i^\star&gt;0\)</span>):</p>
+de <strong>vecteurs supports</strong> sauf qu’on distingue deux types de vecteurs supports (<span class="math inline">\(\alpha_i^\star&gt;0\)</span>):</p>
 <ul>
 <li>ceux <strong>sur la frontière</strong> définie par la marge : <span class="math inline">\(\xi_i^\star=0\)</span> ;</li>
 <li>ceux <strong>en dehors</strong> : <span class="math inline">\(\xi_i^\star&gt;0\)</span> et <span class="math inline">\(\alpha_i^\star=C\)</span>.</li>
@@ -283,23 +283,23 @@ de <strong>vecteurs supports</strong> sauf qu’on distingue deux cas de vecteur
 <li>choix de la valeur de <span class="math inline">\(C\)</span> qui minimise le critère estimé.</li>
 </ul>
 <p>On considère le jeu de données <code>df3</code> définie ci-dessous.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="SVM.html#cb15-1"></a>n &lt;-<span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb15-2"><a href="SVM.html#cb15-2"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb15-3"><a href="SVM.html#cb15-3"></a>df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="dv">2</span><span class="op">*</span>n),<span class="dt">ncol=</span><span class="dv">2</span>))</span>
-<span id="cb15-4"><a href="SVM.html#cb15-4"></a>df1 &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(V1<span class="op">&lt;=</span>V2)<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Y=</span><span class="kw">rbinom</span>(<span class="kw">nrow</span>(.),<span class="dv">1</span>,<span class="fl">0.95</span>))</span>
-<span id="cb15-5"><a href="SVM.html#cb15-5"></a>df2 &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(V1<span class="op">&gt;</span>V2)<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Y=</span><span class="kw">rbinom</span>(<span class="kw">nrow</span>(.),<span class="dv">1</span>,<span class="fl">0.05</span>))</span>
-<span id="cb15-6"><a href="SVM.html#cb15-6"></a>df3 &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(df1,df2) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Y=</span><span class="kw">as.factor</span>(Y))</span>
-<span id="cb15-7"><a href="SVM.html#cb15-7"></a><span class="kw">ggplot</span>(df3)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>V2,<span class="dt">y=</span>V1,<span class="dt">color=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span></span>
-<span id="cb15-8"><a href="SVM.html#cb15-8"></a><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;#FFFFC8&quot;</span>, <span class="st">&quot;#7D0025&quot;</span>))<span class="op">+</span></span>
-<span id="cb15-9"><a href="SVM.html#cb15-9"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;#BFD5E3&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;#6D9EC1&quot;</span>,<span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">linetype =</span> <span class="st">&quot;solid&quot;</span>),</span>
-<span id="cb15-10"><a href="SVM.html#cb15-10"></a>        <span class="dt">panel.grid.major =</span> <span class="kw">element_blank</span>(),</span>
-<span id="cb15-11"><a href="SVM.html#cb15-11"></a>        <span class="dt">panel.grid.minor =</span> <span class="kw">element_blank</span>())</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="SVM.html#cb16-1"></a>n &lt;-<span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb16-2"><a href="SVM.html#cb16-2"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb16-3"><a href="SVM.html#cb16-3"></a>df &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="dv">2</span><span class="op">*</span>n),<span class="dt">ncol=</span><span class="dv">2</span>))</span>
+<span id="cb16-4"><a href="SVM.html#cb16-4"></a>df1 &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(V1<span class="op">&lt;=</span>V2)<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Y=</span><span class="kw">rbinom</span>(<span class="kw">nrow</span>(.),<span class="dv">1</span>,<span class="fl">0.95</span>))</span>
+<span id="cb16-5"><a href="SVM.html#cb16-5"></a>df2 &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(V1<span class="op">&gt;</span>V2)<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Y=</span><span class="kw">rbinom</span>(<span class="kw">nrow</span>(.),<span class="dv">1</span>,<span class="fl">0.05</span>))</span>
+<span id="cb16-6"><a href="SVM.html#cb16-6"></a>df3 &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(df1,df2) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Y=</span><span class="kw">as.factor</span>(Y))</span>
+<span id="cb16-7"><a href="SVM.html#cb16-7"></a><span class="kw">ggplot</span>(df3)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>V2,<span class="dt">y=</span>V1,<span class="dt">color=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span></span>
+<span id="cb16-8"><a href="SVM.html#cb16-8"></a><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;#FFFFC8&quot;</span>, <span class="st">&quot;#7D0025&quot;</span>))<span class="op">+</span></span>
+<span id="cb16-9"><a href="SVM.html#cb16-9"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;#BFD5E3&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;#6D9EC1&quot;</span>,<span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">linetype =</span> <span class="st">&quot;solid&quot;</span>),</span>
+<span id="cb16-10"><a href="SVM.html#cb16-10"></a>        <span class="dt">panel.grid.major =</span> <span class="kw">element_blank</span>(),</span>
+<span id="cb16-11"><a href="SVM.html#cb16-11"></a>        <span class="dt">panel.grid.minor =</span> <span class="kw">element_blank</span>())</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ol style="list-style-type: decimal">
 <li><p>Ajuster 3 svm en considérant comme valeur de <span class="math inline">\(C\)</span> : 0.000001, 0.1 et 5. On pourra utiliser l’option <code>cost</code>.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="SVM.html#cb16-1"></a>mod.svm1 &lt;-<span class="st"> </span><span class="kw">svm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df3,<span class="dt">kernel=</span><span class="st">&quot;linear&quot;</span>,...)</span>
-<span id="cb16-2"><a href="SVM.html#cb16-2"></a>mod.svm2 &lt;-<span class="st"> </span><span class="kw">svm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df3,<span class="dt">kernel=</span><span class="st">&quot;linear&quot;</span>,...)</span>
-<span id="cb16-3"><a href="SVM.html#cb16-3"></a>mod.svm3 &lt;-<span class="st"> </span><span class="kw">svm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df3,<span class="dt">kernel=</span><span class="st">&quot;linear&quot;</span>,...)</span></code></pre></div></li>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="SVM.html#cb17-1"></a>mod.svm1 &lt;-<span class="st"> </span><span class="kw">svm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df3,<span class="dt">kernel=</span><span class="st">&quot;linear&quot;</span>,...)</span>
+<span id="cb17-2"><a href="SVM.html#cb17-2"></a>mod.svm2 &lt;-<span class="st"> </span><span class="kw">svm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df3,<span class="dt">kernel=</span><span class="st">&quot;linear&quot;</span>,...)</span>
+<span id="cb17-3"><a href="SVM.html#cb17-3"></a>mod.svm3 &lt;-<span class="st"> </span><span class="kw">svm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df3,<span class="dt">kernel=</span><span class="st">&quot;linear&quot;</span>,...)</span></code></pre></div></li>
 <li><p>Calculer les nombres de vecteurs supports pour chaque valeur de <span class="math inline">\(C\)</span>.</p></li>
 <li><p>Visualiser les 3 svm obtenues. Interpréter.</p></li>
 </ol>
@@ -308,10 +308,10 @@ de <strong>vecteurs supports</strong> sauf qu’on distingue deux cas de vecteur
 <h2><span class="header-section-number">2.3</span> L’astuce du noyau</h2>
 <p>Les SVM présentées précédemment font l’hypothèse que les groupes sont <strong>linéairement séparables</strong>, ce qui n’est bien entendu pas toujours le cas en pratique. L’<strong>astuce du noyau</strong> permet de mettre de la non linéarité, elle consiste à :</p>
 <ul>
-<li>plonger les données dans un nouvel espace appelé <strong>espace de représentation</strong> ou <strong>feature space</strong></li>
+<li>plonger les données dans un nouvel espace appelé <strong>espace de représentation</strong> ou <strong>feature space</strong> ;</li>
 <li>appliquer une <strong>svm</strong> linéaire dans ce nouvel espace.</li>
 </ul>
-<p>Le terme <strong>astuce</strong> vient du fait que ce procédé ne nécessite pas de connaître explicitement ce nouvel espace : pour résoudre le problème d’optimisation dans le <strong>faeture space</strong> on a juste besoin de connaître le <strong>noyau</strong> associé au feature space. D’un point de vu formel un noyau est une fonction
+<p>Le terme <strong>astuce</strong> vient du fait que ce procédé ne nécessite pas de connaître explicitement ce nouvel espace : pour résoudre le problème d’optimisation dans le <strong>feature space</strong> on a juste besoin de connaître le <strong>noyau</strong> associé au feature space. D’un point de vu formel un noyau est une fonction
 <span class="math display">\[K:\mathcal X\times\mathcal X\to\mathbb R\]</span>
 dont les propriétés sont proches d’un produit scalaire. Il existe donc tout un tas de noyau avec lesquels on peut faire des SVM, par exemple</p>
 <ul>
@@ -325,44 +325,44 @@ dont les propriétés sont proches d’un produit scalaire. Il existe donc tout 
 </ul>
 <p>Bien entendu, en pratique tout le problème va consister à <strong>trouver le bon noyau</strong> !</p>
 <p>On considère le jeu de données suivant où le problème est d’expliquer <span class="math inline">\(Y\)</span> par <span class="math inline">\(V1\)</span> et <span class="math inline">\(V2\)</span>.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="SVM.html#cb17-1"></a>n &lt;-<span class="st"> </span><span class="dv">500</span></span>
-<span id="cb17-2"><a href="SVM.html#cb17-2"></a><span class="kw">set.seed</span>(<span class="dv">13</span>)</span>
-<span id="cb17-3"><a href="SVM.html#cb17-3"></a>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">runif</span>(n<span class="op">*</span><span class="dv">2</span>,<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>),<span class="dt">ncol=</span><span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()</span>
-<span id="cb17-4"><a href="SVM.html#cb17-4"></a>Y &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,n)</span>
-<span id="cb17-5"><a href="SVM.html#cb17-5"></a>cond &lt;-<span class="st"> </span>(X<span class="op">$</span>V1<span class="op">^</span><span class="dv">2</span><span class="op">+</span>X<span class="op">$</span>V2<span class="op">^</span><span class="dv">2</span>)<span class="op">&lt;=</span><span class="fl">2.8</span></span>
-<span id="cb17-6"><a href="SVM.html#cb17-6"></a>Y[cond] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(cond),<span class="dv">1</span>,<span class="fl">0.9</span>)</span>
-<span id="cb17-7"><a href="SVM.html#cb17-7"></a>Y[<span class="op">!</span>cond] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(<span class="op">!</span>cond),<span class="dv">1</span>,<span class="fl">0.1</span>)</span>
-<span id="cb17-8"><a href="SVM.html#cb17-8"></a>df &lt;-<span class="st"> </span>X <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Y=</span><span class="kw">as.factor</span>(Y))</span>
-<span id="cb17-9"><a href="SVM.html#cb17-9"></a><span class="kw">ggplot</span>(df)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>V2,<span class="dt">y=</span>V1,<span class="dt">color=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">theme_classic</span>()</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-47-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="SVM.html#cb18-1"></a>n &lt;-<span class="st"> </span><span class="dv">500</span></span>
+<span id="cb18-2"><a href="SVM.html#cb18-2"></a><span class="kw">set.seed</span>(<span class="dv">13</span>)</span>
+<span id="cb18-3"><a href="SVM.html#cb18-3"></a>X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">runif</span>(n<span class="op">*</span><span class="dv">2</span>,<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>),<span class="dt">ncol=</span><span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()</span>
+<span id="cb18-4"><a href="SVM.html#cb18-4"></a>Y &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,n)</span>
+<span id="cb18-5"><a href="SVM.html#cb18-5"></a>cond &lt;-<span class="st"> </span>(X<span class="op">$</span>V1<span class="op">^</span><span class="dv">2</span><span class="op">+</span>X<span class="op">$</span>V2<span class="op">^</span><span class="dv">2</span>)<span class="op">&lt;=</span><span class="fl">2.8</span></span>
+<span id="cb18-6"><a href="SVM.html#cb18-6"></a>Y[cond] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(cond),<span class="dv">1</span>,<span class="fl">0.9</span>)</span>
+<span id="cb18-7"><a href="SVM.html#cb18-7"></a>Y[<span class="op">!</span>cond] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(<span class="op">!</span>cond),<span class="dv">1</span>,<span class="fl">0.1</span>)</span>
+<span id="cb18-8"><a href="SVM.html#cb18-8"></a>df &lt;-<span class="st"> </span>X <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Y=</span><span class="kw">as.factor</span>(Y))</span>
+<span id="cb18-9"><a href="SVM.html#cb18-9"></a><span class="kw">ggplot</span>(df)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>V2,<span class="dt">y=</span>V1,<span class="dt">color=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">theme_classic</span>()</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-48-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ol style="list-style-type: decimal">
 <li><p>Ajuster une svm linéaire et visualiser l’hyperplan séparateur. Que remarquez-vous ?</p></li>
 <li><p>Exécuter la commande suivante et commenter la sortie.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="SVM.html#cb18-1"></a>mod.svm1 &lt;-<span class="st"> </span><span class="kw">svm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df,<span class="dt">kernel=</span><span class="st">&quot;radial&quot;</span>,<span class="dt">gamma=</span><span class="dv">1</span>,<span class="dt">cost=</span><span class="dv">1</span>)</span>
-<span id="cb18-2"><a href="SVM.html#cb18-2"></a><span class="kw">plot</span>(mod.svm1,df,<span class="dt">grid=</span><span class="dv">250</span>)</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-50-1.png" width="672" style="display: block; margin: auto;" /></p></li>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="SVM.html#cb19-1"></a>mod.svm1 &lt;-<span class="st"> </span><span class="kw">svm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df,<span class="dt">kernel=</span><span class="st">&quot;radial&quot;</span>,<span class="dt">gamma=</span><span class="dv">1</span>,<span class="dt">cost=</span><span class="dv">1</span>)</span>
+<span id="cb19-2"><a href="SVM.html#cb19-2"></a><span class="kw">plot</span>(mod.svm1,df,<span class="dt">grid=</span><span class="dv">250</span>)</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-51-1.png" width="672" style="display: block; margin: auto;" /></p></li>
 <li><p>Faire varier les paramètres <strong>gamma</strong> et <strong>cost</strong>. Interpréter (on pourra notamment étudier l’évolution du nombre de vecteurs supports en fonction du paramètre <strong>cost</strong>).</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="SVM.html#cb19-1"></a>mod.svm2 &lt;-<span class="st"> </span><span class="kw">svm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df,<span class="dt">kernel=</span><span class="st">&quot;radial&quot;</span>,<span class="dt">gamma=</span>...,<span class="dt">cost=</span>...)</span>
-<span id="cb19-2"><a href="SVM.html#cb19-2"></a>mod.svm3 &lt;-<span class="st"> </span><span class="kw">svm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df,<span class="dt">kernel=</span><span class="st">&quot;radial&quot;</span>,<span class="dt">gamma=</span>...,<span class="dt">cost=</span>...)</span>
-<span id="cb19-3"><a href="SVM.html#cb19-3"></a>mod.svm4 &lt;-<span class="st"> </span><span class="kw">svm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df,<span class="dt">kernel=</span><span class="st">&quot;radial&quot;</span>,<span class="dt">gamma=</span>...,<span class="dt">cost=</span>...)</span>
-<span id="cb19-4"><a href="SVM.html#cb19-4"></a></span>
-<span id="cb19-5"><a href="SVM.html#cb19-5"></a><span class="kw">plot</span>(mod.svm2,df,<span class="dt">grid=</span><span class="dv">250</span>)</span>
-<span id="cb19-6"><a href="SVM.html#cb19-6"></a><span class="kw">plot</span>(mod.svm3,df,<span class="dt">grid=</span><span class="dv">250</span>)</span>
-<span id="cb19-7"><a href="SVM.html#cb19-7"></a><span class="kw">plot</span>(mod.svm4,df,<span class="dt">grid=</span><span class="dv">250</span>)</span>
-<span id="cb19-8"><a href="SVM.html#cb19-8"></a></span>
-<span id="cb19-9"><a href="SVM.html#cb19-9"></a>mod.svm2<span class="op">$</span>nSV</span>
-<span id="cb19-10"><a href="SVM.html#cb19-10"></a>mod.svm3<span class="op">$</span>nSV</span>
-<span id="cb19-11"><a href="SVM.html#cb19-11"></a>mod.svm4<span class="op">$</span>nSV</span></code></pre></div></li>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="SVM.html#cb20-1"></a>mod.svm2 &lt;-<span class="st"> </span><span class="kw">svm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df,<span class="dt">kernel=</span><span class="st">&quot;radial&quot;</span>,<span class="dt">gamma=</span>...,<span class="dt">cost=</span>...)</span>
+<span id="cb20-2"><a href="SVM.html#cb20-2"></a>mod.svm3 &lt;-<span class="st"> </span><span class="kw">svm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df,<span class="dt">kernel=</span><span class="st">&quot;radial&quot;</span>,<span class="dt">gamma=</span>...,<span class="dt">cost=</span>...)</span>
+<span id="cb20-3"><a href="SVM.html#cb20-3"></a>mod.svm4 &lt;-<span class="st"> </span><span class="kw">svm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df,<span class="dt">kernel=</span><span class="st">&quot;radial&quot;</span>,<span class="dt">gamma=</span>...,<span class="dt">cost=</span>...)</span>
+<span id="cb20-4"><a href="SVM.html#cb20-4"></a></span>
+<span id="cb20-5"><a href="SVM.html#cb20-5"></a><span class="kw">plot</span>(mod.svm2,df,<span class="dt">grid=</span><span class="dv">250</span>)</span>
+<span id="cb20-6"><a href="SVM.html#cb20-6"></a><span class="kw">plot</span>(mod.svm3,df,<span class="dt">grid=</span><span class="dv">250</span>)</span>
+<span id="cb20-7"><a href="SVM.html#cb20-7"></a><span class="kw">plot</span>(mod.svm4,df,<span class="dt">grid=</span><span class="dv">250</span>)</span>
+<span id="cb20-8"><a href="SVM.html#cb20-8"></a></span>
+<span id="cb20-9"><a href="SVM.html#cb20-9"></a>mod.svm2<span class="op">$</span>nSV</span>
+<span id="cb20-10"><a href="SVM.html#cb20-10"></a>mod.svm3<span class="op">$</span>nSV</span>
+<span id="cb20-11"><a href="SVM.html#cb20-11"></a>mod.svm4<span class="op">$</span>nSV</span></code></pre></div></li>
 <li><p>Sélectionner automatiquement ces paramètres. On pourra utiliser la fonction <strong>tune</strong> en faisant varier <strong>C</strong> dans <strong>c(0.1,1,10,100,1000)</strong> et <strong>gamma</strong> dans <strong>c(0.5,1,2,3,4)</strong>.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="SVM.html#cb20-1"></a>tune.out &lt;-<span class="st"> </span><span class="kw">tune</span>(svm,Y<span class="op">~</span>.,<span class="dt">data=</span>...,<span class="dt">kernel=</span><span class="st">&quot;...&quot;</span>,</span>
-<span id="cb20-2"><a href="SVM.html#cb20-2"></a>             <span class="dt">ranges=</span><span class="kw">list</span>(<span class="dt">cost=</span>...,<span class="dt">gamma=</span>...))</span></code></pre></div></li>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="SVM.html#cb21-1"></a>tune.out &lt;-<span class="st"> </span><span class="kw">tune</span>(svm,Y<span class="op">~</span>.,<span class="dt">data=</span>...,<span class="dt">kernel=</span><span class="st">&quot;...&quot;</span>,</span>
+<span id="cb21-2"><a href="SVM.html#cb21-2"></a>             <span class="dt">ranges=</span><span class="kw">list</span>(<span class="dt">cost=</span>...,<span class="dt">gamma=</span>...))</span></code></pre></div></li>
 <li><p>Faire de même avec <strong>caret</strong>, on utilisera <strong>method=“svmRadial”</strong> et <strong>prob.model=TRUE</strong>.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="SVM.html#cb21-1"></a>C &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.001</span>,<span class="fl">0.01</span>,<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">100</span>,<span class="dv">1000</span>)</span>
-<span id="cb21-2"><a href="SVM.html#cb21-2"></a>sigma &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</span>
-<span id="cb21-3"><a href="SVM.html#cb21-3"></a>gr &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">C=</span>C,<span class="dt">sigma=</span>sigma)</span>
-<span id="cb21-4"><a href="SVM.html#cb21-4"></a>ctrl &lt;-<span class="st"> </span><span class="kw">trainControl</span>(...)</span>
-<span id="cb21-5"><a href="SVM.html#cb21-5"></a>res.caret1 &lt;-<span class="st"> </span><span class="kw">train</span>(...,<span class="dt">prob.model=</span><span class="ot">TRUE</span>)</span>
-<span id="cb21-6"><a href="SVM.html#cb21-6"></a>res.caret1</span></code></pre></div></li>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="SVM.html#cb22-1"></a>C &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.001</span>,<span class="fl">0.01</span>,<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">100</span>,<span class="dv">1000</span>)</span>
+<span id="cb22-2"><a href="SVM.html#cb22-2"></a>sigma &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</span>
+<span id="cb22-3"><a href="SVM.html#cb22-3"></a>gr &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">C=</span>C,<span class="dt">sigma=</span>sigma)</span>
+<span id="cb22-4"><a href="SVM.html#cb22-4"></a>ctrl &lt;-<span class="st"> </span><span class="kw">trainControl</span>(...)</span>
+<span id="cb22-5"><a href="SVM.html#cb22-5"></a>res.caret1 &lt;-<span class="st"> </span><span class="kw">train</span>(...,<span class="dt">prob.model=</span><span class="ot">TRUE</span>)</span>
+<span id="cb22-6"><a href="SVM.html#cb22-6"></a>res.caret1</span></code></pre></div></li>
 <li><p>Visualiser la règle sélectionnée.</p></li>
 </ol>
 </div>
@@ -412,30 +412,30 @@ On désigne par <span class="math inline">\(\alpha_i^\star,i=1,\dots,n\)</span>,
 <li><p>Donner la formule permettant de calculer <span class="math inline">\(w^\star\)</span> en fonction des <span class="math inline">\(\alpha_i^\star\)</span>.</p></li>
 <li><p>Expliquer comment on classe un nouveau point <span class="math inline">\(x\in\mathbb R^3\)</span> par la méthode <strong>svm</strong>.</p></li>
 <li><p>Les données se trouvent dans un dataframe <code>df</code>. On exécute</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="SVM.html#cb22-1"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb22-2"><a href="SVM.html#cb22-2"></a>n &lt;-<span class="st"> </span><span class="dv">100</span></span>
-<span id="cb22-3"><a href="SVM.html#cb22-3"></a>X &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X1=</span><span class="kw">runif</span>(n),<span class="dt">X2=</span><span class="kw">runif</span>(n),<span class="dt">X3=</span><span class="kw">runif</span>(n))</span>
-<span id="cb22-4"><a href="SVM.html#cb22-4"></a>X &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X1=</span><span class="kw">scale</span>(<span class="kw">runif</span>(n)),<span class="dt">X2=</span><span class="kw">scale</span>(<span class="kw">runif</span>(n)),<span class="dt">X3=</span><span class="kw">scale</span>(<span class="kw">runif</span>(n)))</span>
-<span id="cb22-5"><a href="SVM.html#cb22-5"></a>Y &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">100</span>)</span>
-<span id="cb22-6"><a href="SVM.html#cb22-6"></a>Y[X[,<span class="dv">1</span>]<span class="op">&lt;</span>X[,<span class="dv">2</span>]] &lt;-<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb22-7"><a href="SVM.html#cb22-7"></a><span class="co">#Y &lt;- (apply(X,1,sum)&lt;=0) %&gt;% as.numeric() %&gt;% as.factor()</span></span>
-<span id="cb22-8"><a href="SVM.html#cb22-8"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(X,<span class="dt">Y=</span><span class="kw">as.factor</span>(Y))</span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="SVM.html#cb23-1"></a>mod.svm &lt;-<span class="st"> </span><span class="kw">svm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df,<span class="dt">kernel=</span><span class="st">&quot;linear&quot;</span>,<span class="dt">cost=</span><span class="dv">10000000000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="SVM.html#cb23-1"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb23-2"><a href="SVM.html#cb23-2"></a>n &lt;-<span class="st"> </span><span class="dv">100</span></span>
+<span id="cb23-3"><a href="SVM.html#cb23-3"></a>X &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X1=</span><span class="kw">runif</span>(n),<span class="dt">X2=</span><span class="kw">runif</span>(n),<span class="dt">X3=</span><span class="kw">runif</span>(n))</span>
+<span id="cb23-4"><a href="SVM.html#cb23-4"></a>X &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X1=</span><span class="kw">scale</span>(<span class="kw">runif</span>(n)),<span class="dt">X2=</span><span class="kw">scale</span>(<span class="kw">runif</span>(n)),<span class="dt">X3=</span><span class="kw">scale</span>(<span class="kw">runif</span>(n)))</span>
+<span id="cb23-5"><a href="SVM.html#cb23-5"></a>Y &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">100</span>)</span>
+<span id="cb23-6"><a href="SVM.html#cb23-6"></a>Y[X[,<span class="dv">1</span>]<span class="op">&lt;</span>X[,<span class="dv">2</span>]] &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb23-7"><a href="SVM.html#cb23-7"></a><span class="co">#Y &lt;- (apply(X,1,sum)&lt;=0) %&gt;% as.numeric() %&gt;% as.factor()</span></span>
+<span id="cb23-8"><a href="SVM.html#cb23-8"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(X,<span class="dt">Y=</span><span class="kw">as.factor</span>(Y))</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="SVM.html#cb24-1"></a>mod.svm &lt;-<span class="st"> </span><span class="kw">svm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df,<span class="dt">kernel=</span><span class="st">&quot;linear&quot;</span>,<span class="dt">cost=</span><span class="dv">10000000000</span>)</span></code></pre></div>
 <p>et on obtient</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="SVM.html#cb24-1"></a>df[mod.svm<span class="op">$</span>index,]</span>
-<span id="cb24-2"><a href="SVM.html#cb24-2"></a>     X1   X2   X3  Y</span>
-<span id="cb24-3"><a href="SVM.html#cb24-3"></a><span class="dv">51</span> <span class="fl">-1.1</span> <span class="fl">-1.0</span> <span class="fl">-1.0</span>  <span class="dv">1</span></span>
-<span id="cb24-4"><a href="SVM.html#cb24-4"></a><span class="dv">92</span>  <span class="fl">0.7</span>  <span class="fl">0.8</span>  <span class="fl">1.1</span>  <span class="dv">1</span></span>
-<span id="cb24-5"><a href="SVM.html#cb24-5"></a><span class="dv">31</span>  <span class="fl">0.7</span>  <span class="fl">0.5</span> <span class="fl">-1.0</span> <span class="dv">-1</span></span>
-<span id="cb24-6"><a href="SVM.html#cb24-6"></a><span class="dv">37</span> <span class="fl">-0.5</span> <span class="fl">-0.6</span>  <span class="fl">0.3</span> <span class="dv">-1</span></span>
-<span id="cb24-7"><a href="SVM.html#cb24-7"></a>mod.svm<span class="op">$</span>coefs</span>
-<span id="cb24-8"><a href="SVM.html#cb24-8"></a>     [,<span class="dv">1</span>]</span>
-<span id="cb24-9"><a href="SVM.html#cb24-9"></a>[<span class="dv">1</span>,]   <span class="dv">59</span></span>
-<span id="cb24-10"><a href="SVM.html#cb24-10"></a>[<span class="dv">2</span>,]   <span class="dv">49</span></span>
-<span id="cb24-11"><a href="SVM.html#cb24-11"></a>[<span class="dv">3</span>,]  <span class="dv">-30</span></span>
-<span id="cb24-12"><a href="SVM.html#cb24-12"></a>[<span class="dv">4</span>,]  <span class="dv">-79</span></span>
-<span id="cb24-13"><a href="SVM.html#cb24-13"></a>mod.svm<span class="op">$</span>rho</span>
-<span id="cb24-14"><a href="SVM.html#cb24-14"></a>[<span class="dv">1</span>] <span class="fl">-0.5</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="SVM.html#cb25-1"></a>df[mod.svm<span class="op">$</span>index,]</span>
+<span id="cb25-2"><a href="SVM.html#cb25-2"></a>     X1   X2   X3  Y</span>
+<span id="cb25-3"><a href="SVM.html#cb25-3"></a><span class="dv">51</span> <span class="fl">-1.1</span> <span class="fl">-1.0</span> <span class="fl">-1.0</span>  <span class="dv">1</span></span>
+<span id="cb25-4"><a href="SVM.html#cb25-4"></a><span class="dv">92</span>  <span class="fl">0.7</span>  <span class="fl">0.8</span>  <span class="fl">1.1</span>  <span class="dv">1</span></span>
+<span id="cb25-5"><a href="SVM.html#cb25-5"></a><span class="dv">31</span>  <span class="fl">0.7</span>  <span class="fl">0.5</span> <span class="fl">-1.0</span> <span class="dv">-1</span></span>
+<span id="cb25-6"><a href="SVM.html#cb25-6"></a><span class="dv">37</span> <span class="fl">-0.5</span> <span class="fl">-0.6</span>  <span class="fl">0.3</span> <span class="dv">-1</span></span>
+<span id="cb25-7"><a href="SVM.html#cb25-7"></a>mod.svm<span class="op">$</span>coefs</span>
+<span id="cb25-8"><a href="SVM.html#cb25-8"></a>     [,<span class="dv">1</span>]</span>
+<span id="cb25-9"><a href="SVM.html#cb25-9"></a>[<span class="dv">1</span>,]   <span class="dv">59</span></span>
+<span id="cb25-10"><a href="SVM.html#cb25-10"></a>[<span class="dv">2</span>,]   <span class="dv">49</span></span>
+<span id="cb25-11"><a href="SVM.html#cb25-11"></a>[<span class="dv">3</span>,]  <span class="dv">-30</span></span>
+<span id="cb25-12"><a href="SVM.html#cb25-12"></a>[<span class="dv">4</span>,]  <span class="dv">-79</span></span>
+<span id="cb25-13"><a href="SVM.html#cb25-13"></a>mod.svm<span class="op">$</span>rho</span>
+<span id="cb25-14"><a href="SVM.html#cb25-14"></a>[<span class="dv">1</span>] <span class="fl">-0.5</span></span></code></pre></div>
 <p>Calculer les valeurs de <span class="math inline">\(w^\star\)</span> et <span class="math inline">\(b^\star\)</span>. En déduire la règle de classification.</p></li>
 <li><p>On dispose d’une nouvelle observation <span class="math inline">\(x=(1,-0.5,-1)\)</span>. Dans quel groupe (<code>-1</code> ou <code>1</code>) l’algorithme affecte cette nouvelle donnée ?</p></li>
 </ol>

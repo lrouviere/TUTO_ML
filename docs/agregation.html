@@ -193,7 +193,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="agregation" class="section level1">
 <h1><span class="header-section-number">Chapitre 4</span> Agrégation : forêts aléatoires et gradient boosting</h1>
-<p>Les méthodes par arbres présentées précédemment sont des algorithmes qui possèdent tout un tas de qualités (facile à mettre en œuvre, interprétable…). Ce sont néanmoins rarement les algorithmes qui se révèlent les plus performants. Les méthodes d’agrégation d’arbres présentées dans cette partie sont souvent beaucoup plus pertinentes, notamment en terme de qualité de prédiction. Elles consistent à construire un très grand nombre d’arbres “simples” : <span class="math inline">\(g_1,\dots,g_B\)</span> et de les agréger en faisant la moyenne :
+<p>Les méthodes par arbres présentées précédemment sont des algorithmes qui possèdent tout un tas de qualités (facile à mettre en œuvre, interprétable…). Ce sont néanmoins rarement les algorithmes qui se révèlent les plus performants. Les méthodes d’agrégation d’arbres présentées dans cette partie sont souvent beaucoup plus pertinentes, notamment en terme de qualité de prédiction. Elles consistent à construire un très grand nombre d’arbres “simples” : <span class="math inline">\(g_1,\dots,g_B\)</span> et à les agréger en faisant la moyenne :
 <span class="math display">\[\frac{1}{B}\sum_{k=1}^Bg_k(x).\]</span>
 Les forêts aléatoires <span class="citation">(Breiman <a href="#ref-bre01" role="doc-biblioref">2001</a>)</span> et le gradient boosting <span class="citation">(Friedman <a href="#ref-fri01" role="doc-biblioref">2001</a>)</span> utilisent ce procédé d’agrégation.</p>
 <div id="forets" class="section level2">
@@ -230,10 +230,10 @@ Construire un <em>arbre CART sur cet échantillon bootstrap</em>, chaque coupure
 </p>
 </div>
 <p>Cet algorithme peut être utilisé sur <strong>R</strong> avec la fonction <strong>randomForest</strong> du package <strong>randomForest</strong>. Nous la présentons à travers l’exemple du jeu de données <strong>spam</strong> du package <strong>kernlab</strong>.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="agregation.html#cb35-1"></a><span class="kw">library</span>(kernlab)</span>
-<span id="cb35-2"><a href="agregation.html#cb35-2"></a><span class="kw">data</span>(spam)</span>
-<span id="cb35-3"><a href="agregation.html#cb35-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb35-4"><a href="agregation.html#cb35-4"></a>spam &lt;-<span class="st"> </span>spam[<span class="kw">sample</span>(<span class="kw">nrow</span>(spam)),]</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="agregation.html#cb36-1"></a><span class="kw">library</span>(kernlab)</span>
+<span id="cb36-2"><a href="agregation.html#cb36-2"></a><span class="kw">data</span>(spam)</span>
+<span id="cb36-3"><a href="agregation.html#cb36-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb36-4"><a href="agregation.html#cb36-4"></a>spam &lt;-<span class="st"> </span>spam[<span class="kw">sample</span>(<span class="kw">nrow</span>(spam)),]</span></code></pre></div>
 <p>Le problème est d’expliquer la variable binaire <strong>type</strong> par les autres.</p>
 <ol style="list-style-type: decimal">
 <li><p>A l’aide de la fonction <strong>randomForest</strong> du package <strong>randomForest</strong>, ajuster une forêt aléatoire pour répondre au problème posé.</p></li>
@@ -248,11 +248,10 @@ Construire un <em>arbre CART sur cet échantillon bootstrap</em>, chaque coupure
 <h2><span class="header-section-number">4.2</span> Gradient boosting</h2>
 <p>Les algorithmes de gradient boosting permettent de minimiser des pertes empiriques de la forme
 <span class="math display">\[\frac{1}{n}\sum_{i=1}^n\ell(y_i,f(x_i)).\]</span>
-où <span class="math inline">\(\ell:\mathbb R\times\mathbb R\to\mathbb R\)</span> est une fonction de coût convexe en so second argument. Il existe plusieurs type d’algorithmes boosting. Un des plus connus et utilisés a été proposé par <span class="citation">Friedman (<a href="#ref-fri01" role="doc-biblioref">2001</a>)</span>, c’est la version que nous étudions dans cette partie.</p>
+où <span class="math inline">\(\ell:\mathbb R\times\mathbb R\to\mathbb R\)</span> est une fonction de coût convexe en son second argument. Il existe plusieurs type d’algorithmes boosting. Un des plus connus et utilisés a été proposé par <span class="citation">Friedman (<a href="#ref-fri01" role="doc-biblioref">2001</a>)</span>, c’est la version que nous étudions dans cette partie.</p>
 <p>Cette approche propose de chercher la meilleure combinaison linéaire d’arbres binaires, c’est-à-dire que l’on recherche <span class="math inline">\(g(x)=\sum_{m=1}^M\alpha_mh_m(x)\)</span> qui minimise
 <span class="math display">\[\mathcal R_n(g)=\frac{1}{n}\sum_{i=1}^n\ell(y_i,g(x_i)).\]</span>
 Optimiser sur toutes les combinaisons d’arbres binaires se révélant souvent trop compliqué, <span class="citation">Friedman (<a href="#ref-fri01" role="doc-biblioref">2001</a>)</span> utilise une descente de gradient pour construire la combinaison d’abres de façon récursive. L’algorithme est le suivant :</p>
-<p>Sur <strong>R</strong> On peut utiliser différents packages pour faire du gradient boosting. Nous utilisons ici le package <strong>gbm</strong> <span class="citation">(Ridgeway <a href="#ref-rid06" role="doc-biblioref">2006</a>)</span>.</p>
 
 <div class="correction">
 <p><strong>Entrées</strong> :</p>
@@ -275,21 +274,22 @@ Optimiser sur toutes les combinaisons d’arbres binaires se révélant souvent 
 <strong>Sortie</strong> : la suite <span class="math inline">\((g_m(x))_m\)</span>.
 </div>
 
+<p>Sur <strong>R</strong> On peut utiliser différents packages pour faire du gradient boosting. Nous utilisons ici le package <strong>gbm</strong> <span class="citation">(Ridgeway <a href="#ref-rid06" role="doc-biblioref">2006</a>)</span>.</p>
 <div id="un-exemple-simple-en-régression" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Un exemple simple en régression</h3>
 <p>On considère un jeu de données <span class="math inline">\((x_i,y_i),i=1,\dots,200\)</span> issu d’un modèle de régression
 <span class="math display">\[y_i=m(x_i)+\varepsilon_i\]</span>
 où la vraie fonction de régression est la fonction <strong>sinus</strong> (mais on va faire comme si on ne le savait pas).</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="agregation.html#cb36-1"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi,<span class="dv">2</span><span class="op">*</span>pi,<span class="dt">by=</span><span class="fl">0.01</span>)</span>
-<span id="cb36-2"><a href="agregation.html#cb36-2"></a>y &lt;-<span class="st"> </span><span class="kw">sin</span>(x)</span>
-<span id="cb36-3"><a href="agregation.html#cb36-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb36-4"><a href="agregation.html#cb36-4"></a>X &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">200</span>,<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi,<span class="dv">2</span><span class="op">*</span>pi)</span>
-<span id="cb36-5"><a href="agregation.html#cb36-5"></a>Y &lt;-<span class="st"> </span><span class="kw">sin</span>(X)<span class="op">+</span><span class="kw">rnorm</span>(<span class="dv">200</span>,<span class="dt">sd=</span><span class="fl">0.2</span>)</span>
-<span id="cb36-6"><a href="agregation.html#cb36-6"></a>df1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(X,Y)</span>
-<span id="cb36-7"><a href="agregation.html#cb36-7"></a>df2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X=</span>x,<span class="dt">Y=</span>y)</span>
-<span id="cb36-8"><a href="agregation.html#cb36-8"></a>p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df1)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X,<span class="dt">y=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">data=</span>df2,<span class="dt">size=</span><span class="dv">1</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>)</span>
-<span id="cb36-9"><a href="agregation.html#cb36-9"></a>p1</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-155-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="agregation.html#cb37-1"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi,<span class="dv">2</span><span class="op">*</span>pi,<span class="dt">by=</span><span class="fl">0.01</span>)</span>
+<span id="cb37-2"><a href="agregation.html#cb37-2"></a>y &lt;-<span class="st"> </span><span class="kw">sin</span>(x)</span>
+<span id="cb37-3"><a href="agregation.html#cb37-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb37-4"><a href="agregation.html#cb37-4"></a>X &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">200</span>,<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi,<span class="dv">2</span><span class="op">*</span>pi)</span>
+<span id="cb37-5"><a href="agregation.html#cb37-5"></a>Y &lt;-<span class="st"> </span><span class="kw">sin</span>(X)<span class="op">+</span><span class="kw">rnorm</span>(<span class="dv">200</span>,<span class="dt">sd=</span><span class="fl">0.2</span>)</span>
+<span id="cb37-6"><a href="agregation.html#cb37-6"></a>df1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(X,Y)</span>
+<span id="cb37-7"><a href="agregation.html#cb37-7"></a>df2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X=</span>x,<span class="dt">Y=</span>y)</span>
+<span id="cb37-8"><a href="agregation.html#cb37-8"></a>p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df1)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X,<span class="dt">y=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">data=</span>df2,<span class="dt">size=</span><span class="dv">1</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>)</span>
+<span id="cb37-9"><a href="agregation.html#cb37-9"></a>p1</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-156-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ol style="list-style-type: decimal">
 <li><p>Rappeler ce que siginifie le <span class="math inline">\(L_2\)</span>-boosting.</p></li>
 <li><p>A l’aide de la fonction <strong>gbm</strong> du package <strong>gbm</strong> construire un algorithme de <span class="math inline">\(L_2\)</span>-boosting. On utilisera 500000 itérations et gardera les autres valeurs par défaut de paramètres.</p></li>
@@ -301,13 +301,13 @@ où la vraie fonction de régression est la fonction <strong>sinus</strong> (mai
 <div id="adaboost-et-logitboost-pour-la-classification-binaire." class="section level3">
 <h3><span class="header-section-number">4.2.2</span> Adaboost et logitboost pour la classification binaire.</h3>
 <p>On considère le jeu de données <strong>spam</strong> du package <strong>kernlab</strong>.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="agregation.html#cb37-1"></a><span class="kw">library</span>(kernlab)</span>
-<span id="cb37-2"><a href="agregation.html#cb37-2"></a><span class="kw">data</span>(spam)</span>
-<span id="cb37-3"><a href="agregation.html#cb37-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb37-4"><a href="agregation.html#cb37-4"></a>spam &lt;-<span class="st"> </span>spam[<span class="kw">sample</span>(<span class="kw">nrow</span>(spam)),]</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="agregation.html#cb38-1"></a><span class="kw">library</span>(kernlab)</span>
+<span id="cb38-2"><a href="agregation.html#cb38-2"></a><span class="kw">data</span>(spam)</span>
+<span id="cb38-3"><a href="agregation.html#cb38-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb38-4"><a href="agregation.html#cb38-4"></a>spam &lt;-<span class="st"> </span>spam[<span class="kw">sample</span>(<span class="kw">nrow</span>(spam)),]</span></code></pre></div>
 <ol style="list-style-type: decimal">
-<li><p>Exécuter les commandes</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="agregation.html#cb38-1"></a>model_ada1 &lt;-<span class="st"> </span><span class="kw">gbm</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam,<span class="dt">distribution=</span><span class="st">&quot;adaboost&quot;</span>,<span class="dt">interaction.depth=</span><span class="dv">2</span>,<span class="dt">shrinkage=</span><span class="fl">0.05</span>,<span class="dt">n.trees=</span><span class="dv">500</span>)</span></code></pre></div></li>
+<li><p>Exécuter la commande</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="agregation.html#cb39-1"></a>model_ada1 &lt;-<span class="st"> </span><span class="kw">gbm</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam,<span class="dt">distribution=</span><span class="st">&quot;adaboost&quot;</span>,<span class="dt">interaction.depth=</span><span class="dv">2</span>,<span class="dt">shrinkage=</span><span class="fl">0.05</span>,<span class="dt">n.trees=</span><span class="dv">500</span>)</span></code></pre></div></li>
 <li><p>Proposer une correction permettant de faire fonctionner l’algorithme.</p></li>
 <li><p>Expliciter le modèle ajusté par la commande précédente.</p></li>
 <li><p>Effectuer un <strong>summary</strong> du modèle ajusté. Expliquer la sortie.</p></li>
