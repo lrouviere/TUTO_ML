@@ -24,7 +24,7 @@
 <meta name="author" content="Laurent Rouvière" />
 
 
-<meta name="date" content="2020-09-10" />
+<meta name="date" content="2020-09-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -860,18 +860,15 @@ Une <strong>application Shiny</strong> est également proposée pour visualiser 
 <span id="cb78-5"><a href="arbres.html#cb78-5"></a>test &lt;-<span class="st"> </span>Carseats[<span class="op">-</span>perm[<span class="dv">1</span><span class="op">:</span>n.train],]</span></code></pre></div></li>
 <li><p>On considère la suite d’arbres définie par</p>
 <div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="arbres.html#cb79-1"></a><span class="kw">set.seed</span>(<span class="dv">4321</span>)</span>
-<span id="cb79-2"><a href="arbres.html#cb79-2"></a>tree &lt;-<span class="st"> </span><span class="kw">rpart</span>(Sales<span class="op">~</span>.,<span class="dt">data=</span>train,<span class="dt">cp=</span><span class="fl">0.000001</span>,<span class="dt">minsplit=</span><span class="dv">2</span>)</span></code></pre></div></li>
-</ol>
-<p>Dans cette suite, sélectionner
-- un arbre très simple (avec 2 ou 3 coupures)
-- un arbre très grand
-- l’arbre optimal (avec la procédure d’élagage classique).</p>
-<pre><code>```r
-printcp(tree)
-```
-
-```{style=&quot;max-height: 500px;&quot;}
-
+<span id="cb79-2"><a href="arbres.html#cb79-2"></a>tree &lt;-<span class="st"> </span><span class="kw">rpart</span>(Sales<span class="op">~</span>.,<span class="dt">data=</span>train,<span class="dt">cp=</span><span class="fl">0.000001</span>,<span class="dt">minsplit=</span><span class="dv">2</span>)</span></code></pre></div>
+<p>Dans cette suite, sélectionner</p>
+<ul>
+<li>un arbre très simple (avec 2 ou 3 coupures)</li>
+<li>un arbre très grand</li>
+<li>l’arbre optimal (avec la procédure d’élagage classique).</li>
+</ul>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="arbres.html#cb80-1"></a><span class="kw">printcp</span>(tree)</span></code></pre></div>
+<pre style="max-height: 500px;"><code>
 Regression tree:
 rpart(formula = Sales ~ ., data = train, cp = 1e-06, minsplit = 2)
 
@@ -1099,17 +1096,12 @@ n= 250
 212 1.4594e-06    226 1.0241e-05 0.74634 0.071706
 213 1.2694e-06    227 8.7821e-06 0.74652 0.071710
 214 1.2694e-06    229 6.2433e-06 0.74652 0.071710
-215 1.0000e-06    230 4.9739e-06 0.74652 0.071710
-```
-
-```r
-simple.tree &lt;- prune(tree,cp=0.1)
-large.tree &lt;- prune(tree,cp=1e-6)
-#cp_opt &lt;- tree$cptable[which.min(tree$cptable[,&quot;xerror&quot;]),&quot;CP&quot;]
-cp_opt &lt;- tree$cptable %&gt;% as.data.frame() %&gt;% filter(xerror==min(xerror)) %&gt;% dplyr::select(CP) %&gt;% as.numeric()
-opt.tree &lt;- prune(tree,cp=cp_opt)
-```</code></pre>
-<ol style="list-style-type: decimal">
+215 1.0000e-06    230 4.9739e-06 0.74652 0.071710</code></pre>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="arbres.html#cb82-1"></a>simple.tree &lt;-<span class="st"> </span><span class="kw">prune</span>(tree,<span class="dt">cp=</span><span class="fl">0.1</span>)</span>
+<span id="cb82-2"><a href="arbres.html#cb82-2"></a>large.tree &lt;-<span class="st"> </span><span class="kw">prune</span>(tree,<span class="dt">cp=</span><span class="fl">1e-6</span>)</span>
+<span id="cb82-3"><a href="arbres.html#cb82-3"></a><span class="co">#cp_opt &lt;- tree$cptable[which.min(tree$cptable[,&quot;xerror&quot;]),&quot;CP&quot;]</span></span>
+<span id="cb82-4"><a href="arbres.html#cb82-4"></a>cp_opt &lt;-<span class="st"> </span>tree<span class="op">$</span>cptable <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(xerror<span class="op">==</span><span class="kw">min</span>(xerror)) <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(CP) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.numeric</span>()</span>
+<span id="cb82-5"><a href="arbres.html#cb82-5"></a>opt.tree &lt;-<span class="st"> </span><span class="kw">prune</span>(tree,<span class="dt">cp=</span>cp_opt)</span></code></pre></div></li>
 <li><p>Calculer l’erreur quadratique de ces 3 arbres en utilisant l’échantillon test.</p>
 <div class="corR">
 <p>
@@ -1119,18 +1111,18 @@ Pour chaque arbre <span class="math inline"><span class="math inline">\(T\)</spa
 On définit une table qui regroupe les prédictions des 3 arbres sur l’échantillon test :
 </p>
 </div>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="arbres.html#cb81-1"></a>data.prev &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">simple=</span><span class="kw">predict</span>(simple.tree,<span class="dt">newdata =</span> test),</span>
-<span id="cb81-2"><a href="arbres.html#cb81-2"></a>                    <span class="dt">large=</span><span class="kw">predict</span>(large.tree,<span class="dt">newdata =</span> test),</span>
-<span id="cb81-3"><a href="arbres.html#cb81-3"></a>                    <span class="dt">opt=</span><span class="kw">predict</span>(opt.tree,<span class="dt">newdata =</span> test),</span>
-<span id="cb81-4"><a href="arbres.html#cb81-4"></a>                    <span class="dt">obs=</span>test<span class="op">$</span>Sale)</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="arbres.html#cb83-1"></a>data.prev &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">simple=</span><span class="kw">predict</span>(simple.tree,<span class="dt">newdata =</span> test),</span>
+<span id="cb83-2"><a href="arbres.html#cb83-2"></a>                    <span class="dt">large=</span><span class="kw">predict</span>(large.tree,<span class="dt">newdata =</span> test),</span>
+<span id="cb83-3"><a href="arbres.html#cb83-3"></a>                    <span class="dt">opt=</span><span class="kw">predict</span>(opt.tree,<span class="dt">newdata =</span> test),</span>
+<span id="cb83-4"><a href="arbres.html#cb83-4"></a>                    <span class="dt">obs=</span>test<span class="op">$</span>Sale)</span></code></pre></div>
 <div class="corR">
 <p>
 On en déduit les erreurs quadratique
 </p>
 </div>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="arbres.html#cb82-1"></a>data.prev <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_at</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="op">~</span><span class="kw">mean</span>((obs<span class="op">-</span>.)<span class="op">^</span><span class="dv">2</span>))</span>
-<span id="cb82-2"><a href="arbres.html#cb82-2"></a>    simple   large      opt</span>
-<span id="cb82-3"><a href="arbres.html#cb82-3"></a><span class="dv">1</span> <span class="fl">5.800361</span> <span class="fl">5.43738</span> <span class="fl">4.469369</span></span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="arbres.html#cb84-1"></a>data.prev <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_at</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="op">~</span><span class="kw">mean</span>((obs<span class="op">-</span>.)<span class="op">^</span><span class="dv">2</span>))</span>
+<span id="cb84-2"><a href="arbres.html#cb84-2"></a>    simple   large      opt</span>
+<span id="cb84-3"><a href="arbres.html#cb84-3"></a><span class="dv">1</span> <span class="fl">5.800361</span> <span class="fl">5.43738</span> <span class="fl">4.469369</span></span></code></pre></div>
 <div class="corR">
 <p>
 L’arbre sélectionné a ici la plus petite erreur.
@@ -1142,45 +1134,45 @@ L’arbre sélectionné a ici la plus petite erreur.
 On créé tout d’abord les blocs.
 </p>
 </div>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="arbres.html#cb83-1"></a><span class="kw">library</span>(caret)</span>
-<span id="cb83-2"><a href="arbres.html#cb83-2"></a>K &lt;-<span class="st"> </span><span class="dv">10</span></span>
-<span id="cb83-3"><a href="arbres.html#cb83-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb83-4"><a href="arbres.html#cb83-4"></a>kfolds &lt;-<span class="st"> </span><span class="kw">createFolds</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(Carseats),<span class="dt">k=</span>K)</span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="arbres.html#cb85-1"></a><span class="kw">library</span>(caret)</span>
+<span id="cb85-2"><a href="arbres.html#cb85-2"></a>K &lt;-<span class="st"> </span><span class="dv">10</span></span>
+<span id="cb85-3"><a href="arbres.html#cb85-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb85-4"><a href="arbres.html#cb85-4"></a>kfolds &lt;-<span class="st"> </span><span class="kw">createFolds</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(Carseats),<span class="dt">k=</span>K)</span></code></pre></div>
 <div class="corR">
 <p>
 On fait la validation croisée.
 </p>
 </div>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="arbres.html#cb84-1"></a>prev &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>,<span class="dt">nrow=</span><span class="kw">nrow</span>(Carseats),<span class="dt">ncol=</span><span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()</span>
-<span id="cb84-2"><a href="arbres.html#cb84-2"></a><span class="kw">names</span>(prev) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;simple&quot;</span>,<span class="st">&quot;large&quot;</span>,<span class="st">&quot;opt&quot;</span>)</span>
-<span id="cb84-3"><a href="arbres.html#cb84-3"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>K){</span>
-<span id="cb84-4"><a href="arbres.html#cb84-4"></a>  train &lt;-<span class="st"> </span>Carseats[<span class="op">-</span>kfolds[[j]],]</span>
-<span id="cb84-5"><a href="arbres.html#cb84-5"></a>  test &lt;-<span class="st"> </span>Carseats[kfolds[[j]],]</span>
-<span id="cb84-6"><a href="arbres.html#cb84-6"></a>  tree &lt;-<span class="st"> </span><span class="kw">rpart</span>(Sales<span class="op">~</span>.,<span class="dt">data=</span>train,<span class="dt">minsplit=</span><span class="dv">2</span>,<span class="dt">cp=</span><span class="fl">1e-9</span>)</span>
-<span id="cb84-7"><a href="arbres.html#cb84-7"></a>  simple &lt;-<span class="st"> </span><span class="kw">prune</span>(tree,<span class="dt">cp=</span>tree<span class="op">$</span>cptable[<span class="dv">2</span>,<span class="dv">1</span>])</span>
-<span id="cb84-8"><a href="arbres.html#cb84-8"></a>  large &lt;-<span class="st"> </span><span class="kw">prune</span>(tree,<span class="dt">cp=</span><span class="fl">1e-9</span>)</span>
-<span id="cb84-9"><a href="arbres.html#cb84-9"></a>  cp_opt &lt;-<span class="st"> </span>tree<span class="op">$</span>cptable <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(xerror<span class="op">==</span><span class="kw">min</span>(xerror)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb84-10"><a href="arbres.html#cb84-10"></a>dplyr<span class="op">::</span><span class="kw">select</span>(CP) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.numeric</span>()</span>
-<span id="cb84-11"><a href="arbres.html#cb84-11"></a>  opt &lt;-<span class="st"> </span><span class="kw">prune</span>(tree,<span class="dt">cp=</span>cp_opt) </span>
-<span id="cb84-12"><a href="arbres.html#cb84-12"></a>  prev[kfolds[[j]],<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">predict</span>(simple,<span class="dt">newdata=</span>test)</span>
-<span id="cb84-13"><a href="arbres.html#cb84-13"></a>  prev[kfolds[[j]],<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">predict</span>(large,<span class="dt">newdata=</span>test)</span>
-<span id="cb84-14"><a href="arbres.html#cb84-14"></a>  prev[kfolds[[j]],<span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">predict</span>(opt,<span class="dt">newdata=</span>test)</span>
-<span id="cb84-15"><a href="arbres.html#cb84-15"></a>}</span>
-<span id="cb84-16"><a href="arbres.html#cb84-16"></a>prev <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">obs=</span>Carseats<span class="op">$</span>Sales) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize_at</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="op">~</span><span class="kw">mean</span>((obs<span class="op">-</span>.)<span class="op">^</span><span class="dv">2</span>))</span>
-<span id="cb84-17"><a href="arbres.html#cb84-17"></a>    simple   large      opt</span>
-<span id="cb84-18"><a href="arbres.html#cb84-18"></a><span class="dv">1</span> <span class="fl">6.003064</span> <span class="fl">4.79406</span> <span class="fl">4.556404</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="arbres.html#cb86-1"></a>prev &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>,<span class="dt">nrow=</span><span class="kw">nrow</span>(Carseats),<span class="dt">ncol=</span><span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()</span>
+<span id="cb86-2"><a href="arbres.html#cb86-2"></a><span class="kw">names</span>(prev) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;simple&quot;</span>,<span class="st">&quot;large&quot;</span>,<span class="st">&quot;opt&quot;</span>)</span>
+<span id="cb86-3"><a href="arbres.html#cb86-3"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>K){</span>
+<span id="cb86-4"><a href="arbres.html#cb86-4"></a>  train &lt;-<span class="st"> </span>Carseats[<span class="op">-</span>kfolds[[j]],]</span>
+<span id="cb86-5"><a href="arbres.html#cb86-5"></a>  test &lt;-<span class="st"> </span>Carseats[kfolds[[j]],]</span>
+<span id="cb86-6"><a href="arbres.html#cb86-6"></a>  tree &lt;-<span class="st"> </span><span class="kw">rpart</span>(Sales<span class="op">~</span>.,<span class="dt">data=</span>train,<span class="dt">minsplit=</span><span class="dv">2</span>,<span class="dt">cp=</span><span class="fl">1e-9</span>)</span>
+<span id="cb86-7"><a href="arbres.html#cb86-7"></a>  simple &lt;-<span class="st"> </span><span class="kw">prune</span>(tree,<span class="dt">cp=</span>tree<span class="op">$</span>cptable[<span class="dv">2</span>,<span class="dv">1</span>])</span>
+<span id="cb86-8"><a href="arbres.html#cb86-8"></a>  large &lt;-<span class="st"> </span><span class="kw">prune</span>(tree,<span class="dt">cp=</span><span class="fl">1e-9</span>)</span>
+<span id="cb86-9"><a href="arbres.html#cb86-9"></a>  cp_opt &lt;-<span class="st"> </span>tree<span class="op">$</span>cptable <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(xerror<span class="op">==</span><span class="kw">min</span>(xerror)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb86-10"><a href="arbres.html#cb86-10"></a>dplyr<span class="op">::</span><span class="kw">select</span>(CP) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.numeric</span>()</span>
+<span id="cb86-11"><a href="arbres.html#cb86-11"></a>  opt &lt;-<span class="st"> </span><span class="kw">prune</span>(tree,<span class="dt">cp=</span>cp_opt) </span>
+<span id="cb86-12"><a href="arbres.html#cb86-12"></a>  prev[kfolds[[j]],<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">predict</span>(simple,<span class="dt">newdata=</span>test)</span>
+<span id="cb86-13"><a href="arbres.html#cb86-13"></a>  prev[kfolds[[j]],<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">predict</span>(large,<span class="dt">newdata=</span>test)</span>
+<span id="cb86-14"><a href="arbres.html#cb86-14"></a>  prev[kfolds[[j]],<span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">predict</span>(opt,<span class="dt">newdata=</span>test)</span>
+<span id="cb86-15"><a href="arbres.html#cb86-15"></a>}</span>
+<span id="cb86-16"><a href="arbres.html#cb86-16"></a>prev <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">obs=</span>Carseats<span class="op">$</span>Sales) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize_at</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="op">~</span><span class="kw">mean</span>((obs<span class="op">-</span>.)<span class="op">^</span><span class="dv">2</span>))</span>
+<span id="cb86-17"><a href="arbres.html#cb86-17"></a>    simple   large      opt</span>
+<span id="cb86-18"><a href="arbres.html#cb86-18"></a><span class="dv">1</span> <span class="fl">6.003064</span> <span class="fl">4.79406</span> <span class="fl">4.556404</span></span></code></pre></div></li>
 </ol>
 </div>
 <div id="élagage-en-classification-binaire-et-matrice-de-coût" class="section level3">
 <h3><span class="header-section-number">3.2.2</span> Élagage en classification binaire et matrice de coût</h3>
 <p>On considère ici les mêmes données que précédemment mais on cherche à expliquer une version binaire de la variable <strong>Sales</strong>. Cette nouvelle variable, appelée <code>High</code> prend pour valeurs <code>No</code> si <code>Sales</code> est inférieur ou égal à 8, <code>Yes</code> sinon. On travaillera donc avec le jeu <code>data1</code> défini ci-dessous.</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="arbres.html#cb85-1"></a>High &lt;-<span class="st"> </span><span class="kw">ifelse</span>(Carseats<span class="op">$</span>Sales<span class="op">&lt;=</span><span class="dv">8</span>,<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)</span>
-<span id="cb85-2"><a href="arbres.html#cb85-2"></a>data1 &lt;-<span class="st"> </span>Carseats <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>Sales) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(High)</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="arbres.html#cb87-1"></a>High &lt;-<span class="st"> </span><span class="kw">ifelse</span>(Carseats<span class="op">$</span>Sales<span class="op">&lt;=</span><span class="dv">8</span>,<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Yes&quot;</span>)</span>
+<span id="cb87-2"><a href="arbres.html#cb87-2"></a>data1 &lt;-<span class="st"> </span>Carseats <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>Sales) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(High)</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>Construire un arbre permettant d’expliquer <code>High</code> par les autres variables (sans <code>Sales</code> évidemment !) et expliquer les principales différences par rapport à la partie précédente précédente.</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="arbres.html#cb86-1"></a><span class="kw">set.seed</span>(<span class="dv">321</span>)</span>
-<span id="cb86-2"><a href="arbres.html#cb86-2"></a>tree &lt;-<span class="st"> </span><span class="kw">rpart</span>(High<span class="op">~</span>.,<span class="dt">data=</span>data1)</span>
-<span id="cb86-3"><a href="arbres.html#cb86-3"></a><span class="kw">rpart.plot</span>(tree)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="arbres.html#cb88-1"></a><span class="kw">set.seed</span>(<span class="dv">321</span>)</span>
+<span id="cb88-2"><a href="arbres.html#cb88-2"></a>tree &lt;-<span class="st"> </span><span class="kw">rpart</span>(High<span class="op">~</span>.,<span class="dt">data=</span>data1)</span>
+<span id="cb88-3"><a href="arbres.html#cb88-3"></a><span class="kw">rpart.plot</span>(tree)</span></code></pre></div>
 <p><img src="TUTO_ML_files/figure-html/unnamed-chunk-130-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="corR">
 <p>
@@ -1188,47 +1180,47 @@ L’arbre construit est un <strong>arbre de classification</strong>. Le procéd�
 </p>
 </div></li>
 <li><p>Expliquer l’option <code>parms</code> dans la commande :</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="arbres.html#cb87-1"></a>tree1 &lt;-<span class="st"> </span><span class="kw">rpart</span>(High<span class="op">~</span>.,<span class="dt">data=</span>data1,<span class="dt">parms=</span><span class="kw">list</span>(<span class="dt">split=</span><span class="st">&quot;information&quot;</span>))</span>
-<span id="cb87-2"><a href="arbres.html#cb87-2"></a>tree1<span class="op">$</span>parms</span>
-<span id="cb87-3"><a href="arbres.html#cb87-3"></a><span class="op">$</span>prior</span>
-<span id="cb87-4"><a href="arbres.html#cb87-4"></a>   <span class="dv">1</span>    <span class="dv">2</span> </span>
-<span id="cb87-5"><a href="arbres.html#cb87-5"></a><span class="fl">0.59</span> <span class="fl">0.41</span> </span>
-<span id="cb87-6"><a href="arbres.html#cb87-6"></a></span>
-<span id="cb87-7"><a href="arbres.html#cb87-7"></a><span class="op">$</span>loss</span>
-<span id="cb87-8"><a href="arbres.html#cb87-8"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>]</span>
-<span id="cb87-9"><a href="arbres.html#cb87-9"></a>[<span class="dv">1</span>,]    <span class="dv">0</span>    <span class="dv">1</span></span>
-<span id="cb87-10"><a href="arbres.html#cb87-10"></a>[<span class="dv">2</span>,]    <span class="dv">1</span>    <span class="dv">0</span></span>
-<span id="cb87-11"><a href="arbres.html#cb87-11"></a></span>
-<span id="cb87-12"><a href="arbres.html#cb87-12"></a><span class="op">$</span>split</span>
-<span id="cb87-13"><a href="arbres.html#cb87-13"></a>[<span class="dv">1</span>] <span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="arbres.html#cb89-1"></a>tree1 &lt;-<span class="st"> </span><span class="kw">rpart</span>(High<span class="op">~</span>.,<span class="dt">data=</span>data1,<span class="dt">parms=</span><span class="kw">list</span>(<span class="dt">split=</span><span class="st">&quot;information&quot;</span>))</span>
+<span id="cb89-2"><a href="arbres.html#cb89-2"></a>tree1<span class="op">$</span>parms</span>
+<span id="cb89-3"><a href="arbres.html#cb89-3"></a><span class="op">$</span>prior</span>
+<span id="cb89-4"><a href="arbres.html#cb89-4"></a>   <span class="dv">1</span>    <span class="dv">2</span> </span>
+<span id="cb89-5"><a href="arbres.html#cb89-5"></a><span class="fl">0.59</span> <span class="fl">0.41</span> </span>
+<span id="cb89-6"><a href="arbres.html#cb89-6"></a></span>
+<span id="cb89-7"><a href="arbres.html#cb89-7"></a><span class="op">$</span>loss</span>
+<span id="cb89-8"><a href="arbres.html#cb89-8"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>]</span>
+<span id="cb89-9"><a href="arbres.html#cb89-9"></a>[<span class="dv">1</span>,]    <span class="dv">0</span>    <span class="dv">1</span></span>
+<span id="cb89-10"><a href="arbres.html#cb89-10"></a>[<span class="dv">2</span>,]    <span class="dv">1</span>    <span class="dv">0</span></span>
+<span id="cb89-11"><a href="arbres.html#cb89-11"></a></span>
+<span id="cb89-12"><a href="arbres.html#cb89-12"></a><span class="op">$</span>split</span>
+<span id="cb89-13"><a href="arbres.html#cb89-13"></a>[<span class="dv">1</span>] <span class="dv">2</span></span></code></pre></div>
 <div class="corR">
 <p>
 On change de fonction d’impureté (<strong>information</strong> au lieu de <strong>Gini</strong>).
 </p>
 </div></li>
 <li><p>Expliquer les sorties de la fonction <strong>printcp</strong> sur le premier arbre construit et retrouver la valeur du dernier terme de la colonne <strong>rel error</strong>.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="arbres.html#cb88-1"></a><span class="kw">printcp</span>(tree)</span>
-<span id="cb88-2"><a href="arbres.html#cb88-2"></a></span>
-<span id="cb88-3"><a href="arbres.html#cb88-3"></a>Classification tree<span class="op">:</span></span>
-<span id="cb88-4"><a href="arbres.html#cb88-4"></a><span class="kw">rpart</span>(<span class="dt">formula =</span> High <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> data1)</span>
-<span id="cb88-5"><a href="arbres.html#cb88-5"></a></span>
-<span id="cb88-6"><a href="arbres.html#cb88-6"></a>Variables actually used <span class="cf">in</span> tree construction<span class="op">:</span></span>
-<span id="cb88-7"><a href="arbres.html#cb88-7"></a>[<span class="dv">1</span>] Advertising Age         CompPrice   Income     </span>
-<span id="cb88-8"><a href="arbres.html#cb88-8"></a>[<span class="dv">5</span>] Price       ShelveLoc  </span>
-<span id="cb88-9"><a href="arbres.html#cb88-9"></a></span>
-<span id="cb88-10"><a href="arbres.html#cb88-10"></a>Root node error<span class="op">:</span><span class="st"> </span><span class="dv">164</span><span class="op">/</span><span class="dv">400</span> =<span class="st"> </span><span class="fl">0.41</span></span>
-<span id="cb88-11"><a href="arbres.html#cb88-11"></a></span>
-<span id="cb88-12"><a href="arbres.html#cb88-12"></a>n=<span class="st"> </span><span class="dv">400</span> </span>
-<span id="cb88-13"><a href="arbres.html#cb88-13"></a></span>
-<span id="cb88-14"><a href="arbres.html#cb88-14"></a>        CP nsplit rel error  xerror     xstd</span>
-<span id="cb88-15"><a href="arbres.html#cb88-15"></a><span class="dv">1</span> <span class="fl">0.286585</span>      <span class="dv">0</span>   <span class="fl">1.00000</span> <span class="fl">1.00000</span> <span class="fl">0.059980</span></span>
-<span id="cb88-16"><a href="arbres.html#cb88-16"></a><span class="dv">2</span> <span class="fl">0.109756</span>      <span class="dv">1</span>   <span class="fl">0.71341</span> <span class="fl">0.71341</span> <span class="fl">0.055477</span></span>
-<span id="cb88-17"><a href="arbres.html#cb88-17"></a><span class="dv">3</span> <span class="fl">0.045732</span>      <span class="dv">2</span>   <span class="fl">0.60366</span> <span class="fl">0.66463</span> <span class="fl">0.054298</span></span>
-<span id="cb88-18"><a href="arbres.html#cb88-18"></a><span class="dv">4</span> <span class="fl">0.036585</span>      <span class="dv">4</span>   <span class="fl">0.51220</span> <span class="fl">0.64634</span> <span class="fl">0.053821</span></span>
-<span id="cb88-19"><a href="arbres.html#cb88-19"></a><span class="dv">5</span> <span class="fl">0.027439</span>      <span class="dv">5</span>   <span class="fl">0.47561</span> <span class="fl">0.60976</span> <span class="fl">0.052806</span></span>
-<span id="cb88-20"><a href="arbres.html#cb88-20"></a><span class="dv">6</span> <span class="fl">0.024390</span>      <span class="dv">7</span>   <span class="fl">0.42073</span> <span class="fl">0.58537</span> <span class="fl">0.052083</span></span>
-<span id="cb88-21"><a href="arbres.html#cb88-21"></a><span class="dv">7</span> <span class="fl">0.012195</span>      <span class="dv">8</span>   <span class="fl">0.39634</span> <span class="fl">0.56707</span> <span class="fl">0.051515</span></span>
-<span id="cb88-22"><a href="arbres.html#cb88-22"></a><span class="dv">8</span> <span class="fl">0.010000</span>     <span class="dv">10</span>   <span class="fl">0.37195</span> <span class="fl">0.53659</span> <span class="fl">0.050518</span></span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="arbres.html#cb90-1"></a><span class="kw">printcp</span>(tree)</span>
+<span id="cb90-2"><a href="arbres.html#cb90-2"></a></span>
+<span id="cb90-3"><a href="arbres.html#cb90-3"></a>Classification tree<span class="op">:</span></span>
+<span id="cb90-4"><a href="arbres.html#cb90-4"></a><span class="kw">rpart</span>(<span class="dt">formula =</span> High <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> data1)</span>
+<span id="cb90-5"><a href="arbres.html#cb90-5"></a></span>
+<span id="cb90-6"><a href="arbres.html#cb90-6"></a>Variables actually used <span class="cf">in</span> tree construction<span class="op">:</span></span>
+<span id="cb90-7"><a href="arbres.html#cb90-7"></a>[<span class="dv">1</span>] Advertising Age         CompPrice   Income     </span>
+<span id="cb90-8"><a href="arbres.html#cb90-8"></a>[<span class="dv">5</span>] Price       ShelveLoc  </span>
+<span id="cb90-9"><a href="arbres.html#cb90-9"></a></span>
+<span id="cb90-10"><a href="arbres.html#cb90-10"></a>Root node error<span class="op">:</span><span class="st"> </span><span class="dv">164</span><span class="op">/</span><span class="dv">400</span> =<span class="st"> </span><span class="fl">0.41</span></span>
+<span id="cb90-11"><a href="arbres.html#cb90-11"></a></span>
+<span id="cb90-12"><a href="arbres.html#cb90-12"></a>n=<span class="st"> </span><span class="dv">400</span> </span>
+<span id="cb90-13"><a href="arbres.html#cb90-13"></a></span>
+<span id="cb90-14"><a href="arbres.html#cb90-14"></a>        CP nsplit rel error  xerror     xstd</span>
+<span id="cb90-15"><a href="arbres.html#cb90-15"></a><span class="dv">1</span> <span class="fl">0.286585</span>      <span class="dv">0</span>   <span class="fl">1.00000</span> <span class="fl">1.00000</span> <span class="fl">0.059980</span></span>
+<span id="cb90-16"><a href="arbres.html#cb90-16"></a><span class="dv">2</span> <span class="fl">0.109756</span>      <span class="dv">1</span>   <span class="fl">0.71341</span> <span class="fl">0.71341</span> <span class="fl">0.055477</span></span>
+<span id="cb90-17"><a href="arbres.html#cb90-17"></a><span class="dv">3</span> <span class="fl">0.045732</span>      <span class="dv">2</span>   <span class="fl">0.60366</span> <span class="fl">0.66463</span> <span class="fl">0.054298</span></span>
+<span id="cb90-18"><a href="arbres.html#cb90-18"></a><span class="dv">4</span> <span class="fl">0.036585</span>      <span class="dv">4</span>   <span class="fl">0.51220</span> <span class="fl">0.64634</span> <span class="fl">0.053821</span></span>
+<span id="cb90-19"><a href="arbres.html#cb90-19"></a><span class="dv">5</span> <span class="fl">0.027439</span>      <span class="dv">5</span>   <span class="fl">0.47561</span> <span class="fl">0.60976</span> <span class="fl">0.052806</span></span>
+<span id="cb90-20"><a href="arbres.html#cb90-20"></a><span class="dv">6</span> <span class="fl">0.024390</span>      <span class="dv">7</span>   <span class="fl">0.42073</span> <span class="fl">0.58537</span> <span class="fl">0.052083</span></span>
+<span id="cb90-21"><a href="arbres.html#cb90-21"></a><span class="dv">7</span> <span class="fl">0.012195</span>      <span class="dv">8</span>   <span class="fl">0.39634</span> <span class="fl">0.56707</span> <span class="fl">0.051515</span></span>
+<span id="cb90-22"><a href="arbres.html#cb90-22"></a><span class="dv">8</span> <span class="fl">0.010000</span>     <span class="dv">10</span>   <span class="fl">0.37195</span> <span class="fl">0.53659</span> <span class="fl">0.050518</span></span></code></pre></div>
 <div class="corR">
 <p>
 <p>On peut lire des informations sur la suite d’arbres emboîtés, cette suite est de longueur 17 ici. Dans le dernier tableau, chaque ligne représente un arbre de la suite et on a dans les colonnes :</p>
@@ -1254,61 +1246,61 @@ On change de fonction d’impureté (<strong>information</strong> au lieu de <st
 <p>Les types d’erreurs dépendent du problème considéré. Vu qu’on est ici sur un problème de classification, c’est l’<strong>erreur de classification</strong> qui est considérée. De plus ces erreurs sont normalisées par rapport à l’erreur de l’arbre racine (sans coupure). Ainsi on retrouve l’erreur demandée avec</p>
 </p>
 </div>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="arbres.html#cb89-1"></a> data1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">fitted=</span><span class="kw">predict</span>(tree,<span class="dt">type=</span><span class="st">&quot;class&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb89-2"><a href="arbres.html#cb89-2"></a><span class="st">   </span><span class="kw">summarise</span>(<span class="dt">MC=</span><span class="kw">mean</span>(fitted<span class="op">!=</span>High)<span class="op">/</span><span class="kw">mean</span>(High<span class="op">==</span><span class="st">&quot;Yes&quot;</span>))</span>
-<span id="cb89-3"><a href="arbres.html#cb89-3"></a>          MC</span>
-<span id="cb89-4"><a href="arbres.html#cb89-4"></a> <span class="dv">1</span> <span class="fl">0.3719512</span></span>
-<span id="cb89-5"><a href="arbres.html#cb89-5"></a> <span class="co">#mean(predict(arbre,type=&quot;class&quot;)!=donnees$High)/mean(donnees$High==&quot;Yes&quot;)</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="arbres.html#cb91-1"></a> data1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">fitted=</span><span class="kw">predict</span>(tree,<span class="dt">type=</span><span class="st">&quot;class&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb91-2"><a href="arbres.html#cb91-2"></a><span class="st">   </span><span class="kw">summarise</span>(<span class="dt">MC=</span><span class="kw">mean</span>(fitted<span class="op">!=</span>High)<span class="op">/</span><span class="kw">mean</span>(High<span class="op">==</span><span class="st">&quot;Yes&quot;</span>))</span>
+<span id="cb91-3"><a href="arbres.html#cb91-3"></a>          MC</span>
+<span id="cb91-4"><a href="arbres.html#cb91-4"></a> <span class="dv">1</span> <span class="fl">0.3719512</span></span>
+<span id="cb91-5"><a href="arbres.html#cb91-5"></a> <span class="co">#mean(predict(arbre,type=&quot;class&quot;)!=donnees$High)/mean(donnees$High==&quot;Yes&quot;)</span></span></code></pre></div></li>
 <li><p>Sélectionner un arbre optimal dans la suite.</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="arbres.html#cb90-1"></a>tree1 &lt;-<span class="st"> </span><span class="kw">rpart</span>(High<span class="op">~</span>.,<span class="dt">data=</span>data1,<span class="dt">cp=</span><span class="fl">0.000001</span>,<span class="dt">minsplit=</span><span class="dv">2</span>)</span>
-<span id="cb90-2"><a href="arbres.html#cb90-2"></a><span class="kw">plotcp</span>(tree1)</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="arbres.html#cb92-1"></a>tree1 &lt;-<span class="st"> </span><span class="kw">rpart</span>(High<span class="op">~</span>.,<span class="dt">data=</span>data1,<span class="dt">cp=</span><span class="fl">0.000001</span>,<span class="dt">minsplit=</span><span class="dv">2</span>)</span>
+<span id="cb92-2"><a href="arbres.html#cb92-2"></a><span class="kw">plotcp</span>(tree1)</span></code></pre></div>
 <p><img src="TUTO_ML_files/figure-html/unnamed-chunk-137-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="arbres.html#cb91-1"></a>cp_opt &lt;-<span class="st"> </span>tree1<span class="op">$</span>cptable <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice</span>(<span class="kw">which.min</span>(xerror)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb91-2"><a href="arbres.html#cb91-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(CP) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.numeric</span>()</span>
-<span id="cb91-3"><a href="arbres.html#cb91-3"></a>tree_sel &lt;-<span class="st"> </span><span class="kw">prune</span>(tree1,<span class="dt">cp=</span>cp_opt)</span>
-<span id="cb91-4"><a href="arbres.html#cb91-4"></a><span class="kw">rpart.plot</span>(tree_sel) </span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="arbres.html#cb93-1"></a>cp_opt &lt;-<span class="st"> </span>tree1<span class="op">$</span>cptable <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice</span>(<span class="kw">which.min</span>(xerror)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb93-2"><a href="arbres.html#cb93-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(CP) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.numeric</span>()</span>
+<span id="cb93-3"><a href="arbres.html#cb93-3"></a>tree_sel &lt;-<span class="st"> </span><span class="kw">prune</span>(tree1,<span class="dt">cp=</span>cp_opt)</span>
+<span id="cb93-4"><a href="arbres.html#cb93-4"></a><span class="kw">rpart.plot</span>(tree_sel) </span></code></pre></div>
 <p><img src="TUTO_ML_files/figure-html/unnamed-chunk-137-2.png" width="672" style="display: block; margin: auto;" /></p></li>
 <li><p>On considère la suite d’arbres</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="arbres.html#cb92-1"></a>tree2 &lt;-<span class="st"> </span><span class="kw">rpart</span>(High<span class="op">~</span>.,<span class="dt">data=</span>data1,<span class="dt">parms=</span><span class="kw">list</span>(<span class="dt">loss=</span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">0</span>),<span class="dt">ncol=</span><span class="dv">2</span>)),</span>
-<span id="cb92-2"><a href="arbres.html#cb92-2"></a>           <span class="dt">cp=</span><span class="fl">0.01</span>,<span class="dt">minsplit=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="arbres.html#cb94-1"></a>tree2 &lt;-<span class="st"> </span><span class="kw">rpart</span>(High<span class="op">~</span>.,<span class="dt">data=</span>data1,<span class="dt">parms=</span><span class="kw">list</span>(<span class="dt">loss=</span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">0</span>),<span class="dt">ncol=</span><span class="dv">2</span>)),</span>
+<span id="cb94-2"><a href="arbres.html#cb94-2"></a>           <span class="dt">cp=</span><span class="fl">0.01</span>,<span class="dt">minsplit=</span><span class="dv">2</span>)</span></code></pre></div>
 <p>Expliquer les sorties des commandes suivantes. On pourra notamment calculer le dernier terme de la colonne <strong>rel error</strong> de la table <strong>cptable</strong>.</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="arbres.html#cb93-1"></a>tree2<span class="op">$</span>parms</span>
-<span id="cb93-2"><a href="arbres.html#cb93-2"></a><span class="op">$</span>prior</span>
-<span id="cb93-3"><a href="arbres.html#cb93-3"></a>   <span class="dv">1</span>    <span class="dv">2</span> </span>
-<span id="cb93-4"><a href="arbres.html#cb93-4"></a><span class="fl">0.59</span> <span class="fl">0.41</span> </span>
-<span id="cb93-5"><a href="arbres.html#cb93-5"></a></span>
-<span id="cb93-6"><a href="arbres.html#cb93-6"></a><span class="op">$</span>loss</span>
-<span id="cb93-7"><a href="arbres.html#cb93-7"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>]</span>
-<span id="cb93-8"><a href="arbres.html#cb93-8"></a>[<span class="dv">1</span>,]    <span class="dv">0</span>    <span class="dv">1</span></span>
-<span id="cb93-9"><a href="arbres.html#cb93-9"></a>[<span class="dv">2</span>,]    <span class="dv">5</span>    <span class="dv">0</span></span>
-<span id="cb93-10"><a href="arbres.html#cb93-10"></a></span>
-<span id="cb93-11"><a href="arbres.html#cb93-11"></a><span class="op">$</span>split</span>
-<span id="cb93-12"><a href="arbres.html#cb93-12"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
-<span id="cb93-13"><a href="arbres.html#cb93-13"></a><span class="kw">printcp</span>(tree2)</span>
-<span id="cb93-14"><a href="arbres.html#cb93-14"></a></span>
-<span id="cb93-15"><a href="arbres.html#cb93-15"></a>Classification tree<span class="op">:</span></span>
-<span id="cb93-16"><a href="arbres.html#cb93-16"></a><span class="kw">rpart</span>(<span class="dt">formula =</span> High <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> data1, <span class="dt">parms =</span> <span class="kw">list</span>(<span class="dt">loss =</span> <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">0</span>, </span>
-<span id="cb93-17"><a href="arbres.html#cb93-17"></a>    <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)), <span class="dt">cp =</span> <span class="fl">0.01</span>, <span class="dt">minsplit =</span> <span class="dv">2</span>)</span>
-<span id="cb93-18"><a href="arbres.html#cb93-18"></a></span>
-<span id="cb93-19"><a href="arbres.html#cb93-19"></a>Variables actually used <span class="cf">in</span> tree construction<span class="op">:</span></span>
-<span id="cb93-20"><a href="arbres.html#cb93-20"></a>[<span class="dv">1</span>] Advertising Age         CompPrice   Education  </span>
-<span id="cb93-21"><a href="arbres.html#cb93-21"></a>[<span class="dv">5</span>] Income      Population  Price       ShelveLoc  </span>
-<span id="cb93-22"><a href="arbres.html#cb93-22"></a></span>
-<span id="cb93-23"><a href="arbres.html#cb93-23"></a>Root node error<span class="op">:</span><span class="st"> </span><span class="dv">236</span><span class="op">/</span><span class="dv">400</span> =<span class="st"> </span><span class="fl">0.59</span></span>
-<span id="cb93-24"><a href="arbres.html#cb93-24"></a></span>
-<span id="cb93-25"><a href="arbres.html#cb93-25"></a>n=<span class="st"> </span><span class="dv">400</span> </span>
-<span id="cb93-26"><a href="arbres.html#cb93-26"></a></span>
-<span id="cb93-27"><a href="arbres.html#cb93-27"></a>         CP nsplit rel error xerror    xstd</span>
-<span id="cb93-28"><a href="arbres.html#cb93-28"></a><span class="dv">1</span>  <span class="fl">0.101695</span>      <span class="dv">0</span>   <span class="fl">1.00000</span> <span class="fl">5.0000</span> <span class="fl">0.20840</span></span>
-<span id="cb93-29"><a href="arbres.html#cb93-29"></a><span class="dv">2</span>  <span class="fl">0.050847</span>      <span class="dv">2</span>   <span class="fl">0.79661</span> <span class="fl">3.7119</span> <span class="fl">0.20834</span></span>
-<span id="cb93-30"><a href="arbres.html#cb93-30"></a><span class="dv">3</span>  <span class="fl">0.036017</span>      <span class="dv">3</span>   <span class="fl">0.74576</span> <span class="fl">3.1653</span> <span class="fl">0.20197</span></span>
-<span id="cb93-31"><a href="arbres.html#cb93-31"></a><span class="dv">4</span>  <span class="fl">0.035311</span>      <span class="dv">5</span>   <span class="fl">0.67373</span> <span class="fl">2.9449</span> <span class="fl">0.19818</span></span>
-<span id="cb93-32"><a href="arbres.html#cb93-32"></a><span class="dv">5</span>  <span class="fl">0.025424</span>      <span class="dv">9</span>   <span class="fl">0.50847</span> <span class="fl">2.4915</span> <span class="fl">0.18872</span></span>
-<span id="cb93-33"><a href="arbres.html#cb93-33"></a><span class="dv">6</span>  <span class="fl">0.016949</span>     <span class="dv">11</span>   <span class="fl">0.45763</span> <span class="fl">2.3559</span> <span class="fl">0.18485</span></span>
-<span id="cb93-34"><a href="arbres.html#cb93-34"></a><span class="dv">7</span>  <span class="fl">0.015537</span>     <span class="dv">16</span>   <span class="fl">0.37288</span> <span class="fl">2.0339</span> <span class="fl">0.17491</span></span>
-<span id="cb93-35"><a href="arbres.html#cb93-35"></a><span class="dv">8</span>  <span class="fl">0.014831</span>     <span class="dv">21</span>   <span class="fl">0.28814</span> <span class="fl">2.0339</span> <span class="fl">0.17491</span></span>
-<span id="cb93-36"><a href="arbres.html#cb93-36"></a><span class="dv">9</span>  <span class="fl">0.010593</span>     <span class="dv">23</span>   <span class="fl">0.25847</span> <span class="fl">1.8983</span> <span class="fl">0.16982</span></span>
-<span id="cb93-37"><a href="arbres.html#cb93-37"></a><span class="dv">10</span> <span class="fl">0.010000</span>     <span class="dv">25</span>   <span class="fl">0.23729</span> <span class="fl">1.8263</span> <span class="fl">0.16664</span></span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="arbres.html#cb95-1"></a>tree2<span class="op">$</span>parms</span>
+<span id="cb95-2"><a href="arbres.html#cb95-2"></a><span class="op">$</span>prior</span>
+<span id="cb95-3"><a href="arbres.html#cb95-3"></a>   <span class="dv">1</span>    <span class="dv">2</span> </span>
+<span id="cb95-4"><a href="arbres.html#cb95-4"></a><span class="fl">0.59</span> <span class="fl">0.41</span> </span>
+<span id="cb95-5"><a href="arbres.html#cb95-5"></a></span>
+<span id="cb95-6"><a href="arbres.html#cb95-6"></a><span class="op">$</span>loss</span>
+<span id="cb95-7"><a href="arbres.html#cb95-7"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>]</span>
+<span id="cb95-8"><a href="arbres.html#cb95-8"></a>[<span class="dv">1</span>,]    <span class="dv">0</span>    <span class="dv">1</span></span>
+<span id="cb95-9"><a href="arbres.html#cb95-9"></a>[<span class="dv">2</span>,]    <span class="dv">5</span>    <span class="dv">0</span></span>
+<span id="cb95-10"><a href="arbres.html#cb95-10"></a></span>
+<span id="cb95-11"><a href="arbres.html#cb95-11"></a><span class="op">$</span>split</span>
+<span id="cb95-12"><a href="arbres.html#cb95-12"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
+<span id="cb95-13"><a href="arbres.html#cb95-13"></a><span class="kw">printcp</span>(tree2)</span>
+<span id="cb95-14"><a href="arbres.html#cb95-14"></a></span>
+<span id="cb95-15"><a href="arbres.html#cb95-15"></a>Classification tree<span class="op">:</span></span>
+<span id="cb95-16"><a href="arbres.html#cb95-16"></a><span class="kw">rpart</span>(<span class="dt">formula =</span> High <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> data1, <span class="dt">parms =</span> <span class="kw">list</span>(<span class="dt">loss =</span> <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">0</span>, </span>
+<span id="cb95-17"><a href="arbres.html#cb95-17"></a>    <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)), <span class="dt">cp =</span> <span class="fl">0.01</span>, <span class="dt">minsplit =</span> <span class="dv">2</span>)</span>
+<span id="cb95-18"><a href="arbres.html#cb95-18"></a></span>
+<span id="cb95-19"><a href="arbres.html#cb95-19"></a>Variables actually used <span class="cf">in</span> tree construction<span class="op">:</span></span>
+<span id="cb95-20"><a href="arbres.html#cb95-20"></a>[<span class="dv">1</span>] Advertising Age         CompPrice   Education  </span>
+<span id="cb95-21"><a href="arbres.html#cb95-21"></a>[<span class="dv">5</span>] Income      Population  Price       ShelveLoc  </span>
+<span id="cb95-22"><a href="arbres.html#cb95-22"></a></span>
+<span id="cb95-23"><a href="arbres.html#cb95-23"></a>Root node error<span class="op">:</span><span class="st"> </span><span class="dv">236</span><span class="op">/</span><span class="dv">400</span> =<span class="st"> </span><span class="fl">0.59</span></span>
+<span id="cb95-24"><a href="arbres.html#cb95-24"></a></span>
+<span id="cb95-25"><a href="arbres.html#cb95-25"></a>n=<span class="st"> </span><span class="dv">400</span> </span>
+<span id="cb95-26"><a href="arbres.html#cb95-26"></a></span>
+<span id="cb95-27"><a href="arbres.html#cb95-27"></a>         CP nsplit rel error xerror    xstd</span>
+<span id="cb95-28"><a href="arbres.html#cb95-28"></a><span class="dv">1</span>  <span class="fl">0.101695</span>      <span class="dv">0</span>   <span class="fl">1.00000</span> <span class="fl">5.0000</span> <span class="fl">0.20840</span></span>
+<span id="cb95-29"><a href="arbres.html#cb95-29"></a><span class="dv">2</span>  <span class="fl">0.050847</span>      <span class="dv">2</span>   <span class="fl">0.79661</span> <span class="fl">3.7119</span> <span class="fl">0.20834</span></span>
+<span id="cb95-30"><a href="arbres.html#cb95-30"></a><span class="dv">3</span>  <span class="fl">0.036017</span>      <span class="dv">3</span>   <span class="fl">0.74576</span> <span class="fl">3.1653</span> <span class="fl">0.20197</span></span>
+<span id="cb95-31"><a href="arbres.html#cb95-31"></a><span class="dv">4</span>  <span class="fl">0.035311</span>      <span class="dv">5</span>   <span class="fl">0.67373</span> <span class="fl">2.9449</span> <span class="fl">0.19818</span></span>
+<span id="cb95-32"><a href="arbres.html#cb95-32"></a><span class="dv">5</span>  <span class="fl">0.025424</span>      <span class="dv">9</span>   <span class="fl">0.50847</span> <span class="fl">2.4915</span> <span class="fl">0.18872</span></span>
+<span id="cb95-33"><a href="arbres.html#cb95-33"></a><span class="dv">6</span>  <span class="fl">0.016949</span>     <span class="dv">11</span>   <span class="fl">0.45763</span> <span class="fl">2.3559</span> <span class="fl">0.18485</span></span>
+<span id="cb95-34"><a href="arbres.html#cb95-34"></a><span class="dv">7</span>  <span class="fl">0.015537</span>     <span class="dv">16</span>   <span class="fl">0.37288</span> <span class="fl">2.0339</span> <span class="fl">0.17491</span></span>
+<span id="cb95-35"><a href="arbres.html#cb95-35"></a><span class="dv">8</span>  <span class="fl">0.014831</span>     <span class="dv">21</span>   <span class="fl">0.28814</span> <span class="fl">2.0339</span> <span class="fl">0.17491</span></span>
+<span id="cb95-36"><a href="arbres.html#cb95-36"></a><span class="dv">9</span>  <span class="fl">0.010593</span>     <span class="dv">23</span>   <span class="fl">0.25847</span> <span class="fl">1.8983</span> <span class="fl">0.16982</span></span>
+<span id="cb95-37"><a href="arbres.html#cb95-37"></a><span class="dv">10</span> <span class="fl">0.010000</span>     <span class="dv">25</span>   <span class="fl">0.23729</span> <span class="fl">1.8263</span> <span class="fl">0.16664</span></span></code></pre></div>
 <div class="corR">
 <p>
 Le critère est ici modifié, on utilise une <strong>erreur de classification pondérée</strong> pour choisir l’arbre. On rappelle que l’erreur de classification est définie par <span class="math display"><span class="math display">\[L(g)=P(g(X)\neq Y)=E[\alpha_11_{g(X)=0,Y=1}+\alpha_21_{g(X)=1,Y=0}]\]</span></span> avec <span class="math inline"><span class="math inline">\(\alpha_1=\alpha_2=1\)</span></span>. Cette erreur donne donc le même poids aux deux erreurs possible (prédire 1 à tort ou prédire 0 à tort). Utiliser cette erreur revient donc à supposer qu’elles ont la même importance pour le problème considéré. Ce n’est bien entendu pas toujours le cas en pratique. La matrice <strong>loss</strong> contient les valeurs de <span class="math inline"><span class="math inline">\(\alpha_1\)</span></span> et <span class="math inline"><span class="math inline">\(\alpha_2\)</span></span> et modifier ces valeurs permettra de donner des poids différents à ces deux erreurs.
@@ -1317,23 +1309,23 @@ Le critère est ici modifié, on utilise une <strong>erreur de classification po
 Avec cette nouvelle commande, on donne un poids de 5 pour une erreur et de 1 pour l’autre. On obtient le terme demandé avec
 </p>
 </div>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="arbres.html#cb94-1"></a>prev &lt;-<span class="st"> </span><span class="kw">predict</span>(tree2,<span class="dt">type=</span><span class="st">&quot;class&quot;</span>)</span>
-<span id="cb94-2"><a href="arbres.html#cb94-2"></a>conf &lt;-<span class="st"> </span><span class="kw">table</span>(data1<span class="op">$</span>High,prev)</span>
-<span id="cb94-3"><a href="arbres.html#cb94-3"></a>conf</span>
-<span id="cb94-4"><a href="arbres.html#cb94-4"></a>     prev</span>
-<span id="cb94-5"><a href="arbres.html#cb94-5"></a>       No Yes</span>
-<span id="cb94-6"><a href="arbres.html#cb94-6"></a>  No  <span class="dv">185</span>  <span class="dv">51</span></span>
-<span id="cb94-7"><a href="arbres.html#cb94-7"></a>  Yes   <span class="dv">1</span> <span class="dv">163</span></span>
-<span id="cb94-8"><a href="arbres.html#cb94-8"></a>loss &lt;-<span class="st"> </span>tree2<span class="op">$</span>parms<span class="op">$</span>loss</span>
-<span id="cb94-9"><a href="arbres.html#cb94-9"></a>(conf[<span class="dv">1</span>,<span class="dv">2</span>]<span class="op">*</span>loss[<span class="dv">1</span>,<span class="dv">2</span>]<span class="op">+</span>conf[<span class="dv">2</span>,<span class="dv">1</span>]<span class="op">*</span>loss[<span class="dv">2</span>,<span class="dv">1</span>])<span class="op">/</span><span class="kw">nrow</span>(data1)<span class="op">/</span><span class="kw">mean</span>(data1<span class="op">$</span>High<span class="op">==</span><span class="st">&quot;No&quot;</span>)</span>
-<span id="cb94-10"><a href="arbres.html#cb94-10"></a>[<span class="dv">1</span>] <span class="fl">0.2372881</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="arbres.html#cb96-1"></a>prev &lt;-<span class="st"> </span><span class="kw">predict</span>(tree2,<span class="dt">type=</span><span class="st">&quot;class&quot;</span>)</span>
+<span id="cb96-2"><a href="arbres.html#cb96-2"></a>conf &lt;-<span class="st"> </span><span class="kw">table</span>(data1<span class="op">$</span>High,prev)</span>
+<span id="cb96-3"><a href="arbres.html#cb96-3"></a>conf</span>
+<span id="cb96-4"><a href="arbres.html#cb96-4"></a>     prev</span>
+<span id="cb96-5"><a href="arbres.html#cb96-5"></a>       No Yes</span>
+<span id="cb96-6"><a href="arbres.html#cb96-6"></a>  No  <span class="dv">185</span>  <span class="dv">51</span></span>
+<span id="cb96-7"><a href="arbres.html#cb96-7"></a>  Yes   <span class="dv">1</span> <span class="dv">163</span></span>
+<span id="cb96-8"><a href="arbres.html#cb96-8"></a>loss &lt;-<span class="st"> </span>tree2<span class="op">$</span>parms<span class="op">$</span>loss</span>
+<span id="cb96-9"><a href="arbres.html#cb96-9"></a>(conf[<span class="dv">1</span>,<span class="dv">2</span>]<span class="op">*</span>loss[<span class="dv">1</span>,<span class="dv">2</span>]<span class="op">+</span>conf[<span class="dv">2</span>,<span class="dv">1</span>]<span class="op">*</span>loss[<span class="dv">2</span>,<span class="dv">1</span>])<span class="op">/</span><span class="kw">nrow</span>(data1)<span class="op">/</span><span class="kw">mean</span>(data1<span class="op">$</span>High<span class="op">==</span><span class="st">&quot;No&quot;</span>)</span>
+<span id="cb96-10"><a href="arbres.html#cb96-10"></a>[<span class="dv">1</span>] <span class="fl">0.2372881</span></span></code></pre></div></li>
 <li><p>Comparer les valeurs ajustées par les deux arbres considérés.</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="arbres.html#cb95-1"></a><span class="kw">summary</span>(<span class="kw">predict</span>(tree_sel,<span class="dt">type=</span><span class="st">&quot;class&quot;</span>))</span>
-<span id="cb95-2"><a href="arbres.html#cb95-2"></a> No Yes </span>
-<span id="cb95-3"><a href="arbres.html#cb95-3"></a><span class="dv">240</span> <span class="dv">160</span> </span>
-<span id="cb95-4"><a href="arbres.html#cb95-4"></a><span class="kw">summary</span>(<span class="kw">predict</span>(tree2,<span class="dt">type=</span><span class="st">&quot;class&quot;</span>))</span>
-<span id="cb95-5"><a href="arbres.html#cb95-5"></a> No Yes </span>
-<span id="cb95-6"><a href="arbres.html#cb95-6"></a><span class="dv">186</span> <span class="dv">214</span> </span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="arbres.html#cb97-1"></a><span class="kw">summary</span>(<span class="kw">predict</span>(tree_sel,<span class="dt">type=</span><span class="st">&quot;class&quot;</span>))</span>
+<span id="cb97-2"><a href="arbres.html#cb97-2"></a> No Yes </span>
+<span id="cb97-3"><a href="arbres.html#cb97-3"></a><span class="dv">240</span> <span class="dv">160</span> </span>
+<span id="cb97-4"><a href="arbres.html#cb97-4"></a><span class="kw">summary</span>(<span class="kw">predict</span>(tree2,<span class="dt">type=</span><span class="st">&quot;class&quot;</span>))</span>
+<span id="cb97-5"><a href="arbres.html#cb97-5"></a> No Yes </span>
+<span id="cb97-6"><a href="arbres.html#cb97-6"></a><span class="dv">186</span> <span class="dv">214</span> </span></code></pre></div>
 <div class="corR">
 <p>
 Il y a plus de <code>Yes</code> prédits dans le second arbre. Cela vient des changements dans la matrice loss : la perte pour prédire <code>No</code> au lieu de <code>Yes</code> est de 5 pour le second arbre. Cela signifie bien détecter les <code>Yes</code> est plus important pour cet arbre, c’est donc tout à fait normal qu’il prédise plus souvent <code>Yes</code> que le premier.
