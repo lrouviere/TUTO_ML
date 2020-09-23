@@ -242,104 +242,104 @@ Construire un <em>arbre CART sur cet échantillon bootstrap</em>, chaque coupure
 </p>
 </div>
 <p>Cet algorithme peut être utilisé sur <strong>R</strong> avec la fonction <strong>randomForest</strong> du package <strong>randomForest</strong>. Nous la présentons à travers l’exemple du jeu de données <strong>spam</strong> du package <strong>kernlab</strong>.</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="agregation.html#cb98-1"></a><span class="kw">library</span>(kernlab)</span>
-<span id="cb98-2"><a href="agregation.html#cb98-2"></a><span class="kw">data</span>(spam)</span>
-<span id="cb98-3"><a href="agregation.html#cb98-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb98-4"><a href="agregation.html#cb98-4"></a>spam &lt;-<span class="st"> </span>spam[<span class="kw">sample</span>(<span class="kw">nrow</span>(spam)),]</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="agregation.html#cb97-1"></a><span class="kw">library</span>(kernlab)</span>
+<span id="cb97-2"><a href="agregation.html#cb97-2"></a><span class="kw">data</span>(spam)</span>
+<span id="cb97-3"><a href="agregation.html#cb97-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb97-4"><a href="agregation.html#cb97-4"></a>spam &lt;-<span class="st"> </span>spam[<span class="kw">sample</span>(<span class="kw">nrow</span>(spam)),]</span></code></pre></div>
 <p>Le problème est d’expliquer la variable binaire <strong>type</strong> par les autres.</p>
 <ol style="list-style-type: decimal">
 <li><p>A l’aide de la fonction <strong>randomForest</strong> du package <strong>randomForest</strong>, ajuster une forêt aléatoire pour répondre au problème posé.</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="agregation.html#cb99-1"></a><span class="kw">library</span>(randomForest)</span>
-<span id="cb99-2"><a href="agregation.html#cb99-2"></a>rf1 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam)</span></code></pre></div></li>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="agregation.html#cb98-1"></a><span class="kw">library</span>(randomForest)</span>
+<span id="cb98-2"><a href="agregation.html#cb98-2"></a>rf1 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam)</span></code></pre></div></li>
 <li><p>Appliquer la fonction <strong>plot</strong> à l’objet construit avec <strong>randomForest</strong> et expliquer le graphe obtenu. A quoi peut servir ce graphe en pratique ?</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="agregation.html#cb100-1"></a><span class="kw">plot</span>(rf1)</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-146-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="agregation.html#cb99-1"></a><span class="kw">plot</span>(rf1)</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-145-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="corR">
 <p>
 Ce graphe permet de visualiser l’erreur de classication ainsi que les taux de faux positifs et faux négatifs calculés par Out Of Bag en fonction du nombre d’arbres de la forêt. Ce graphe peut être utilisé pour voir si l’algorithme a bien “convergé”. Si ce n’est pas le cas, il faut construire une forêt avec plus d’abres.
 </p>
 </div></li>
 <li><p>Construire la forêt avec <strong>mtry=1</strong> et comparer ses performances avec celle construite précédemment.</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="agregation.html#cb101-1"></a>rf2 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam,<span class="dt">mtry=</span><span class="dv">1</span>)</span>
-<span id="cb101-2"><a href="agregation.html#cb101-2"></a>rf1</span>
-<span id="cb101-3"><a href="agregation.html#cb101-3"></a></span>
-<span id="cb101-4"><a href="agregation.html#cb101-4"></a>Call<span class="op">:</span></span>
-<span id="cb101-5"><a href="agregation.html#cb101-5"></a><span class="st"> </span><span class="kw">randomForest</span>(<span class="dt">formula =</span> type <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> spam) </span>
-<span id="cb101-6"><a href="agregation.html#cb101-6"></a>               Type of random forest<span class="op">:</span><span class="st"> </span>classification</span>
-<span id="cb101-7"><a href="agregation.html#cb101-7"></a>                     Number of trees<span class="op">:</span><span class="st"> </span><span class="dv">500</span></span>
-<span id="cb101-8"><a href="agregation.html#cb101-8"></a>No. of variables tried at each split<span class="op">:</span><span class="st"> </span><span class="dv">7</span></span>
-<span id="cb101-9"><a href="agregation.html#cb101-9"></a></span>
-<span id="cb101-10"><a href="agregation.html#cb101-10"></a>        OOB estimate of  error rate<span class="op">:</span><span class="st"> </span><span class="fl">4.56</span>%</span>
-<span id="cb101-11"><a href="agregation.html#cb101-11"></a>Confusion matrix<span class="op">:</span></span>
-<span id="cb101-12"><a href="agregation.html#cb101-12"></a><span class="st">        </span>nonspam spam class.error</span>
-<span id="cb101-13"><a href="agregation.html#cb101-13"></a>nonspam    <span class="dv">2711</span>   <span class="dv">77</span>  <span class="fl">0.02761836</span></span>
-<span id="cb101-14"><a href="agregation.html#cb101-14"></a>spam        <span class="dv">133</span> <span class="dv">1680</span>  <span class="fl">0.07335907</span></span>
-<span id="cb101-15"><a href="agregation.html#cb101-15"></a>rf2</span>
-<span id="cb101-16"><a href="agregation.html#cb101-16"></a></span>
-<span id="cb101-17"><a href="agregation.html#cb101-17"></a>Call<span class="op">:</span></span>
-<span id="cb101-18"><a href="agregation.html#cb101-18"></a><span class="st"> </span><span class="kw">randomForest</span>(<span class="dt">formula =</span> type <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> spam, <span class="dt">mtry =</span> <span class="dv">1</span>) </span>
-<span id="cb101-19"><a href="agregation.html#cb101-19"></a>               Type of random forest<span class="op">:</span><span class="st"> </span>classification</span>
-<span id="cb101-20"><a href="agregation.html#cb101-20"></a>                     Number of trees<span class="op">:</span><span class="st"> </span><span class="dv">500</span></span>
-<span id="cb101-21"><a href="agregation.html#cb101-21"></a>No. of variables tried at each split<span class="op">:</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb101-22"><a href="agregation.html#cb101-22"></a></span>
-<span id="cb101-23"><a href="agregation.html#cb101-23"></a>        OOB estimate of  error rate<span class="op">:</span><span class="st"> </span><span class="fl">7.89</span>%</span>
-<span id="cb101-24"><a href="agregation.html#cb101-24"></a>Confusion matrix<span class="op">:</span></span>
-<span id="cb101-25"><a href="agregation.html#cb101-25"></a><span class="st">        </span>nonspam spam class.error</span>
-<span id="cb101-26"><a href="agregation.html#cb101-26"></a>nonspam    <span class="dv">2729</span>   <span class="dv">59</span>  <span class="fl">0.02116212</span></span>
-<span id="cb101-27"><a href="agregation.html#cb101-27"></a>spam        <span class="dv">304</span> <span class="dv">1509</span>  <span class="fl">0.16767788</span></span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="agregation.html#cb100-1"></a>rf2 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam,<span class="dt">mtry=</span><span class="dv">1</span>)</span>
+<span id="cb100-2"><a href="agregation.html#cb100-2"></a>rf1</span>
+<span id="cb100-3"><a href="agregation.html#cb100-3"></a></span>
+<span id="cb100-4"><a href="agregation.html#cb100-4"></a>Call<span class="op">:</span></span>
+<span id="cb100-5"><a href="agregation.html#cb100-5"></a><span class="st"> </span><span class="kw">randomForest</span>(<span class="dt">formula =</span> type <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> spam) </span>
+<span id="cb100-6"><a href="agregation.html#cb100-6"></a>               Type of random forest<span class="op">:</span><span class="st"> </span>classification</span>
+<span id="cb100-7"><a href="agregation.html#cb100-7"></a>                     Number of trees<span class="op">:</span><span class="st"> </span><span class="dv">500</span></span>
+<span id="cb100-8"><a href="agregation.html#cb100-8"></a>No. of variables tried at each split<span class="op">:</span><span class="st"> </span><span class="dv">7</span></span>
+<span id="cb100-9"><a href="agregation.html#cb100-9"></a></span>
+<span id="cb100-10"><a href="agregation.html#cb100-10"></a>        OOB estimate of  error rate<span class="op">:</span><span class="st"> </span><span class="fl">4.56</span>%</span>
+<span id="cb100-11"><a href="agregation.html#cb100-11"></a>Confusion matrix<span class="op">:</span></span>
+<span id="cb100-12"><a href="agregation.html#cb100-12"></a><span class="st">        </span>nonspam spam class.error</span>
+<span id="cb100-13"><a href="agregation.html#cb100-13"></a>nonspam    <span class="dv">2711</span>   <span class="dv">77</span>  <span class="fl">0.02761836</span></span>
+<span id="cb100-14"><a href="agregation.html#cb100-14"></a>spam        <span class="dv">133</span> <span class="dv">1680</span>  <span class="fl">0.07335907</span></span>
+<span id="cb100-15"><a href="agregation.html#cb100-15"></a>rf2</span>
+<span id="cb100-16"><a href="agregation.html#cb100-16"></a></span>
+<span id="cb100-17"><a href="agregation.html#cb100-17"></a>Call<span class="op">:</span></span>
+<span id="cb100-18"><a href="agregation.html#cb100-18"></a><span class="st"> </span><span class="kw">randomForest</span>(<span class="dt">formula =</span> type <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> spam, <span class="dt">mtry =</span> <span class="dv">1</span>) </span>
+<span id="cb100-19"><a href="agregation.html#cb100-19"></a>               Type of random forest<span class="op">:</span><span class="st"> </span>classification</span>
+<span id="cb100-20"><a href="agregation.html#cb100-20"></a>                     Number of trees<span class="op">:</span><span class="st"> </span><span class="dv">500</span></span>
+<span id="cb100-21"><a href="agregation.html#cb100-21"></a>No. of variables tried at each split<span class="op">:</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb100-22"><a href="agregation.html#cb100-22"></a></span>
+<span id="cb100-23"><a href="agregation.html#cb100-23"></a>        OOB estimate of  error rate<span class="op">:</span><span class="st"> </span><span class="fl">7.89</span>%</span>
+<span id="cb100-24"><a href="agregation.html#cb100-24"></a>Confusion matrix<span class="op">:</span></span>
+<span id="cb100-25"><a href="agregation.html#cb100-25"></a><span class="st">        </span>nonspam spam class.error</span>
+<span id="cb100-26"><a href="agregation.html#cb100-26"></a>nonspam    <span class="dv">2729</span>   <span class="dv">59</span>  <span class="fl">0.02116212</span></span>
+<span id="cb100-27"><a href="agregation.html#cb100-27"></a>spam        <span class="dv">304</span> <span class="dv">1509</span>  <span class="fl">0.16767788</span></span></code></pre></div>
 <div class="corR">
 <p>
 La forêt <code>rf1</code> est plus performante en terme d’erreur de classification OOB.
 </p>
 </div></li>
 <li><p>Utiliser la fonction <strong>train</strong> du package <strong>caret</strong> pour choisir le paramètre <strong>mtry</strong> dans la grille <strong>seq(1,30,by=5)</strong>.</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="agregation.html#cb102-1"></a><span class="kw">library</span>(caret)</span>
-<span id="cb102-2"><a href="agregation.html#cb102-2"></a>grille.mtry &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">mtry=</span><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">30</span>,<span class="dt">by=</span><span class="dv">5</span>))</span>
-<span id="cb102-3"><a href="agregation.html#cb102-3"></a>ctrl &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method=</span><span class="st">&quot;oob&quot;</span>)</span>
-<span id="cb102-4"><a href="agregation.html#cb102-4"></a><span class="kw">library</span>(doParallel) <span class="co">## pour paralléliser</span></span>
-<span id="cb102-5"><a href="agregation.html#cb102-5"></a>cl &lt;-<span class="st"> </span><span class="kw">makePSOCKcluster</span>(<span class="dv">4</span>)</span>
-<span id="cb102-6"><a href="agregation.html#cb102-6"></a><span class="kw">registerDoParallel</span>(cl)</span>
-<span id="cb102-7"><a href="agregation.html#cb102-7"></a><span class="kw">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb102-8"><a href="agregation.html#cb102-8"></a>sel.mtry &lt;-<span class="st"> </span><span class="kw">train</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam,<span class="dt">method=</span><span class="st">&quot;rf&quot;</span>,<span class="dt">trControl=</span>ctrl,<span class="dt">tuneGrid=</span>grille.mtry)</span>
-<span id="cb102-9"><a href="agregation.html#cb102-9"></a><span class="kw">on.exit</span>(<span class="kw">stopCluster</span>(cl))</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="agregation.html#cb101-1"></a><span class="kw">library</span>(caret)</span>
+<span id="cb101-2"><a href="agregation.html#cb101-2"></a>grille.mtry &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">mtry=</span><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">30</span>,<span class="dt">by=</span><span class="dv">5</span>))</span>
+<span id="cb101-3"><a href="agregation.html#cb101-3"></a>ctrl &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method=</span><span class="st">&quot;oob&quot;</span>)</span>
+<span id="cb101-4"><a href="agregation.html#cb101-4"></a><span class="kw">library</span>(doParallel) <span class="co">## pour paralléliser</span></span>
+<span id="cb101-5"><a href="agregation.html#cb101-5"></a>cl &lt;-<span class="st"> </span><span class="kw">makePSOCKcluster</span>(<span class="dv">4</span>)</span>
+<span id="cb101-6"><a href="agregation.html#cb101-6"></a><span class="kw">registerDoParallel</span>(cl)</span>
+<span id="cb101-7"><a href="agregation.html#cb101-7"></a><span class="kw">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb101-8"><a href="agregation.html#cb101-8"></a>sel.mtry &lt;-<span class="st"> </span><span class="kw">train</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam,<span class="dt">method=</span><span class="st">&quot;rf&quot;</span>,<span class="dt">trControl=</span>ctrl,<span class="dt">tuneGrid=</span>grille.mtry)</span>
+<span id="cb101-9"><a href="agregation.html#cb101-9"></a><span class="kw">on.exit</span>(<span class="kw">stopCluster</span>(cl))</span></code></pre></div>
 <div class="corR">
 <p>
 On choisit
 </p>
 </div>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="agregation.html#cb103-1"></a>sel.mtry<span class="op">$</span>bestTune</span>
-<span id="cb103-2"><a href="agregation.html#cb103-2"></a>  mtry</span>
-<span id="cb103-3"><a href="agregation.html#cb103-3"></a><span class="dv">2</span>    <span class="dv">6</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="agregation.html#cb102-1"></a>sel.mtry<span class="op">$</span>bestTune</span>
+<span id="cb102-2"><a href="agregation.html#cb102-2"></a>  mtry</span>
+<span id="cb102-3"><a href="agregation.html#cb102-3"></a><span class="dv">2</span>    <span class="dv">6</span></span></code></pre></div></li>
 <li><p>Construire la forêt avec le paramètre <strong>mtry</strong> sélectionné. Calculer l’importance des variables et représenter ces importance à l’aide d’un diagramme en barres.</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="agregation.html#cb104-1"></a>rf3 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam,<span class="dt">mtry=</span><span class="kw">unlist</span>(sel.mtry<span class="op">$</span>bestTune),<span class="dt">importance=</span><span class="ot">TRUE</span>)</span>
-<span id="cb104-2"><a href="agregation.html#cb104-2"></a>Imp &lt;-<span class="st"> </span>randomForest<span class="op">::</span><span class="kw">importance</span>(rf3,<span class="dt">type=</span><span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb104-3"><a href="agregation.html#cb104-3"></a><span class="kw">mutate</span>(<span class="dt">variable=</span><span class="kw">names</span>(spam)[<span class="op">-</span><span class="dv">58</span>]) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(<span class="kw">desc</span>(MeanDecreaseAccuracy))</span>
-<span id="cb104-4"><a href="agregation.html#cb104-4"></a><span class="kw">head</span>(Imp)</span>
-<span id="cb104-5"><a href="agregation.html#cb104-5"></a>  MeanDecreaseAccuracy        variable</span>
-<span id="cb104-6"><a href="agregation.html#cb104-6"></a><span class="dv">1</span>             <span class="fl">47.58430</span> charExclamation</span>
-<span id="cb104-7"><a href="agregation.html#cb104-7"></a><span class="dv">2</span>             <span class="fl">40.83001</span>          remove</span>
-<span id="cb104-8"><a href="agregation.html#cb104-8"></a><span class="dv">3</span>             <span class="fl">40.79968</span>      charDollar</span>
-<span id="cb104-9"><a href="agregation.html#cb104-9"></a><span class="dv">4</span>             <span class="fl">40.39225</span>      capitalAve</span>
-<span id="cb104-10"><a href="agregation.html#cb104-10"></a><span class="dv">5</span>             <span class="fl">37.18721</span>            free</span>
-<span id="cb104-11"><a href="agregation.html#cb104-11"></a><span class="dv">6</span>             <span class="fl">36.17332</span>             edu</span></code></pre></div>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="agregation.html#cb105-1"></a><span class="kw">ggplot</span>(Imp) <span class="op">+</span><span class="st"> </span><span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">reorder</span>(variable,MeanDecreaseAccuracy),<span class="dt">y=</span>MeanDecreaseAccuracy)<span class="op">+</span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>)<span class="op">+</span><span class="kw">coord_flip</span>()<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span><span class="kw">theme_classic</span>()</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-151-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="agregation.html#cb103-1"></a>rf3 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam,<span class="dt">mtry=</span><span class="kw">unlist</span>(sel.mtry<span class="op">$</span>bestTune),<span class="dt">importance=</span><span class="ot">TRUE</span>)</span>
+<span id="cb103-2"><a href="agregation.html#cb103-2"></a>Imp &lt;-<span class="st"> </span>randomForest<span class="op">::</span><span class="kw">importance</span>(rf3,<span class="dt">type=</span><span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb103-3"><a href="agregation.html#cb103-3"></a><span class="kw">mutate</span>(<span class="dt">variable=</span><span class="kw">names</span>(spam)[<span class="op">-</span><span class="dv">58</span>]) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(<span class="kw">desc</span>(MeanDecreaseAccuracy))</span>
+<span id="cb103-4"><a href="agregation.html#cb103-4"></a><span class="kw">head</span>(Imp)</span>
+<span id="cb103-5"><a href="agregation.html#cb103-5"></a>  MeanDecreaseAccuracy        variable</span>
+<span id="cb103-6"><a href="agregation.html#cb103-6"></a><span class="dv">1</span>             <span class="fl">47.58430</span> charExclamation</span>
+<span id="cb103-7"><a href="agregation.html#cb103-7"></a><span class="dv">2</span>             <span class="fl">40.83001</span>          remove</span>
+<span id="cb103-8"><a href="agregation.html#cb103-8"></a><span class="dv">3</span>             <span class="fl">40.79968</span>      charDollar</span>
+<span id="cb103-9"><a href="agregation.html#cb103-9"></a><span class="dv">4</span>             <span class="fl">40.39225</span>      capitalAve</span>
+<span id="cb103-10"><a href="agregation.html#cb103-10"></a><span class="dv">5</span>             <span class="fl">37.18721</span>            free</span>
+<span id="cb103-11"><a href="agregation.html#cb103-11"></a><span class="dv">6</span>             <span class="fl">36.17332</span>             edu</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="agregation.html#cb104-1"></a><span class="kw">ggplot</span>(Imp) <span class="op">+</span><span class="st"> </span><span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">reorder</span>(variable,MeanDecreaseAccuracy),<span class="dt">y=</span>MeanDecreaseAccuracy)<span class="op">+</span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>)<span class="op">+</span><span class="kw">coord_flip</span>()<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span><span class="kw">theme_classic</span>()</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-150-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="corR">
 <p>
 La fonction <strong>vip</strong> du package <strong>vip</strong> permet de faire le diagramme en barres plus facilement
 </p>
 </div>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="agregation.html#cb106-1"></a><span class="kw">library</span>(vip)</span>
-<span id="cb106-2"><a href="agregation.html#cb106-2"></a><span class="kw">vip</span>(rf3)</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-153-1.png" width="672" style="display: block; margin: auto;" /></p></li>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="agregation.html#cb105-1"></a><span class="kw">library</span>(vip)</span>
+<span id="cb105-2"><a href="agregation.html#cb105-2"></a><span class="kw">vip</span>(rf3)</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-152-1.png" width="672" style="display: block; margin: auto;" /></p></li>
 <li><p>La fonction <strong>ranger</strong> du package <strong>ranger</strong> permet également de calculer des forêts aléatoires. Comparer les temps de calcul de cette fonction avec <strong>randomForest</strong></p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="agregation.html#cb107-1"></a><span class="kw">library</span>(ranger)</span>
-<span id="cb107-2"><a href="agregation.html#cb107-2"></a><span class="kw">system.time</span>(rf4 &lt;-<span class="st"> </span><span class="kw">ranger</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam))</span>
-<span id="cb107-3"><a href="agregation.html#cb107-3"></a>   user  system elapsed </span>
-<span id="cb107-4"><a href="agregation.html#cb107-4"></a>  <span class="fl">3.532</span>   <span class="fl">0.027</span>   <span class="fl">0.569</span> </span>
-<span id="cb107-5"><a href="agregation.html#cb107-5"></a><span class="kw">system.time</span>(rf5 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam))</span>
-<span id="cb107-6"><a href="agregation.html#cb107-6"></a>   user  system elapsed </span>
-<span id="cb107-7"><a href="agregation.html#cb107-7"></a>  <span class="fl">8.733</span>   <span class="fl">0.094</span>   <span class="fl">8.833</span> </span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="agregation.html#cb106-1"></a><span class="kw">library</span>(ranger)</span>
+<span id="cb106-2"><a href="agregation.html#cb106-2"></a><span class="kw">system.time</span>(rf4 &lt;-<span class="st"> </span><span class="kw">ranger</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam))</span>
+<span id="cb106-3"><a href="agregation.html#cb106-3"></a>   user  system elapsed </span>
+<span id="cb106-4"><a href="agregation.html#cb106-4"></a>  <span class="fl">3.532</span>   <span class="fl">0.027</span>   <span class="fl">0.569</span> </span>
+<span id="cb106-5"><a href="agregation.html#cb106-5"></a><span class="kw">system.time</span>(rf5 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam))</span>
+<span id="cb106-6"><a href="agregation.html#cb106-6"></a>   user  system elapsed </span>
+<span id="cb106-7"><a href="agregation.html#cb106-7"></a>  <span class="fl">8.733</span>   <span class="fl">0.094</span>   <span class="fl">8.833</span> </span></code></pre></div>
 <div class="corR">
 <p>
 Le temps de calcul est plus rapide avec <strong>ranger</strong>. Ce package permet une implémentation efficace des forêts aléatoires pour des données de grande dimension. on peut touver plus d’information <a href="https://arxiv.org/pdf/1508.04409.pdf">ici</a>.
@@ -383,16 +383,16 @@ Optimiser sur toutes les combinaisons d’arbres binaires se révélant souvent 
 <p>On considère un jeu de données <span class="math inline">\((x_i,y_i),i=1,\dots,200\)</span> issu d’un modèle de régression
 <span class="math display">\[y_i=m(x_i)+\varepsilon_i\]</span>
 où la vraie fonction de régression est la fonction <strong>sinus</strong> (mais on va faire comme si on ne le savait pas).</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="agregation.html#cb108-1"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi,<span class="dv">2</span><span class="op">*</span>pi,<span class="dt">by=</span><span class="fl">0.01</span>)</span>
-<span id="cb108-2"><a href="agregation.html#cb108-2"></a>y &lt;-<span class="st"> </span><span class="kw">sin</span>(x)</span>
-<span id="cb108-3"><a href="agregation.html#cb108-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb108-4"><a href="agregation.html#cb108-4"></a>X &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">200</span>,<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi,<span class="dv">2</span><span class="op">*</span>pi)</span>
-<span id="cb108-5"><a href="agregation.html#cb108-5"></a>Y &lt;-<span class="st"> </span><span class="kw">sin</span>(X)<span class="op">+</span><span class="kw">rnorm</span>(<span class="dv">200</span>,<span class="dt">sd=</span><span class="fl">0.2</span>)</span>
-<span id="cb108-6"><a href="agregation.html#cb108-6"></a>df1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(X,Y)</span>
-<span id="cb108-7"><a href="agregation.html#cb108-7"></a>df2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X=</span>x,<span class="dt">Y=</span>y)</span>
-<span id="cb108-8"><a href="agregation.html#cb108-8"></a>p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df1)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X,<span class="dt">y=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">data=</span>df2,<span class="dt">size=</span><span class="dv">1</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>)</span>
-<span id="cb108-9"><a href="agregation.html#cb108-9"></a>p1</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-156-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="agregation.html#cb107-1"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi,<span class="dv">2</span><span class="op">*</span>pi,<span class="dt">by=</span><span class="fl">0.01</span>)</span>
+<span id="cb107-2"><a href="agregation.html#cb107-2"></a>y &lt;-<span class="st"> </span><span class="kw">sin</span>(x)</span>
+<span id="cb107-3"><a href="agregation.html#cb107-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb107-4"><a href="agregation.html#cb107-4"></a>X &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">200</span>,<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi,<span class="dv">2</span><span class="op">*</span>pi)</span>
+<span id="cb107-5"><a href="agregation.html#cb107-5"></a>Y &lt;-<span class="st"> </span><span class="kw">sin</span>(X)<span class="op">+</span><span class="kw">rnorm</span>(<span class="dv">200</span>,<span class="dt">sd=</span><span class="fl">0.2</span>)</span>
+<span id="cb107-6"><a href="agregation.html#cb107-6"></a>df1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(X,Y)</span>
+<span id="cb107-7"><a href="agregation.html#cb107-7"></a>df2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X=</span>x,<span class="dt">Y=</span>y)</span>
+<span id="cb107-8"><a href="agregation.html#cb107-8"></a>p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df1)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X,<span class="dt">y=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">data=</span>df2,<span class="dt">size=</span><span class="dv">1</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>)</span>
+<span id="cb107-9"><a href="agregation.html#cb107-9"></a>p1</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-155-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ol style="list-style-type: decimal">
 <li><p>Rappeler ce que siginifie le <span class="math inline">\(L_2\)</span>-boosting.</p>
 <div class="corR">
@@ -401,26 +401,26 @@ Il s’agit de l’algorithme de gradient boosting présenté ci-dessus appliqu�
 </p>
 </div></li>
 <li><p>A l’aide de la fonction <strong>gbm</strong> du package <strong>gbm</strong> construire un algorithme de <span class="math inline">\(L_2\)</span>-boosting. On utilisera 500000 itérations et gardera les autres valeurs par défaut de paramètres.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="agregation.html#cb109-1"></a><span class="kw">library</span>(gbm)</span>
-<span id="cb109-2"><a href="agregation.html#cb109-2"></a>L2boost &lt;-<span class="st"> </span><span class="kw">gbm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df1,<span class="dt">n.trees =</span> <span class="dv">500000</span>,<span class="dt">distribution=</span><span class="st">&quot;gaussian&quot;</span>,<span class="dt">bag.fraction =</span> <span class="dv">1</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="agregation.html#cb108-1"></a><span class="kw">library</span>(gbm)</span>
+<span id="cb108-2"><a href="agregation.html#cb108-2"></a>L2boost &lt;-<span class="st"> </span><span class="kw">gbm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df1,<span class="dt">n.trees =</span> <span class="dv">500000</span>,<span class="dt">distribution=</span><span class="st">&quot;gaussian&quot;</span>,<span class="dt">bag.fraction =</span> <span class="dv">1</span>)</span></code></pre></div></li>
 <li><p>Visualiser l’estimateur à la première itération. On pourra faire un <strong>predict</strong> avec l’option <code>n.trees</code>.</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="agregation.html#cb110-1"></a>prev1 &lt;-<span class="st"> </span><span class="kw">predict</span>(L2boost,<span class="dt">newdata=</span>df2,<span class="dt">n.trees=</span><span class="dv">1</span>)</span>
-<span id="cb110-2"><a href="agregation.html#cb110-2"></a>df3 &lt;-<span class="st"> </span>df2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">vraie=</span>Y) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="st">`</span><span class="dt">M=1</span><span class="st">`</span>=prev1)</span>
-<span id="cb110-3"><a href="agregation.html#cb110-3"></a>df4 &lt;-<span class="st"> </span>df3 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(<span class="op">-</span>X,<span class="dt">names_to=</span><span class="st">&quot;courbes&quot;</span>,<span class="dt">values_to=</span><span class="st">&quot;prev&quot;</span>)</span>
-<span id="cb110-4"><a href="agregation.html#cb110-4"></a><span class="kw">ggplot</span>(df4)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X,<span class="dt">y=</span>prev,<span class="dt">color=</span>courbes)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">size=</span><span class="dv">1</span>)</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-159-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="agregation.html#cb109-1"></a>prev1 &lt;-<span class="st"> </span><span class="kw">predict</span>(L2boost,<span class="dt">newdata=</span>df2,<span class="dt">n.trees=</span><span class="dv">1</span>)</span>
+<span id="cb109-2"><a href="agregation.html#cb109-2"></a>df3 &lt;-<span class="st"> </span>df2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">vraie=</span>Y) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="st">`</span><span class="dt">M=1</span><span class="st">`</span>=prev1)</span>
+<span id="cb109-3"><a href="agregation.html#cb109-3"></a>df4 &lt;-<span class="st"> </span>df3 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(<span class="op">-</span>X,<span class="dt">names_to=</span><span class="st">&quot;courbes&quot;</span>,<span class="dt">values_to=</span><span class="st">&quot;prev&quot;</span>)</span>
+<span id="cb109-4"><a href="agregation.html#cb109-4"></a><span class="kw">ggplot</span>(df4)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X,<span class="dt">y=</span>prev,<span class="dt">color=</span>courbes)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">size=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-158-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="corR">
 <p>
 On remarque que l’estimateur est un arbre avec une seule coupure.
 </p>
 </div></li>
 <li><p>Faire de même pour les itérations 1000 et 500000.</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="agregation.html#cb111-1"></a>prev1000 &lt;-<span class="st"> </span><span class="kw">predict</span>(L2boost,<span class="dt">newdata=</span>df2,<span class="dt">n.trees=</span><span class="dv">1000</span>)</span>
-<span id="cb111-2"><a href="agregation.html#cb111-2"></a>prev500000 &lt;-<span class="st"> </span><span class="kw">predict</span>(L2boost,<span class="dt">newdata=</span>df2,<span class="dt">n.trees=</span><span class="dv">500000</span>)</span>
-<span id="cb111-3"><a href="agregation.html#cb111-3"></a>df31 &lt;-<span class="st"> </span>df3 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="st">`</span><span class="dt">M=1000</span><span class="st">`</span>=prev1000,<span class="st">`</span><span class="dt">M=500000</span><span class="st">`</span>=prev500000)</span>
-<span id="cb111-4"><a href="agregation.html#cb111-4"></a>df41 &lt;-<span class="st"> </span>df31 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(<span class="op">-</span>X,<span class="dt">names_to=</span><span class="st">&quot;courbes&quot;</span>,<span class="dt">values_to=</span><span class="st">&quot;prev&quot;</span>)</span>
-<span id="cb111-5"><a href="agregation.html#cb111-5"></a><span class="kw">ggplot</span>(df41)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X,<span class="dt">y=</span>prev,<span class="dt">color=</span>courbes)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">size=</span><span class="dv">1</span>)</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-161-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="agregation.html#cb110-1"></a>prev1000 &lt;-<span class="st"> </span><span class="kw">predict</span>(L2boost,<span class="dt">newdata=</span>df2,<span class="dt">n.trees=</span><span class="dv">1000</span>)</span>
+<span id="cb110-2"><a href="agregation.html#cb110-2"></a>prev500000 &lt;-<span class="st"> </span><span class="kw">predict</span>(L2boost,<span class="dt">newdata=</span>df2,<span class="dt">n.trees=</span><span class="dv">500000</span>)</span>
+<span id="cb110-3"><a href="agregation.html#cb110-3"></a>df31 &lt;-<span class="st"> </span>df3 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="st">`</span><span class="dt">M=1000</span><span class="st">`</span>=prev1000,<span class="st">`</span><span class="dt">M=500000</span><span class="st">`</span>=prev500000)</span>
+<span id="cb110-4"><a href="agregation.html#cb110-4"></a>df41 &lt;-<span class="st"> </span>df31 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(<span class="op">-</span>X,<span class="dt">names_to=</span><span class="st">&quot;courbes&quot;</span>,<span class="dt">values_to=</span><span class="st">&quot;prev&quot;</span>)</span>
+<span id="cb110-5"><a href="agregation.html#cb110-5"></a><span class="kw">ggplot</span>(df41)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X,<span class="dt">y=</span>prev,<span class="dt">color=</span>courbes)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">size=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-160-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="corR">
 <p>
 On surajuste lorsque le nombre d’itérations est trop important.
@@ -432,34 +432,34 @@ On surajuste lorsque le nombre d’itérations est trop important.
 On propose de faire une validation hold out. C’est assez facile avec <strong>gbm</strong> il suffit de renseigner l’option <code>train.fraction</code> de <strong>gbm</strong>.
 </p>
 </div>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="agregation.html#cb112-1"></a><span class="co">#parallel:::setDefaultClusterOptions(setup_strategy = &quot;sequential&quot;)</span></span>
-<span id="cb112-2"><a href="agregation.html#cb112-2"></a>L2boost.sel &lt;-<span class="st"> </span><span class="kw">gbm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df1,<span class="dt">n.trees =</span> <span class="dv">10000</span>,<span class="dt">distribution=</span><span class="st">&quot;gaussian&quot;</span>,</span>
-<span id="cb112-3"><a href="agregation.html#cb112-3"></a>           <span class="dt">bag.fraction =</span> <span class="dv">1</span>,<span class="dt">train.fraction=</span><span class="fl">0.75</span>)</span>
-<span id="cb112-4"><a href="agregation.html#cb112-4"></a><span class="kw">gbm.perf</span>(L2boost.sel)</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-164-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="agregation.html#cb111-1"></a><span class="co">#parallel:::setDefaultClusterOptions(setup_strategy = &quot;sequential&quot;)</span></span>
+<span id="cb111-2"><a href="agregation.html#cb111-2"></a>L2boost.sel &lt;-<span class="st"> </span><span class="kw">gbm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df1,<span class="dt">n.trees =</span> <span class="dv">10000</span>,<span class="dt">distribution=</span><span class="st">&quot;gaussian&quot;</span>,</span>
+<span id="cb111-3"><a href="agregation.html#cb111-3"></a>           <span class="dt">bag.fraction =</span> <span class="dv">1</span>,<span class="dt">train.fraction=</span><span class="fl">0.75</span>)</span>
+<span id="cb111-4"><a href="agregation.html#cb111-4"></a><span class="kw">gbm.perf</span>(L2boost.sel)</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-163-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>[1] 4787</code></pre></li>
 </ol>
 </div>
 <div id="adaboost-et-logitboost-pour-la-classification-binaire." class="section level3">
 <h3><span class="header-section-number">4.2.2</span> Adaboost et logitboost pour la classification binaire.</h3>
 <p>On considère le jeu de données <strong>spam</strong> du package <strong>kernlab</strong>.</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="agregation.html#cb114-1"></a><span class="kw">library</span>(kernlab)</span>
-<span id="cb114-2"><a href="agregation.html#cb114-2"></a><span class="kw">data</span>(spam)</span>
-<span id="cb114-3"><a href="agregation.html#cb114-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb114-4"><a href="agregation.html#cb114-4"></a>spam &lt;-<span class="st"> </span>spam[<span class="kw">sample</span>(<span class="kw">nrow</span>(spam)),]</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="agregation.html#cb113-1"></a><span class="kw">library</span>(kernlab)</span>
+<span id="cb113-2"><a href="agregation.html#cb113-2"></a><span class="kw">data</span>(spam)</span>
+<span id="cb113-3"><a href="agregation.html#cb113-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb113-4"><a href="agregation.html#cb113-4"></a>spam &lt;-<span class="st"> </span>spam[<span class="kw">sample</span>(<span class="kw">nrow</span>(spam)),]</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>Exécuter la commande</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="agregation.html#cb115-1"></a>model_ada1 &lt;-<span class="st"> </span><span class="kw">gbm</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam,<span class="dt">distribution=</span><span class="st">&quot;adaboost&quot;</span>,<span class="dt">interaction.depth=</span><span class="dv">2</span>,<span class="dt">shrinkage=</span><span class="fl">0.05</span>,<span class="dt">n.trees=</span><span class="dv">500</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="agregation.html#cb114-1"></a>model_ada1 &lt;-<span class="st"> </span><span class="kw">gbm</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam,<span class="dt">distribution=</span><span class="st">&quot;adaboost&quot;</span>,<span class="dt">interaction.depth=</span><span class="dv">2</span>,<span class="dt">shrinkage=</span><span class="fl">0.05</span>,<span class="dt">n.trees=</span><span class="dv">500</span>)</span></code></pre></div></li>
 <li><p>Proposer une correction permettant de faire fonctionner l’algorithme.</p>
 <div class="corR">
 <p>
 Il est nécessaire que la variable qualitative à expliquer soit codée 0-1 pour adaboost.
 </p>
 </div>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="agregation.html#cb116-1"></a>spam1 &lt;-<span class="st"> </span>spam</span>
-<span id="cb116-2"><a href="agregation.html#cb116-2"></a>spam1<span class="op">$</span>type &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(spam1<span class="op">$</span>type)<span class="op">-</span><span class="dv">1</span></span>
-<span id="cb116-3"><a href="agregation.html#cb116-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb116-4"><a href="agregation.html#cb116-4"></a>model_ada1 &lt;-<span class="st"> </span><span class="kw">gbm</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam1,<span class="dt">distribution=</span><span class="st">&quot;adaboost&quot;</span>,<span class="dt">interaction.depth=</span><span class="dv">2</span>,<span class="dt">shrinkage=</span><span class="fl">0.05</span>,<span class="dt">n.trees=</span><span class="dv">500</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="agregation.html#cb115-1"></a>spam1 &lt;-<span class="st"> </span>spam</span>
+<span id="cb115-2"><a href="agregation.html#cb115-2"></a>spam1<span class="op">$</span>type &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(spam1<span class="op">$</span>type)<span class="op">-</span><span class="dv">1</span></span>
+<span id="cb115-3"><a href="agregation.html#cb115-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb115-4"><a href="agregation.html#cb115-4"></a>model_ada1 &lt;-<span class="st"> </span><span class="kw">gbm</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam1,<span class="dt">distribution=</span><span class="st">&quot;adaboost&quot;</span>,<span class="dt">interaction.depth=</span><span class="dv">2</span>,<span class="dt">shrinkage=</span><span class="fl">0.05</span>,<span class="dt">n.trees=</span><span class="dv">500</span>)</span></code></pre></div></li>
 <li><p>Expliciter le modèle ajusté par la commande précédente.</p>
 <div class="corR">
 <p>
@@ -467,8 +467,8 @@ L’algorithme <strong>gbm</strong> est une descente de gradient qui minimise la
 </p>
 </div></li>
 <li><p>Effectuer un <strong>summary</strong> du modèle ajusté. Expliquer la sortie.</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="agregation.html#cb117-1"></a><span class="kw">summary</span>(model_ada1)</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-170-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="agregation.html#cb116-1"></a><span class="kw">summary</span>(model_ada1)</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-169-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre style="max-height: 500px;"><code>                                var     rel.inf
 charExclamation     charExclamation 20.04035224
 charDollar               charDollar 17.51535261
@@ -533,21 +533,21 @@ On obtient un indicateur qui permet de mesurer l’importance des variable dans 
 </p>
 </div></li>
 <li><p>Utiliser la fonction <strong>vip</strong> du package <strong>vip</strong> pour retrouver ce sorties.</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="agregation.html#cb119-1"></a><span class="kw">library</span>(vip)</span>
-<span id="cb119-2"><a href="agregation.html#cb119-2"></a><span class="kw">vip</span>(model_ada1,<span class="dt">num_features =</span> 20L)</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-172-1.png" width="672" style="display: block; margin: auto;" /></p></li>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="agregation.html#cb118-1"></a><span class="kw">library</span>(vip)</span>
+<span id="cb118-2"><a href="agregation.html#cb118-2"></a><span class="kw">vip</span>(model_ada1,<span class="dt">num_features =</span> 20L)</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-171-1.png" width="672" style="display: block; margin: auto;" /></p></li>
 <li><p>Sélectionner le nombre d’itérations pour l’algorithme adaboost en faisant de la validation croisée 5 blocs.</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="agregation.html#cb120-1"></a>model_ada2 &lt;-<span class="st"> </span><span class="kw">gbm</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam1,<span class="dt">distribution=</span><span class="st">&quot;adaboost&quot;</span>,<span class="dt">interaction.depth=</span><span class="dv">2</span>,<span class="dt">bag.fraction=</span><span class="dv">1</span>,<span class="dt">cv.folds =</span> <span class="dv">5</span>,<span class="dt">n.trees=</span><span class="dv">500</span>)</span>
-<span id="cb120-2"><a href="agregation.html#cb120-2"></a><span class="kw">gbm.perf</span>(model_ada2)</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="agregation.html#cb119-1"></a>model_ada2 &lt;-<span class="st"> </span><span class="kw">gbm</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam1,<span class="dt">distribution=</span><span class="st">&quot;adaboost&quot;</span>,<span class="dt">interaction.depth=</span><span class="dv">2</span>,<span class="dt">bag.fraction=</span><span class="dv">1</span>,<span class="dt">cv.folds =</span> <span class="dv">5</span>,<span class="dt">n.trees=</span><span class="dv">500</span>)</span>
+<span id="cb119-2"><a href="agregation.html#cb119-2"></a><span class="kw">gbm.perf</span>(model_ada2)</span></code></pre></div>
 <p><img src="TUTO_ML_files/figure-html/cv-ada1-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>[1] 233</code></pre></li>
 <li><p>Faire la même procédure en changeant la valeur du paramètre <strong>shrinkage</strong>. Interpréter.</p>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="agregation.html#cb122-1"></a>model_ada3 &lt;-<span class="st"> </span><span class="kw">gbm</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam1,<span class="dt">distribution=</span><span class="st">&quot;adaboost&quot;</span>,<span class="dt">interaction.depth=</span><span class="dv">2</span>,<span class="dt">bag.fraction=</span><span class="dv">1</span>,<span class="dt">cv.folds =</span> <span class="dv">5</span>,<span class="dt">n.trees=</span><span class="dv">500</span>,<span class="dt">shrinkage=</span><span class="fl">0.05</span>)</span>
-<span id="cb122-2"><a href="agregation.html#cb122-2"></a><span class="kw">gbm.perf</span>(model_ada3)</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="agregation.html#cb121-1"></a>model_ada3 &lt;-<span class="st"> </span><span class="kw">gbm</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam1,<span class="dt">distribution=</span><span class="st">&quot;adaboost&quot;</span>,<span class="dt">interaction.depth=</span><span class="dv">2</span>,<span class="dt">bag.fraction=</span><span class="dv">1</span>,<span class="dt">cv.folds =</span> <span class="dv">5</span>,<span class="dt">n.trees=</span><span class="dv">500</span>,<span class="dt">shrinkage=</span><span class="fl">0.05</span>)</span>
+<span id="cb121-2"><a href="agregation.html#cb121-2"></a><span class="kw">gbm.perf</span>(model_ada3)</span></code></pre></div>
 <p><img src="TUTO_ML_files/figure-html/cv-ada2-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>[1] 370</code></pre>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="agregation.html#cb124-1"></a>model_ada4 &lt;-<span class="st"> </span><span class="kw">gbm</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam1,<span class="dt">distribution=</span><span class="st">&quot;adaboost&quot;</span>,<span class="dt">interaction.depth=</span><span class="dv">2</span>,<span class="dt">bag.fraction=</span><span class="dv">1</span>,<span class="dt">cv.folds =</span> <span class="dv">5</span>,<span class="dt">n.trees=</span><span class="dv">500</span>,<span class="dt">shrinkage=</span><span class="fl">0.5</span>)</span>
-<span id="cb124-2"><a href="agregation.html#cb124-2"></a><span class="kw">gbm.perf</span>(model_ada4)</span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="agregation.html#cb123-1"></a>model_ada4 &lt;-<span class="st"> </span><span class="kw">gbm</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam1,<span class="dt">distribution=</span><span class="st">&quot;adaboost&quot;</span>,<span class="dt">interaction.depth=</span><span class="dv">2</span>,<span class="dt">bag.fraction=</span><span class="dv">1</span>,<span class="dt">cv.folds =</span> <span class="dv">5</span>,<span class="dt">n.trees=</span><span class="dv">500</span>,<span class="dt">shrinkage=</span><span class="fl">0.5</span>)</span>
+<span id="cb123-2"><a href="agregation.html#cb123-2"></a><span class="kw">gbm.perf</span>(model_ada4)</span></code></pre></div>
 <p><img src="TUTO_ML_files/figure-html/cv-ada3-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>[1] 36</code></pre>
 <div class="corR">
@@ -561,9 +561,9 @@ Le nombre d’itérations optimal augmente lorsque <strong>shrinkage</strong> di
 La seule différence se situe au niveau de la <strong>fonction de perte</strong>, adaboost utilise <span class="math display"><span class="math display">\[\exp(-yg(x))\]</span></span> tandis que logitboost utilise <span class="math display"><span class="math display">\[\log(1+\exp(-2yg(x)))\]</span></span> Avec <strong>gbm</strong> il faudra utiliser l’option <code>distribution=“bernoulli”</code> pour faire du logitboost, par exemple :
 </p>
 </div>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="agregation.html#cb126-1"></a><span class="kw">set.seed</span>(<span class="dv">4321</span>)</span>
-<span id="cb126-2"><a href="agregation.html#cb126-2"></a>logitboost &lt;-<span class="st"> </span><span class="kw">gbm</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam1,<span class="dt">distribution=</span><span class="st">&quot;bernoulli&quot;</span>,<span class="dt">interaction.depth=</span><span class="dv">2</span>,<span class="dt">bag.fraction=</span><span class="dv">1</span>,<span class="dt">cv.folds =</span> <span class="dv">5</span>,<span class="dt">n.trees=</span><span class="dv">500</span>,<span class="dt">shrinkage=</span><span class="fl">0.4</span>)</span>
-<span id="cb126-3"><a href="agregation.html#cb126-3"></a><span class="kw">gbm.perf</span>(logitboost)</span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="agregation.html#cb125-1"></a><span class="kw">set.seed</span>(<span class="dv">4321</span>)</span>
+<span id="cb125-2"><a href="agregation.html#cb125-2"></a>logitboost &lt;-<span class="st"> </span><span class="kw">gbm</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam1,<span class="dt">distribution=</span><span class="st">&quot;bernoulli&quot;</span>,<span class="dt">interaction.depth=</span><span class="dv">2</span>,<span class="dt">bag.fraction=</span><span class="dv">1</span>,<span class="dt">cv.folds =</span> <span class="dv">5</span>,<span class="dt">n.trees=</span><span class="dv">500</span>,<span class="dt">shrinkage=</span><span class="fl">0.4</span>)</span>
+<span id="cb125-3"><a href="agregation.html#cb125-3"></a><span class="kw">gbm.perf</span>(logitboost)</span></code></pre></div>
 <p><img src="TUTO_ML_files/figure-html/cv-logitboost-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>[1] 288</code></pre></li>
 </ol>
