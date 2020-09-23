@@ -17,7 +17,7 @@ bookdown::gitbook:
         family: sans
     highlight: tango #default #tango  
         
-    download: ["pdf", "epub"]
+    download: ["pdf"]
 bookdown::pdf_book:
   includes:
 #    in_header: preamble.tex

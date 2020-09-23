@@ -24,7 +24,7 @@
 <meta name="author" content="Laurent Rouvière" />
 
 
-<meta name="date" content="2020-09-11" />
+<meta name="date" content="2020-09-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -306,10 +306,10 @@ La fonction <strong>plot</strong> permet de visualiser la perte et la performanc
 <li><p>Comparer les performances des deux perceptrons sur les données de validation à l’aide de la fonction <strong>evaluate</strong>.</p>
 <div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="deep.html#cb142-1"></a>percep.sig <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">evaluate</span>(validX,validY)</span>
 <span id="cb142-2"><a href="deep.html#cb142-2"></a>      loss   accuracy </span>
-<span id="cb142-3"><a href="deep.html#cb142-3"></a><span class="fl">27.7081203</span>  <span class="fl">0.4097439</span> </span>
+<span id="cb142-3"><a href="deep.html#cb142-3"></a><span class="fl">18.3507481</span>  <span class="fl">0.4297314</span> </span>
 <span id="cb142-4"><a href="deep.html#cb142-4"></a>percep.soft <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">evaluate</span>(validX,validY1)</span>
-<span id="cb142-5"><a href="deep.html#cb142-5"></a>     loss  accuracy </span>
-<span id="cb142-6"><a href="deep.html#cb142-6"></a><span class="fl">5.9358535</span> <span class="fl">0.6002498</span> </span></code></pre></div></li>
+<span id="cb142-5"><a href="deep.html#cb142-5"></a>    loss accuracy </span>
+<span id="cb142-6"><a href="deep.html#cb142-6"></a><span class="fl">6.059687</span> <span class="fl">0.572767</span> </span></code></pre></div></li>
 <li><p>Construire un ou deux réseaux avec deux couches cachées. On pourra faire varier les nombre de neurones dans ces couches. Comparer les performances des réseaux construits.</p>
 <div class="corR">
 <p>
@@ -335,7 +335,7 @@ On propose tout d’abord 2 couches cachées composées de 100 neurones :
 <span id="cb145-8"><a href="deep.html#cb145-8"></a>)</span></code></pre></div>
 <div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="deep.html#cb146-1"></a>mod2c <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">evaluate</span>(validX,validY)</span>
 <span id="cb146-2"><a href="deep.html#cb146-2"></a>     loss  accuracy </span>
-<span id="cb146-3"><a href="deep.html#cb146-3"></a><span class="fl">0.6920030</span> <span class="fl">0.6008744</span> </span></code></pre></div>
+<span id="cb146-3"><a href="deep.html#cb146-3"></a><span class="fl">0.6943125</span> <span class="fl">0.3991255</span> </span></code></pre></div>
 <div class="corR">
 <p>
 On propose ici 50 neurones pour la première couche cachée et 30 neurones pour la seconde. On ajoute de plus un <strong>dropout</strong> dans la première couche cachée (permet généralement d’éviter le sur-apprentissage, mais pas forcément utile ici).
@@ -366,7 +366,7 @@ On évalue la performance sur les données test :
 </div>
 <div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="deep.html#cb150-1"></a>mod2cd <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">evaluate</span>(validX,validY)</span>
 <span id="cb150-2"><a href="deep.html#cb150-2"></a>     loss  accuracy </span>
-<span id="cb150-3"><a href="deep.html#cb150-3"></a><span class="fl">0.6922378</span> <span class="fl">0.6008744</span> </span></code></pre></div></li>
+<span id="cb150-3"><a href="deep.html#cb150-3"></a><span class="fl">0.7095124</span> <span class="fl">0.3991255</span> </span></code></pre></div></li>
 </ol>
 
 </div>
@@ -418,7 +418,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["TUTO_ML.pdf", "TUTO_ML.epub"],
+"download": ["TUTO_ML.pdf"],
 "toc": {
 "collapse": "subsection",
 "sharing": {

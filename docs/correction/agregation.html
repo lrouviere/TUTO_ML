@@ -24,7 +24,7 @@
 <meta name="author" content="Laurent Rouvière" />
 
 
-<meta name="date" content="2020-09-11" />
+<meta name="date" content="2020-09-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -336,10 +336,10 @@ La fonction <strong>vip</strong> du package <strong>vip</strong> permet de faire
 <div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="agregation.html#cb107-1"></a><span class="kw">library</span>(ranger)</span>
 <span id="cb107-2"><a href="agregation.html#cb107-2"></a><span class="kw">system.time</span>(rf4 &lt;-<span class="st"> </span><span class="kw">ranger</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam))</span>
 <span id="cb107-3"><a href="agregation.html#cb107-3"></a>   user  system elapsed </span>
-<span id="cb107-4"><a href="agregation.html#cb107-4"></a>  <span class="fl">2.117</span>   <span class="fl">0.019</span>   <span class="fl">0.673</span> </span>
+<span id="cb107-4"><a href="agregation.html#cb107-4"></a>  <span class="fl">3.532</span>   <span class="fl">0.027</span>   <span class="fl">0.569</span> </span>
 <span id="cb107-5"><a href="agregation.html#cb107-5"></a><span class="kw">system.time</span>(rf5 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam))</span>
 <span id="cb107-6"><a href="agregation.html#cb107-6"></a>   user  system elapsed </span>
-<span id="cb107-7"><a href="agregation.html#cb107-7"></a>  <span class="fl">8.823</span>   <span class="fl">0.086</span>   <span class="fl">8.920</span> </span></code></pre></div>
+<span id="cb107-7"><a href="agregation.html#cb107-7"></a>  <span class="fl">8.733</span>   <span class="fl">0.094</span>   <span class="fl">8.833</span> </span></code></pre></div>
 <div class="corR">
 <p>
 Le temps de calcul est plus rapide avec <strong>ranger</strong>. Ce package permet une implémentation efficace des forêts aléatoires pour des données de grande dimension. on peut touver plus d’information <a href="https://arxiv.org/pdf/1508.04409.pdf">ici</a>.
@@ -631,7 +631,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["TUTO_ML.pdf", "TUTO_ML.epub"],
+"download": ["TUTO_ML.pdf"],
 "toc": {
 "collapse": "subsection",
 "sharing": {
