@@ -24,7 +24,7 @@
 <meta name="author" content="Laurent Rouvière" />
 
 
-<meta name="date" content="2020-09-23" />
+<meta name="date" content="2020-10-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -236,7 +236,7 @@ où
 <span id="cb26-5"><a href="arbres.html#cb26-5"></a>Y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">*</span>X<span class="op">*</span>(X<span class="op">&lt;=</span><span class="fl">0.6</span>)<span class="op">+</span>(<span class="op">-</span><span class="dv">1</span><span class="op">*</span>X<span class="fl">+3.2</span>)<span class="op">*</span>(X<span class="op">&gt;</span><span class="fl">0.6</span>)<span class="op">+</span><span class="kw">rnorm</span>(n,<span class="dt">sd=</span><span class="fl">0.1</span>)</span>
 <span id="cb26-6"><a href="arbres.html#cb26-6"></a>data1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(X,Y)</span>
 <span id="cb26-7"><a href="arbres.html#cb26-7"></a><span class="kw">ggplot</span>(data1)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X,<span class="dt">y=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-80-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-79-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ol style="list-style-type: decimal">
 <li><p>A l’aide de la fonction <strong>rpart</strong> du package <strong>rpart</strong>, construire un arbre permettant d’expliquer <span class="math inline">\(Y\)</span> par <span class="math inline">\(X\)</span>.</p></li>
 <li><p>Visualiser l’arbre à l’aide des fonctions <strong>prp</strong> et <strong>rpart.plot</strong> du package <strong>rpart.plot</strong>.</p></li>
@@ -260,7 +260,7 @@ où
 <span id="cb27-11"><a href="arbres.html#cb27-11"></a>data2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(X1,X2,Y)</span>
 <span id="cb27-12"><a href="arbres.html#cb27-12"></a><span class="kw">ggplot</span>(data2)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X1,<span class="dt">y=</span>X2,<span class="dt">color=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="dv">2</span>)<span class="op">+</span><span class="kw">scale_x_continuous</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>)<span class="op">+</span></span>
 <span id="cb27-13"><a href="arbres.html#cb27-13"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>)<span class="op">+</span><span class="kw">theme_classic</span>()</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-86-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-85-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ol style="list-style-type: decimal">
 <li><p>Construire un arbre permettant d’expliquer <span class="math inline">\(Y\)</span> par <span class="math inline">\(X_1\)</span> et <span class="math inline">\(X_2\)</span>. Représenter l’arbre et identifier l’éventuel problème.</p></li>
 <li><p>Écrire la règle de classification ainsi que la fonction de score définies par l’arbre.</p></li>

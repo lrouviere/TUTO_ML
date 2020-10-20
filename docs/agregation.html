@@ -24,7 +24,7 @@
 <meta name="author" content="Laurent Rouvière" />
 
 
-<meta name="date" content="2020-09-23" />
+<meta name="date" content="2020-10-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -289,7 +289,7 @@ où la vraie fonction de régression est la fonction <strong>sinus</strong> (mai
 <span id="cb37-7"><a href="agregation.html#cb37-7"></a>df2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X=</span>x,<span class="dt">Y=</span>y)</span>
 <span id="cb37-8"><a href="agregation.html#cb37-8"></a>p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df1)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X,<span class="dt">y=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">data=</span>df2,<span class="dt">size=</span><span class="dv">1</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>)</span>
 <span id="cb37-9"><a href="agregation.html#cb37-9"></a>p1</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-156-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-155-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ol style="list-style-type: decimal">
 <li><p>Rappeler ce que siginifie le <span class="math inline">\(L_2\)</span>-boosting.</p></li>
 <li><p>A l’aide de la fonction <strong>gbm</strong> du package <strong>gbm</strong> construire un algorithme de <span class="math inline">\(L_2\)</span>-boosting. On utilisera 500000 itérations et gardera les autres valeurs par défaut de paramètres.</p></li>
