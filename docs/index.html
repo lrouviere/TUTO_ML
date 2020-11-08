@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Machine learning</title>
   <meta name="description" content="Machine learning" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Machine learning" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Laurent Rouvière" />
 
 
-<meta name="date" content="2020-10-25" />
+<meta name="date" content="2020-11-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -51,6 +51,8 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -150,7 +152,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="SVM.html"><a href="SVM.html#cas-non-séparable"><i class="fa fa-check"></i><b>2.2</b> Cas non séparable</a></li>
 <li class="chapter" data-level="2.3" data-path="SVM.html"><a href="SVM.html#lastuce-du-noyau"><i class="fa fa-check"></i><b>2.3</b> L’astuce du noyau</a></li>
 <li class="chapter" data-level="2.4" data-path="SVM.html"><a href="SVM.html#support-vector-régression"><i class="fa fa-check"></i><b>2.4</b> Support vector régression</a></li>
-<li class="chapter" data-level="2.5" data-path="SVM.html"><a href="SVM.html#exercices"><i class="fa fa-check"></i><b>2.5</b> Exercices</a></li>
+<li class="chapter" data-level="2.5" data-path="SVM.html"><a href="SVM.html#svm-sur-les-données-spam"><i class="fa fa-check"></i><b>2.5</b> SVM sur les données spam</a></li>
+<li class="chapter" data-level="2.6" data-path="SVM.html"><a href="SVM.html#exercices"><i class="fa fa-check"></i><b>2.6</b> Exercices</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="arbres.html"><a href="arbres.html"><i class="fa fa-check"></i><b>3</b> Arbres</a><ul>
 <li class="chapter" data-level="3.1" data-path="arbres.html"><a href="arbres.html#coupures-cart-en-fonction-de-la-nature-des-variables"><i class="fa fa-check"></i><b>3.1</b> Coupures CART en fonction de la nature des variables</a><ul>
@@ -168,9 +171,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="agregation.html"><a href="agregation.html#boosting"><i class="fa fa-check"></i><b>4.2</b> Gradient boosting</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="agregation.html"><a href="agregation.html#un-exemple-simple-en-régression"><i class="fa fa-check"></i><b>4.2.1</b> Un exemple simple en régression</a></li>
 <li class="chapter" data-level="4.2.2" data-path="agregation.html"><a href="agregation.html#adaboost-et-logitboost-pour-la-classification-binaire."><i class="fa fa-check"></i><b>4.2.2</b> Adaboost et logitboost pour la classification binaire.</a></li>
+<li class="chapter" data-level="4.2.3" data-path="agregation.html"><a href="agregation.html#exo:grad-boost"><i class="fa fa-check"></i><b>4.2.3</b> Exercices</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="deep.html"><a href="deep.html"><i class="fa fa-check"></i><b>5</b> Réseaux de neurones avec Keras</a></li>
+<li class="chapter" data-level="6" data-path="dondes.html"><a href="dondes.html"><i class="fa fa-check"></i><b>6</b> Données déséquilibrées</a><ul>
+<li class="chapter" data-level="6.1" data-path="dondes.html"><a href="dondes.html#critères-de-performance-pour-données-déséquilibrées"><i class="fa fa-check"></i><b>6.1</b> Critères de performance pour données déséquilibrées</a></li>
+<li class="chapter" data-level="6.2" data-path="dondes.html"><a href="dondes.html#ré-équilibrage"><i class="fa fa-check"></i><b>6.2</b> Ré-équilibrage</a></li>
+<li class="chapter" data-level="6.3" data-path="dondes.html"><a href="dondes.html#exercices-supplémantaires"><i class="fa fa-check"></i><b>6.3</b> Exercices supplémantaires</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="comp-algo.html"><a href="comp-algo.html"><i class="fa fa-check"></i><b>7</b> Comparaison d’algorithmes</a></li>
 <li class="chapter" data-level="" data-path="références.html"><a href="références.html"><i class="fa fa-check"></i>Références</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -195,7 +205,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Machine learning</h1>
 <p class="author"><em>Laurent Rouvière</em></p>
-<p class="date"><em>2020-10-25</em></p>
+<p class="date"><em>2020-11-08</em></p>
 </div>
 <div id="Presentation" class="section level1 unnumbered">
 <h1>Présentation</h1>

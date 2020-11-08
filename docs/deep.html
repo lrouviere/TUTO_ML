@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapitre 5 Réseaux de neurones avec Keras | Machine learning</title>
   <meta name="description" content="Chapitre 5 Réseaux de neurones avec Keras | Machine learning" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapitre 5 Réseaux de neurones avec Keras | Machine learning" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Laurent Rouvière" />
 
 
-<meta name="date" content="2020-10-25" />
+<meta name="date" content="2020-11-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="agregation.html"/>
-<link rel="next" href="références.html"/>
+<link rel="next" href="dondes.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,6 +51,8 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -150,7 +152,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="SVM.html"><a href="SVM.html#cas-non-séparable"><i class="fa fa-check"></i><b>2.2</b> Cas non séparable</a></li>
 <li class="chapter" data-level="2.3" data-path="SVM.html"><a href="SVM.html#lastuce-du-noyau"><i class="fa fa-check"></i><b>2.3</b> L’astuce du noyau</a></li>
 <li class="chapter" data-level="2.4" data-path="SVM.html"><a href="SVM.html#support-vector-régression"><i class="fa fa-check"></i><b>2.4</b> Support vector régression</a></li>
-<li class="chapter" data-level="2.5" data-path="SVM.html"><a href="SVM.html#exercices"><i class="fa fa-check"></i><b>2.5</b> Exercices</a></li>
+<li class="chapter" data-level="2.5" data-path="SVM.html"><a href="SVM.html#svm-sur-les-données-spam"><i class="fa fa-check"></i><b>2.5</b> SVM sur les données spam</a></li>
+<li class="chapter" data-level="2.6" data-path="SVM.html"><a href="SVM.html#exercices"><i class="fa fa-check"></i><b>2.6</b> Exercices</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="arbres.html"><a href="arbres.html"><i class="fa fa-check"></i><b>3</b> Arbres</a><ul>
 <li class="chapter" data-level="3.1" data-path="arbres.html"><a href="arbres.html#coupures-cart-en-fonction-de-la-nature-des-variables"><i class="fa fa-check"></i><b>3.1</b> Coupures CART en fonction de la nature des variables</a><ul>
@@ -168,9 +171,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="agregation.html"><a href="agregation.html#boosting"><i class="fa fa-check"></i><b>4.2</b> Gradient boosting</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="agregation.html"><a href="agregation.html#un-exemple-simple-en-régression"><i class="fa fa-check"></i><b>4.2.1</b> Un exemple simple en régression</a></li>
 <li class="chapter" data-level="4.2.2" data-path="agregation.html"><a href="agregation.html#adaboost-et-logitboost-pour-la-classification-binaire."><i class="fa fa-check"></i><b>4.2.2</b> Adaboost et logitboost pour la classification binaire.</a></li>
+<li class="chapter" data-level="4.2.3" data-path="agregation.html"><a href="agregation.html#exo:grad-boost"><i class="fa fa-check"></i><b>4.2.3</b> Exercices</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="deep.html"><a href="deep.html"><i class="fa fa-check"></i><b>5</b> Réseaux de neurones avec Keras</a></li>
+<li class="chapter" data-level="6" data-path="dondes.html"><a href="dondes.html"><i class="fa fa-check"></i><b>6</b> Données déséquilibrées</a><ul>
+<li class="chapter" data-level="6.1" data-path="dondes.html"><a href="dondes.html#critères-de-performance-pour-données-déséquilibrées"><i class="fa fa-check"></i><b>6.1</b> Critères de performance pour données déséquilibrées</a></li>
+<li class="chapter" data-level="6.2" data-path="dondes.html"><a href="dondes.html#ré-équilibrage"><i class="fa fa-check"></i><b>6.2</b> Ré-équilibrage</a></li>
+<li class="chapter" data-level="6.3" data-path="dondes.html"><a href="dondes.html#exercices-supplémantaires"><i class="fa fa-check"></i><b>6.3</b> Exercices supplémantaires</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="comp-algo.html"><a href="comp-algo.html"><i class="fa fa-check"></i><b>7</b> Comparaison d’algorithmes</a></li>
 <li class="chapter" data-level="" data-path="références.html"><a href="références.html"><i class="fa fa-check"></i>Références</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -195,48 +205,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="deep" class="section level1">
 <h1><span class="header-section-number">Chapitre 5</span> Réseaux de neurones avec Keras</h1>
 <p>Nous présentons ici une introduction au réseau de neurones à l’aide du package <strong>keras</strong>. On pourra trouver une documentation complète ainsi qu’un très bon tutoriel aux adresses suivantes <a href="https://keras.rstudio.com">https://keras.rstudio.com</a> et <a href="https://tensorflow.rstudio.com/tutorials/beginners/basic-ml/">https://tensorflow.rstudio.com/tutorials/beginners/basic-ml/</a>. On commence par charger la librairie</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="deep.html#cb43-1"></a><span class="kw">library</span>(keras)</span>
-<span id="cb43-2"><a href="deep.html#cb43-2"></a><span class="co">#install_keras() 1 seule fois sur la machine</span></span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="deep.html#cb49-1"></a><span class="kw">library</span>(keras)</span>
+<span id="cb49-2"><a href="deep.html#cb49-2"></a><span class="co">#install_keras() 1 seule fois sur la machine</span></span></code></pre></div>
 <p>On va utiliser des réseaux de neurones pour le jeu de données <strong>spam</strong> où le problème est d’expliquer la variable binaires <code>type</code>par les 57 autres variables du jeu de données :</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="deep.html#cb44-1"></a><span class="kw">library</span>(kernlab)</span>
-<span id="cb44-2"><a href="deep.html#cb44-2"></a><span class="kw">data</span>(spam)</span>
-<span id="cb44-3"><a href="deep.html#cb44-3"></a>spamX &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(spam[,<span class="op">-</span><span class="dv">58</span>])</span>
-<span id="cb44-4"><a href="deep.html#cb44-4"></a><span class="co">#spamY &lt;- to_categorical(as.numeric(spam$type)-1, 2)</span></span>
-<span id="cb44-5"><a href="deep.html#cb44-5"></a>spamY &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(spam<span class="op">$</span>type)<span class="op">-</span><span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="deep.html#cb50-1"></a><span class="kw">library</span>(kernlab)</span>
+<span id="cb50-2"><a href="deep.html#cb50-2"></a><span class="kw">data</span>(spam)</span>
+<span id="cb50-3"><a href="deep.html#cb50-3"></a>spamX &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(spam[,<span class="op">-</span><span class="dv">58</span>])</span>
+<span id="cb50-4"><a href="deep.html#cb50-4"></a><span class="co">#spamY &lt;- to_categorical(as.numeric(spam$type)-1, 2)</span></span>
+<span id="cb50-5"><a href="deep.html#cb50-5"></a>spamY &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(spam<span class="op">$</span>type)<span class="op">-</span><span class="dv">1</span></span></code></pre></div>
 <p>On sépare les données en un échantillon d’apprentissage et un échantillon test</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="deep.html#cb45-1"></a><span class="kw">set.seed</span>(<span class="dv">5678</span>)</span>
-<span id="cb45-2"><a href="deep.html#cb45-2"></a>perm &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">4601</span>,<span class="dv">3000</span>)</span>
-<span id="cb45-3"><a href="deep.html#cb45-3"></a>appX &lt;-<span class="st"> </span>spamX[perm,]</span>
-<span id="cb45-4"><a href="deep.html#cb45-4"></a>appY &lt;-<span class="st"> </span>spamY[perm]</span>
-<span id="cb45-5"><a href="deep.html#cb45-5"></a>validX &lt;-<span class="st"> </span>spamX[<span class="op">-</span>perm,]</span>
-<span id="cb45-6"><a href="deep.html#cb45-6"></a>validY &lt;-<span class="st"> </span>spamY[<span class="op">-</span>perm]</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="deep.html#cb51-1"></a><span class="kw">set.seed</span>(<span class="dv">5678</span>)</span>
+<span id="cb51-2"><a href="deep.html#cb51-2"></a>perm &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">4601</span>,<span class="dv">3000</span>)</span>
+<span id="cb51-3"><a href="deep.html#cb51-3"></a>appX &lt;-<span class="st"> </span>spamX[perm,]</span>
+<span id="cb51-4"><a href="deep.html#cb51-4"></a>appY &lt;-<span class="st"> </span>spamY[perm]</span>
+<span id="cb51-5"><a href="deep.html#cb51-5"></a>validX &lt;-<span class="st"> </span>spamX[<span class="op">-</span>perm,]</span>
+<span id="cb51-6"><a href="deep.html#cb51-6"></a>validY &lt;-<span class="st"> </span>spamY[<span class="op">-</span>perm]</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>A l’aide des données d’apprentissage, entrainer un perceptron simple avec une fonction d’activation <strong>sigmoïde</strong>. On utilisera 30 epochs et des batchs de taille 5.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="deep.html#cb46-1"></a><span class="co">#Définition du modèle</span></span>
-<span id="cb46-2"><a href="deep.html#cb46-2"></a>percep.sig &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>() </span>
-<span id="cb46-3"><a href="deep.html#cb46-3"></a>percep.sig <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">layer_dense</span>(<span class="dt">units=</span>...,<span class="dt">input_shape =</span> ...,<span class="dt">activation=</span><span class="st">&quot;...&quot;</span>)</span>
-<span id="cb46-4"><a href="deep.html#cb46-4"></a><span class="kw">summary</span>(percep.sig)</span>
-<span id="cb46-5"><a href="deep.html#cb46-5"></a>percep.sig <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">compile</span>(</span>
-<span id="cb46-6"><a href="deep.html#cb46-6"></a>  <span class="dt">loss=</span><span class="st">&quot;binary_crossentropy&quot;</span>,</span>
-<span id="cb46-7"><a href="deep.html#cb46-7"></a>  <span class="dt">optimizer=</span><span class="st">&quot;adam&quot;</span>,</span>
-<span id="cb46-8"><a href="deep.html#cb46-8"></a>  <span class="dt">metrics=</span><span class="st">&quot;accuracy&quot;</span></span>
-<span id="cb46-9"><a href="deep.html#cb46-9"></a>)</span>
-<span id="cb46-10"><a href="deep.html#cb46-10"></a><span class="co">#Entrainement</span></span>
-<span id="cb46-11"><a href="deep.html#cb46-11"></a>p.sig &lt;-<span class="st"> </span>percep.sig <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fit</span>(</span>
-<span id="cb46-12"><a href="deep.html#cb46-12"></a>  <span class="dt">x=</span>...,</span>
-<span id="cb46-13"><a href="deep.html#cb46-13"></a>  <span class="dt">y=</span>...,</span>
-<span id="cb46-14"><a href="deep.html#cb46-14"></a>  <span class="dt">epochs=</span>...,</span>
-<span id="cb46-15"><a href="deep.html#cb46-15"></a>  <span class="dt">batch_size=</span>...,</span>
-<span id="cb46-16"><a href="deep.html#cb46-16"></a>  <span class="dt">validation_split=</span>...,</span>
-<span id="cb46-17"><a href="deep.html#cb46-17"></a>  <span class="dt">verbose=</span><span class="dv">0</span></span>
-<span id="cb46-18"><a href="deep.html#cb46-18"></a>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="deep.html#cb52-1"></a><span class="co">#Définition du modèle</span></span>
+<span id="cb52-2"><a href="deep.html#cb52-2"></a>percep.sig &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>() </span>
+<span id="cb52-3"><a href="deep.html#cb52-3"></a>percep.sig <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">layer_dense</span>(<span class="dt">units=</span>...,<span class="dt">input_shape =</span> ...,<span class="dt">activation=</span><span class="st">&quot;...&quot;</span>)</span>
+<span id="cb52-4"><a href="deep.html#cb52-4"></a><span class="kw">summary</span>(percep.sig)</span>
+<span id="cb52-5"><a href="deep.html#cb52-5"></a>percep.sig <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">compile</span>(</span>
+<span id="cb52-6"><a href="deep.html#cb52-6"></a>  <span class="dt">loss=</span><span class="st">&quot;binary_crossentropy&quot;</span>,</span>
+<span id="cb52-7"><a href="deep.html#cb52-7"></a>  <span class="dt">optimizer=</span><span class="st">&quot;adam&quot;</span>,</span>
+<span id="cb52-8"><a href="deep.html#cb52-8"></a>  <span class="dt">metrics=</span><span class="st">&quot;accuracy&quot;</span></span>
+<span id="cb52-9"><a href="deep.html#cb52-9"></a>)</span>
+<span id="cb52-10"><a href="deep.html#cb52-10"></a><span class="co">#Entrainement</span></span>
+<span id="cb52-11"><a href="deep.html#cb52-11"></a>p.sig &lt;-<span class="st"> </span>percep.sig <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fit</span>(</span>
+<span id="cb52-12"><a href="deep.html#cb52-12"></a>  <span class="dt">x=</span>...,</span>
+<span id="cb52-13"><a href="deep.html#cb52-13"></a>  <span class="dt">y=</span>...,</span>
+<span id="cb52-14"><a href="deep.html#cb52-14"></a>  <span class="dt">epochs=</span>...,</span>
+<span id="cb52-15"><a href="deep.html#cb52-15"></a>  <span class="dt">batch_size=</span>...,</span>
+<span id="cb52-16"><a href="deep.html#cb52-16"></a>  <span class="dt">validation_split=</span>...,</span>
+<span id="cb52-17"><a href="deep.html#cb52-17"></a>  <span class="dt">verbose=</span><span class="dv">0</span></span>
+<span id="cb52-18"><a href="deep.html#cb52-18"></a>)</span></code></pre></div></li>
 <li><p>Faire de même avec la fonction d’activation <strong>softmax</strong>. On utilisera pour cela 2 neurones avec une sortie <span class="math inline">\(Y\)</span> possédant la forme suivante.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="deep.html#cb47-1"></a>spamY1 &lt;-<span class="st"> </span><span class="kw">to_categorical</span>(<span class="kw">as.numeric</span>(spam<span class="op">$</span>type)<span class="op">-</span><span class="dv">1</span>, <span class="dv">2</span>)</span>
-<span id="cb47-2"><a href="deep.html#cb47-2"></a>appY1 &lt;-<span class="st"> </span>spamY1[perm,]</span>
-<span id="cb47-3"><a href="deep.html#cb47-3"></a>validY1 &lt;-<span class="st"> </span>spamY1[<span class="op">-</span>perm,]</span></code></pre></div></li>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="deep.html#cb53-1"></a>spamY1 &lt;-<span class="st"> </span><span class="kw">to_categorical</span>(<span class="kw">as.numeric</span>(spam<span class="op">$</span>type)<span class="op">-</span><span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb53-2"><a href="deep.html#cb53-2"></a>appY1 &lt;-<span class="st"> </span>spamY1[perm,]</span>
+<span id="cb53-3"><a href="deep.html#cb53-3"></a>validY1 &lt;-<span class="st"> </span>spamY1[<span class="op">-</span>perm,]</span></code></pre></div></li>
 <li><p>Comparer les performances des deux perceptrons sur les données de validation à l’aide de la fonction <strong>evaluate</strong>.</p></li>
 <li><p>Construire un ou deux réseaux avec deux couches cachées. On pourra faire varier les nombre de neurones dans ces couches. Comparer les performances des réseaux construits.</p></li>
 </ol>
+
 
 </div>
             </section>
@@ -245,7 +256,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="agregation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="références.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="dondes.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
