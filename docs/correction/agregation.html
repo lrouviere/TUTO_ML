@@ -24,7 +24,7 @@
 <meta name="author" content="Laurent Rouvière" />
 
 
-<meta name="date" content="2020-11-08" />
+<meta name="date" content="2020-11-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -241,10 +241,10 @@ Construire un <em>arbre CART sur cet échantillon bootstrap</em>, chaque coupure
 </p>
 </div>
 <p>Cet algorithme peut être utilisé sur <strong>R</strong> avec la fonction <strong>randomForest</strong> du package <strong>randomForest</strong>. Nous la présentons à travers l’exemple du jeu de données <strong>spam</strong> du package <strong>kernlab</strong>.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="agregation.html#cb56-1"></a><span class="kw">library</span>(kernlab)</span>
-<span id="cb56-2"><a href="agregation.html#cb56-2"></a><span class="kw">data</span>(spam)</span>
-<span id="cb56-3"><a href="agregation.html#cb56-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb56-4"><a href="agregation.html#cb56-4"></a>spam &lt;-<span class="st"> </span>spam[<span class="kw">sample</span>(<span class="kw">nrow</span>(spam)),]</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="agregation.html#cb91-1"></a><span class="kw">library</span>(kernlab)</span>
+<span id="cb91-2"><a href="agregation.html#cb91-2"></a><span class="kw">data</span>(spam)</span>
+<span id="cb91-3"><a href="agregation.html#cb91-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb91-4"><a href="agregation.html#cb91-4"></a>spam &lt;-<span class="st"> </span>spam[<span class="kw">sample</span>(<span class="kw">nrow</span>(spam)),]</span></code></pre></div>
 <p>Le problème est d’expliquer la variable binaire <strong>type</strong> par les autres.</p>
 <ol style="list-style-type: decimal">
 <li><p>A l’aide de la fonction <strong>randomForest</strong> du package <strong>randomForest</strong>, ajuster une forêt aléatoire pour répondre au problème posé.</p></li>
@@ -291,15 +291,15 @@ Optimiser sur toutes les combinaisons d’arbres binaires se révélant souvent 
 <p>On considère un jeu de données <span class="math inline">\((x_i,y_i),i=1,\dots,200\)</span> issu d’un modèle de régression
 <span class="math display">\[y_i=m(x_i)+\varepsilon_i\]</span>
 où la vraie fonction de régression est la fonction <strong>sinus</strong> (mais on va faire comme si on ne le savait pas).</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="agregation.html#cb57-1"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi,<span class="dv">2</span><span class="op">*</span>pi,<span class="dt">by=</span><span class="fl">0.01</span>)</span>
-<span id="cb57-2"><a href="agregation.html#cb57-2"></a>y &lt;-<span class="st"> </span><span class="kw">sin</span>(x)</span>
-<span id="cb57-3"><a href="agregation.html#cb57-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb57-4"><a href="agregation.html#cb57-4"></a>X &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">200</span>,<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi,<span class="dv">2</span><span class="op">*</span>pi)</span>
-<span id="cb57-5"><a href="agregation.html#cb57-5"></a>Y &lt;-<span class="st"> </span><span class="kw">sin</span>(X)<span class="op">+</span><span class="kw">rnorm</span>(<span class="dv">200</span>,<span class="dt">sd=</span><span class="fl">0.2</span>)</span>
-<span id="cb57-6"><a href="agregation.html#cb57-6"></a>df1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(X,Y)</span>
-<span id="cb57-7"><a href="agregation.html#cb57-7"></a>df2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X=</span>x,<span class="dt">Y=</span>y)</span>
-<span id="cb57-8"><a href="agregation.html#cb57-8"></a>p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df1)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X,<span class="dt">y=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">data=</span>df2,<span class="dt">size=</span><span class="dv">1</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>)</span>
-<span id="cb57-9"><a href="agregation.html#cb57-9"></a>p1</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="agregation.html#cb92-1"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi,<span class="dv">2</span><span class="op">*</span>pi,<span class="dt">by=</span><span class="fl">0.01</span>)</span>
+<span id="cb92-2"><a href="agregation.html#cb92-2"></a>y &lt;-<span class="st"> </span><span class="kw">sin</span>(x)</span>
+<span id="cb92-3"><a href="agregation.html#cb92-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb92-4"><a href="agregation.html#cb92-4"></a>X &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">200</span>,<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi,<span class="dv">2</span><span class="op">*</span>pi)</span>
+<span id="cb92-5"><a href="agregation.html#cb92-5"></a>Y &lt;-<span class="st"> </span><span class="kw">sin</span>(X)<span class="op">+</span><span class="kw">rnorm</span>(<span class="dv">200</span>,<span class="dt">sd=</span><span class="fl">0.2</span>)</span>
+<span id="cb92-6"><a href="agregation.html#cb92-6"></a>df1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(X,Y)</span>
+<span id="cb92-7"><a href="agregation.html#cb92-7"></a>df2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X=</span>x,<span class="dt">Y=</span>y)</span>
+<span id="cb92-8"><a href="agregation.html#cb92-8"></a>p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df1)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X,<span class="dt">y=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">data=</span>df2,<span class="dt">size=</span><span class="dv">1</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>)</span>
+<span id="cb92-9"><a href="agregation.html#cb92-9"></a>p1</span></code></pre></div>
 <p><img src="TUTO_ML_files/figure-html/unnamed-chunk-201-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ol style="list-style-type: decimal">
 <li><p>Rappeler ce que siginifie le <span class="math inline">\(L_2\)</span>-boosting.</p></li>
@@ -312,14 +312,14 @@ où la vraie fonction de régression est la fonction <strong>sinus</strong> (mai
 <div id="adaboost-et-logitboost-pour-la-classification-binaire." class="section level3">
 <h3><span class="header-section-number">4.2.2</span> Adaboost et logitboost pour la classification binaire.</h3>
 <p>On considère le jeu de données <strong>spam</strong> du package <strong>kernlab</strong>.</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="agregation.html#cb58-1"></a><span class="kw">library</span>(kernlab)</span>
-<span id="cb58-2"><a href="agregation.html#cb58-2"></a><span class="kw">data</span>(spam)</span>
-<span id="cb58-3"><a href="agregation.html#cb58-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb58-4"><a href="agregation.html#cb58-4"></a>spam &lt;-<span class="st"> </span>spam[<span class="kw">sample</span>(<span class="kw">nrow</span>(spam)),]</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="agregation.html#cb93-1"></a><span class="kw">library</span>(kernlab)</span>
+<span id="cb93-2"><a href="agregation.html#cb93-2"></a><span class="kw">data</span>(spam)</span>
+<span id="cb93-3"><a href="agregation.html#cb93-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb93-4"><a href="agregation.html#cb93-4"></a>spam &lt;-<span class="st"> </span>spam[<span class="kw">sample</span>(<span class="kw">nrow</span>(spam)),]</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>Exécuter la commande</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="agregation.html#cb59-1"></a>model_ada1 &lt;-<span class="st"> </span><span class="kw">gbm</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam,<span class="dt">distribution=</span><span class="st">&quot;adaboost&quot;</span>,<span class="dt">interaction.depth=</span><span class="dv">2</span>,</span>
-<span id="cb59-2"><a href="agregation.html#cb59-2"></a>              <span class="dt">shrinkage=</span><span class="fl">0.05</span>,<span class="dt">n.trees=</span><span class="dv">500</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="agregation.html#cb94-1"></a>model_ada1 &lt;-<span class="st"> </span><span class="kw">gbm</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam,<span class="dt">distribution=</span><span class="st">&quot;adaboost&quot;</span>,<span class="dt">interaction.depth=</span><span class="dv">2</span>,</span>
+<span id="cb94-2"><a href="agregation.html#cb94-2"></a>              <span class="dt">shrinkage=</span><span class="fl">0.05</span>,<span class="dt">n.trees=</span><span class="dv">500</span>)</span></code></pre></div></li>
 <li><p>Proposer une correction permettant de faire fonctionner l’algorithme.</p></li>
 <li><p>Expliciter le modèle ajusté par la commande précédente.</p></li>
 <li><p>Effectuer un <strong>summary</strong> du modèle ajusté. Expliquer la sortie.</p></li>
