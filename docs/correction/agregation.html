@@ -365,10 +365,10 @@ La fonction <strong>vip</strong> du package <strong>vip</strong> permet de faire
 <div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="agregation.html#cb171-1"></a><span class="kw">library</span>(ranger)</span>
 <span id="cb171-2"><a href="agregation.html#cb171-2"></a><span class="kw">system.time</span>(rf4 &lt;-<span class="st"> </span><span class="kw">ranger</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam))</span>
 <span id="cb171-3"><a href="agregation.html#cb171-3"></a>   user  system elapsed </span>
-<span id="cb171-4"><a href="agregation.html#cb171-4"></a>  <span class="fl">3.022</span>   <span class="fl">0.025</span>   <span class="fl">0.478</span> </span>
+<span id="cb171-4"><a href="agregation.html#cb171-4"></a>  <span class="fl">3.278</span>   <span class="fl">0.048</span>   <span class="fl">0.642</span> </span>
 <span id="cb171-5"><a href="agregation.html#cb171-5"></a><span class="kw">system.time</span>(rf5 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam))</span>
 <span id="cb171-6"><a href="agregation.html#cb171-6"></a>   user  system elapsed </span>
-<span id="cb171-7"><a href="agregation.html#cb171-7"></a>  <span class="fl">7.582</span>   <span class="fl">0.075</span>   <span class="fl">7.666</span> </span></code></pre></div>
+<span id="cb171-7"><a href="agregation.html#cb171-7"></a>  <span class="fl">7.955</span>   <span class="fl">0.103</span>   <span class="fl">8.092</span> </span></code></pre></div>
 <div class="corR">
 <p>
 Le temps de calcul est plus rapide avec <strong>ranger</strong>. Ce package permet une implémentation efficace des forêts aléatoires pour des données de grande dimension. on peut touver plus d’information <a href="https://arxiv.org/pdf/1508.04409.pdf">ici</a>.

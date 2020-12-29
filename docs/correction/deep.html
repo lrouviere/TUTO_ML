@@ -325,10 +325,10 @@ La fonction <strong>plot</strong> permet de visualiser la perte et la performanc
 <li><p>Comparer les performances des deux perceptrons sur les données de validation à l’aide de la fonction <strong>evaluate</strong>.</p>
 <div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="deep.html#cb208-1"></a>percep.sig <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">evaluate</span>(validX,validY)</span>
 <span id="cb208-2"><a href="deep.html#cb208-2"></a>     loss  accuracy </span>
-<span id="cb208-3"><a href="deep.html#cb208-3"></a><span class="fl">0.2557205</span> <span class="fl">0.9138039</span> </span>
+<span id="cb208-3"><a href="deep.html#cb208-3"></a><span class="fl">0.2378274</span> <span class="fl">0.9181761</span> </span>
 <span id="cb208-4"><a href="deep.html#cb208-4"></a>percep.soft <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">evaluate</span>(validX,validY1)</span>
 <span id="cb208-5"><a href="deep.html#cb208-5"></a>     loss  accuracy </span>
-<span id="cb208-6"><a href="deep.html#cb208-6"></a><span class="fl">0.5120936</span> <span class="fl">0.8963148</span> </span></code></pre></div></li>
+<span id="cb208-6"><a href="deep.html#cb208-6"></a><span class="fl">0.3133149</span> <span class="fl">0.9181761</span> </span></code></pre></div></li>
 <li><p>Construire un ou deux réseaux avec deux couches cachées. On pourra faire varier les nombre de neurones dans ces couches. Comparer les performances des réseaux construits.</p>
 <div class="corR">
 <p>
@@ -354,7 +354,7 @@ On propose tout d’abord 2 couches cachées composées de 100 neurones :
 <span id="cb211-8"><a href="deep.html#cb211-8"></a>)</span></code></pre></div>
 <div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="deep.html#cb212-1"></a>mod2c <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">evaluate</span>(validX,validY)</span>
 <span id="cb212-2"><a href="deep.html#cb212-2"></a>     loss  accuracy </span>
-<span id="cb212-3"><a href="deep.html#cb212-3"></a><span class="fl">0.2178892</span> <span class="fl">0.9294191</span> </span></code></pre></div>
+<span id="cb212-3"><a href="deep.html#cb212-3"></a><span class="fl">0.1972704</span> <span class="fl">0.9362898</span> </span></code></pre></div>
 <div class="corR">
 <p>
 On propose ici 50 neurones pour la première couche cachée et 30 neurones pour la seconde. On ajoute de plus un <strong>dropout</strong> dans la première couche cachée (permet généralement d’éviter le sur-apprentissage, mais pas forcément utile ici).
@@ -385,7 +385,7 @@ On évalue la performance sur les données test :
 </div>
 <div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="deep.html#cb216-1"></a>mod2cd <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">evaluate</span>(validX,validY)</span>
 <span id="cb216-2"><a href="deep.html#cb216-2"></a>     loss  accuracy </span>
-<span id="cb216-3"><a href="deep.html#cb216-3"></a><span class="fl">0.3338339</span> <span class="fl">0.8888195</span> </span></code></pre></div></li>
+<span id="cb216-3"><a href="deep.html#cb216-3"></a><span class="fl">0.3482642</span> <span class="fl">0.8775765</span> </span></code></pre></div></li>
 </ol>
 
 </div>
