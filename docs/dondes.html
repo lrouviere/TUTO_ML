@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapitre 6 Données déséquilibrées | Machine learning</title>
-  <meta name="description" content="Chapitre 6 Données déséquilibrées | Machine learning" />
+  <title>Chapitre 7 Données déséquilibrées | Machine learning</title>
+  <meta name="description" content="Chapitre 7 Données déséquilibrées | Machine learning" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapitre 6 Données déséquilibrées | Machine learning" />
+  <meta property="og:title" content="Chapitre 7 Données déséquilibrées | Machine learning" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapitre 6 Données déséquilibrées | Machine learning" />
+  <meta name="twitter:title" content="Chapitre 7 Données déséquilibrées | Machine learning" />
   
   
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Laurent Rouvière" />
 
 
-<meta name="date" content="2020-11-30" />
+<meta name="date" content="2020-12-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -137,6 +137,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Présentation</a></li>
+<li class="part"><span><b>I Algorithmes de référence</b></span></li>
 <li class="chapter" data-level="1" data-path="caret.html"><a href="caret.html"><i class="fa fa-check"></i><b>1</b> Estimation du risque avec caret</a><ul>
 <li class="chapter" data-level="1.1" data-path="caret.html"><a href="caret.html#notion-de-risque-en-apprentissage-supervisé"><i class="fa fa-check"></i><b>1.1</b> Notion de risque en apprentissage supervisé</a></li>
 <li class="chapter" data-level="1.2" data-path="caret.html"><a href="caret.html#la-validation-croisée"><i class="fa fa-check"></i><b>1.2</b> La validation croisée</a></li>
@@ -147,13 +148,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.4.3" data-path="caret.html"><a href="caret.html#modifier-le-risque"><i class="fa fa-check"></i><b>1.4.3</b> Modifier le risque</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="SVM.html"><a href="SVM.html"><i class="fa fa-check"></i><b>2</b> Support Vector Machine (SVM)</a><ul>
-<li class="chapter" data-level="2.1" data-path="SVM.html"><a href="SVM.html#cas-séparable"><i class="fa fa-check"></i><b>2.1</b> Cas séparable</a></li>
-<li class="chapter" data-level="2.2" data-path="SVM.html"><a href="SVM.html#cas-non-séparable"><i class="fa fa-check"></i><b>2.2</b> Cas non séparable</a></li>
-<li class="chapter" data-level="2.3" data-path="SVM.html"><a href="SVM.html#lastuce-du-noyau"><i class="fa fa-check"></i><b>2.3</b> L’astuce du noyau</a></li>
-<li class="chapter" data-level="2.4" data-path="SVM.html"><a href="SVM.html#support-vector-régression"><i class="fa fa-check"></i><b>2.4</b> Support vector régression</a></li>
-<li class="chapter" data-level="2.5" data-path="SVM.html"><a href="SVM.html#svm-sur-les-données-spam"><i class="fa fa-check"></i><b>2.5</b> SVM sur les données spam</a></li>
-<li class="chapter" data-level="2.6" data-path="SVM.html"><a href="SVM.html#exercices"><i class="fa fa-check"></i><b>2.6</b> Exercices</a></li>
+<li class="chapter" data-level="2" data-path="lda.html"><a href="lda.html"><i class="fa fa-check"></i><b>2</b> Analyse discriminante linéaire</a><ul>
+<li class="chapter" data-level="2.1" data-path="lda.html"><a href="lda.html#prise-en-main-lda-et-qda-sur-les-iris-de-fisher"><i class="fa fa-check"></i><b>2.1</b> Prise en main : LDA et QDA sur les iris de Fisher</a></li>
+<li class="chapter" data-level="2.2" data-path="lda.html"><a href="lda.html#un-cas-avec-beaucoup-de-classes"><i class="fa fa-check"></i><b>2.2</b> Un cas avec beaucoup de classes</a></li>
+<li class="chapter" data-level="2.3" data-path="lda.html"><a href="lda.html#grande-dimension-reconnaissance-de-phonèmes"><i class="fa fa-check"></i><b>2.3</b> Grande dimension : reconnaissance de phonèmes</a></li>
+<li class="chapter" data-level="2.4" data-path="lda.html"><a href="lda.html#exercices"><i class="fa fa-check"></i><b>2.4</b> Exercices</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="arbres.html"><a href="arbres.html"><i class="fa fa-check"></i><b>3</b> Arbres</a><ul>
 <li class="chapter" data-level="3.1" data-path="arbres.html"><a href="arbres.html#coupures-cart-en-fonction-de-la-nature-des-variables"><i class="fa fa-check"></i><b>3.1</b> Coupures CART en fonction de la nature des variables</a><ul>
@@ -166,21 +165,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.2" data-path="arbres.html"><a href="arbres.html#élagage-en-classification-binaire-et-matrice-de-coût"><i class="fa fa-check"></i><b>3.2.2</b> Élagage en classification binaire et matrice de coût</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="agregation.html"><a href="agregation.html"><i class="fa fa-check"></i><b>4</b> Agrégation : forêts aléatoires et gradient boosting</a><ul>
-<li class="chapter" data-level="4.1" data-path="agregation.html"><a href="agregation.html#forets"><i class="fa fa-check"></i><b>4.1</b> Forêts aléatoires</a></li>
-<li class="chapter" data-level="4.2" data-path="agregation.html"><a href="agregation.html#boosting"><i class="fa fa-check"></i><b>4.2</b> Gradient boosting</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="agregation.html"><a href="agregation.html#un-exemple-simple-en-régression"><i class="fa fa-check"></i><b>4.2.1</b> Un exemple simple en régression</a></li>
-<li class="chapter" data-level="4.2.2" data-path="agregation.html"><a href="agregation.html#adaboost-et-logitboost-pour-la-classification-binaire."><i class="fa fa-check"></i><b>4.2.2</b> Adaboost et logitboost pour la classification binaire.</a></li>
-<li class="chapter" data-level="4.2.3" data-path="agregation.html"><a href="agregation.html#exo:grad-boost"><i class="fa fa-check"></i><b>4.2.3</b> Exercices</a></li>
+<li class="part"><span><b>II Algorithmes avancés</b></span></li>
+<li class="chapter" data-level="4" data-path="SVM.html"><a href="SVM.html"><i class="fa fa-check"></i><b>4</b> Support Vector Machine (SVM)</a><ul>
+<li class="chapter" data-level="4.1" data-path="SVM.html"><a href="SVM.html#cas-séparable"><i class="fa fa-check"></i><b>4.1</b> Cas séparable</a></li>
+<li class="chapter" data-level="4.2" data-path="SVM.html"><a href="SVM.html#cas-non-séparable"><i class="fa fa-check"></i><b>4.2</b> Cas non séparable</a></li>
+<li class="chapter" data-level="4.3" data-path="SVM.html"><a href="SVM.html#lastuce-du-noyau"><i class="fa fa-check"></i><b>4.3</b> L’astuce du noyau</a></li>
+<li class="chapter" data-level="4.4" data-path="SVM.html"><a href="SVM.html#support-vector-régression"><i class="fa fa-check"></i><b>4.4</b> Support vector régression</a></li>
+<li class="chapter" data-level="4.5" data-path="SVM.html"><a href="SVM.html#svm-sur-les-données-spam"><i class="fa fa-check"></i><b>4.5</b> SVM sur les données spam</a></li>
+<li class="chapter" data-level="4.6" data-path="SVM.html"><a href="SVM.html#exercices-1"><i class="fa fa-check"></i><b>4.6</b> Exercices</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="agregation.html"><a href="agregation.html"><i class="fa fa-check"></i><b>5</b> Agrégation : forêts aléatoires et gradient boosting</a><ul>
+<li class="chapter" data-level="5.1" data-path="agregation.html"><a href="agregation.html#forets"><i class="fa fa-check"></i><b>5.1</b> Forêts aléatoires</a></li>
+<li class="chapter" data-level="5.2" data-path="agregation.html"><a href="agregation.html#boosting"><i class="fa fa-check"></i><b>5.2</b> Gradient boosting</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="agregation.html"><a href="agregation.html#un-exemple-simple-en-régression"><i class="fa fa-check"></i><b>5.2.1</b> Un exemple simple en régression</a></li>
+<li class="chapter" data-level="5.2.2" data-path="agregation.html"><a href="agregation.html#adaboost-et-logitboost-pour-la-classification-binaire."><i class="fa fa-check"></i><b>5.2.2</b> Adaboost et logitboost pour la classification binaire.</a></li>
+<li class="chapter" data-level="5.2.3" data-path="agregation.html"><a href="agregation.html#exo:grad-boost"><i class="fa fa-check"></i><b>5.2.3</b> Exercices</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="deep.html"><a href="deep.html"><i class="fa fa-check"></i><b>5</b> Réseaux de neurones avec Keras</a></li>
-<li class="chapter" data-level="6" data-path="dondes.html"><a href="dondes.html"><i class="fa fa-check"></i><b>6</b> Données déséquilibrées</a><ul>
-<li class="chapter" data-level="6.1" data-path="dondes.html"><a href="dondes.html#critères-de-performance-pour-données-déséquilibrées"><i class="fa fa-check"></i><b>6.1</b> Critères de performance pour données déséquilibrées</a></li>
-<li class="chapter" data-level="6.2" data-path="dondes.html"><a href="dondes.html#ré-équilibrage"><i class="fa fa-check"></i><b>6.2</b> Ré-équilibrage</a></li>
-<li class="chapter" data-level="6.3" data-path="dondes.html"><a href="dondes.html#exercices-supplémentaires"><i class="fa fa-check"></i><b>6.3</b> Exercices supplémentaires</a></li>
+<li class="chapter" data-level="6" data-path="deep.html"><a href="deep.html"><i class="fa fa-check"></i><b>6</b> Réseaux de neurones avec Keras</a></li>
+<li class="chapter" data-level="7" data-path="dondes.html"><a href="dondes.html"><i class="fa fa-check"></i><b>7</b> Données déséquilibrées</a><ul>
+<li class="chapter" data-level="7.1" data-path="dondes.html"><a href="dondes.html#critères-de-performance-pour-données-déséquilibrées"><i class="fa fa-check"></i><b>7.1</b> Critères de performance pour données déséquilibrées</a></li>
+<li class="chapter" data-level="7.2" data-path="dondes.html"><a href="dondes.html#ré-équilibrage"><i class="fa fa-check"></i><b>7.2</b> Ré-équilibrage</a></li>
+<li class="chapter" data-level="7.3" data-path="dondes.html"><a href="dondes.html#exercices-supplémentaires"><i class="fa fa-check"></i><b>7.3</b> Exercices supplémentaires</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="comp-algo.html"><a href="comp-algo.html"><i class="fa fa-check"></i><b>7</b> Comparaison d’algorithmes</a></li>
+<li class="chapter" data-level="8" data-path="comp-algo.html"><a href="comp-algo.html"><i class="fa fa-check"></i><b>8</b> Comparaison d’algorithmes</a></li>
 <li class="chapter" data-level="" data-path="références.html"><a href="références.html"><i class="fa fa-check"></i>Références</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -203,7 +211,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="dondes" class="section level1">
-<h1><span class="header-section-number">Chapitre 6</span> Données déséquilibrées</h1>
+<h1><span class="header-section-number">Chapitre 7</span> Données déséquilibrées</h1>
 <p>On parle de <strong>données déséquilibrées</strong> lorsque les deux modalités de la variable cible <span class="math inline">\(Y\)</span> ne sont pas représentées de façon égale dans l’échantillon, ou plus précisément lorsqu’une des deux modalités est fortement majoritaire. Ce contexte est fréquemment rencontré en pratique, on peut citer les cas de détection de fraudes (peu de fraudeurs), de la présence d’une maladie rare (peu de patients atteints), du risque de crédit (peu de mauvais payeurs)… Les algorithmes standards peuvent être mis en difficultés et de nouvelles stratégies doivent être élaborées. Les stratégies classiques permettant de répondre à ce problème consistent à</p>
 <ul>
 <li>utiliser des critères de performance adaptés au déséquilibre ;</li>
@@ -211,12 +219,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Nous présentons ces stratégies à travers quelques exercices.</p>
 <div id="critères-de-performance-pour-données-déséquilibrées" class="section level2">
-<h2><span class="header-section-number">6.1</span> Critères de performance pour données déséquilibrées</h2>
+<h2><span class="header-section-number">7.1</span> Critères de performance pour données déséquilibrées</h2>
 <p>La notion de <strong>risque</strong> en machine learning est capitale puisque c’est à partir de l’estimation de ces risques que l’on <strong>calibre des algorithmes</strong> et que l’on <strong>choisit un algorithme de prévision</strong>. En présence de données déséquilibré, il convient de choisir un risque adapté. En effet, il est le plus souvent important de parvenir à bien identifier des individus de la classe minoritaire. Des critères tels que l’accuracy ou l’erreur de classification ne sont pas pertinents pour ce cadre. On va privilégier des critères comme</p>
 <ul>
 <li>le <strong>balanced accuracy</strong>
 <span class="math display">\[\text{Bal Acc}=\frac{1}{2}\mathbf P(g(X)=1|Y=1)+\frac{1}{2}\mathbf P(g(X)=-1|Y=-1)=\frac{\text{TPR+TNR}}{2}.\]</span></li>
-<li>le <span class="math inline">\(F_1\)</span>-score
+<li>le <strong><span class="math inline">\(F_1\)</span>-score</strong>
 <span class="math display">\[F_1=2\,\frac{\text{Precision }\times\text{Recall}}{\text{Precision }+\text{Recall}},\]</span>
 avec
 <span class="math display">\[\text{Precision}=\mathbf P(Y=1|g(X)=1)\quad\text{et}\quad\text{Recall}=\mathbf P(g(X)=1|Y=1).\]</span></li>
@@ -228,7 +236,7 @@ où <span class="math inline">\(\mathbf P(a)\)</span> représente l’accuraci e
 <p>Comme d’habitude, ces critères sont inconnus et doivent être estimés par des méthodes de ré-échantillonnage de type validation croisée.</p>
 
 <div class="exercise">
-<span id="exr:exo-dondes-calc-criteres" class="exercise"><strong>Exercice 6.1  (Calculer des critères)  </strong></span>
+<span id="exr:exo-dondes-calc-criteres" class="exercise"><strong>Exercice 7.1  (Calculer des critères)  </strong></span>
 </div>
 
 <ol style="list-style-type: decimal">
@@ -244,41 +252,41 @@ où <span class="math inline">\(\mathbf P(a)\)</span> représente l’accuraci e
 </ol>
 </div>
 <div id="ré-équilibrage" class="section level2">
-<h2><span class="header-section-number">6.2</span> Ré-équilibrage</h2>
+<h2><span class="header-section-number">7.2</span> Ré-équilibrage</h2>
 <p>En complément du choix d’un <strong>critère pertinent</strong>, il peut être intéressant de tenter de <strong>ré-équilibrer</strong> l’échantillon pour aider les algorithmes à mieux <strong>détecter les individus de la classe minoritaire</strong>. Les méthodes classiques consistent à créer de nouvelles observations de la classe minoritaire (<strong>oversampling</strong>) et/ou supprimer des individus de la classe minoritaire (<strong>undersampling</strong>).</p>
 
 <div class="exercise">
-<span id="exr:exo-dondes-comp-reeq" class="exercise"><strong>Exercice 6.2  (Quelques algorithmes de ré-équilibrage)  </strong></span>
+<span id="exr:exo-dondes-comp-reeq" class="exercise"><strong>Exercice 7.2  (Quelques algorithmes de ré-équilibrage)  </strong></span>
 </div>
 
 <p>On considère le jeu de données <code>df</code> ci-dessous où on cherche à prédire <code>Y</code> par <code>X1</code> et <code>X2</code>.</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="dondes.html#cb54-1"></a>n &lt;-<span class="st"> </span><span class="dv">2000</span></span>
-<span id="cb54-2"><a href="dondes.html#cb54-2"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb54-3"><a href="dondes.html#cb54-3"></a>X1 &lt;-<span class="st"> </span><span class="kw">runif</span>(n)</span>
-<span id="cb54-4"><a href="dondes.html#cb54-4"></a><span class="kw">set.seed</span>(<span class="dv">5678</span>)</span>
-<span id="cb54-5"><a href="dondes.html#cb54-5"></a>X2 &lt;-<span class="st"> </span><span class="kw">runif</span>(n)</span>
-<span id="cb54-6"><a href="dondes.html#cb54-6"></a><span class="kw">set.seed</span>(<span class="dv">9012</span>)</span>
-<span id="cb54-7"><a href="dondes.html#cb54-7"></a>R1 &lt;-<span class="st"> </span>X1<span class="op">&lt;=</span><span class="fl">0.25</span></span>
-<span id="cb54-8"><a href="dondes.html#cb54-8"></a>R2 &lt;-<span class="st"> </span>(X1<span class="op">&gt;</span><span class="fl">0.25</span> <span class="op">&amp;</span><span class="st"> </span>X2<span class="op">&gt;=</span><span class="fl">0.75</span>)</span>
-<span id="cb54-9"><a href="dondes.html#cb54-9"></a>R3 &lt;-<span class="st"> </span>(X1<span class="op">&gt;</span><span class="fl">0.25</span> <span class="op">&amp;</span><span class="st"> </span>X2<span class="op">&lt;</span><span class="fl">0.75</span>)</span>
-<span id="cb54-10"><a href="dondes.html#cb54-10"></a>Y &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,n)</span>
-<span id="cb54-11"><a href="dondes.html#cb54-11"></a>Y[R1] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R1),<span class="dv">1</span>,<span class="fl">0.75</span>)</span>
-<span id="cb54-12"><a href="dondes.html#cb54-12"></a>Y[R2] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R2),<span class="dv">1</span>,<span class="fl">0.75</span>)</span>
-<span id="cb54-13"><a href="dondes.html#cb54-13"></a>Y[R3] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R3),<span class="dv">1</span>,<span class="fl">0.25</span>)</span>
-<span id="cb54-14"><a href="dondes.html#cb54-14"></a>df1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(X1,X2,Y)</span>
-<span id="cb54-15"><a href="dondes.html#cb54-15"></a>df1<span class="op">$</span>Y &lt;-<span class="st"> </span><span class="kw">factor</span>(df1<span class="op">$</span>Y)</span>
-<span id="cb54-16"><a href="dondes.html#cb54-16"></a>indDY1 &lt;-<span class="st"> </span><span class="kw">which</span>(df1<span class="op">$</span>Y<span class="op">==</span><span class="dv">1</span>)</span>
-<span id="cb54-17"><a href="dondes.html#cb54-17"></a>df1<span class="fl">.1</span> &lt;-<span class="st"> </span>df1[<span class="op">-</span>indDY1[<span class="dv">1</span><span class="op">:</span><span class="dv">650</span>],]</span>
-<span id="cb54-18"><a href="dondes.html#cb54-18"></a>df1<span class="fl">.2</span> &lt;-<span class="st"> </span>df1<span class="fl">.1</span>[<span class="kw">sample</span>(<span class="kw">nrow</span>(df1<span class="fl">.1</span>),<span class="dv">1000</span>),]</span>
-<span id="cb54-19"><a href="dondes.html#cb54-19"></a>df &lt;-<span class="st"> </span>df1<span class="fl">.2</span>[<span class="kw">sample</span>(<span class="kw">nrow</span>(df1<span class="fl">.2</span>),<span class="dv">100</span>),]</span>
-<span id="cb54-20"><a href="dondes.html#cb54-20"></a><span class="kw">rownames</span>(df) &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
-<span id="cb54-21"><a href="dondes.html#cb54-21"></a>p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X1,<span class="dt">y=</span>X2,<span class="dt">color=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()</span>
-<span id="cb54-22"><a href="dondes.html#cb54-22"></a>p1</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-263-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="dondes.html#cb60-1"></a>n &lt;-<span class="st"> </span><span class="dv">2000</span></span>
+<span id="cb60-2"><a href="dondes.html#cb60-2"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb60-3"><a href="dondes.html#cb60-3"></a>X1 &lt;-<span class="st"> </span><span class="kw">runif</span>(n)</span>
+<span id="cb60-4"><a href="dondes.html#cb60-4"></a><span class="kw">set.seed</span>(<span class="dv">5678</span>)</span>
+<span id="cb60-5"><a href="dondes.html#cb60-5"></a>X2 &lt;-<span class="st"> </span><span class="kw">runif</span>(n)</span>
+<span id="cb60-6"><a href="dondes.html#cb60-6"></a><span class="kw">set.seed</span>(<span class="dv">9012</span>)</span>
+<span id="cb60-7"><a href="dondes.html#cb60-7"></a>R1 &lt;-<span class="st"> </span>X1<span class="op">&lt;=</span><span class="fl">0.25</span></span>
+<span id="cb60-8"><a href="dondes.html#cb60-8"></a>R2 &lt;-<span class="st"> </span>(X1<span class="op">&gt;</span><span class="fl">0.25</span> <span class="op">&amp;</span><span class="st"> </span>X2<span class="op">&gt;=</span><span class="fl">0.75</span>)</span>
+<span id="cb60-9"><a href="dondes.html#cb60-9"></a>R3 &lt;-<span class="st"> </span>(X1<span class="op">&gt;</span><span class="fl">0.25</span> <span class="op">&amp;</span><span class="st"> </span>X2<span class="op">&lt;</span><span class="fl">0.75</span>)</span>
+<span id="cb60-10"><a href="dondes.html#cb60-10"></a>Y &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,n)</span>
+<span id="cb60-11"><a href="dondes.html#cb60-11"></a>Y[R1] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R1),<span class="dv">1</span>,<span class="fl">0.75</span>)</span>
+<span id="cb60-12"><a href="dondes.html#cb60-12"></a>Y[R2] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R2),<span class="dv">1</span>,<span class="fl">0.75</span>)</span>
+<span id="cb60-13"><a href="dondes.html#cb60-13"></a>Y[R3] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R3),<span class="dv">1</span>,<span class="fl">0.25</span>)</span>
+<span id="cb60-14"><a href="dondes.html#cb60-14"></a>df1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(X1,X2,Y)</span>
+<span id="cb60-15"><a href="dondes.html#cb60-15"></a>df1<span class="op">$</span>Y &lt;-<span class="st"> </span><span class="kw">factor</span>(df1<span class="op">$</span>Y)</span>
+<span id="cb60-16"><a href="dondes.html#cb60-16"></a>indDY1 &lt;-<span class="st"> </span><span class="kw">which</span>(df1<span class="op">$</span>Y<span class="op">==</span><span class="dv">1</span>)</span>
+<span id="cb60-17"><a href="dondes.html#cb60-17"></a>df1<span class="fl">.1</span> &lt;-<span class="st"> </span>df1[<span class="op">-</span>indDY1[<span class="dv">1</span><span class="op">:</span><span class="dv">650</span>],]</span>
+<span id="cb60-18"><a href="dondes.html#cb60-18"></a>df1<span class="fl">.2</span> &lt;-<span class="st"> </span>df1<span class="fl">.1</span>[<span class="kw">sample</span>(<span class="kw">nrow</span>(df1<span class="fl">.1</span>),<span class="dv">1000</span>),]</span>
+<span id="cb60-19"><a href="dondes.html#cb60-19"></a>df &lt;-<span class="st"> </span>df1<span class="fl">.2</span>[<span class="kw">sample</span>(<span class="kw">nrow</span>(df1<span class="fl">.2</span>),<span class="dv">100</span>),]</span>
+<span id="cb60-20"><a href="dondes.html#cb60-20"></a><span class="kw">rownames</span>(df) &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb60-21"><a href="dondes.html#cb60-21"></a>p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X1,<span class="dt">y=</span>X2,<span class="dt">color=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()</span>
+<span id="cb60-22"><a href="dondes.html#cb60-22"></a>p1</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-347-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>On a ici 4 fois plus d’observations dans le groupe 0.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="dondes.html#cb55-1"></a><span class="kw">summary</span>(df<span class="op">$</span>Y)</span>
-<span id="cb55-2"><a href="dondes.html#cb55-2"></a> <span class="dv">0</span>  <span class="dv">1</span> </span>
-<span id="cb55-3"><a href="dondes.html#cb55-3"></a><span class="dv">80</span> <span class="dv">20</span> </span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="dondes.html#cb61-1"></a><span class="kw">summary</span>(df<span class="op">$</span>Y)</span>
+<span id="cb61-2"><a href="dondes.html#cb61-2"></a> <span class="dv">0</span>  <span class="dv">1</span> </span>
+<span id="cb61-3"><a href="dondes.html#cb61-3"></a><span class="dv">80</span> <span class="dv">20</span> </span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>On commence par faire du <strong>oversampling</strong> avec la fonction <code>RandOverClassif</code>.</p>
 <ol style="list-style-type: lower-alpha">
@@ -301,62 +309,62 @@ où <span class="math inline">\(\mathbf P(a)\)</span> représente l’accuraci e
 </ol>
 
 <div class="exercise">
-<span id="exr:exo-dondes-comp-reeq" class="exercise"><strong>Exercice 6.2  (Comparaison de méthodes de ré-équilibrage)  </strong></span>
+<span id="exr:exo-dondes-comp-reeq" class="exercise"><strong>Exercice 7.2  (Comparaison de méthodes de ré-équilibrage)  </strong></span>
 </div>
 
 <p>On considère 3 jeux de données <code>df1</code>, <code>df2</code> et <code>df3</code>.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="dondes.html#cb56-1"></a>n &lt;-<span class="st"> </span><span class="dv">2000</span></span>
-<span id="cb56-2"><a href="dondes.html#cb56-2"></a><span class="kw">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb56-3"><a href="dondes.html#cb56-3"></a>X1 &lt;-<span class="st"> </span><span class="kw">runif</span>(n)</span>
-<span id="cb56-4"><a href="dondes.html#cb56-4"></a><span class="kw">set.seed</span>(<span class="dv">5678</span>)</span>
-<span id="cb56-5"><a href="dondes.html#cb56-5"></a>X2 &lt;-<span class="st"> </span><span class="kw">runif</span>(n)</span>
-<span id="cb56-6"><a href="dondes.html#cb56-6"></a><span class="kw">set.seed</span>(<span class="dv">9012</span>)</span>
-<span id="cb56-7"><a href="dondes.html#cb56-7"></a>R1 &lt;-<span class="st"> </span>X1<span class="op">&lt;=</span><span class="fl">0.25</span></span>
-<span id="cb56-8"><a href="dondes.html#cb56-8"></a>R2 &lt;-<span class="st"> </span>(X1<span class="op">&gt;</span><span class="fl">0.25</span> <span class="op">&amp;</span><span class="st"> </span>X2<span class="op">&gt;=</span><span class="fl">0.75</span>)</span>
-<span id="cb56-9"><a href="dondes.html#cb56-9"></a>R3 &lt;-<span class="st"> </span>(X1<span class="op">&gt;</span><span class="fl">0.25</span> <span class="op">&amp;</span><span class="st"> </span>X2<span class="op">&lt;</span><span class="fl">0.75</span>)</span>
-<span id="cb56-10"><a href="dondes.html#cb56-10"></a>Y &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,n)</span>
-<span id="cb56-11"><a href="dondes.html#cb56-11"></a>Y[R1] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R1),<span class="dv">1</span>,<span class="fl">0.75</span>)</span>
-<span id="cb56-12"><a href="dondes.html#cb56-12"></a>Y[R2] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R2),<span class="dv">1</span>,<span class="fl">0.75</span>)</span>
-<span id="cb56-13"><a href="dondes.html#cb56-13"></a>Y[R3] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R3),<span class="dv">1</span>,<span class="fl">0.25</span>)</span>
-<span id="cb56-14"><a href="dondes.html#cb56-14"></a>df1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(X1,X2,Y)</span>
-<span id="cb56-15"><a href="dondes.html#cb56-15"></a>df1<span class="op">$</span>Y &lt;-<span class="st"> </span><span class="kw">factor</span>(df1<span class="op">$</span>Y)</span>
-<span id="cb56-16"><a href="dondes.html#cb56-16"></a>indDY1 &lt;-<span class="st"> </span><span class="kw">which</span>(df1<span class="op">$</span>Y<span class="op">==</span><span class="dv">1</span>)</span>
-<span id="cb56-17"><a href="dondes.html#cb56-17"></a>df2 &lt;-<span class="st"> </span>df1[<span class="op">-</span>indDY1[<span class="dv">1</span><span class="op">:</span><span class="dv">400</span>],]</span>
-<span id="cb56-18"><a href="dondes.html#cb56-18"></a>df3 &lt;-<span class="st"> </span>df1[<span class="op">-</span>indDY1[<span class="dv">1</span><span class="op">:</span><span class="dv">700</span>],]</span>
-<span id="cb56-19"><a href="dondes.html#cb56-19"></a>df1 &lt;-<span class="st"> </span>df1[<span class="kw">sample</span>(<span class="kw">nrow</span>(df1),<span class="dv">1000</span>),]</span>
-<span id="cb56-20"><a href="dondes.html#cb56-20"></a>df2 &lt;-<span class="st"> </span>df2[<span class="kw">sample</span>(<span class="kw">nrow</span>(df2),<span class="dv">1000</span>),]</span>
-<span id="cb56-21"><a href="dondes.html#cb56-21"></a>df3 &lt;-<span class="st"> </span>df3[<span class="kw">sample</span>(<span class="kw">nrow</span>(df3),<span class="dv">1000</span>),]</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="dondes.html#cb62-1"></a>n &lt;-<span class="st"> </span><span class="dv">2000</span></span>
+<span id="cb62-2"><a href="dondes.html#cb62-2"></a><span class="kw">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb62-3"><a href="dondes.html#cb62-3"></a>X1 &lt;-<span class="st"> </span><span class="kw">runif</span>(n)</span>
+<span id="cb62-4"><a href="dondes.html#cb62-4"></a><span class="kw">set.seed</span>(<span class="dv">5678</span>)</span>
+<span id="cb62-5"><a href="dondes.html#cb62-5"></a>X2 &lt;-<span class="st"> </span><span class="kw">runif</span>(n)</span>
+<span id="cb62-6"><a href="dondes.html#cb62-6"></a><span class="kw">set.seed</span>(<span class="dv">9012</span>)</span>
+<span id="cb62-7"><a href="dondes.html#cb62-7"></a>R1 &lt;-<span class="st"> </span>X1<span class="op">&lt;=</span><span class="fl">0.25</span></span>
+<span id="cb62-8"><a href="dondes.html#cb62-8"></a>R2 &lt;-<span class="st"> </span>(X1<span class="op">&gt;</span><span class="fl">0.25</span> <span class="op">&amp;</span><span class="st"> </span>X2<span class="op">&gt;=</span><span class="fl">0.75</span>)</span>
+<span id="cb62-9"><a href="dondes.html#cb62-9"></a>R3 &lt;-<span class="st"> </span>(X1<span class="op">&gt;</span><span class="fl">0.25</span> <span class="op">&amp;</span><span class="st"> </span>X2<span class="op">&lt;</span><span class="fl">0.75</span>)</span>
+<span id="cb62-10"><a href="dondes.html#cb62-10"></a>Y &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,n)</span>
+<span id="cb62-11"><a href="dondes.html#cb62-11"></a>Y[R1] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R1),<span class="dv">1</span>,<span class="fl">0.75</span>)</span>
+<span id="cb62-12"><a href="dondes.html#cb62-12"></a>Y[R2] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R2),<span class="dv">1</span>,<span class="fl">0.75</span>)</span>
+<span id="cb62-13"><a href="dondes.html#cb62-13"></a>Y[R3] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R3),<span class="dv">1</span>,<span class="fl">0.25</span>)</span>
+<span id="cb62-14"><a href="dondes.html#cb62-14"></a>df1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(X1,X2,Y)</span>
+<span id="cb62-15"><a href="dondes.html#cb62-15"></a>df1<span class="op">$</span>Y &lt;-<span class="st"> </span><span class="kw">factor</span>(df1<span class="op">$</span>Y)</span>
+<span id="cb62-16"><a href="dondes.html#cb62-16"></a>indDY1 &lt;-<span class="st"> </span><span class="kw">which</span>(df1<span class="op">$</span>Y<span class="op">==</span><span class="dv">1</span>)</span>
+<span id="cb62-17"><a href="dondes.html#cb62-17"></a>df2 &lt;-<span class="st"> </span>df1[<span class="op">-</span>indDY1[<span class="dv">1</span><span class="op">:</span><span class="dv">400</span>],]</span>
+<span id="cb62-18"><a href="dondes.html#cb62-18"></a>df3 &lt;-<span class="st"> </span>df1[<span class="op">-</span>indDY1[<span class="dv">1</span><span class="op">:</span><span class="dv">700</span>],]</span>
+<span id="cb62-19"><a href="dondes.html#cb62-19"></a>df1 &lt;-<span class="st"> </span>df1[<span class="kw">sample</span>(<span class="kw">nrow</span>(df1),<span class="dv">1000</span>),]</span>
+<span id="cb62-20"><a href="dondes.html#cb62-20"></a>df2 &lt;-<span class="st"> </span>df2[<span class="kw">sample</span>(<span class="kw">nrow</span>(df2),<span class="dv">1000</span>),]</span>
+<span id="cb62-21"><a href="dondes.html#cb62-21"></a>df3 &lt;-<span class="st"> </span>df3[<span class="kw">sample</span>(<span class="kw">nrow</span>(df3),<span class="dv">1000</span>),]</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>Comparer la distribution de <strong>Y</strong> pour ces trois jeux de données et visualiser les observations.</p></li>
 <li><p>On sépare ces 3 échantillons en un échantillon d’apprentissage et un échantillon test.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="dondes.html#cb57-1"></a><span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb57-2"><a href="dondes.html#cb57-2"></a>a1 &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df1),<span class="dt">p=</span><span class="dv">2</span><span class="op">/</span><span class="dv">3</span>)</span>
-<span id="cb57-3"><a href="dondes.html#cb57-3"></a>a2 &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df2),<span class="dt">p=</span><span class="dv">2</span><span class="op">/</span><span class="dv">3</span>)</span>
-<span id="cb57-4"><a href="dondes.html#cb57-4"></a>a3 &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df3),<span class="dt">p=</span><span class="dv">2</span><span class="op">/</span><span class="dv">3</span>)</span>
-<span id="cb57-5"><a href="dondes.html#cb57-5"></a>train1 &lt;-<span class="st"> </span>df1[a1<span class="op">$</span>Resample1,]</span>
-<span id="cb57-6"><a href="dondes.html#cb57-6"></a>train2 &lt;-<span class="st"> </span>df2[a2<span class="op">$</span>Resample1,]</span>
-<span id="cb57-7"><a href="dondes.html#cb57-7"></a>train3 &lt;-<span class="st"> </span>df3[a3<span class="op">$</span>Resample1,]</span>
-<span id="cb57-8"><a href="dondes.html#cb57-8"></a>test1 &lt;-<span class="st"> </span>df1[<span class="op">-</span>a1<span class="op">$</span>Resample1,]</span>
-<span id="cb57-9"><a href="dondes.html#cb57-9"></a>test2 &lt;-<span class="st"> </span>df2[<span class="op">-</span>a2<span class="op">$</span>Resample1,]</span>
-<span id="cb57-10"><a href="dondes.html#cb57-10"></a>test3 &lt;-<span class="st"> </span>df3[<span class="op">-</span>a3<span class="op">$</span>Resample1,]</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="dondes.html#cb63-1"></a><span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb63-2"><a href="dondes.html#cb63-2"></a>a1 &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df1),<span class="dt">p=</span><span class="dv">2</span><span class="op">/</span><span class="dv">3</span>)</span>
+<span id="cb63-3"><a href="dondes.html#cb63-3"></a>a2 &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df2),<span class="dt">p=</span><span class="dv">2</span><span class="op">/</span><span class="dv">3</span>)</span>
+<span id="cb63-4"><a href="dondes.html#cb63-4"></a>a3 &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df3),<span class="dt">p=</span><span class="dv">2</span><span class="op">/</span><span class="dv">3</span>)</span>
+<span id="cb63-5"><a href="dondes.html#cb63-5"></a>train1 &lt;-<span class="st"> </span>df1[a1<span class="op">$</span>Resample1,]</span>
+<span id="cb63-6"><a href="dondes.html#cb63-6"></a>train2 &lt;-<span class="st"> </span>df2[a2<span class="op">$</span>Resample1,]</span>
+<span id="cb63-7"><a href="dondes.html#cb63-7"></a>train3 &lt;-<span class="st"> </span>df3[a3<span class="op">$</span>Resample1,]</span>
+<span id="cb63-8"><a href="dondes.html#cb63-8"></a>test1 &lt;-<span class="st"> </span>df1[<span class="op">-</span>a1<span class="op">$</span>Resample1,]</span>
+<span id="cb63-9"><a href="dondes.html#cb63-9"></a>test2 &lt;-<span class="st"> </span>df2[<span class="op">-</span>a2<span class="op">$</span>Resample1,]</span>
+<span id="cb63-10"><a href="dondes.html#cb63-10"></a>test3 &lt;-<span class="st"> </span>df3[<span class="op">-</span>a3<span class="op">$</span>Resample1,]</span></code></pre></div>
 <p>Ajuster une forêt aléatoire sur les 3 échantillon d’apprentissage, calculer les labels prédits sur les échantillons tests et estimer les différents indicateurs vus en cours à l’aide de <strong>confusionMatrix</strong>.</p></li>
 <li><p>On considère uniquement l’échantillon <strong>df3</strong>. Refaire l’analyse précédente en utilisant des techniques de ré-échantillonnage.</p></li>
 </ol>
 </div>
 <div id="exercices-supplémentaires" class="section level2">
-<h2><span class="header-section-number">6.3</span> Exercices supplémentaires</h2>
+<h2><span class="header-section-number">7.3</span> Exercices supplémentaires</h2>
 
 <div class="exercise">
-<span id="exr:exo-dondes-echret" class="exercise"><strong>Exercice 6.3  (Echantillonnage rétrospectif)  </strong></span>
+<span id="exr:exo-dondes-echret" class="exercise"><strong>Exercice 7.3  (Echantillonnage rétrospectif)  </strong></span>
 </div>
 
 <p>Dans le cadre de l’échantillonnage rétrospectif pour le modèle logistique vu en cours, démontrer la propriété qui lie le modèle logistique initial au modèle ré-équilibré.</p>
 
 <div class="exercise">
-<span id="exr:exo-dondes-cas-temoins" class="exercise"><strong>Exercice 6.4  (Echantillonnage rétrospectif)  </strong></span>
+<span id="exr:exo-dondes-cas-temoins" class="exercise"><strong>Exercice 7.4  (Echantillonnage rétrospectif)  </strong></span>
 </div>
 
-<p>Une étude cas/témoins est réalisée pour mesurer l’effet du tabac sur la pathologie. Pour ce faire, on choisit <span class="math inline">\(n_1=250\)</span> patients atteints de la pathologie (cas) et <span class="math inline">\(n_0=250\)</span> patients sains (témoins). Les résultats de l’étude sont présentés ci-dessous</p>
+<p>Une étude cas/témoins est réalisée pour mesurer l’effet du tabac sur une pathologie. Pour ce faire, on choisit <span class="math inline">\(n_1=250\)</span> patients atteints de la pathologie (cas) et <span class="math inline">\(n_0=250\)</span> patients sains (témoins). Les résultats de l’étude sont présentés ci-dessous</p>
 <table>
 <thead>
 <tr class="header">

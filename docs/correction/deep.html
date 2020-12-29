@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapitre 5 Réseaux de neurones avec Keras | Machine learning</title>
-  <meta name="description" content="Chapitre 5 Réseaux de neurones avec Keras | Machine learning" />
+  <title>Chapitre 6 Réseaux de neurones avec Keras | Machine learning</title>
+  <meta name="description" content="Chapitre 6 Réseaux de neurones avec Keras | Machine learning" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapitre 5 Réseaux de neurones avec Keras | Machine learning" />
+  <meta property="og:title" content="Chapitre 6 Réseaux de neurones avec Keras | Machine learning" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapitre 5 Réseaux de neurones avec Keras | Machine learning" />
+  <meta name="twitter:title" content="Chapitre 6 Réseaux de neurones avec Keras | Machine learning" />
   
   
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Laurent Rouvière" />
 
 
-<meta name="date" content="2020-11-30" />
+<meta name="date" content="2020-12-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,7 +53,7 @@
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/vis-4.20.1/vis.css" rel="stylesheet" />
 <script src="libs/vis-4.20.1/vis.min.js"></script>
 <script src="libs/visNetwork-binding-2.0.9/visNetwork.js"></script>
@@ -149,6 +149,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Présentation</a></li>
+<li class="part"><span><b>I Algorithmes de référence</b></span></li>
 <li class="chapter" data-level="1" data-path="caret.html"><a href="caret.html"><i class="fa fa-check"></i><b>1</b> Estimation du risque avec caret</a><ul>
 <li class="chapter" data-level="1.1" data-path="caret.html"><a href="caret.html#notion-de-risque-en-apprentissage-supervisé"><i class="fa fa-check"></i><b>1.1</b> Notion de risque en apprentissage supervisé</a></li>
 <li class="chapter" data-level="1.2" data-path="caret.html"><a href="caret.html#la-validation-croisée"><i class="fa fa-check"></i><b>1.2</b> La validation croisée</a></li>
@@ -159,13 +160,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.4.3" data-path="caret.html"><a href="caret.html#modifier-le-risque"><i class="fa fa-check"></i><b>1.4.3</b> Modifier le risque</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="SVM.html"><a href="SVM.html"><i class="fa fa-check"></i><b>2</b> Support Vector Machine (SVM)</a><ul>
-<li class="chapter" data-level="2.1" data-path="SVM.html"><a href="SVM.html#cas-séparable"><i class="fa fa-check"></i><b>2.1</b> Cas séparable</a></li>
-<li class="chapter" data-level="2.2" data-path="SVM.html"><a href="SVM.html#cas-non-séparable"><i class="fa fa-check"></i><b>2.2</b> Cas non séparable</a></li>
-<li class="chapter" data-level="2.3" data-path="SVM.html"><a href="SVM.html#lastuce-du-noyau"><i class="fa fa-check"></i><b>2.3</b> L’astuce du noyau</a></li>
-<li class="chapter" data-level="2.4" data-path="SVM.html"><a href="SVM.html#support-vector-régression"><i class="fa fa-check"></i><b>2.4</b> Support vector régression</a></li>
-<li class="chapter" data-level="2.5" data-path="SVM.html"><a href="SVM.html#svm-sur-les-données-spam"><i class="fa fa-check"></i><b>2.5</b> SVM sur les données spam</a></li>
-<li class="chapter" data-level="2.6" data-path="SVM.html"><a href="SVM.html#exercices"><i class="fa fa-check"></i><b>2.6</b> Exercices</a></li>
+<li class="chapter" data-level="2" data-path="lda.html"><a href="lda.html"><i class="fa fa-check"></i><b>2</b> Analyse discriminante linéaire</a><ul>
+<li class="chapter" data-level="2.1" data-path="lda.html"><a href="lda.html#prise-en-main-lda-et-qda-sur-les-iris-de-fisher"><i class="fa fa-check"></i><b>2.1</b> Prise en main : LDA et QDA sur les iris de Fisher</a></li>
+<li class="chapter" data-level="2.2" data-path="lda.html"><a href="lda.html#un-cas-avec-beaucoup-de-classes"><i class="fa fa-check"></i><b>2.2</b> Un cas avec beaucoup de classes</a></li>
+<li class="chapter" data-level="2.3" data-path="lda.html"><a href="lda.html#grande-dimension-reconnaissance-de-phonèmes"><i class="fa fa-check"></i><b>2.3</b> Grande dimension : reconnaissance de phonèmes</a></li>
+<li class="chapter" data-level="2.4" data-path="lda.html"><a href="lda.html#exercices"><i class="fa fa-check"></i><b>2.4</b> Exercices</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="arbres.html"><a href="arbres.html"><i class="fa fa-check"></i><b>3</b> Arbres</a><ul>
 <li class="chapter" data-level="3.1" data-path="arbres.html"><a href="arbres.html#coupures-cart-en-fonction-de-la-nature-des-variables"><i class="fa fa-check"></i><b>3.1</b> Coupures CART en fonction de la nature des variables</a><ul>
@@ -178,21 +177,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.2" data-path="arbres.html"><a href="arbres.html#élagage-en-classification-binaire-et-matrice-de-coût"><i class="fa fa-check"></i><b>3.2.2</b> Élagage en classification binaire et matrice de coût</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="agregation.html"><a href="agregation.html"><i class="fa fa-check"></i><b>4</b> Agrégation : forêts aléatoires et gradient boosting</a><ul>
-<li class="chapter" data-level="4.1" data-path="agregation.html"><a href="agregation.html#forets"><i class="fa fa-check"></i><b>4.1</b> Forêts aléatoires</a></li>
-<li class="chapter" data-level="4.2" data-path="agregation.html"><a href="agregation.html#boosting"><i class="fa fa-check"></i><b>4.2</b> Gradient boosting</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="agregation.html"><a href="agregation.html#un-exemple-simple-en-régression"><i class="fa fa-check"></i><b>4.2.1</b> Un exemple simple en régression</a></li>
-<li class="chapter" data-level="4.2.2" data-path="agregation.html"><a href="agregation.html#adaboost-et-logitboost-pour-la-classification-binaire."><i class="fa fa-check"></i><b>4.2.2</b> Adaboost et logitboost pour la classification binaire.</a></li>
-<li class="chapter" data-level="4.2.3" data-path="agregation.html"><a href="agregation.html#exo:grad-boost"><i class="fa fa-check"></i><b>4.2.3</b> Exercices</a></li>
+<li class="part"><span><b>II Algorithmes avancés</b></span></li>
+<li class="chapter" data-level="4" data-path="SVM.html"><a href="SVM.html"><i class="fa fa-check"></i><b>4</b> Support Vector Machine (SVM)</a><ul>
+<li class="chapter" data-level="4.1" data-path="SVM.html"><a href="SVM.html#cas-séparable"><i class="fa fa-check"></i><b>4.1</b> Cas séparable</a></li>
+<li class="chapter" data-level="4.2" data-path="SVM.html"><a href="SVM.html#cas-non-séparable"><i class="fa fa-check"></i><b>4.2</b> Cas non séparable</a></li>
+<li class="chapter" data-level="4.3" data-path="SVM.html"><a href="SVM.html#lastuce-du-noyau"><i class="fa fa-check"></i><b>4.3</b> L’astuce du noyau</a></li>
+<li class="chapter" data-level="4.4" data-path="SVM.html"><a href="SVM.html#support-vector-régression"><i class="fa fa-check"></i><b>4.4</b> Support vector régression</a></li>
+<li class="chapter" data-level="4.5" data-path="SVM.html"><a href="SVM.html#svm-sur-les-données-spam"><i class="fa fa-check"></i><b>4.5</b> SVM sur les données spam</a></li>
+<li class="chapter" data-level="4.6" data-path="SVM.html"><a href="SVM.html#exercices-1"><i class="fa fa-check"></i><b>4.6</b> Exercices</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="agregation.html"><a href="agregation.html"><i class="fa fa-check"></i><b>5</b> Agrégation : forêts aléatoires et gradient boosting</a><ul>
+<li class="chapter" data-level="5.1" data-path="agregation.html"><a href="agregation.html#forets"><i class="fa fa-check"></i><b>5.1</b> Forêts aléatoires</a></li>
+<li class="chapter" data-level="5.2" data-path="agregation.html"><a href="agregation.html#boosting"><i class="fa fa-check"></i><b>5.2</b> Gradient boosting</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="agregation.html"><a href="agregation.html#un-exemple-simple-en-régression"><i class="fa fa-check"></i><b>5.2.1</b> Un exemple simple en régression</a></li>
+<li class="chapter" data-level="5.2.2" data-path="agregation.html"><a href="agregation.html#adaboost-et-logitboost-pour-la-classification-binaire."><i class="fa fa-check"></i><b>5.2.2</b> Adaboost et logitboost pour la classification binaire.</a></li>
+<li class="chapter" data-level="5.2.3" data-path="agregation.html"><a href="agregation.html#exo:grad-boost"><i class="fa fa-check"></i><b>5.2.3</b> Exercices</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="deep.html"><a href="deep.html"><i class="fa fa-check"></i><b>5</b> Réseaux de neurones avec Keras</a></li>
-<li class="chapter" data-level="6" data-path="dondes.html"><a href="dondes.html"><i class="fa fa-check"></i><b>6</b> Données déséquilibrées</a><ul>
-<li class="chapter" data-level="6.1" data-path="dondes.html"><a href="dondes.html#critères-de-performance-pour-données-déséquilibrées"><i class="fa fa-check"></i><b>6.1</b> Critères de performance pour données déséquilibrées</a></li>
-<li class="chapter" data-level="6.2" data-path="dondes.html"><a href="dondes.html#ré-équilibrage"><i class="fa fa-check"></i><b>6.2</b> Ré-équilibrage</a></li>
-<li class="chapter" data-level="6.3" data-path="dondes.html"><a href="dondes.html#exercices-supplémentaires"><i class="fa fa-check"></i><b>6.3</b> Exercices supplémentaires</a></li>
+<li class="chapter" data-level="6" data-path="deep.html"><a href="deep.html"><i class="fa fa-check"></i><b>6</b> Réseaux de neurones avec Keras</a></li>
+<li class="chapter" data-level="7" data-path="dondes.html"><a href="dondes.html"><i class="fa fa-check"></i><b>7</b> Données déséquilibrées</a><ul>
+<li class="chapter" data-level="7.1" data-path="dondes.html"><a href="dondes.html#critères-de-performance-pour-données-déséquilibrées"><i class="fa fa-check"></i><b>7.1</b> Critères de performance pour données déséquilibrées</a></li>
+<li class="chapter" data-level="7.2" data-path="dondes.html"><a href="dondes.html#ré-équilibrage"><i class="fa fa-check"></i><b>7.2</b> Ré-équilibrage</a></li>
+<li class="chapter" data-level="7.3" data-path="dondes.html"><a href="dondes.html#exercices-supplémentaires"><i class="fa fa-check"></i><b>7.3</b> Exercices supplémentaires</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="comp-algo.html"><a href="comp-algo.html"><i class="fa fa-check"></i><b>7</b> Comparaison d’algorithmes</a></li>
+<li class="chapter" data-level="8" data-path="comp-algo.html"><a href="comp-algo.html"><i class="fa fa-check"></i><b>8</b> Comparaison d’algorithmes</a></li>
 <li class="chapter" data-level="" data-path="références.html"><a href="références.html"><i class="fa fa-check"></i>Références</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -215,23 +223,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="deep" class="section level1">
-<h1><span class="header-section-number">Chapitre 5</span> Réseaux de neurones avec Keras</h1>
+<h1><span class="header-section-number">Chapitre 6</span> Réseaux de neurones avec Keras</h1>
 <p>Nous présentons ici une introduction au réseau de neurones à l’aide du package <strong>keras</strong>. On pourra trouver une documentation complète ainsi qu’un très bon tutoriel aux adresses suivantes <a href="https://keras.rstudio.com">https://keras.rstudio.com</a> et <a href="https://tensorflow.rstudio.com/tutorials/beginners/basic-ml/">https://tensorflow.rstudio.com/tutorials/beginners/basic-ml/</a>. On commence par charger la librairie</p>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="deep.html#cb157-1"></a><span class="kw">library</span>(keras)</span>
-<span id="cb157-2"><a href="deep.html#cb157-2"></a><span class="co">#install_keras() 1 seule fois sur la machine</span></span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="deep.html#cb194-1"></a><span class="kw">library</span>(keras)</span>
+<span id="cb194-2"><a href="deep.html#cb194-2"></a><span class="co">#install_keras() 1 seule fois sur la machine</span></span></code></pre></div>
 <p>On va utiliser des réseaux de neurones pour le jeu de données <strong>spam</strong> où le problème est d’expliquer la variable binaires <code>type</code>par les 57 autres variables du jeu de données :</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="deep.html#cb158-1"></a><span class="kw">library</span>(kernlab)</span>
-<span id="cb158-2"><a href="deep.html#cb158-2"></a><span class="kw">data</span>(spam)</span>
-<span id="cb158-3"><a href="deep.html#cb158-3"></a>spamX &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(spam[,<span class="op">-</span><span class="dv">58</span>])</span>
-<span id="cb158-4"><a href="deep.html#cb158-4"></a><span class="co">#spamY &lt;- to_categorical(as.numeric(spam$type)-1, 2)</span></span>
-<span id="cb158-5"><a href="deep.html#cb158-5"></a>spamY &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(spam<span class="op">$</span>type)<span class="op">-</span><span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="deep.html#cb195-1"></a><span class="kw">library</span>(kernlab)</span>
+<span id="cb195-2"><a href="deep.html#cb195-2"></a><span class="kw">data</span>(spam)</span>
+<span id="cb195-3"><a href="deep.html#cb195-3"></a>spamX &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(spam[,<span class="op">-</span><span class="dv">58</span>])</span>
+<span id="cb195-4"><a href="deep.html#cb195-4"></a><span class="co">#spamY &lt;- to_categorical(as.numeric(spam$type)-1, 2)</span></span>
+<span id="cb195-5"><a href="deep.html#cb195-5"></a>spamY &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(spam<span class="op">$</span>type)<span class="op">-</span><span class="dv">1</span></span></code></pre></div>
 <p>On sépare les données en un échantillon d’apprentissage et un échantillon test</p>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="deep.html#cb159-1"></a><span class="kw">set.seed</span>(<span class="dv">5678</span>)</span>
-<span id="cb159-2"><a href="deep.html#cb159-2"></a>perm &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">4601</span>,<span class="dv">3000</span>)</span>
-<span id="cb159-3"><a href="deep.html#cb159-3"></a>appX &lt;-<span class="st"> </span>spamX[perm,]</span>
-<span id="cb159-4"><a href="deep.html#cb159-4"></a>appY &lt;-<span class="st"> </span>spamY[perm]</span>
-<span id="cb159-5"><a href="deep.html#cb159-5"></a>validX &lt;-<span class="st"> </span>spamX[<span class="op">-</span>perm,]</span>
-<span id="cb159-6"><a href="deep.html#cb159-6"></a>validY &lt;-<span class="st"> </span>spamY[<span class="op">-</span>perm]</span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="deep.html#cb196-1"></a><span class="kw">set.seed</span>(<span class="dv">5678</span>)</span>
+<span id="cb196-2"><a href="deep.html#cb196-2"></a>perm &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">4601</span>,<span class="dv">3000</span>)</span>
+<span id="cb196-3"><a href="deep.html#cb196-3"></a>appX &lt;-<span class="st"> </span>spamX[perm,]</span>
+<span id="cb196-4"><a href="deep.html#cb196-4"></a>appY &lt;-<span class="st"> </span>spamY[perm]</span>
+<span id="cb196-5"><a href="deep.html#cb196-5"></a>validX &lt;-<span class="st"> </span>spamX[<span class="op">-</span>perm,]</span>
+<span id="cb196-6"><a href="deep.html#cb196-6"></a>validY &lt;-<span class="st"> </span>spamY[<span class="op">-</span>perm]</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>A l’aide des données d’apprentissage, entrainer un perceptron simple avec une fonction d’activation <strong>sigmoïde</strong>. On utilisera 30 epochs et des batchs de taille 5.</p>
 <div class="corR">
@@ -239,147 +247,146 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 On définit tout d’abord la structure du réseau, 1 seule couche ici de 1 neurone :
 </p>
 </div>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="deep.html#cb160-1"></a>percep.sig &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>() </span>
-<span id="cb160-2"><a href="deep.html#cb160-2"></a>percep.sig <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">layer_dense</span>(<span class="dt">units=</span><span class="dv">1</span>,<span class="dt">input_shape =</span> <span class="dv">57</span>,<span class="dt">activation=</span><span class="st">&quot;sigmoid&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="deep.html#cb161-1"></a><span class="kw">summary</span>(percep.sig)</span>
-<span id="cb161-2"><a href="deep.html#cb161-2"></a>Model<span class="op">:</span><span class="st"> &quot;sequential&quot;</span></span>
-<span id="cb161-3"><a href="deep.html#cb161-3"></a>____________________________________________________________</span>
-<span id="cb161-4"><a href="deep.html#cb161-4"></a><span class="kw">Layer</span> (type)               Output Shape            Param <span class="co">#  </span></span>
-<span id="cb161-5"><a href="deep.html#cb161-5"></a><span class="op">==</span><span class="er">==========================================================</span></span>
-<span id="cb161-6"><a href="deep.html#cb161-6"></a><span class="kw">dense</span> (Dense)              (None, <span class="dv">1</span>)               <span class="dv">58</span>       </span>
-<span id="cb161-7"><a href="deep.html#cb161-7"></a><span class="op">==</span><span class="er">==========================================================</span></span>
-<span id="cb161-8"><a href="deep.html#cb161-8"></a>Total params<span class="op">:</span><span class="st"> </span><span class="dv">58</span></span>
-<span id="cb161-9"><a href="deep.html#cb161-9"></a>Trainable params<span class="op">:</span><span class="st"> </span><span class="dv">58</span></span>
-<span id="cb161-10"><a href="deep.html#cb161-10"></a>Non<span class="op">-</span>trainable params<span class="op">:</span><span class="st"> </span><span class="dv">0</span></span>
-<span id="cb161-11"><a href="deep.html#cb161-11"></a>____________________________________________________________</span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="deep.html#cb197-1"></a>percep.sig &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>() </span>
+<span id="cb197-2"><a href="deep.html#cb197-2"></a>percep.sig <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">layer_dense</span>(<span class="dt">units=</span><span class="dv">1</span>,<span class="dt">input_shape =</span> <span class="dv">57</span>,<span class="dt">activation=</span><span class="st">&quot;sigmoid&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="deep.html#cb198-1"></a><span class="kw">summary</span>(percep.sig)</span>
+<span id="cb198-2"><a href="deep.html#cb198-2"></a>Model<span class="op">:</span><span class="st"> &quot;sequential&quot;</span></span>
+<span id="cb198-3"><a href="deep.html#cb198-3"></a>____________________________________________________________</span>
+<span id="cb198-4"><a href="deep.html#cb198-4"></a><span class="kw">Layer</span> (type)               Output Shape            Param <span class="co">#  </span></span>
+<span id="cb198-5"><a href="deep.html#cb198-5"></a><span class="op">==</span><span class="er">==========================================================</span></span>
+<span id="cb198-6"><a href="deep.html#cb198-6"></a><span class="kw">dense</span> (Dense)              (None, <span class="dv">1</span>)               <span class="dv">58</span>       </span>
+<span id="cb198-7"><a href="deep.html#cb198-7"></a><span class="op">==</span><span class="er">==========================================================</span></span>
+<span id="cb198-8"><a href="deep.html#cb198-8"></a>Total params<span class="op">:</span><span class="st"> </span><span class="dv">58</span></span>
+<span id="cb198-9"><a href="deep.html#cb198-9"></a>Trainable params<span class="op">:</span><span class="st"> </span><span class="dv">58</span></span>
+<span id="cb198-10"><a href="deep.html#cb198-10"></a>Non<span class="op">-</span>trainable params<span class="op">:</span><span class="st"> </span><span class="dv">0</span></span>
+<span id="cb198-11"><a href="deep.html#cb198-11"></a>____________________________________________________________</span></code></pre></div>
 <div class="corR">
 <p>
 On donne ensuite la fonction de perte, l’algorithme d’optimisation ainsi que le critère pour mesurer la performance du réseau :
 </p>
 </div>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="deep.html#cb162-1"></a>percep.sig <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">compile</span>(</span>
-<span id="cb162-2"><a href="deep.html#cb162-2"></a>  <span class="dt">loss=</span><span class="st">&quot;binary_crossentropy&quot;</span>,</span>
-<span id="cb162-3"><a href="deep.html#cb162-3"></a>  <span class="dt">optimizer=</span><span class="st">&quot;adam&quot;</span>,</span>
-<span id="cb162-4"><a href="deep.html#cb162-4"></a>  <span class="dt">metrics=</span><span class="st">&quot;accuracy&quot;</span></span>
-<span id="cb162-5"><a href="deep.html#cb162-5"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="deep.html#cb199-1"></a>percep.sig <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">compile</span>(</span>
+<span id="cb199-2"><a href="deep.html#cb199-2"></a>  <span class="dt">loss=</span><span class="st">&quot;binary_crossentropy&quot;</span>,</span>
+<span id="cb199-3"><a href="deep.html#cb199-3"></a>  <span class="dt">optimizer=</span><span class="st">&quot;adam&quot;</span>,</span>
+<span id="cb199-4"><a href="deep.html#cb199-4"></a>  <span class="dt">metrics=</span><span class="st">&quot;accuracy&quot;</span></span>
+<span id="cb199-5"><a href="deep.html#cb199-5"></a>)</span></code></pre></div>
 <div class="corR">
 <p>
 On donne enfin dans <strong>fit</strong> les paramètres qui permettent d’entrainer le modèle (taille des batchs, nombre d’epochs…)
 </p>
 </div>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="deep.html#cb163-1"></a>p.sig &lt;-<span class="st"> </span>percep.sig <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fit</span>(</span>
-<span id="cb163-2"><a href="deep.html#cb163-2"></a>  <span class="dt">x=</span>appX,</span>
-<span id="cb163-3"><a href="deep.html#cb163-3"></a>  <span class="dt">y=</span>appY,</span>
-<span id="cb163-4"><a href="deep.html#cb163-4"></a>  <span class="dt">epochs=</span><span class="dv">30</span>,</span>
-<span id="cb163-5"><a href="deep.html#cb163-5"></a>  <span class="dt">batch_size=</span><span class="dv">5</span>,</span>
-<span id="cb163-6"><a href="deep.html#cb163-6"></a>  <span class="dt">validation_split=</span><span class="fl">0.2</span>,</span>
-<span id="cb163-7"><a href="deep.html#cb163-7"></a>  <span class="dt">verbose=</span><span class="dv">0</span></span>
-<span id="cb163-8"><a href="deep.html#cb163-8"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="deep.html#cb200-1"></a>p.sig &lt;-<span class="st"> </span>percep.sig <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fit</span>(</span>
+<span id="cb200-2"><a href="deep.html#cb200-2"></a>  <span class="dt">x=</span>appX,</span>
+<span id="cb200-3"><a href="deep.html#cb200-3"></a>  <span class="dt">y=</span>appY,</span>
+<span id="cb200-4"><a href="deep.html#cb200-4"></a>  <span class="dt">epochs=</span><span class="dv">30</span>,</span>
+<span id="cb200-5"><a href="deep.html#cb200-5"></a>  <span class="dt">batch_size=</span><span class="dv">5</span>,</span>
+<span id="cb200-6"><a href="deep.html#cb200-6"></a>  <span class="dt">validation_split=</span><span class="fl">0.2</span>,</span>
+<span id="cb200-7"><a href="deep.html#cb200-7"></a>  <span class="dt">verbose=</span><span class="dv">0</span></span>
+<span id="cb200-8"><a href="deep.html#cb200-8"></a>)</span></code></pre></div>
 <div class="corR">
 <p>
 La fonction <strong>plot</strong> permet de visualiser la perte et la performance en fonction du nombre d’epochs :
 </p>
 </div>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="deep.html#cb164-1"></a><span class="kw">plot</span>(p.sig)</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-235-1.png" width="672" style="display: block; margin: auto;" /></p></li>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="deep.html#cb201-1"></a><span class="kw">plot</span>(p.sig)</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-319-1.png" width="672" style="display: block; margin: auto;" /></p></li>
 <li><p>Faire de même avec la fonction d’activation <strong>softmax</strong>. On utilisera pour cela 2 neurones avec une sortie <span class="math inline">\(Y\)</span> possédant la forme suivante.</p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="deep.html#cb165-1"></a>spamY1 &lt;-<span class="st"> </span><span class="kw">to_categorical</span>(<span class="kw">as.numeric</span>(spam<span class="op">$</span>type)<span class="op">-</span><span class="dv">1</span>, <span class="dv">2</span>)</span>
-<span id="cb165-2"><a href="deep.html#cb165-2"></a>appY1 &lt;-<span class="st"> </span>spamY1[perm,]</span>
-<span id="cb165-3"><a href="deep.html#cb165-3"></a>validY1 &lt;-<span class="st"> </span>spamY1[<span class="op">-</span>perm,]</span></code></pre></div>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="deep.html#cb166-1"></a>percep.soft &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>() </span>
-<span id="cb166-2"><a href="deep.html#cb166-2"></a>percep.soft <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">layer_dense</span>(<span class="dt">units=</span><span class="dv">2</span>,<span class="dt">input_shape =</span> <span class="dv">57</span>,<span class="dt">activation=</span><span class="st">&quot;softmax&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="deep.html#cb167-1"></a><span class="kw">summary</span>(percep.soft)</span>
-<span id="cb167-2"><a href="deep.html#cb167-2"></a>Model<span class="op">:</span><span class="st"> &quot;sequential_1&quot;</span></span>
-<span id="cb167-3"><a href="deep.html#cb167-3"></a>____________________________________________________________</span>
-<span id="cb167-4"><a href="deep.html#cb167-4"></a><span class="kw">Layer</span> (type)               Output Shape            Param <span class="co">#  </span></span>
-<span id="cb167-5"><a href="deep.html#cb167-5"></a><span class="op">==</span><span class="er">==========================================================</span></span>
-<span id="cb167-6"><a href="deep.html#cb167-6"></a><span class="kw">dense_1</span> (Dense)            (None, <span class="dv">2</span>)               <span class="dv">116</span>      </span>
-<span id="cb167-7"><a href="deep.html#cb167-7"></a><span class="op">==</span><span class="er">==========================================================</span></span>
-<span id="cb167-8"><a href="deep.html#cb167-8"></a>Total params<span class="op">:</span><span class="st"> </span><span class="dv">116</span></span>
-<span id="cb167-9"><a href="deep.html#cb167-9"></a>Trainable params<span class="op">:</span><span class="st"> </span><span class="dv">116</span></span>
-<span id="cb167-10"><a href="deep.html#cb167-10"></a>Non<span class="op">-</span>trainable params<span class="op">:</span><span class="st"> </span><span class="dv">0</span></span>
-<span id="cb167-11"><a href="deep.html#cb167-11"></a>____________________________________________________________</span></code></pre></div>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="deep.html#cb168-1"></a>percep.soft <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">compile</span>(</span>
-<span id="cb168-2"><a href="deep.html#cb168-2"></a>  <span class="dt">loss=</span><span class="st">&quot;binary_crossentropy&quot;</span>,</span>
-<span id="cb168-3"><a href="deep.html#cb168-3"></a>  <span class="dt">optimizer=</span><span class="st">&quot;adam&quot;</span>,</span>
-<span id="cb168-4"><a href="deep.html#cb168-4"></a>  <span class="dt">metrics=</span><span class="st">&quot;accuracy&quot;</span></span>
-<span id="cb168-5"><a href="deep.html#cb168-5"></a>)</span></code></pre></div>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="deep.html#cb169-1"></a>p.soft &lt;-<span class="st"> </span>percep.soft <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fit</span>(</span>
-<span id="cb169-2"><a href="deep.html#cb169-2"></a>  <span class="dt">x=</span>appX,</span>
-<span id="cb169-3"><a href="deep.html#cb169-3"></a>  <span class="dt">y=</span>appY1,</span>
-<span id="cb169-4"><a href="deep.html#cb169-4"></a>  <span class="dt">epochs=</span><span class="dv">30</span>,</span>
-<span id="cb169-5"><a href="deep.html#cb169-5"></a>  <span class="dt">batch_size=</span><span class="dv">1</span>,</span>
-<span id="cb169-6"><a href="deep.html#cb169-6"></a>  <span class="dt">validation_split=</span><span class="fl">0.2</span>,</span>
-<span id="cb169-7"><a href="deep.html#cb169-7"></a>  <span class="dt">verbose=</span><span class="dv">0</span></span>
-<span id="cb169-8"><a href="deep.html#cb169-8"></a>)</span></code></pre></div>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="deep.html#cb170-1"></a><span class="kw">plot</span>(p.soft)</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-241-1.png" width="672" style="display: block; margin: auto;" /></p></li>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="deep.html#cb202-1"></a>spamY1 &lt;-<span class="st"> </span><span class="kw">to_categorical</span>(<span class="kw">as.numeric</span>(spam<span class="op">$</span>type)<span class="op">-</span><span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb202-2"><a href="deep.html#cb202-2"></a>appY1 &lt;-<span class="st"> </span>spamY1[perm,]</span>
+<span id="cb202-3"><a href="deep.html#cb202-3"></a>validY1 &lt;-<span class="st"> </span>spamY1[<span class="op">-</span>perm,]</span></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="deep.html#cb203-1"></a>percep.soft &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>() </span>
+<span id="cb203-2"><a href="deep.html#cb203-2"></a>percep.soft <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">layer_dense</span>(<span class="dt">units=</span><span class="dv">2</span>,<span class="dt">input_shape =</span> <span class="dv">57</span>,<span class="dt">activation=</span><span class="st">&quot;softmax&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="deep.html#cb204-1"></a><span class="kw">summary</span>(percep.soft)</span>
+<span id="cb204-2"><a href="deep.html#cb204-2"></a>Model<span class="op">:</span><span class="st"> &quot;sequential_1&quot;</span></span>
+<span id="cb204-3"><a href="deep.html#cb204-3"></a>____________________________________________________________</span>
+<span id="cb204-4"><a href="deep.html#cb204-4"></a><span class="kw">Layer</span> (type)               Output Shape            Param <span class="co">#  </span></span>
+<span id="cb204-5"><a href="deep.html#cb204-5"></a><span class="op">==</span><span class="er">==========================================================</span></span>
+<span id="cb204-6"><a href="deep.html#cb204-6"></a><span class="kw">dense_1</span> (Dense)            (None, <span class="dv">2</span>)               <span class="dv">116</span>      </span>
+<span id="cb204-7"><a href="deep.html#cb204-7"></a><span class="op">==</span><span class="er">==========================================================</span></span>
+<span id="cb204-8"><a href="deep.html#cb204-8"></a>Total params<span class="op">:</span><span class="st"> </span><span class="dv">116</span></span>
+<span id="cb204-9"><a href="deep.html#cb204-9"></a>Trainable params<span class="op">:</span><span class="st"> </span><span class="dv">116</span></span>
+<span id="cb204-10"><a href="deep.html#cb204-10"></a>Non<span class="op">-</span>trainable params<span class="op">:</span><span class="st"> </span><span class="dv">0</span></span>
+<span id="cb204-11"><a href="deep.html#cb204-11"></a>____________________________________________________________</span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="deep.html#cb205-1"></a>percep.soft <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">compile</span>(</span>
+<span id="cb205-2"><a href="deep.html#cb205-2"></a>  <span class="dt">loss=</span><span class="st">&quot;binary_crossentropy&quot;</span>,</span>
+<span id="cb205-3"><a href="deep.html#cb205-3"></a>  <span class="dt">optimizer=</span><span class="st">&quot;adam&quot;</span>,</span>
+<span id="cb205-4"><a href="deep.html#cb205-4"></a>  <span class="dt">metrics=</span><span class="st">&quot;accuracy&quot;</span></span>
+<span id="cb205-5"><a href="deep.html#cb205-5"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="deep.html#cb206-1"></a>p.soft &lt;-<span class="st"> </span>percep.soft <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fit</span>(</span>
+<span id="cb206-2"><a href="deep.html#cb206-2"></a>  <span class="dt">x=</span>appX,</span>
+<span id="cb206-3"><a href="deep.html#cb206-3"></a>  <span class="dt">y=</span>appY1,</span>
+<span id="cb206-4"><a href="deep.html#cb206-4"></a>  <span class="dt">epochs=</span><span class="dv">30</span>,</span>
+<span id="cb206-5"><a href="deep.html#cb206-5"></a>  <span class="dt">batch_size=</span><span class="dv">1</span>,</span>
+<span id="cb206-6"><a href="deep.html#cb206-6"></a>  <span class="dt">validation_split=</span><span class="fl">0.2</span>,</span>
+<span id="cb206-7"><a href="deep.html#cb206-7"></a>  <span class="dt">verbose=</span><span class="dv">0</span></span>
+<span id="cb206-8"><a href="deep.html#cb206-8"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="deep.html#cb207-1"></a><span class="kw">plot</span>(p.soft)</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-325-1.png" width="672" style="display: block; margin: auto;" /></p></li>
 <li><p>Comparer les performances des deux perceptrons sur les données de validation à l’aide de la fonction <strong>evaluate</strong>.</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="deep.html#cb171-1"></a>percep.sig <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">evaluate</span>(validX,validY)</span>
-<span id="cb171-2"><a href="deep.html#cb171-2"></a>      loss   accuracy </span>
-<span id="cb171-3"><a href="deep.html#cb171-3"></a><span class="fl">50.2259560</span>  <span class="fl">0.5552779</span> </span>
-<span id="cb171-4"><a href="deep.html#cb171-4"></a>percep.soft <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">evaluate</span>(validX,validY1)</span>
-<span id="cb171-5"><a href="deep.html#cb171-5"></a>     loss  accuracy </span>
-<span id="cb171-6"><a href="deep.html#cb171-6"></a><span class="fl">5.6536050</span> <span class="fl">0.5877576</span> </span></code></pre></div></li>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="deep.html#cb208-1"></a>percep.sig <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">evaluate</span>(validX,validY)</span>
+<span id="cb208-2"><a href="deep.html#cb208-2"></a>     loss  accuracy </span>
+<span id="cb208-3"><a href="deep.html#cb208-3"></a><span class="fl">0.2557205</span> <span class="fl">0.9138039</span> </span>
+<span id="cb208-4"><a href="deep.html#cb208-4"></a>percep.soft <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">evaluate</span>(validX,validY1)</span>
+<span id="cb208-5"><a href="deep.html#cb208-5"></a>     loss  accuracy </span>
+<span id="cb208-6"><a href="deep.html#cb208-6"></a><span class="fl">0.5120936</span> <span class="fl">0.8963148</span> </span></code></pre></div></li>
 <li><p>Construire un ou deux réseaux avec deux couches cachées. On pourra faire varier les nombre de neurones dans ces couches. Comparer les performances des réseaux construits.</p>
 <div class="corR">
 <p>
 On propose tout d’abord 2 couches cachées composées de 100 neurones :
 </p>
 </div>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="deep.html#cb172-1"></a>mod2c &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>() </span>
-<span id="cb172-2"><a href="deep.html#cb172-2"></a>mod2c <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">layer_dense</span>(<span class="dt">units=</span><span class="dv">100</span>,<span class="dt">activation=</span><span class="st">&quot;softmax&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb172-3"><a href="deep.html#cb172-3"></a><span class="st">  </span><span class="kw">layer_dense</span>(<span class="dt">units=</span><span class="dv">100</span>,<span class="dt">activation=</span><span class="st">&quot;softmax&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb172-4"><a href="deep.html#cb172-4"></a><span class="st">  </span><span class="kw">layer_dense</span>(<span class="dt">units =</span> <span class="dv">1</span>,<span class="dt">activation =</span> <span class="st">&quot;sigmoid&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="deep.html#cb173-1"></a>mod2c <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">compile</span>(</span>
-<span id="cb173-2"><a href="deep.html#cb173-2"></a>  <span class="dt">loss=</span><span class="st">&quot;binary_crossentropy&quot;</span>,</span>
-<span id="cb173-3"><a href="deep.html#cb173-3"></a>  <span class="dt">optimizer=</span><span class="st">&quot;adam&quot;</span>,</span>
-<span id="cb173-4"><a href="deep.html#cb173-4"></a>  <span class="dt">metrics=</span><span class="st">&quot;accuracy&quot;</span></span>
-<span id="cb173-5"><a href="deep.html#cb173-5"></a>)</span></code></pre></div>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="deep.html#cb174-1"></a>mod2c <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fit</span>(</span>
-<span id="cb174-2"><a href="deep.html#cb174-2"></a>  <span class="dt">x=</span>appX,</span>
-<span id="cb174-3"><a href="deep.html#cb174-3"></a>  <span class="dt">y=</span>appY,</span>
-<span id="cb174-4"><a href="deep.html#cb174-4"></a>  <span class="dt">epochs=</span><span class="dv">100</span>,</span>
-<span id="cb174-5"><a href="deep.html#cb174-5"></a>  <span class="dt">batch_size=</span><span class="dv">3</span>,</span>
-<span id="cb174-6"><a href="deep.html#cb174-6"></a>  <span class="dt">validation_split=</span><span class="fl">0.2</span>,</span>
-<span id="cb174-7"><a href="deep.html#cb174-7"></a>  <span class="dt">verbose=</span><span class="dv">0</span></span>
-<span id="cb174-8"><a href="deep.html#cb174-8"></a>)</span></code></pre></div>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="deep.html#cb175-1"></a>mod2c <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">evaluate</span>(validX,validY)</span>
-<span id="cb175-2"><a href="deep.html#cb175-2"></a>     loss  accuracy </span>
-<span id="cb175-3"><a href="deep.html#cb175-3"></a><span class="fl">0.6931567</span> <span class="fl">0.6002498</span> </span></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="deep.html#cb209-1"></a>mod2c &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>() </span>
+<span id="cb209-2"><a href="deep.html#cb209-2"></a>mod2c <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">layer_dense</span>(<span class="dt">units=</span><span class="dv">100</span>,<span class="dt">activation=</span><span class="st">&quot;softmax&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb209-3"><a href="deep.html#cb209-3"></a><span class="st">  </span><span class="kw">layer_dense</span>(<span class="dt">units=</span><span class="dv">100</span>,<span class="dt">activation=</span><span class="st">&quot;softmax&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb209-4"><a href="deep.html#cb209-4"></a><span class="st">  </span><span class="kw">layer_dense</span>(<span class="dt">units =</span> <span class="dv">1</span>,<span class="dt">activation =</span> <span class="st">&quot;sigmoid&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="deep.html#cb210-1"></a>mod2c <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">compile</span>(</span>
+<span id="cb210-2"><a href="deep.html#cb210-2"></a>  <span class="dt">loss=</span><span class="st">&quot;binary_crossentropy&quot;</span>,</span>
+<span id="cb210-3"><a href="deep.html#cb210-3"></a>  <span class="dt">optimizer=</span><span class="st">&quot;adam&quot;</span>,</span>
+<span id="cb210-4"><a href="deep.html#cb210-4"></a>  <span class="dt">metrics=</span><span class="st">&quot;accuracy&quot;</span></span>
+<span id="cb210-5"><a href="deep.html#cb210-5"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="deep.html#cb211-1"></a>mod2c <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fit</span>(</span>
+<span id="cb211-2"><a href="deep.html#cb211-2"></a>  <span class="dt">x=</span>appX,</span>
+<span id="cb211-3"><a href="deep.html#cb211-3"></a>  <span class="dt">y=</span>appY,</span>
+<span id="cb211-4"><a href="deep.html#cb211-4"></a>  <span class="dt">epochs=</span><span class="dv">100</span>,</span>
+<span id="cb211-5"><a href="deep.html#cb211-5"></a>  <span class="dt">batch_size=</span><span class="dv">3</span>,</span>
+<span id="cb211-6"><a href="deep.html#cb211-6"></a>  <span class="dt">validation_split=</span><span class="fl">0.2</span>,</span>
+<span id="cb211-7"><a href="deep.html#cb211-7"></a>  <span class="dt">verbose=</span><span class="dv">0</span></span>
+<span id="cb211-8"><a href="deep.html#cb211-8"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="deep.html#cb212-1"></a>mod2c <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">evaluate</span>(validX,validY)</span>
+<span id="cb212-2"><a href="deep.html#cb212-2"></a>     loss  accuracy </span>
+<span id="cb212-3"><a href="deep.html#cb212-3"></a><span class="fl">0.2178892</span> <span class="fl">0.9294191</span> </span></code></pre></div>
 <div class="corR">
 <p>
 On propose ici 50 neurones pour la première couche cachée et 30 neurones pour la seconde. On ajoute de plus un <strong>dropout</strong> dans la première couche cachée (permet généralement d’éviter le sur-apprentissage, mais pas forcément utile ici).
 </p>
 </div>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="deep.html#cb176-1"></a>mod2cd &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>() </span>
-<span id="cb176-2"><a href="deep.html#cb176-2"></a>mod2cd <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">layer_dropout</span>(<span class="fl">0.7</span>) <span class="op">%&gt;%</span></span>
-<span id="cb176-3"><a href="deep.html#cb176-3"></a><span class="st">  </span><span class="kw">layer_dense</span>(<span class="dt">units=</span><span class="dv">50</span>,<span class="dt">activation=</span><span class="st">&quot;softmax&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb176-4"><a href="deep.html#cb176-4"></a><span class="st">  </span><span class="kw">layer_dense</span>(<span class="dt">units=</span><span class="dv">30</span>,<span class="dt">activation=</span><span class="st">&quot;softmax&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb176-5"><a href="deep.html#cb176-5"></a><span class="st">  </span><span class="kw">layer_dense</span>(<span class="dt">units =</span> <span class="dv">1</span>,<span class="dt">activation =</span> <span class="st">&quot;sigmoid&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="deep.html#cb177-1"></a>mod2cd <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">compile</span>(</span>
-<span id="cb177-2"><a href="deep.html#cb177-2"></a>  <span class="dt">loss=</span><span class="st">&quot;binary_crossentropy&quot;</span>,</span>
-<span id="cb177-3"><a href="deep.html#cb177-3"></a>  <span class="dt">optimizer=</span><span class="st">&quot;adam&quot;</span>,</span>
-<span id="cb177-4"><a href="deep.html#cb177-4"></a>  <span class="dt">metrics=</span><span class="st">&quot;accuracy&quot;</span></span>
-<span id="cb177-5"><a href="deep.html#cb177-5"></a>)</span></code></pre></div>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="deep.html#cb178-1"></a>mod2cd <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fit</span>(</span>
-<span id="cb178-2"><a href="deep.html#cb178-2"></a>  <span class="dt">x=</span>appX,</span>
-<span id="cb178-3"><a href="deep.html#cb178-3"></a>  <span class="dt">y=</span>appY,</span>
-<span id="cb178-4"><a href="deep.html#cb178-4"></a>  <span class="dt">epochs=</span><span class="dv">150</span>,</span>
-<span id="cb178-5"><a href="deep.html#cb178-5"></a>  <span class="dt">batch_size=</span><span class="dv">5</span>,</span>
-<span id="cb178-6"><a href="deep.html#cb178-6"></a>  <span class="dt">validation_split=</span><span class="fl">0.2</span>,</span>
-<span id="cb178-7"><a href="deep.html#cb178-7"></a>  <span class="dt">verbose=</span><span class="dv">0</span></span>
-<span id="cb178-8"><a href="deep.html#cb178-8"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="deep.html#cb213-1"></a>mod2cd &lt;-<span class="st"> </span><span class="kw">keras_model_sequential</span>() </span>
+<span id="cb213-2"><a href="deep.html#cb213-2"></a>mod2cd <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">layer_dropout</span>(<span class="fl">0.7</span>) <span class="op">%&gt;%</span></span>
+<span id="cb213-3"><a href="deep.html#cb213-3"></a><span class="st">  </span><span class="kw">layer_dense</span>(<span class="dt">units=</span><span class="dv">50</span>,<span class="dt">activation=</span><span class="st">&quot;softmax&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb213-4"><a href="deep.html#cb213-4"></a><span class="st">  </span><span class="kw">layer_dense</span>(<span class="dt">units=</span><span class="dv">30</span>,<span class="dt">activation=</span><span class="st">&quot;softmax&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb213-5"><a href="deep.html#cb213-5"></a><span class="st">  </span><span class="kw">layer_dense</span>(<span class="dt">units =</span> <span class="dv">1</span>,<span class="dt">activation =</span> <span class="st">&quot;sigmoid&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="deep.html#cb214-1"></a>mod2cd <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">compile</span>(</span>
+<span id="cb214-2"><a href="deep.html#cb214-2"></a>  <span class="dt">loss=</span><span class="st">&quot;binary_crossentropy&quot;</span>,</span>
+<span id="cb214-3"><a href="deep.html#cb214-3"></a>  <span class="dt">optimizer=</span><span class="st">&quot;adam&quot;</span>,</span>
+<span id="cb214-4"><a href="deep.html#cb214-4"></a>  <span class="dt">metrics=</span><span class="st">&quot;accuracy&quot;</span></span>
+<span id="cb214-5"><a href="deep.html#cb214-5"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="deep.html#cb215-1"></a>mod2cd <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fit</span>(</span>
+<span id="cb215-2"><a href="deep.html#cb215-2"></a>  <span class="dt">x=</span>appX,</span>
+<span id="cb215-3"><a href="deep.html#cb215-3"></a>  <span class="dt">y=</span>appY,</span>
+<span id="cb215-4"><a href="deep.html#cb215-4"></a>  <span class="dt">epochs=</span><span class="dv">150</span>,</span>
+<span id="cb215-5"><a href="deep.html#cb215-5"></a>  <span class="dt">batch_size=</span><span class="dv">5</span>,</span>
+<span id="cb215-6"><a href="deep.html#cb215-6"></a>  <span class="dt">validation_split=</span><span class="fl">0.2</span>,</span>
+<span id="cb215-7"><a href="deep.html#cb215-7"></a>  <span class="dt">verbose=</span><span class="dv">0</span></span>
+<span id="cb215-8"><a href="deep.html#cb215-8"></a>)</span></code></pre></div>
 <div class="corR">
 <p>
 On évalue la performance sur les données test :
 </p>
 </div>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="deep.html#cb179-1"></a>mod2cd <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">evaluate</span>(validX,validY)</span>
-<span id="cb179-2"><a href="deep.html#cb179-2"></a>     loss  accuracy </span>
-<span id="cb179-3"><a href="deep.html#cb179-3"></a><span class="fl">0.6951112</span> <span class="fl">0.3991255</span> </span></code></pre></div></li>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="deep.html#cb216-1"></a>mod2cd <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">evaluate</span>(validX,validY)</span>
+<span id="cb216-2"><a href="deep.html#cb216-2"></a>     loss  accuracy </span>
+<span id="cb216-3"><a href="deep.html#cb216-3"></a><span class="fl">0.3338339</span> <span class="fl">0.8888195</span> </span></code></pre></div></li>
 </ol>
-
 
 </div>
             </section>

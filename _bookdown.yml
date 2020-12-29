@@ -1,10 +1,13 @@
 book_filename: "TUTO_ML"
 delete_merged_file: true
-output_dir: "docs" #sujet
-#output_dir: "docs/correction" #corrigé
+#output_dir: "docs" #sujet
+output_dir: "docs/correction" #corrigé
 new_session: no
 language:
   ui:
     chapter_name: "Chapitre "
   label:
     exr: "Exercice "
+#rmd_files:
+#  html: ["index.Rmd","01-risque.Rmd","02-lda.Rmd"]
+#  latex: ["index.Rmd","03-arbres.Rmd"]

@@ -6,4 +6,12 @@
 *.tex
 _bookdown_files/*
 purl/*
+data_aux/*
 *.R
+*.log
+*.yml
+*.bib
+*.md
+*.bib
+*.png
+*.css
