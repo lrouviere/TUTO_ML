@@ -24,7 +24,7 @@
 <meta name="author" content="Laurent Rouvière" />
 
 
-<meta name="date" content="2020-12-29" />
+<meta name="date" content="2021-01-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,18 +53,6 @@
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
-<link href="libs/vis-4.20.1/vis.css" rel="stylesheet" />
-<script src="libs/vis-4.20.1/vis.min.js"></script>
-<script src="libs/visNetwork-binding-2.0.9/visNetwork.js"></script>
-<script src="libs/FileSaver-1.1.20151003/FileSaver.min.js"></script>
-<script src="libs/Blob-1.0/Blob.js"></script>
-<script src="libs/canvas-toBlob-1.0/canvas-toBlob.js"></script>
-<script src="libs/html2canvas-0.5.0/html2canvas.js"></script>
-<script src="libs/jspdf-1.3.2/jspdf.debug.js"></script>
-<link href="libs/jquery-sparkline-2.1.2/jquery.sparkline.css" rel="stylesheet" />
-<script src="libs/jquery-sparkline-2.1.2/jquery.sparkline.js"></script>
-<script src="libs/sparkline-binding-2.0/sparkline.js"></script>
 
 
 <style type="text/css">
@@ -154,10 +142,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.1" data-path="caret.html"><a href="caret.html#notion-de-risque-en-apprentissage-supervisé"><i class="fa fa-check"></i><b>1.1</b> Notion de risque en apprentissage supervisé</a></li>
 <li class="chapter" data-level="1.2" data-path="caret.html"><a href="caret.html#la-validation-croisée"><i class="fa fa-check"></i><b>1.2</b> La validation croisée</a></li>
 <li class="chapter" data-level="1.3" data-path="caret.html"><a href="caret.html#le-package-caret"><i class="fa fa-check"></i><b>1.3</b> Le package caret</a></li>
-<li class="chapter" data-level="1.4" data-path="caret.html"><a href="caret.html#compléments"><i class="fa fa-check"></i><b>1.4</b> Compléments</a><ul>
-<li class="chapter" data-level="1.4.1" data-path="caret.html"><a href="caret.html#calcul-parallèle"><i class="fa fa-check"></i><b>1.4.1</b> Calcul parallèle</a></li>
-<li class="chapter" data-level="1.4.2" data-path="caret.html"><a href="caret.html#répéter-les-méthodes-de-rééchantillonnage"><i class="fa fa-check"></i><b>1.4.2</b> Répéter les méthodes de rééchantillonnage</a></li>
-<li class="chapter" data-level="1.4.3" data-path="caret.html"><a href="caret.html#modifier-le-risque"><i class="fa fa-check"></i><b>1.4.3</b> Modifier le risque</a></li>
+<li class="chapter" data-level="1.4" data-path="caret.html"><a href="caret.html#la-courbe-roc"><i class="fa fa-check"></i><b>1.4</b> La courbe ROC</a></li>
+<li class="chapter" data-level="1.5" data-path="caret.html"><a href="caret.html#compléments"><i class="fa fa-check"></i><b>1.5</b> Compléments</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="caret.html"><a href="caret.html#calcul-parallèle"><i class="fa fa-check"></i><b>1.5.1</b> Calcul parallèle</a></li>
+<li class="chapter" data-level="1.5.2" data-path="caret.html"><a href="caret.html#répéter-les-méthodes-de-rééchantillonnage"><i class="fa fa-check"></i><b>1.5.2</b> Répéter les méthodes de rééchantillonnage</a></li>
+<li class="chapter" data-level="1.5.3" data-path="caret.html"><a href="caret.html#modifier-le-risque"><i class="fa fa-check"></i><b>1.5.3</b> Modifier le risque</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="lda.html"><a href="lda.html"><i class="fa fa-check"></i><b>2</b> Analyse discriminante linéaire</a><ul>
@@ -240,123 +229,123 @@ qui, à une nouvelle observation <span class="math inline">\(x\in\mathcal X\)</s
 <li>choisir une procédure de ré-échantillonnage pour estimer ce critère (validation hold-out, validation croisée, OOB…).</li>
 </ul>
 <p>Nous proposons de développer une stratégie pour choisir un algorithme sur le jeu de données <strong>Internet Advertisements Data Set</strong> disponible sur cette page <a href="https://archive.ics.uci.edu/ml/datasets/internet+advertisements" class="uri">https://archive.ics.uci.edu/ml/datasets/internet+advertisements</a>. Le problème est d’identifier la présence d’une image publicitaire sur des pages webs. Il comporte</p>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="comp-algo.html#cb221-1"></a>ad.data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;data/ad_data.txt&quot;</span>,<span class="dt">header=</span><span class="ot">FALSE</span>,<span class="dt">sep=</span><span class="st">&quot;,&quot;</span>,<span class="dt">dec=</span><span class="st">&quot;.&quot;</span>,<span class="dt">na.strings =</span> <span class="st">&quot;?&quot;</span>,<span class="dt">strip.white =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb221-2"><a href="comp-algo.html#cb221-2"></a><span class="kw">dim</span>(ad.data)</span>
-<span id="cb221-3"><a href="comp-algo.html#cb221-3"></a>[<span class="dv">1</span>] <span class="dv">3279</span> <span class="dv">1559</span></span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="comp-algo.html#cb147-1"></a>ad.data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;data/ad_data.txt&quot;</span>,<span class="dt">header=</span><span class="ot">FALSE</span>,<span class="dt">sep=</span><span class="st">&quot;,&quot;</span>,<span class="dt">dec=</span><span class="st">&quot;.&quot;</span>,<span class="dt">na.strings =</span> <span class="st">&quot;?&quot;</span>,<span class="dt">strip.white =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb147-2"><a href="comp-algo.html#cb147-2"></a><span class="kw">dim</span>(ad.data)</span>
+<span id="cb147-3"><a href="comp-algo.html#cb147-3"></a>[<span class="dv">1</span>] <span class="dv">3279</span> <span class="dv">1559</span></span></code></pre></div>
 <p>Ce jeu de données contient 1558 variables explicatives, ces variables contiennent différentes caractériques de la page web (voir le site où sont présentées les données pour plus d’information). La dernière variable est la variable à expliquer, elle vaut <code>ad.</code> si présence d’une publicité, <code>nonad.</code> sinon.</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="comp-algo.html#cb222-1"></a><span class="kw">names</span>(ad.data)[<span class="kw">ncol</span>(ad.data)] &lt;-<span class="st"> &quot;Y&quot;</span></span>
-<span id="cb222-2"><a href="comp-algo.html#cb222-2"></a>ad.data<span class="op">$</span>Y &lt;-<span class="st"> </span><span class="kw">as.factor</span>(ad.data<span class="op">$</span>Y)</span>
-<span id="cb222-3"><a href="comp-algo.html#cb222-3"></a><span class="kw">summary</span>(ad.data<span class="op">$</span>Y)</span>
-<span id="cb222-4"><a href="comp-algo.html#cb222-4"></a>   ad. nonad. </span>
-<span id="cb222-5"><a href="comp-algo.html#cb222-5"></a>   <span class="dv">459</span>   <span class="dv">2820</span> </span></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="comp-algo.html#cb148-1"></a><span class="kw">names</span>(ad.data)[<span class="kw">ncol</span>(ad.data)] &lt;-<span class="st"> &quot;Y&quot;</span></span>
+<span id="cb148-2"><a href="comp-algo.html#cb148-2"></a>ad.data<span class="op">$</span>Y &lt;-<span class="st"> </span><span class="kw">as.factor</span>(ad.data<span class="op">$</span>Y)</span>
+<span id="cb148-3"><a href="comp-algo.html#cb148-3"></a><span class="kw">summary</span>(ad.data<span class="op">$</span>Y)</span>
+<span id="cb148-4"><a href="comp-algo.html#cb148-4"></a>   ad. nonad. </span>
+<span id="cb148-5"><a href="comp-algo.html#cb148-5"></a>   <span class="dv">459</span>   <span class="dv">2820</span> </span></code></pre></div>
 <p>Ce jeu de données contient des données manquantes.</p>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="comp-algo.html#cb223-1"></a><span class="kw">sum</span>(<span class="kw">is.na</span>(ad.data))</span>
-<span id="cb223-2"><a href="comp-algo.html#cb223-2"></a>[<span class="dv">1</span>] <span class="dv">2729</span></span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="comp-algo.html#cb149-1"></a><span class="kw">sum</span>(<span class="kw">is.na</span>(ad.data))</span>
+<span id="cb149-2"><a href="comp-algo.html#cb149-2"></a>[<span class="dv">1</span>] <span class="dv">2729</span></span></code></pre></div>
 <p>On remarque que :</p>
 <ul>
 <li>920 lignes</li>
 <li>4 colonnes</li>
 </ul>
 <p>ont au moins une valeur manquante.</p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="comp-algo.html#cb224-1"></a><span class="kw">apply</span>(<span class="kw">is.na</span>(ad.data),<span class="dv">1</span>,any) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sum</span>()</span>
-<span id="cb224-2"><a href="comp-algo.html#cb224-2"></a>[<span class="dv">1</span>] <span class="dv">920</span></span>
-<span id="cb224-3"><a href="comp-algo.html#cb224-3"></a>var.na &lt;-<span class="st"> </span><span class="kw">apply</span>(<span class="kw">is.na</span>(ad.data),<span class="dv">2</span>,any)</span>
-<span id="cb224-4"><a href="comp-algo.html#cb224-4"></a><span class="kw">names</span>(ad.data)[var.na]</span>
-<span id="cb224-5"><a href="comp-algo.html#cb224-5"></a>[<span class="dv">1</span>] <span class="st">&quot;V1&quot;</span> <span class="st">&quot;V2&quot;</span> <span class="st">&quot;V3&quot;</span> <span class="st">&quot;V4&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="comp-algo.html#cb150-1"></a><span class="kw">apply</span>(<span class="kw">is.na</span>(ad.data),<span class="dv">1</span>,any) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sum</span>()</span>
+<span id="cb150-2"><a href="comp-algo.html#cb150-2"></a>[<span class="dv">1</span>] <span class="dv">920</span></span>
+<span id="cb150-3"><a href="comp-algo.html#cb150-3"></a>var.na &lt;-<span class="st"> </span><span class="kw">apply</span>(<span class="kw">is.na</span>(ad.data),<span class="dv">2</span>,any)</span>
+<span id="cb150-4"><a href="comp-algo.html#cb150-4"></a><span class="kw">names</span>(ad.data)[var.na]</span>
+<span id="cb150-5"><a href="comp-algo.html#cb150-5"></a>[<span class="dv">1</span>] <span class="st">&quot;V1&quot;</span> <span class="st">&quot;V2&quot;</span> <span class="st">&quot;V3&quot;</span> <span class="st">&quot;V4&quot;</span></span></code></pre></div>
 <p>On choisit de retirer ces 4 variables de l’analyse (il faudrait peut-être réfléchir un peu plus…).</p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="comp-algo.html#cb225-1"></a>ad.data1 &lt;-<span class="st"> </span>ad.data[,var.na<span class="op">==</span><span class="ot">FALSE</span>]</span>
-<span id="cb225-2"><a href="comp-algo.html#cb225-2"></a><span class="kw">dim</span>(ad.data1)</span>
-<span id="cb225-3"><a href="comp-algo.html#cb225-3"></a>[<span class="dv">1</span>] <span class="dv">3279</span> <span class="dv">1555</span></span>
-<span id="cb225-4"><a href="comp-algo.html#cb225-4"></a><span class="kw">sum</span>(<span class="kw">is.na</span>(ad.data1))</span>
-<span id="cb225-5"><a href="comp-algo.html#cb225-5"></a>[<span class="dv">1</span>] <span class="dv">0</span></span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="comp-algo.html#cb151-1"></a>ad.data1 &lt;-<span class="st"> </span>ad.data[,var.na<span class="op">==</span><span class="ot">FALSE</span>]</span>
+<span id="cb151-2"><a href="comp-algo.html#cb151-2"></a><span class="kw">dim</span>(ad.data1)</span>
+<span id="cb151-3"><a href="comp-algo.html#cb151-3"></a>[<span class="dv">1</span>] <span class="dv">3279</span> <span class="dv">1555</span></span>
+<span id="cb151-4"><a href="comp-algo.html#cb151-4"></a><span class="kw">sum</span>(<span class="kw">is.na</span>(ad.data1))</span>
+<span id="cb151-5"><a href="comp-algo.html#cb151-5"></a>[<span class="dv">1</span>] <span class="dv">0</span></span></code></pre></div>
 <p>On se retrouve donc en présence de 3279 individus et 1554 variables explicatives. On construit la matrice des <code>X</code> et le vecteur des <code>Y</code> qui sont nécessaires pour certaines fonctions comme <code>glmnet</code> :</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="comp-algo.html#cb226-1"></a>X.ad &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>ad.data1)[,<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb226-2"><a href="comp-algo.html#cb226-2"></a>Y.ad &lt;-<span class="st"> </span>ad.data1<span class="op">$</span>Y</span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="comp-algo.html#cb152-1"></a>X.ad &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>ad.data1)[,<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb152-2"><a href="comp-algo.html#cb152-2"></a>Y.ad &lt;-<span class="st"> </span>ad.data1<span class="op">$</span>Y</span></code></pre></div>
 <p>et on transforme la variable cible en 0-1 pour utiliser <code>gbm</code>:</p>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="comp-algo.html#cb227-1"></a>ad.data2 &lt;-<span class="st"> </span>ad.data1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Y=</span><span class="kw">recode</span>(Y,<span class="st">&quot;ad.&quot;</span>=<span class="dv">0</span>,<span class="st">&quot;nonad.&quot;</span>=<span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="comp-algo.html#cb153-1"></a>ad.data2 &lt;-<span class="st"> </span>ad.data1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Y=</span><span class="kw">recode</span>(Y,<span class="st">&quot;ad.&quot;</span>=<span class="dv">0</span>,<span class="st">&quot;nonad.&quot;</span>=<span class="dv">1</span>))</span></code></pre></div>
 <p>On souhaite comparer les algorithmes présentés précédemment. Ils nécessitent les packages suivants</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="comp-algo.html#cb228-1"></a><span class="kw">library</span>(e1071)</span>
-<span id="cb228-2"><a href="comp-algo.html#cb228-2"></a><span class="kw">library</span>(caret)</span>
-<span id="cb228-3"><a href="comp-algo.html#cb228-3"></a><span class="kw">library</span>(rpart)</span>
-<span id="cb228-4"><a href="comp-algo.html#cb228-4"></a><span class="kw">library</span>(glmnet)</span>
-<span id="cb228-5"><a href="comp-algo.html#cb228-5"></a><span class="kw">library</span>(ranger)</span>
-<span id="cb228-6"><a href="comp-algo.html#cb228-6"></a><span class="kw">library</span>(gbm)</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="comp-algo.html#cb154-1"></a><span class="kw">library</span>(e1071)</span>
+<span id="cb154-2"><a href="comp-algo.html#cb154-2"></a><span class="kw">library</span>(caret)</span>
+<span id="cb154-3"><a href="comp-algo.html#cb154-3"></a><span class="kw">library</span>(rpart)</span>
+<span id="cb154-4"><a href="comp-algo.html#cb154-4"></a><span class="kw">library</span>(glmnet)</span>
+<span id="cb154-5"><a href="comp-algo.html#cb154-5"></a><span class="kw">library</span>(ranger)</span>
+<span id="cb154-6"><a href="comp-algo.html#cb154-6"></a><span class="kw">library</span>(gbm)</span></code></pre></div>
 <p>On commence tout d’abord par représenter un algorithme par une fonction <strong>R</strong> qui admettra en entrée un jeu de données et renverra une unique prévision pour de nouveaux individus. On illustre ces fonctions pour prédire ce nouvel individu.</p>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="comp-algo.html#cb229-1"></a>newX &lt;-<span class="st"> </span>ad.data1[<span class="dv">1000</span>,]</span>
-<span id="cb229-2"><a href="comp-algo.html#cb229-2"></a>newX.X &lt;-<span class="st"> </span><span class="kw">matrix</span>(X.ad[<span class="dv">1000</span>,],<span class="dt">nrow=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="comp-algo.html#cb155-1"></a>newX &lt;-<span class="st"> </span>ad.data1[<span class="dv">1000</span>,]</span>
+<span id="cb155-2"><a href="comp-algo.html#cb155-2"></a>newX.X &lt;-<span class="st"> </span><span class="kw">matrix</span>(X.ad[<span class="dv">1000</span>,],<span class="dt">nrow=</span><span class="dv">1</span>)</span></code></pre></div>
 <p>On stockera les prévisions dans l’objet suivant</p>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="comp-algo.html#cb230-1"></a>prev &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">algo=</span><span class="kw">c</span>(<span class="st">&quot;SVM&quot;</span>,<span class="st">&quot;arbre&quot;</span>,<span class="st">&quot;ridge&quot;</span>,<span class="st">&quot;lasso&quot;</span>,<span class="st">&quot;foret&quot;</span>,<span class="st">&quot;ada&quot;</span>,<span class="st">&quot;logit&quot;</span>),<span class="dt">prev=</span><span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="comp-algo.html#cb156-1"></a>prev &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">algo=</span><span class="kw">c</span>(<span class="st">&quot;SVM&quot;</span>,<span class="st">&quot;arbre&quot;</span>,<span class="st">&quot;ridge&quot;</span>,<span class="st">&quot;lasso&quot;</span>,<span class="st">&quot;foret&quot;</span>,<span class="st">&quot;ada&quot;</span>,<span class="st">&quot;logit&quot;</span>),<span class="dt">prev=</span><span class="dv">0</span>)</span></code></pre></div>
 <ul>
 <li><p><strong>SVM</strong> à noyau gaussien où le choix des paramètres du noyau se fait par validation croisée 4 blocs :</p>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="comp-algo.html#cb231-1"></a>prev.svm &lt;-<span class="st"> </span><span class="cf">function</span>(df,newX){</span>
-<span id="cb231-2"><a href="comp-algo.html#cb231-2"></a>  C &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.01</span>,<span class="dv">1</span>,<span class="dv">10</span>)</span>
-<span id="cb231-3"><a href="comp-algo.html#cb231-3"></a>  sigma &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.1</span>,<span class="dv">1</span>,<span class="dv">3</span>)</span>
-<span id="cb231-4"><a href="comp-algo.html#cb231-4"></a>  gr &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">C=</span>C,<span class="dt">sigma=</span>sigma)</span>
-<span id="cb231-5"><a href="comp-algo.html#cb231-5"></a>  ctrl &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method=</span><span class="st">&quot;cv&quot;</span>,<span class="dt">number=</span><span class="dv">4</span>)</span>
-<span id="cb231-6"><a href="comp-algo.html#cb231-6"></a>  cl &lt;-<span class="st"> </span><span class="kw">makePSOCKcluster</span>(<span class="dv">3</span>)</span>
-<span id="cb231-7"><a href="comp-algo.html#cb231-7"></a>  <span class="kw">registerDoParallel</span>(cl)</span>
-<span id="cb231-8"><a href="comp-algo.html#cb231-8"></a>  res.svm &lt;-<span class="st"> </span><span class="kw">train</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df,<span class="dt">method=</span><span class="st">&quot;svmRadial&quot;</span>,<span class="dt">trControl=</span>ctrl,</span>
-<span id="cb231-9"><a href="comp-algo.html#cb231-9"></a>               <span class="dt">tuneGrid=</span>gr,<span class="dt">prob.model=</span><span class="ot">TRUE</span>)</span>
-<span id="cb231-10"><a href="comp-algo.html#cb231-10"></a>  <span class="kw">stopCluster</span>(cl)</span>
-<span id="cb231-11"><a href="comp-algo.html#cb231-11"></a>  <span class="kw">predict</span>(res.svm,newX,<span class="dt">type=</span><span class="st">&quot;prob&quot;</span>)[<span class="dv">2</span>]</span>
-<span id="cb231-12"><a href="comp-algo.html#cb231-12"></a>}</span>
-<span id="cb231-13"><a href="comp-algo.html#cb231-13"></a>prev[<span class="dv">1</span>,<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">prev.svm</span>(ad.data1,newX)</span></code></pre></div></li>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="comp-algo.html#cb157-1"></a>prev.svm &lt;-<span class="st"> </span><span class="cf">function</span>(df,newX){</span>
+<span id="cb157-2"><a href="comp-algo.html#cb157-2"></a>  C &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.01</span>,<span class="dv">1</span>,<span class="dv">10</span>)</span>
+<span id="cb157-3"><a href="comp-algo.html#cb157-3"></a>  sigma &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.1</span>,<span class="dv">1</span>,<span class="dv">3</span>)</span>
+<span id="cb157-4"><a href="comp-algo.html#cb157-4"></a>  gr &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">C=</span>C,<span class="dt">sigma=</span>sigma)</span>
+<span id="cb157-5"><a href="comp-algo.html#cb157-5"></a>  ctrl &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method=</span><span class="st">&quot;cv&quot;</span>,<span class="dt">number=</span><span class="dv">4</span>)</span>
+<span id="cb157-6"><a href="comp-algo.html#cb157-6"></a>  cl &lt;-<span class="st"> </span><span class="kw">makePSOCKcluster</span>(<span class="dv">3</span>)</span>
+<span id="cb157-7"><a href="comp-algo.html#cb157-7"></a>  <span class="kw">registerDoParallel</span>(cl)</span>
+<span id="cb157-8"><a href="comp-algo.html#cb157-8"></a>  res.svm &lt;-<span class="st"> </span><span class="kw">train</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df,<span class="dt">method=</span><span class="st">&quot;svmRadial&quot;</span>,<span class="dt">trControl=</span>ctrl,</span>
+<span id="cb157-9"><a href="comp-algo.html#cb157-9"></a>               <span class="dt">tuneGrid=</span>gr,<span class="dt">prob.model=</span><span class="ot">TRUE</span>)</span>
+<span id="cb157-10"><a href="comp-algo.html#cb157-10"></a>  <span class="kw">stopCluster</span>(cl)</span>
+<span id="cb157-11"><a href="comp-algo.html#cb157-11"></a>  <span class="kw">predict</span>(res.svm,newX,<span class="dt">type=</span><span class="st">&quot;prob&quot;</span>)[<span class="dv">2</span>]</span>
+<span id="cb157-12"><a href="comp-algo.html#cb157-12"></a>}</span>
+<span id="cb157-13"><a href="comp-algo.html#cb157-13"></a>prev[<span class="dv">1</span>,<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">prev.svm</span>(ad.data1,newX)</span></code></pre></div></li>
 <li><p><strong>Arbre de classification</strong> où l’élagage est fait selon la procédure <strong>CART</strong> présentée dans le chapitre <a href="arbres.html#arbres">3</a>.</p>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="comp-algo.html#cb232-1"></a>prev.arbre &lt;-<span class="st"> </span><span class="cf">function</span>(df,newX){</span>
-<span id="cb232-2"><a href="comp-algo.html#cb232-2"></a>  arbre &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df,<span class="dt">cp=</span><span class="fl">1e-8</span>,<span class="dt">minsplit=</span><span class="dv">2</span>)</span>
-<span id="cb232-3"><a href="comp-algo.html#cb232-3"></a>  cp_opt &lt;-<span class="st"> </span>arbre<span class="op">$</span>cptable <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(xerror<span class="op">==</span><span class="kw">min</span>(xerror)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb232-4"><a href="comp-algo.html#cb232-4"></a>dplyr<span class="op">::</span><span class="kw">select</span>(CP) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice</span>(<span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.numeric</span>()</span>
-<span id="cb232-5"><a href="comp-algo.html#cb232-5"></a>  arbre.opt &lt;-<span class="st"> </span><span class="kw">prune</span>(arbre,<span class="dt">cp=</span>cp_opt)</span>
-<span id="cb232-6"><a href="comp-algo.html#cb232-6"></a>  <span class="kw">predict</span>(arbre,<span class="dt">newdata=</span>newX,<span class="dt">type=</span><span class="st">&quot;prob&quot;</span>)[,<span class="dv">2</span>]</span>
-<span id="cb232-7"><a href="comp-algo.html#cb232-7"></a>}</span>
-<span id="cb232-8"><a href="comp-algo.html#cb232-8"></a>prev[<span class="dv">2</span>,<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">prev.arbre</span>(ad.data1,newX)</span></code></pre></div></li>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="comp-algo.html#cb158-1"></a>prev.arbre &lt;-<span class="st"> </span><span class="cf">function</span>(df,newX){</span>
+<span id="cb158-2"><a href="comp-algo.html#cb158-2"></a>  arbre &lt;-<span class="st"> </span><span class="kw">rpart</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df,<span class="dt">cp=</span><span class="fl">1e-8</span>,<span class="dt">minsplit=</span><span class="dv">2</span>)</span>
+<span id="cb158-3"><a href="comp-algo.html#cb158-3"></a>  cp_opt &lt;-<span class="st"> </span>arbre<span class="op">$</span>cptable <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(xerror<span class="op">==</span><span class="kw">min</span>(xerror)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb158-4"><a href="comp-algo.html#cb158-4"></a>dplyr<span class="op">::</span><span class="kw">select</span>(CP) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice</span>(<span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.numeric</span>()</span>
+<span id="cb158-5"><a href="comp-algo.html#cb158-5"></a>  arbre.opt &lt;-<span class="st"> </span><span class="kw">prune</span>(arbre,<span class="dt">cp=</span>cp_opt)</span>
+<span id="cb158-6"><a href="comp-algo.html#cb158-6"></a>  <span class="kw">predict</span>(arbre,<span class="dt">newdata=</span>newX,<span class="dt">type=</span><span class="st">&quot;prob&quot;</span>)[,<span class="dv">2</span>]</span>
+<span id="cb158-7"><a href="comp-algo.html#cb158-7"></a>}</span>
+<span id="cb158-8"><a href="comp-algo.html#cb158-8"></a>prev[<span class="dv">2</span>,<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">prev.arbre</span>(ad.data1,newX)</span></code></pre></div></li>
 <li><p><strong>Lasso et Ridge</strong> où le paramètre de régularisation est choisi par validation croisée 10 blocs en minimisant la déviance binomiale :</p>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="comp-algo.html#cb233-1"></a>prev.ridge &lt;-<span class="st"> </span><span class="cf">function</span>(df.X,df.Y,newX){</span>
-<span id="cb233-2"><a href="comp-algo.html#cb233-2"></a>  ridge &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(df.X,df.Y,<span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>,<span class="dt">alpha=</span><span class="dv">0</span>)</span>
-<span id="cb233-3"><a href="comp-algo.html#cb233-3"></a>  <span class="kw">as.vector</span>(<span class="kw">predict</span>(ridge,<span class="dt">newx =</span> newX,<span class="dt">type=</span><span class="st">&quot;response&quot;</span>))</span>
-<span id="cb233-4"><a href="comp-algo.html#cb233-4"></a>}</span>
-<span id="cb233-5"><a href="comp-algo.html#cb233-5"></a>prev.lasso &lt;-<span class="st"> </span><span class="cf">function</span>(df.X,df.Y,newX){</span>
-<span id="cb233-6"><a href="comp-algo.html#cb233-6"></a>  lasso &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(df.X,df.Y,<span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>,<span class="dt">alpha=</span><span class="dv">1</span>)</span>
-<span id="cb233-7"><a href="comp-algo.html#cb233-7"></a>  <span class="kw">as.vector</span>(<span class="kw">predict</span>(lasso,<span class="dt">newx =</span> newX,<span class="dt">type=</span><span class="st">&quot;response&quot;</span>))</span>
-<span id="cb233-8"><a href="comp-algo.html#cb233-8"></a>}</span>
-<span id="cb233-9"><a href="comp-algo.html#cb233-9"></a>prev[<span class="dv">3</span>,<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">prev.ridge</span>(X.ad,Y.ad,newX.X)</span>
-<span id="cb233-10"><a href="comp-algo.html#cb233-10"></a>prev[<span class="dv">4</span>,<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">prev.lasso</span>(X.ad,Y.ad,newX.X)</span></code></pre></div></li>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="comp-algo.html#cb159-1"></a>prev.ridge &lt;-<span class="st"> </span><span class="cf">function</span>(df.X,df.Y,newX){</span>
+<span id="cb159-2"><a href="comp-algo.html#cb159-2"></a>  ridge &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(df.X,df.Y,<span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>,<span class="dt">alpha=</span><span class="dv">0</span>)</span>
+<span id="cb159-3"><a href="comp-algo.html#cb159-3"></a>  <span class="kw">as.vector</span>(<span class="kw">predict</span>(ridge,<span class="dt">newx =</span> newX,<span class="dt">type=</span><span class="st">&quot;response&quot;</span>))</span>
+<span id="cb159-4"><a href="comp-algo.html#cb159-4"></a>}</span>
+<span id="cb159-5"><a href="comp-algo.html#cb159-5"></a>prev.lasso &lt;-<span class="st"> </span><span class="cf">function</span>(df.X,df.Y,newX){</span>
+<span id="cb159-6"><a href="comp-algo.html#cb159-6"></a>  lasso &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(df.X,df.Y,<span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>,<span class="dt">alpha=</span><span class="dv">1</span>)</span>
+<span id="cb159-7"><a href="comp-algo.html#cb159-7"></a>  <span class="kw">as.vector</span>(<span class="kw">predict</span>(lasso,<span class="dt">newx =</span> newX,<span class="dt">type=</span><span class="st">&quot;response&quot;</span>))</span>
+<span id="cb159-8"><a href="comp-algo.html#cb159-8"></a>}</span>
+<span id="cb159-9"><a href="comp-algo.html#cb159-9"></a>prev[<span class="dv">3</span>,<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">prev.ridge</span>(X.ad,Y.ad,newX.X)</span>
+<span id="cb159-10"><a href="comp-algo.html#cb159-10"></a>prev[<span class="dv">4</span>,<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">prev.lasso</span>(X.ad,Y.ad,newX.X)</span></code></pre></div></li>
 <li><p><strong>Forêt aléatoire</strong> avec les paramètres par défaut :</p>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="comp-algo.html#cb234-1"></a>prev.foret &lt;-<span class="st"> </span><span class="cf">function</span>(df,newX){</span>
-<span id="cb234-2"><a href="comp-algo.html#cb234-2"></a>  foret &lt;-<span class="st"> </span><span class="kw">ranger</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df,<span class="dt">probability=</span><span class="ot">TRUE</span>)</span>
-<span id="cb234-3"><a href="comp-algo.html#cb234-3"></a>  <span class="kw">predict</span>(foret,<span class="dt">data=</span>newX,<span class="dt">type=</span><span class="st">&quot;response&quot;</span>)<span class="op">$</span>predictions[,<span class="dv">2</span>]</span>
-<span id="cb234-4"><a href="comp-algo.html#cb234-4"></a>}</span>
-<span id="cb234-5"><a href="comp-algo.html#cb234-5"></a>prev[<span class="dv">5</span>,<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">prev.foret</span>(ad.data1,newX)</span></code></pre></div></li>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="comp-algo.html#cb160-1"></a>prev.foret &lt;-<span class="st"> </span><span class="cf">function</span>(df,newX){</span>
+<span id="cb160-2"><a href="comp-algo.html#cb160-2"></a>  foret &lt;-<span class="st"> </span><span class="kw">ranger</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df,<span class="dt">probability=</span><span class="ot">TRUE</span>)</span>
+<span id="cb160-3"><a href="comp-algo.html#cb160-3"></a>  <span class="kw">predict</span>(foret,<span class="dt">data=</span>newX,<span class="dt">type=</span><span class="st">&quot;response&quot;</span>)<span class="op">$</span>predictions[,<span class="dv">2</span>]</span>
+<span id="cb160-4"><a href="comp-algo.html#cb160-4"></a>}</span>
+<span id="cb160-5"><a href="comp-algo.html#cb160-5"></a>prev[<span class="dv">5</span>,<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">prev.foret</span>(ad.data1,newX)</span></code></pre></div></li>
 <li><p><strong>Adaboost et logitboost</strong> avec le nombre d’itérations choisi par validation croisée 5 blocs :</p>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="comp-algo.html#cb235-1"></a>prev.ada &lt;-<span class="st"> </span><span class="cf">function</span>(df,newX){</span>
-<span id="cb235-2"><a href="comp-algo.html#cb235-2"></a>  ada &lt;-<span class="st"> </span><span class="kw">gbm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df,<span class="dt">distribution=</span><span class="st">&quot;adaboost&quot;</span>,<span class="dt">interaction.depth=</span><span class="dv">2</span>,</span>
-<span id="cb235-3"><a href="comp-algo.html#cb235-3"></a>         <span class="dt">bag.fraction=</span><span class="dv">1</span>,<span class="dt">cv.folds =</span> <span class="dv">5</span>,<span class="dt">n.trees=</span><span class="dv">500</span>)</span>
-<span id="cb235-4"><a href="comp-algo.html#cb235-4"></a>  nb.it &lt;-<span class="st"> </span><span class="kw">gbm.perf</span>(ada,<span class="dt">plot.it=</span><span class="ot">FALSE</span>)</span>
-<span id="cb235-5"><a href="comp-algo.html#cb235-5"></a>  <span class="kw">predict</span>(ada,<span class="dt">newdata=</span>newX,<span class="dt">n.trees=</span>nb.it,<span class="dt">type=</span><span class="st">&quot;response&quot;</span>)</span>
-<span id="cb235-6"><a href="comp-algo.html#cb235-6"></a>}</span>
-<span id="cb235-7"><a href="comp-algo.html#cb235-7"></a></span>
-<span id="cb235-8"><a href="comp-algo.html#cb235-8"></a>prev.logit &lt;-<span class="st"> </span><span class="cf">function</span>(df,newX){</span>
-<span id="cb235-9"><a href="comp-algo.html#cb235-9"></a>  logit &lt;-<span class="st"> </span><span class="kw">gbm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df,<span class="dt">distribution=</span><span class="st">&quot;bernoulli&quot;</span>,<span class="dt">interaction.depth=</span><span class="dv">2</span>,</span>
-<span id="cb235-10"><a href="comp-algo.html#cb235-10"></a>           <span class="dt">bag.fraction=</span><span class="dv">1</span>,<span class="dt">cv.folds =</span> <span class="dv">5</span>,<span class="dt">n.trees=</span><span class="dv">500</span>)</span>
-<span id="cb235-11"><a href="comp-algo.html#cb235-11"></a>  nb.it &lt;-<span class="st"> </span><span class="kw">gbm.perf</span>(logit,<span class="dt">plot.it=</span><span class="ot">FALSE</span>)</span>
-<span id="cb235-12"><a href="comp-algo.html#cb235-12"></a>  <span class="kw">predict</span>(logit,<span class="dt">newdata=</span>newX,<span class="dt">n.trees=</span>nb.it,<span class="dt">type=</span><span class="st">&quot;response&quot;</span>)</span>
-<span id="cb235-13"><a href="comp-algo.html#cb235-13"></a>}    </span>
-<span id="cb235-14"><a href="comp-algo.html#cb235-14"></a></span>
-<span id="cb235-15"><a href="comp-algo.html#cb235-15"></a>prev[<span class="dv">6</span>,<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">prev.ada</span>(ad.data2,newX)</span>
-<span id="cb235-16"><a href="comp-algo.html#cb235-16"></a>prev[<span class="dv">7</span>,<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">prev.logit</span>(ad.data2,newX)</span></code></pre></div></li>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="comp-algo.html#cb161-1"></a>prev.ada &lt;-<span class="st"> </span><span class="cf">function</span>(df,newX){</span>
+<span id="cb161-2"><a href="comp-algo.html#cb161-2"></a>  ada &lt;-<span class="st"> </span><span class="kw">gbm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df,<span class="dt">distribution=</span><span class="st">&quot;adaboost&quot;</span>,<span class="dt">interaction.depth=</span><span class="dv">2</span>,</span>
+<span id="cb161-3"><a href="comp-algo.html#cb161-3"></a>         <span class="dt">bag.fraction=</span><span class="dv">1</span>,<span class="dt">cv.folds =</span> <span class="dv">5</span>,<span class="dt">n.trees=</span><span class="dv">500</span>)</span>
+<span id="cb161-4"><a href="comp-algo.html#cb161-4"></a>  nb.it &lt;-<span class="st"> </span><span class="kw">gbm.perf</span>(ada,<span class="dt">plot.it=</span><span class="ot">FALSE</span>)</span>
+<span id="cb161-5"><a href="comp-algo.html#cb161-5"></a>  <span class="kw">predict</span>(ada,<span class="dt">newdata=</span>newX,<span class="dt">n.trees=</span>nb.it,<span class="dt">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb161-6"><a href="comp-algo.html#cb161-6"></a>}</span>
+<span id="cb161-7"><a href="comp-algo.html#cb161-7"></a></span>
+<span id="cb161-8"><a href="comp-algo.html#cb161-8"></a>prev.logit &lt;-<span class="st"> </span><span class="cf">function</span>(df,newX){</span>
+<span id="cb161-9"><a href="comp-algo.html#cb161-9"></a>  logit &lt;-<span class="st"> </span><span class="kw">gbm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df,<span class="dt">distribution=</span><span class="st">&quot;bernoulli&quot;</span>,<span class="dt">interaction.depth=</span><span class="dv">2</span>,</span>
+<span id="cb161-10"><a href="comp-algo.html#cb161-10"></a>           <span class="dt">bag.fraction=</span><span class="dv">1</span>,<span class="dt">cv.folds =</span> <span class="dv">5</span>,<span class="dt">n.trees=</span><span class="dv">500</span>)</span>
+<span id="cb161-11"><a href="comp-algo.html#cb161-11"></a>  nb.it &lt;-<span class="st"> </span><span class="kw">gbm.perf</span>(logit,<span class="dt">plot.it=</span><span class="ot">FALSE</span>)</span>
+<span id="cb161-12"><a href="comp-algo.html#cb161-12"></a>  <span class="kw">predict</span>(logit,<span class="dt">newdata=</span>newX,<span class="dt">n.trees=</span>nb.it,<span class="dt">type=</span><span class="st">&quot;response&quot;</span>)</span>
+<span id="cb161-13"><a href="comp-algo.html#cb161-13"></a>}    </span>
+<span id="cb161-14"><a href="comp-algo.html#cb161-14"></a></span>
+<span id="cb161-15"><a href="comp-algo.html#cb161-15"></a>prev[<span class="dv">6</span>,<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">prev.ada</span>(ad.data2,newX)</span>
+<span id="cb161-16"><a href="comp-algo.html#cb161-16"></a>prev[<span class="dv">7</span>,<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">prev.logit</span>(ad.data2,newX)</span></code></pre></div></li>
 </ul>
 <p>On peut visualiser la prévision de chaque algorithme</p>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="comp-algo.html#cb236-1"></a>prev</span>
-<span id="cb236-2"><a href="comp-algo.html#cb236-2"></a><span class="co"># A tibble: 7 x 2</span></span>
-<span id="cb236-3"><a href="comp-algo.html#cb236-3"></a>  algo   prev</span>
-<span id="cb236-4"><a href="comp-algo.html#cb236-4"></a>  <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
-<span id="cb236-5"><a href="comp-algo.html#cb236-5"></a><span class="dv">1</span> SVM   <span class="fl">0.950</span></span>
-<span id="cb236-6"><a href="comp-algo.html#cb236-6"></a><span class="dv">2</span> arbre <span class="fl">0.990</span></span>
-<span id="cb236-7"><a href="comp-algo.html#cb236-7"></a><span class="dv">3</span> ridge <span class="fl">0.984</span></span>
-<span id="cb236-8"><a href="comp-algo.html#cb236-8"></a><span class="dv">4</span> lasso <span class="fl">0.980</span></span>
-<span id="cb236-9"><a href="comp-algo.html#cb236-9"></a><span class="dv">5</span> foret <span class="fl">0.979</span></span>
-<span id="cb236-10"><a href="comp-algo.html#cb236-10"></a><span class="dv">6</span> ada   <span class="fl">0.974</span></span>
-<span id="cb236-11"><a href="comp-algo.html#cb236-11"></a><span class="dv">7</span> logit <span class="fl">0.983</span></span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="comp-algo.html#cb162-1"></a>prev</span>
+<span id="cb162-2"><a href="comp-algo.html#cb162-2"></a><span class="co"># A tibble: 7 x 2</span></span>
+<span id="cb162-3"><a href="comp-algo.html#cb162-3"></a>  algo   prev</span>
+<span id="cb162-4"><a href="comp-algo.html#cb162-4"></a>  <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
+<span id="cb162-5"><a href="comp-algo.html#cb162-5"></a><span class="dv">1</span> SVM   <span class="fl">0.950</span></span>
+<span id="cb162-6"><a href="comp-algo.html#cb162-6"></a><span class="dv">2</span> arbre <span class="fl">0.990</span></span>
+<span id="cb162-7"><a href="comp-algo.html#cb162-7"></a><span class="dv">3</span> ridge <span class="fl">0.984</span></span>
+<span id="cb162-8"><a href="comp-algo.html#cb162-8"></a><span class="dv">4</span> lasso <span class="fl">0.980</span></span>
+<span id="cb162-9"><a href="comp-algo.html#cb162-9"></a><span class="dv">5</span> foret <span class="fl">0.979</span></span>
+<span id="cb162-10"><a href="comp-algo.html#cb162-10"></a><span class="dv">6</span> ada   <span class="fl">0.974</span></span>
+<span id="cb162-11"><a href="comp-algo.html#cb162-11"></a><span class="dv">7</span> logit <span class="fl">0.983</span></span></code></pre></div>
 
 <div class="exercise">
 <span id="exr:exo-comp-meth-VC" class="exercise"><strong>Exercice 8.1  (Choix d’un algorithme par validation croisée)  </strong></span>
