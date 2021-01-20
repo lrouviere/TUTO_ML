@@ -24,7 +24,7 @@
 <meta name="author" content="Laurent Rouvière" />
 
 
-<meta name="date" content="2021-01-19" />
+<meta name="date" content="2021-01-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,18 +53,6 @@
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
-<link href="libs/vis-4.20.1/vis.css" rel="stylesheet" />
-<script src="libs/vis-4.20.1/vis.min.js"></script>
-<script src="libs/visNetwork-binding-2.0.9/visNetwork.js"></script>
-<script src="libs/FileSaver-1.1.20151003/FileSaver.min.js"></script>
-<script src="libs/Blob-1.0/Blob.js"></script>
-<script src="libs/canvas-toBlob-1.0/canvas-toBlob.js"></script>
-<script src="libs/html2canvas-0.5.0/html2canvas.js"></script>
-<script src="libs/jspdf-1.3.2/jspdf.debug.js"></script>
-<link href="libs/jquery-sparkline-2.1.2/jquery.sparkline.css" rel="stylesheet" />
-<script src="libs/jquery-sparkline-2.1.2/jquery.sparkline.js"></script>
-<script src="libs/sparkline-binding-2.0/sparkline.js"></script>
 
 
 <style type="text/css">
@@ -246,297 +234,59 @@ Le lien entre ces deux approches est établi dans l’exercice <a href="lda.html
 <div id="prise-en-main-lda-et-qda-sur-les-iris-de-fisher" class="section level2">
 <h2><span class="header-section-number">2.1</span> Prise en main : LDA et QDA sur les iris de Fisher</h2>
 <p>On considère les données sur les iris de Fisher.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="lda.html#cb36-1"></a><span class="kw">data</span>(iris)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="lda.html#cb18-1"></a><span class="kw">data</span>(iris)</span></code></pre></div>
 <ol style="list-style-type: decimal">
-<li><p>A l’aide de la fonction <strong>PCA</strong> du package <strong>FactoMineR</strong>, réaliser une ACP en utilisant comme variables actives les 4 variables quantitatives du jeu de données. On mettra la variable <code>Species</code> comme variable qualitative supplémentaire (option <code>quali.sup</code>).</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="lda.html#cb37-1"></a><span class="kw">library</span>(FactoMineR)</span>
-<span id="cb37-2"><a href="lda.html#cb37-2"></a>res.PCA &lt;-<span class="st"> </span><span class="kw">PCA</span>(iris,<span class="dt">quali.sup=</span><span class="dv">5</span>)</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-54-1.png" width="672" style="display: block; margin: auto;" /><img src="TUTO_ML_files/figure-html/unnamed-chunk-54-2.png" width="672" style="display: block; margin: auto;" /></p></li>
-<li><p>Représenter le nuage des individus sur les 2 premiers axes de l’ACP en utilisant une couleur différente pour chaque espèce d’iris (option <code>habillage</code>).</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="lda.html#cb38-1"></a><span class="kw">plot</span>(res.PCA,<span class="dt">habillage=</span><span class="st">&quot;Species&quot;</span>)</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-55-1.png" width="672" style="display: block; margin: auto;" /></p></li>
-<li><p>A l’aide de la fonction <strong>lda</strong> du package <strong>MASS</strong>, effectuer une analyse discriminante linéaire permettant d’expliquer l’espèce par les 4 autres variables explicatives.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="lda.html#cb39-1"></a><span class="kw">library</span>(MASS)</span>
-<span id="cb39-2"><a href="lda.html#cb39-2"></a>mod.lda &lt;-<span class="st"> </span><span class="kw">lda</span>(Species<span class="op">~</span>.,<span class="dt">data=</span>iris)</span></code></pre></div></li>
-<li><p>Représenter le nuage des individus sur les deux premiers axes de l’analyse discriminante linéaire (en utilisant une couleur différente pour chaque espèce d’iris).</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="lda.html#cb40-1"></a><span class="kw">plot</span>(mod.lda,<span class="dt">abbrev=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="kw">as.numeric</span>(iris<span class="op">$</span>Species))</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto;" /></p></li>
-<li><p>Rappeler comment sont obtenues les coordonnées des individus sur chaque axe. En déduire une interprétation de la position des individus.</p>
-<div class="corR">
-<p>
-Les coodonnées se déduisent en projetant les observations sur les variables discriminantes. On peut récupérer ces dernières dans
-</p>
-</div>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="lda.html#cb41-1"></a>mod.lda<span class="op">$</span>scaling</span>
-<span id="cb41-2"><a href="lda.html#cb41-2"></a>                    LD1         LD2</span>
-<span id="cb41-3"><a href="lda.html#cb41-3"></a>Sepal.Length  <span class="fl">0.8293776</span>  <span class="fl">0.02410215</span></span>
-<span id="cb41-4"><a href="lda.html#cb41-4"></a>Sepal.Width   <span class="fl">1.5344731</span>  <span class="fl">2.16452123</span></span>
-<span id="cb41-5"><a href="lda.html#cb41-5"></a>Petal.Length <span class="fl">-2.2012117</span> <span class="fl">-0.93192121</span></span>
-<span id="cb41-6"><a href="lda.html#cb41-6"></a>Petal.Width  <span class="fl">-2.8104603</span>  <span class="fl">2.83918785</span></span></code></pre></div>
-<div class="corR">
-<p>
-on déduit que l’axe 1 oppose les individus ayant des grosses Sépales (à droite) à ceux ayant des grosses pétales (à gauche).
-</p>
-</div></li>
-<li><p>Comparer les représentations des questions 2 et 4.</p>
-<div class="corR">
-<p>
-Pour le problème considéré, la représentation de la question 4 parait plus pertinente. C’est normal dans la mesure où elle prend en compte les groupes des individus pour construire les axes (contrairement à l’ACP).
-</p>
-</div></li>
+<li><p>A l’aide de la fonction <strong>PCA</strong> du package <strong>FactoMineR</strong>, réaliser une ACP en utilisant comme variables actives les 4 variables quantitatives du jeu de données. On mettra la variable <code>Species</code> comme variable qualitative supplémentaire (option <code>quali.sup</code>).</p></li>
+<li><p>Représenter le nuage des individus sur les 2 premiers axes de l’ACP en utilisant une couleur différente pour chaque espèce d’iris (option <code>habillage</code>).</p></li>
+<li><p>A l’aide de la fonction <strong>lda</strong> du package <strong>MASS</strong>, effectuer une analyse discriminante linéaire permettant d’expliquer l’espèce par les 4 autres variables explicatives.</p></li>
+<li><p>Représenter le nuage des individus sur les deux premiers axes de l’analyse discriminante linéaire (en utilisant une couleur différente pour chaque espèce d’iris).</p></li>
+<li><p>Rappeler comment sont obtenues les coordonnées des individus sur chaque axe. En déduire une interprétation de la position des individus.</p></li>
+<li><p>Comparer les représentations des questions 2 et 4.</p></li>
 <li><p>Expliquer les sorties des commandes suivantes (<code>mod.lda</code> est l’objet construit avec la fonction <strong>lda</strong>).</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="lda.html#cb42-1"></a>score &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.lda)<span class="op">$</span>x</span>
-<span id="cb42-2"><a href="lda.html#cb42-2"></a><span class="kw">ldahist</span>(score[,<span class="dv">1</span>],iris[,<span class="dv">5</span>])    </span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-63-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="lda.html#cb43-1"></a><span class="kw">ldahist</span>(score[,<span class="dv">2</span>],iris[,<span class="dv">5</span>])    </span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-63-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p><em>Score contient les coordonnées des projections des individus sur les axes de l’analyse discriminante. On obtient ensuite les histogrammes correspondants aux distributions des coordonnées pour chaque groupe. On visualise clairement que le premier axe est très discriminant. C’est renforcé par la sortie :</em></p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb44-1"><a href="lda.html#cb44-1"></a>Proportion of trace:</span>
-<span id="cb44-2"><a href="lda.html#cb44-2"></a>   LD1    LD2 </span>
-<span id="cb44-3"><a href="lda.html#cb44-3"></a>0.9912 0.0088</span></code></pre></div>
-<div class="corR">
-<p>
-qui restitue, en proportion, la valeur du coefficient de Rayleigh de chaque axe discriminant.
-</p>
-</div></li>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="lda.html#cb19-1"></a>score &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.lda)<span class="op">$</span>x</span>
+<span id="cb19-2"><a href="lda.html#cb19-2"></a><span class="kw">ldahist</span>(score[,<span class="dv">1</span>],iris[,<span class="dv">5</span>])    </span>
+<span id="cb19-3"><a href="lda.html#cb19-3"></a><span class="kw">ldahist</span>(score[,<span class="dv">2</span>],iris[,<span class="dv">5</span>])    </span></code></pre></div>
+<p>````</p></li>
 <li><p>Exécuter et analyser les sorties de la commande</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="lda.html#cb45-1"></a>mod.lda2 &lt;-<span class="st"> </span><span class="kw">lda</span>(Species<span class="op">~</span>.,<span class="dt">data=</span>iris,<span class="dt">CV=</span><span class="ot">TRUE</span>)</span></code></pre></div>
-<div class="corR">
-<p>
-Une validation croisée est ici effectuée pour prédire les probabilités a posteriori ainsi que les groupes de chaque observation. On peut obtenir ces prévisions avec
-</p>
-</div>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="lda.html#cb46-1"></a><span class="kw">head</span>(mod.lda2<span class="op">$</span>class)</span>
-<span id="cb46-2"><a href="lda.html#cb46-2"></a>[<span class="dv">1</span>] setosa setosa setosa setosa setosa setosa</span>
-<span id="cb46-3"><a href="lda.html#cb46-3"></a>Levels<span class="op">:</span><span class="st"> </span>setosa versicolor virginica</span>
-<span id="cb46-4"><a href="lda.html#cb46-4"></a><span class="kw">head</span>(mod.lda2<span class="op">$</span>posterior)</span>
-<span id="cb46-5"><a href="lda.html#cb46-5"></a>  setosa   versicolor    virginica</span>
-<span id="cb46-6"><a href="lda.html#cb46-6"></a><span class="dv">1</span>      <span class="dv">1</span> <span class="fl">5.087494e-22</span> <span class="fl">4.385241e-42</span></span>
-<span id="cb46-7"><a href="lda.html#cb46-7"></a><span class="dv">2</span>      <span class="dv">1</span> <span class="fl">9.588256e-18</span> <span class="fl">8.888069e-37</span></span>
-<span id="cb46-8"><a href="lda.html#cb46-8"></a><span class="dv">3</span>      <span class="dv">1</span> <span class="fl">1.983745e-19</span> <span class="fl">8.606982e-39</span></span>
-<span id="cb46-9"><a href="lda.html#cb46-9"></a><span class="dv">4</span>      <span class="dv">1</span> <span class="fl">1.505573e-16</span> <span class="fl">5.101765e-35</span></span>
-<span id="cb46-10"><a href="lda.html#cb46-10"></a><span class="dv">5</span>      <span class="dv">1</span> <span class="fl">2.075670e-22</span> <span class="fl">1.739832e-42</span></span>
-<span id="cb46-11"><a href="lda.html#cb46-11"></a><span class="dv">6</span>      <span class="dv">1</span> <span class="fl">5.332271e-21</span> <span class="fl">8.674906e-40</span></span></code></pre></div></li>
-<li><p>Comparer, en terme d’erreur de prévision, les performances de LDA et QDA.</p>
-<div class="corR">
-<p>
-Il suffit de confronter les valeurs prédites aux valeurs observées :
-</p>
-</div>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="lda.html#cb47-1"></a>mod.qda &lt;-<span class="st"> </span><span class="kw">qda</span>(Species<span class="op">~</span>.,<span class="dt">data=</span>iris,<span class="dt">CV=</span><span class="ot">TRUE</span>)</span>
-<span id="cb47-2"><a href="lda.html#cb47-2"></a><span class="kw">mean</span>(mod.lda2<span class="op">$</span>class<span class="op">!=</span>iris<span class="op">$</span>Species)</span>
-<span id="cb47-3"><a href="lda.html#cb47-3"></a>[<span class="dv">1</span>] <span class="fl">0.02</span></span>
-<span id="cb47-4"><a href="lda.html#cb47-4"></a><span class="kw">mean</span>(mod.qda<span class="op">$</span>class<span class="op">!=</span>iris<span class="op">$</span>Species)</span>
-<span id="cb47-5"><a href="lda.html#cb47-5"></a>[<span class="dv">1</span>] <span class="fl">0.02666667</span></span></code></pre></div>
-<div class="corR">
-<p>
-On peut retrouver ces résultats avec une syntaxe <strong>dplyr</strong> :
-</p>
-</div>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="lda.html#cb48-1"></a>prev &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">LDA=</span>mod.lda2<span class="op">$</span>class,<span class="dt">QDA=</span>mod.qda<span class="op">$</span>class,<span class="dt">obs=</span>iris<span class="op">$</span>Species)</span>
-<span id="cb48-2"><a href="lda.html#cb48-2"></a>prev <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_at</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,<span class="op">~</span><span class="kw">mean</span>((.<span class="op">!=</span>obs)))</span>
-<span id="cb48-3"><a href="lda.html#cb48-3"></a>   LDA        QDA</span>
-<span id="cb48-4"><a href="lda.html#cb48-4"></a><span class="dv">1</span> <span class="fl">0.02</span> <span class="fl">0.02666667</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="lda.html#cb20-1"></a>mod.lda2 &lt;-<span class="st"> </span><span class="kw">lda</span>(Species<span class="op">~</span>.,<span class="dt">data=</span>iris,<span class="dt">CV=</span><span class="ot">TRUE</span>)</span></code></pre></div></li>
+<li><p>Comparer, en terme d’erreur de prévision, les performances de LDA et QDA.</p></li>
 </ol>
 </div>
 <div id="un-cas-avec-beaucoup-de-classes" class="section level2">
 <h2><span class="header-section-number">2.2</span> Un cas avec beaucoup de classes</h2>
 <p>On considère les jeux de données <strong>Vowel</strong> (training et test) qui se trouvent à cet <a href="https://statweb.stanford.edu/~hastie/ElemStatLearn/">url</a>. On peut les importer avec</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="lda.html#cb49-1"></a>dapp &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://web.stanford.edu/~hastie/ElemStatLearn/datasets/vowel.train&quot;</span>)[,<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb49-2"><a href="lda.html#cb49-2"></a>dtest &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://web.stanford.edu/~hastie/ElemStatLearn/datasets/vowel.test&quot;</span>)[,<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="lda.html#cb21-1"></a>dapp &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://web.stanford.edu/~hastie/ElemStatLearn/datasets/vowel.train&quot;</span>)[,<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb21-2"><a href="lda.html#cb21-2"></a>dtest &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://web.stanford.edu/~hastie/ElemStatLearn/datasets/vowel.test&quot;</span>)[,<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div>
 <ol style="list-style-type: decimal">
-<li><p>Expliquer le problème.</p>
-<div class="corR">
-<p>
-Il s’agit d’expliquer la variable <code>y</code> qui admet 11 modalités par les 9 autres variables qui sont toutes quantitatives. On transforme donc la variable cible en facteur :
-</p>
-</div>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="lda.html#cb50-1"></a>dapp<span class="op">$</span>y &lt;-<span class="st"> </span><span class="kw">as.factor</span>(dapp<span class="op">$</span>y)</span>
-<span id="cb50-2"><a href="lda.html#cb50-2"></a>dtest<span class="op">$</span>y &lt;-<span class="st"> </span><span class="kw">as.factor</span>(dtest<span class="op">$</span>y)</span></code></pre></div></li>
-<li><p>Effectuer une analyse discriminante linéaire (uniquement avec les données d’apprentissage) et visualiser les individus sur les 2 premiers axes de l’analyse discriminante. On pourra utiliser <strong>predict</strong>.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="lda.html#cb51-1"></a>mod &lt;-<span class="st"> </span><span class="kw">lda</span>(y<span class="op">~</span>.,<span class="dt">data=</span>dapp)</span></code></pre></div>
-<div class="corR">
-<p>
-Il faut ici récupérer les coordonnées des individus sur chaque axe :
-</p>
-</div>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="lda.html#cb52-1"></a>prev &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">predict</span>(mod)<span class="op">$</span>x) <span class="op">%&gt;%</span></span>
-<span id="cb52-2"><a href="lda.html#cb52-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">y=</span>dapp<span class="op">$</span>y)</span></code></pre></div>
-<div class="corR">
-<p>
-On peut ainsi obtenir le graphe demandé.
-</p>
-</div>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="lda.html#cb53-1"></a><span class="kw">ggplot</span>(prev)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>LD1,<span class="dt">y=</span>LD2,<span class="dt">color=</span>y)<span class="op">+</span><span class="kw">geom_point</span>()</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-82-1.png" width="672" style="display: block; margin: auto;" /></p></li>
+<li><p>Expliquer le problème.</p></li>
+<li><p>Effectuer une analyse discriminante linéaire (uniquement avec les données d’apprentissage) et visualiser les individus sur les 2 premiers axes de l’analyse discriminante. On pourra utiliser <strong>predict</strong>.</p></li>
 <li><p>La fonction suivante permet de choisir les axes à visualiser, ainsi que les centres de gravité projetés des groupes.</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="lda.html#cb54-1"></a>repres_axes &lt;-<span class="st"> </span><span class="cf">function</span>(prev,cdg,<span class="dt">axe1=</span><span class="dv">1</span>,<span class="dt">axe2=</span><span class="dv">2</span>){</span>
-<span id="cb54-2"><a href="lda.html#cb54-2"></a>  cdg &lt;-<span class="st"> </span>prev <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(y) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_all</span>(mean)</span>
-<span id="cb54-3"><a href="lda.html#cb54-3"></a>  nom1 &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;LD&quot;</span>,<span class="kw">as.character</span>(axe1),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb54-4"><a href="lda.html#cb54-4"></a>  nom2 &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;LD&quot;</span>,<span class="kw">as.character</span>(axe2),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb54-5"><a href="lda.html#cb54-5"></a>  <span class="kw">ggplot</span>(prev)<span class="op">+</span><span class="kw">aes_string</span>(<span class="dt">x=</span><span class="kw">as.name</span>(nom1),<span class="dt">y=</span><span class="kw">as.name</span>(nom2))<span class="op">+</span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>y))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">data=</span>cdg,<span class="kw">aes</span>(<span class="dt">color=</span>y),<span class="dt">shape=</span><span class="dv">17</span>,<span class="dt">size=</span><span class="dv">4</span>)<span class="op">+</span><span class="kw">theme_classic</span>()</span>
-<span id="cb54-6"><a href="lda.html#cb54-6"></a>}</span></code></pre></div>
-<p>Étudier la pertinence des axes.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="lda.html#cb55-1"></a><span class="kw">repres_axes</span>(prev,cdg,<span class="dv">1</span>,<span class="dv">2</span>)</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-84-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="lda.html#cb56-1"></a><span class="kw">repres_axes</span>(prev,cdg,<span class="dv">3</span>,<span class="dv">4</span>)</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-84-2.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="lda.html#cb57-1"></a><span class="kw">repres_axes</span>(prev,cdg,<span class="dv">5</span>,<span class="dv">6</span>)</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-84-3.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="corR">
-<p>
-Les groupes sont mieux séparés sur les premiers axes de l’analyse, ce qui est logique. On peut le vérifier en étudiant la sortie <strong>Proportion of trace</strong> de la fonction <strong>lda</strong> que l’on peut retrouver avec
-</p>
-</div>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="lda.html#cb58-1"></a><span class="kw">round</span>(mod<span class="op">$</span>svd<span class="op">^</span><span class="dv">2</span><span class="op">/</span>(<span class="kw">sum</span>(mod<span class="op">$</span>svd<span class="op">^</span><span class="dv">2</span>)),<span class="dv">4</span>)</span>
-<span id="cb58-2"><a href="lda.html#cb58-2"></a> [<span class="dv">1</span>] <span class="fl">0.5617</span> <span class="fl">0.3518</span> <span class="fl">0.0445</span> <span class="fl">0.0191</span> <span class="fl">0.0107</span> <span class="fl">0.0083</span> <span class="fl">0.0026</span> <span class="fl">0.0011</span></span>
-<span id="cb58-3"><a href="lda.html#cb58-3"></a> [<span class="dv">9</span>] <span class="fl">0.0001</span> <span class="fl">0.0001</span></span></code></pre></div></li>
-<li><p>Représenter les individus sur le premier plan factoriel de l’ACP, on utilisera une couleur différente pour chaque groupe. On pourra utiliser le package <strong>FactoMineR</strong>.</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="lda.html#cb59-1"></a>acp &lt;-<span class="st"> </span><span class="kw">PCA</span>(dapp,<span class="dt">quali.sup=</span><span class="dv">1</span>)</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-88-1.png" width="672" style="display: block; margin: auto;" /><img src="TUTO_ML_files/figure-html/unnamed-chunk-88-2.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="lda.html#cb60-1"></a><span class="kw">plot</span>(acp,<span class="dt">habillage=</span><span class="st">&quot;y&quot;</span>,<span class="dt">label=</span><span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-88-3.png" width="672" style="display: block; margin: auto;" /></p></li>
-<li><p>Comparer cette projection avec celle obtenue par l’analyse discriminante linéaire.</p>
-<div class="corR">
-<p>
-La projection de l’ACP semble moins séparer les groupes que l’analyse discriminante. Ca parait logique puisque l’ACP ne prend pas en compte les groupes pour construire ses axes.
-</p>
-</div></li>
-<li><p>Évaluer la performance de la <strong>lda</strong> sur les données test. Comparer avec l’analyse discriminante quadratique.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="lda.html#cb61-1"></a>mod.qda &lt;-<span class="st"> </span><span class="kw">qda</span>(y<span class="op">~</span>.,<span class="dt">data=</span>dapp)</span>
-<span id="cb61-2"><a href="lda.html#cb61-2"></a>preva &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">LDA=</span><span class="kw">predict</span>(mod,<span class="dt">newdata=</span>dtest)<span class="op">$</span>class,<span class="dt">QDA=</span><span class="kw">predict</span>(mod.qda,<span class="dt">newdata=</span>dtest)<span class="op">$</span>class,<span class="dt">y=</span>dtest<span class="op">$</span>y) </span>
-<span id="cb61-3"><a href="lda.html#cb61-3"></a>preva <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_at</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,<span class="op">~</span><span class="kw">mean</span>(y<span class="op">!=</span>.))</span>
-<span id="cb61-4"><a href="lda.html#cb61-4"></a>        LDA       QDA</span>
-<span id="cb61-5"><a href="lda.html#cb61-5"></a><span class="dv">1</span> <span class="fl">0.5562771</span> <span class="fl">0.5281385</span></span></code></pre></div>
-<div class="corR">
-<p>
-QDA est légèrement plus performante pour le critère étudié.
-</p>
-</div></li>
-<li><p>Expliquer comment on peut faire de la prévision en réduisant la dimension de l’espace des <span class="math inline">\(X\)</span>.</p>
-<div class="corR">
-<p>
-Au lieu de projeter sur tous les axes, on considère uniquement les projections sur les <span class="math inline"><span class="math inline">\(k\)</span></span> premiers axes de l’analyse discriminante. Cela permet de réduire la dimension et (éventuellement) de supprimer du bruit (qui se retrouve souvent sur les derniers axes). Cette métode s’appelle <strong>Reduced-rank discriminant analysis</strong>
-</p>
-</div></li>
-<li><p>Proposer une méthode permettant de choisir le meilleur nombre d’axes. On pourra notamment utiliser l’option <code>dimen</code> de la fonction <strong>predict.lda</strong>.</p>
-<div class="corR">
-<p>
-Cette option permet en effet d’utiliser uniquement les premiers axes de l’analyse discriminante. On peut ainsi estimer la probabilité d’erreur en fonction de la dimension de l’espace sur lequel on projette :
-</p>
-</div>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="lda.html#cb62-1"></a>prev_lab &lt;-<span class="st"> </span><span class="kw">predict</span>(mod,<span class="dt">newdata=</span>dtest)<span class="op">$</span>class </span>
-<span id="cb62-2"><a href="lda.html#cb62-2"></a><span class="kw">mean</span>(prev_lab<span class="op">!=</span>dtest<span class="op">$</span>y)</span>
-<span id="cb62-3"><a href="lda.html#cb62-3"></a>[<span class="dv">1</span>] <span class="fl">0.5562771</span></span>
-<span id="cb62-4"><a href="lda.html#cb62-4"></a>PREV &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>,<span class="dt">ncol=</span><span class="dv">10</span>,<span class="dt">nrow=</span><span class="kw">nrow</span>(dtest)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()</span>
-<span id="cb62-5"><a href="lda.html#cb62-5"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>){</span>
-<span id="cb62-6"><a href="lda.html#cb62-6"></a>  PREV[,i] &lt;-<span class="st"> </span><span class="kw">predict</span>(mod,<span class="dt">newdata=</span>dtest,<span class="dt">dimen=</span>i)<span class="op">$</span>class</span>
-<span id="cb62-7"><a href="lda.html#cb62-7"></a>}</span>
-<span id="cb62-8"><a href="lda.html#cb62-8"></a><span class="kw">names</span>(PREV) &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;P&quot;</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb62-9"><a href="lda.html#cb62-9"></a></span>
-<span id="cb62-10"><a href="lda.html#cb62-10"></a>PREV <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">y=</span>dtest<span class="op">$</span>y) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_at</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,<span class="op">~</span><span class="kw">mean</span>(y<span class="op">!=</span>.)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">3</span>)</span>
-<span id="cb62-11"><a href="lda.html#cb62-11"></a>     P1    P2    P3    P4    P5    P6    P7    P8    P9</span>
-<span id="cb62-12"><a href="lda.html#cb62-12"></a><span class="dv">1</span> <span class="fl">0.699</span> <span class="fl">0.491</span> <span class="fl">0.496</span> <span class="fl">0.511</span> <span class="fl">0.515</span> <span class="fl">0.554</span> <span class="fl">0.554</span> <span class="fl">0.556</span> <span class="fl">0.552</span></span>
-<span id="cb62-13"><a href="lda.html#cb62-13"></a>    P10</span>
-<span id="cb62-14"><a href="lda.html#cb62-14"></a><span class="dv">1</span> <span class="fl">0.556</span></span></code></pre></div>
-<div class="corR">
-<p>
-On remarque que l’erreur est minimale en projetant uniquement sur les deux premiers axes. Cette erreur est de plus comparable avec celle obtenue pour <strong>QDA</strong>.
-</p>
-</div></li>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="lda.html#cb22-1"></a>repres_axes &lt;-<span class="st"> </span><span class="cf">function</span>(prev,cdg,<span class="dt">axe1=</span><span class="dv">1</span>,<span class="dt">axe2=</span><span class="dv">2</span>){</span>
+<span id="cb22-2"><a href="lda.html#cb22-2"></a>  cdg &lt;-<span class="st"> </span>prev <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(y) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_all</span>(mean)</span>
+<span id="cb22-3"><a href="lda.html#cb22-3"></a>  nom1 &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;LD&quot;</span>,<span class="kw">as.character</span>(axe1),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb22-4"><a href="lda.html#cb22-4"></a>  nom2 &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;LD&quot;</span>,<span class="kw">as.character</span>(axe2),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb22-5"><a href="lda.html#cb22-5"></a>  <span class="kw">ggplot</span>(prev)<span class="op">+</span><span class="kw">aes_string</span>(<span class="dt">x=</span><span class="kw">as.name</span>(nom1),<span class="dt">y=</span><span class="kw">as.name</span>(nom2))<span class="op">+</span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>y))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">data=</span>cdg,<span class="kw">aes</span>(<span class="dt">color=</span>y),<span class="dt">shape=</span><span class="dv">17</span>,<span class="dt">size=</span><span class="dv">4</span>)<span class="op">+</span><span class="kw">theme_classic</span>()</span>
+<span id="cb22-6"><a href="lda.html#cb22-6"></a>}</span></code></pre></div>
+<p>Étudier la pertinence des axes.</p></li>
+<li><p>Représenter les individus sur le premier plan factoriel de l’ACP, on utilisera une couleur différente pour chaque groupe. On pourra utiliser le package <strong>FactoMineR</strong>.</p></li>
+<li><p>Comparer cette projection avec celle obtenue par l’analyse discriminante linéaire.</p></li>
+<li><p>Évaluer la performance de la <strong>lda</strong> sur les données test. Comparer avec l’analyse discriminante quadratique.</p></li>
+<li><p>Expliquer comment on peut faire de la prévision en réduisant la dimension de l’espace des <span class="math inline">\(X\)</span>.</p></li>
+<li><p>Proposer une méthode permettant de choisir le meilleur nombre d’axes. On pourra notamment utiliser l’option <code>dimen</code> de la fonction <strong>predict.lda</strong>.</p></li>
 </ol>
 </div>
 <div id="grande-dimension-reconnaissance-de-phonèmes" class="section level2">
 <h2><span class="header-section-number">2.3</span> Grande dimension : reconnaissance de phonèmes</h2>
 <p>On considère le jeu de données <strong>phoneme</strong> téléchargeable à l’url <a href="https://github.com/cran/ElemStatLearn/blob/master/data/phoneme.RData">https://github.com/cran/ElemStatLearn/blob/master/data/phoneme.RData</a>.</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="lda.html#cb63-1"></a><span class="kw">load</span>(<span class="st">&quot;data/phoneme.RData&quot;</span>)</span>
-<span id="cb63-2"><a href="lda.html#cb63-2"></a><span class="kw">data</span>(phoneme)</span>
-<span id="cb63-3"><a href="lda.html#cb63-3"></a>donnees &lt;-<span class="st"> </span>phoneme[,<span class="op">-</span><span class="dv">258</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="lda.html#cb23-1"></a><span class="kw">load</span>(<span class="st">&quot;data/phoneme.RData&quot;</span>)</span>
+<span id="cb23-2"><a href="lda.html#cb23-2"></a><span class="kw">data</span>(phoneme)</span>
+<span id="cb23-3"><a href="lda.html#cb23-3"></a>donnees &lt;-<span class="st"> </span>phoneme[,<span class="op">-</span><span class="dv">258</span>]</span></code></pre></div>
 <ol style="list-style-type: decimal">
-<li><p>Expliquer le problème et représenter pour chaque groupe la courbe moyenne.</p>
-<div class="corR">
-<p>
-Il s’agit d’expliquer un son parmi 5 à partir de courbes discrétisées en 256 points. On peut tracer la courbe moyenne pour chaque groupe avec :
-</p>
-</div>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="lda.html#cb64-1"></a>moy_groupe &lt;-<span class="st"> </span>donnees <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(g) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_all</span>(mean)</span>
-<span id="cb64-2"><a href="lda.html#cb64-2"></a><span class="kw">names</span>(moy_groupe)[<span class="dv">2</span><span class="op">:</span><span class="dv">257</span>] &lt;-<span class="st"> </span><span class="kw">as.character</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">256</span>)</span>
-<span id="cb64-3"><a href="lda.html#cb64-3"></a>moy_plot &lt;-<span class="st"> </span>moy_groupe <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(<span class="op">-</span>g,<span class="dt">names_to=</span><span class="st">&quot;x&quot;</span>,<span class="dt">values_to=</span><span class="st">&quot;values&quot;</span>)</span>
-<span id="cb64-4"><a href="lda.html#cb64-4"></a><span class="kw">ggplot</span>(moy_plot)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">as.numeric</span>(x),<span class="dt">y=</span>values,<span class="dt">color=</span>g)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">size=</span><span class="dv">1</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;x&quot;</span>)</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-98-1.png" width="672" style="display: block; margin: auto;" /></p></li>
-<li><p>Séparer les données en un échantillon d’apprentissage de taille 3000 et un échantillon test de taille 1509.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="lda.html#cb65-1"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb65-2"><a href="lda.html#cb65-2"></a>perm &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(donnees))</span>
-<span id="cb65-3"><a href="lda.html#cb65-3"></a>dapp &lt;-<span class="st"> </span>donnees[perm[<span class="dv">1</span><span class="op">:</span><span class="dv">3000</span>],]</span>
-<span id="cb65-4"><a href="lda.html#cb65-4"></a>dtest &lt;-<span class="st"> </span>phoneme[perm[<span class="dv">3001</span><span class="op">:</span><span class="dv">4509</span>],]</span></code></pre></div></li>
-<li><p>Effectuer une analyse discriminante linéaire et une analyse discriminante quadratique sur les données d’apprentissage uniquement. Évaluer les performances de ces deux approches sur les données test.</p>
-<div class="corR">
-<p>
-On calcule tout d’abord <strong>lda</strong> et <strong>qda</strong> sur les données d’apprentissage :
-</p>
-</div>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="lda.html#cb66-1"></a>lda.pho &lt;-<span class="st"> </span><span class="kw">lda</span>(g<span class="op">~</span>.,<span class="dt">data=</span>dapp)</span>
-<span id="cb66-2"><a href="lda.html#cb66-2"></a>qda.pho &lt;-<span class="st"> </span><span class="kw">qda</span>(g<span class="op">~</span>.,<span class="dt">data=</span>dapp)</span></code></pre></div>
-<div class="corR">
-<p>
-On prédit les individus de l’échantillon test pour en déduire l’erreur :
-</p>
-</div>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="lda.html#cb67-1"></a>prev.pho &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">LDA=</span><span class="kw">predict</span>(lda.pho,<span class="dt">newdata=</span>dtest)<span class="op">$</span>class,<span class="dt">QDA=</span><span class="kw">predict</span>(qda.pho,<span class="dt">newdata=</span>dtest)<span class="op">$</span>class,<span class="dt">obs=</span>dtest<span class="op">$</span>g)</span>
-<span id="cb67-2"><a href="lda.html#cb67-2"></a>prev.pho <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_at</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,<span class="op">~</span><span class="kw">mean</span>(obs<span class="op">!=</span>.)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">3</span>)</span>
-<span id="cb67-3"><a href="lda.html#cb67-3"></a>   LDA   QDA</span>
-<span id="cb67-4"><a href="lda.html#cb67-4"></a><span class="dv">1</span> <span class="fl">0.07</span> <span class="fl">0.176</span></span></code></pre></div></li>
-<li><p>Quels peuvent être les intérêts d’effectuer une analyse discriminante régularisée dans ce contexte ? Effectuer une telle analyse à l’aide de la fonction <strong>rda</strong> du package <strong>klaR</strong>.</p>
-<div class="corR">
-<p>
-Le nombre de variables est élevé, par conséquent on se retrouve avec beaucoup de paramètres à estimer. De plus, les données étant fonctionnelles, on a de la corrélation entre les les variables explicatives (ce qui est rarement bon pour bien estimer). On fait la <strong>rda</strong> sur les données d’apprentissage :
-</p>
-</div>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="lda.html#cb68-1"></a><span class="kw">library</span>(klaR)</span>
-<span id="cb68-2"><a href="lda.html#cb68-2"></a>rda.pho &lt;-<span class="st"> </span><span class="kw">rda</span>(g<span class="op">~</span>.,<span class="dt">data=</span>dapp)</span></code></pre></div>
-<div class="corR">
-<p>
-On prédit le test et on compare avec les autres modèles :
-</p>
-</div>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="lda.html#cb69-1"></a>prev2 &lt;-<span class="st"> </span><span class="kw">predict</span>(rda.pho,<span class="dt">newdata=</span>dtest)<span class="op">$</span>class</span>
-<span id="cb69-2"><a href="lda.html#cb69-2"></a>prev.pho &lt;-<span class="st"> </span>prev.pho <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">RDA=</span>prev2)</span>
-<span id="cb69-3"><a href="lda.html#cb69-3"></a>prev.pho <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_at</span>(<span class="kw">vars</span>(<span class="op">-</span><span class="dv">3</span>),<span class="op">~</span><span class="kw">mean</span>(obs<span class="op">!=</span>.)) </span>
-<span id="cb69-4"><a href="lda.html#cb69-4"></a>        LDA      QDA        RDA</span>
-<span id="cb69-5"><a href="lda.html#cb69-5"></a><span class="dv">1</span> <span class="fl">0.0702452</span> <span class="fl">0.175613</span> <span class="fl">0.05897946</span></span></code></pre></div></li>
-<li><p>Sélectionner les paramètres de régularisation à l’aide du package <strong>caret</strong>. Comparer le nouveau modèle aux précédents.</p>
-<div class="corR">
-<p>
-On définit deux grilles de longueur 5 pour les paramètres <code>lambda</code> et <code>gamma</code>, et on fait une validation croisée 5 blocs pour sélectionner les paramètres. On parallélise sur 4 cœurs pour réduire le temps de calcul.
-</p>
-</div>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="lda.html#cb70-1"></a>gamma &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">by=</span><span class="fl">0.25</span>)</span>
-<span id="cb70-2"><a href="lda.html#cb70-2"></a>lambda &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">by=</span><span class="fl">0.25</span>)</span>
-<span id="cb70-3"><a href="lda.html#cb70-3"></a>grille &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">lambda=</span>lambda,<span class="dt">gamma=</span>gamma)</span>
-<span id="cb70-4"><a href="lda.html#cb70-4"></a>ctrl1 &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method=</span><span class="st">&quot;cv&quot;</span>,<span class="dt">number=</span><span class="dv">5</span>)</span>
-<span id="cb70-5"><a href="lda.html#cb70-5"></a><span class="kw">library</span>(doMC)</span>
-<span id="cb70-6"><a href="lda.html#cb70-6"></a><span class="kw">registerDoMC</span>(<span class="dv">4</span>)</span>
-<span id="cb70-7"><a href="lda.html#cb70-7"></a>rda.pho2 &lt;-<span class="st"> </span>caret<span class="op">::</span><span class="kw">train</span>(g<span class="op">~</span>.,<span class="dt">data=</span>donnees,<span class="dt">method=</span><span class="st">&quot;rda&quot;</span>,</span>
-<span id="cb70-8"><a href="lda.html#cb70-8"></a>                     <span class="dt">trControl=</span>ctrl1,<span class="dt">tuneGrid=</span>grille)</span>
-<span id="cb70-9"><a href="lda.html#cb70-9"></a><span class="kw">registerDoMC</span>(<span class="dv">1</span>)</span></code></pre></div>
-<div class="corR">
-<p>
-On évalue et compare les performances :
-</p>
-</div>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="lda.html#cb71-1"></a>caret<span class="op">::</span><span class="kw">getTrainPerf</span>(rda.pho2)</span>
-<span id="cb71-2"><a href="lda.html#cb71-2"></a>  TrainAccuracy TrainKappa method</span>
-<span id="cb71-3"><a href="lda.html#cb71-3"></a><span class="dv">1</span>     <span class="fl">0.9288063</span>  <span class="fl">0.9101211</span>    rda</span>
-<span id="cb71-4"><a href="lda.html#cb71-4"></a>prev3 &lt;-<span class="st"> </span><span class="kw">predict</span>(rda.pho2,<span class="dt">newdata=</span>dtest)</span>
-<span id="cb71-5"><a href="lda.html#cb71-5"></a>prev.pho &lt;-<span class="st"> </span>prev.pho <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">RDA2=</span>prev3)</span>
-<span id="cb71-6"><a href="lda.html#cb71-6"></a>prev.pho <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_at</span>(<span class="kw">vars</span>(<span class="op">-</span><span class="dv">3</span>),<span class="op">~</span><span class="kw">mean</span>(obs<span class="op">!=</span>.)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">3</span>)</span>
-<span id="cb71-7"><a href="lda.html#cb71-7"></a>   LDA   QDA   RDA  RDA2</span>
-<span id="cb71-8"><a href="lda.html#cb71-8"></a><span class="dv">1</span> <span class="fl">0.07</span> <span class="fl">0.176</span> <span class="fl">0.059</span> <span class="fl">0.043</span></span></code></pre></div>
-<div class="corR">
-<p>
-La régularisation a permis d’améliorer les performances.
-</p>
-</div></li>
+<li><p>Expliquer le problème et représenter pour chaque groupe la courbe moyenne.</p></li>
+<li><p>Séparer les données en un échantillon d’apprentissage de taille 3000 et un échantillon test de taille 1509.</p></li>
+<li><p>Effectuer une analyse discriminante linéaire et une analyse discriminante quadratique sur les données d’apprentissage uniquement. Évaluer les performances de ces deux approches sur les données test.</p></li>
+<li><p>Quels peuvent être les intérêts d’effectuer une analyse discriminante régularisée dans ce contexte ? Effectuer une telle analyse à l’aide de la fonction <strong>rda</strong> du package <strong>klaR</strong>.</p></li>
+<li><p>Sélectionner les paramètres de régularisation à l’aide du package <strong>caret</strong>. Comparer le nouveau modèle aux précédents.</p></li>
 </ol>
 </div>
 <div id="exercices" class="section level2">
@@ -548,47 +298,14 @@ La régularisation a permis d’améliorer les performances.
 
 <p>On dispose de <span class="math inline">\(n\)</span> observations <span class="math inline">\((x_1,y_1),\dots,(x_n,y_n)\)</span> telles que <span class="math inline">\(x_i\in\mathbb R^p\)</span> et <span class="math inline">\(y_i\in\{0,1\}\)</span> pour <span class="math inline">\(i=1,\dots,n\)</span>. On souhaite expliquer les sorties <span class="math inline">\(y_i\)</span> par les entrées <span class="math inline">\(x_i\)</span>.</p>
 <ol style="list-style-type: decimal">
-<li><p>Rappeler la définition d’une règle de prévision.</p>
-<div class="correction">
-<p>
-C’est une fonction <span class="math inline"><span class="math inline">\(g:\mathbb R^p\to\{0,1\}\)</span></span>.
-</p>
-</div></li>
-<li><p>Rappeler la définition de la règle de Bayes <span class="math inline">\(g^\star\)</span> et de l’erreur de Bayes <span class="math inline">\(L^\star\)</span>.</p>
-<div class="correction">
-<p>
-La règle de Bayes est définie par <span class="math display"><span class="math display">\[g^\star(x)=\left\{
- \begin{array}{ll}
- 1&amp;\text{si }\mathbf P(Y=1|X=x)\geq 0.5 \\
- 0&amp;\text{sinon.}
- \end{array}\right.\]</span></span> L’erreur de Bayes est définie par <span class="math inline"><span class="math inline">\(L^\star=\mathbf P(g^\star(X)\neq Y)\)</span></span>.
-</p>
-</div></li>
+<li><p>Rappeler la définition d’une règle de prévision.</p></li>
+<li><p>Rappeler la définition de la règle de Bayes <span class="math inline">\(g^\star\)</span> et de l’erreur de Bayes <span class="math inline">\(L^\star\)</span>.</p></li>
 <li><p>Soit <span class="math inline">\(g\)</span> une règle de décision. Montrer que
 <span class="math display">\[\mathbf P(g(X)\neq Y|X=x)=1-(\mathbf 1_{g(x)=1}\eta(x)+\mathbf 1_{g(x)=0}(1-\eta(x)))\]</span>
-où <span class="math inline">\(\eta(x)=\mathbf P(Y=1|X=x)\)</span>.</p>
-<div class="correction">
-<p>
-On a <span class="math display"><span class="math display">\[\begin{align*}
-     \mathbf P(g(X)\neq Y|X=x) &amp;= 1-\left(\mathbf P(g(X)=Y,g(X)=1|X=x)+\mathbf P(g(X)=Y,g(X)=0|X=x)\right) \\
-                           &amp;= 1-\left(\mathbf 1_{g(x)=1}\mathbf P(Y=1|X=x)+\mathbf 1_{g(x)=0}\mathbf P(Y=0|X=x)\right) \\
-                           &amp;= 1-(\mathbf 1_{g(x)=1}\eta(x)+\mathbf 1_{g(x)=0}(1-\eta(x))).
-   \end{align*}\]</span></span>
-</p>
-</div></li>
+où <span class="math inline">\(\eta(x)=\mathbf P(Y=1|X=x)\)</span>.</p></li>
 <li><p>En déduire que pour tout <span class="math inline">\(x\in\mathcal X\)</span> et pour toute règle <span class="math inline">\(g\)</span>
 <span class="math display">\[\mathbf P(g(X)\neq Y|X=x)-\mathbf P(g^\star(X)\neq Y|X=x)\geq 0.\]</span>
-Conclure.</p>
-<div class="correction">
-<p>
-On déduit <span class="math display"><span class="math display">\[\begin{align*}
-     \mathbf P(g(X)\neq &amp;Y|X=x)-\mathbf P(g^\star(X)\neq Y|X=x) \\
-                            &amp;= \eta(x)\left(\mathbf 1_{g^\star(x)=1}-\mathbf 1_{g(x)=1}\right)+(1-\eta(x))\left(\mathbf 1_{g^\star(x)=0}-\mathbf 1_{g(x)=0}\right) \\
-                            &amp;= (2\eta(x)-1) \left(\mathbf 1_{g^\star(x)=1}-\mathbf 1_{g(x)=1}\right) \\
-                            &amp;\geq 0
-   \end{align*}\]</span></span> par définition de <span class="math inline"><span class="math inline">\(g^\star\)</span></span>. On conclut en intégrant par la loi de <span class="math inline"><span class="math inline">\(X\)</span></span> que <span class="math display"><span class="math display">\[\mathbf P(g(X)\neq Y)\geq \mathbf P(g^\star(X)\neq Y).\]</span></span>
-</p>
-</div></li>
+Conclure.</p></li>
 <li><p>On considère <span class="math inline">\((X,Y)\)</span> un couple aléatoire à valeurs dans <span class="math inline">\(\mathbb R\times\{0,1\}\)</span> tel que
 <span class="math display">\[\begin{equation*}
 X\sim\mathcal U[-2,2]\quad\text{et}\quad (Y|X=x)\sim\left\{
@@ -597,17 +314,7 @@ X\sim\mathcal U[-2,2]\quad\text{et}\quad (Y|X=x)\sim\left\{
 \mathcal B(9/10) &amp; \textrm{si } x&gt;0
   \end{array}\right.
 \end{equation*}\]</span>
-où <span class="math inline">\(\mathcal U[a,b]\)</span> désigne la loi uniforme sur <span class="math inline">\([a,b]\)</span> et <span class="math inline">\(\mathcal B(p)\)</span> la loi de Bernoulli de paramètre <span class="math inline">\(p\)</span>. Calculer la règle de Bayes et l’erreur de Bayes.</p>
-<div class="correction">
-<p>
-Si <span class="math inline"><span class="math inline">\(x\leq 0\)</span></span>, on a <span class="math inline"><span class="math inline">\(\mathbf P(Y=1|X=x)=\frac{1}{5}\)</span></span> et si <span class="math inline"><span class="math inline">\(x&gt;0\)</span></span>, <span class="math inline"><span class="math inline">\(\mathbf P(Y=1|X=x)=\frac{9}{10}\)</span></span>. Ainsi <span class="math display"><span class="math display">\[g^\star(x)=\left\{
- \begin{array}{ll}
- 0 &amp;\text{si }x\leq 0\\
- 1 &amp;\text{si }x&gt;0.
- \end{array}\right.
- \]</span></span> L’erreur de Bayes vaut <span class="math display"><span class="math display">\[L^\star=\mathbf P(g^\star(X)\neq Y|X\leq 0)\mathbf P(X\leq 0)+\mathbf P(g^\star(X)\neq Y|X&gt;0)\mathbf P(X&gt;0).\]</span></span> Or <span class="math display"><span class="math display">\[\mathbf P(g^\star(X)\neq Y|X\leq 0)=\mathbf P(Y\neq 0|X\leq 0)=\frac{1}{5}\]</span></span> et <span class="math display"><span class="math display">\[\mathbf P(g^\star(X)\neq Y|X&gt;0)=\mathbf P(Y\neq 1|X&gt;0)=\frac{1}{10}.\]</span></span> On obtient <span class="math display"><span class="math display">\[L^\star=\frac{1}{5}\,\frac{1}{2}+\frac{1}{10}\,\frac{1}{2}=\frac{3}{20}.\]</span></span>
-</p>
-</div></li>
+où <span class="math inline">\(\mathcal U[a,b]\)</span> désigne la loi uniforme sur <span class="math inline">\([a,b]\)</span> et <span class="math inline">\(\mathcal B(p)\)</span> la loi de Bernoulli de paramètre <span class="math inline">\(p\)</span>. Calculer la règle de Bayes et l’erreur de Bayes.</p></li>
 </ol>
 
 <div class="exercise">
@@ -616,27 +323,9 @@ Si <span class="math inline"><span class="math inline">\(x\leq 0\)</span></span>
 
 <p>On cherche à expliquer une variable aléatoire <span class="math inline">\(Y\)</span> à valeurs dans <span class="math inline">\(\{0,1\}\)</span> par une variable aléatoire <span class="math inline">\(X\)</span> à valeurs dans <span class="math inline">\(\mathbb R\)</span>.</p>
 <ol style="list-style-type: decimal">
-<li>Quels sont les paramètres à estimer dans le modèle d’analyse discriminante linéaire.
-<div class="correction">
-<p>
-Le modèle <strong>LDA</strong> suppose que <span class="math inline"><span class="math inline">\(X|Y=k\sim\mathcal N(\mu_k,\sigma^2)\)</span></span>. Il faut donc estimer <span class="math inline"><span class="math inline">\(\mu_0,\mu_1,\sigma^2\)</span></span> et les probabilités <span class="math inline"><span class="math inline">\(\pi_k=\mathbf P(Y=k),j=0,1\)</span></span>.
-</p>
-</div></li>
-<li>Calculer la vraisemblance conditionnelle à <span class="math inline">\(Y\)</span> et en déduire les estimateurs des paramètres des lois gaussiennes.
-<div class="correction">
-<p>
-On désigne par <span class="math inline"><span class="math inline">\(\mathcal I_k,k=0,1\)</span></span> les indices des observations dans le groupe <span class="math inline"><span class="math inline">\(k\)</span></span>. On a alors <span class="math display"><span class="math display">\[L_{X|Y}(x_1,\dots,x_n)=\prod_{i\in\mathcal I_0}f_0(x_i) \prod_{i\in\mathcal I_1}f_1(x_i).\]</span></span> On obtient ainsi <span class="math display"><span class="math display">\[\begin{align*}
- \mathcal L_{X|Y}(x_1,\dots,x_n)=-&amp;(n_0+n_1)\log(\sqrt{2\pi})-(n_0+n_1)\log \sqrt{\sigma^2} \\
- -&amp;\frac{1}{2}\sum_{i\in\mathcal I_0}\frac{(x_i-\mu_0)^2}{\sigma^2}-\frac{1}{2}\sum_{i\in\mathcal I_1}\frac{(x_i-\mu_1)^2}{\sigma^2}.
- \end{align*}\]</span></span> En dérivant par rapport à <span class="math inline"><span class="math inline">\(\mu_0\)</span></span> et <span class="math inline"><span class="math inline">\(\mu_1\)</span></span> il est facile de voir que les EMV de ces paramètres sont donnés par <span class="math display"><span class="math display">\[\widehat\mu_0=\frac{1}{n_0}\sum_{i\in\mathcal I_0}x_i\quad\text{et}\quad \widehat\mu_1=\frac{1}{n_1}\sum_{i\in\mathcal I_1}x_i.\]</span></span> On dérive maintenant par rapport à <span class="math inline"><span class="math inline">\(\sigma^2\)</span></span> : <span class="math display"><span class="math display">\[\frac{\partial\mathcal L_{X|Y}(x_1,\dots,x_n)}{\partial\sigma^2}=-\frac{n_0+n_1}{\sigma^2}+\sum_{i\in\mathcal I_0}\frac{(x_i-\mu_0)^2}{2\sigma^4}+\sum_{i\in\mathcal I_1}\frac{(x_i-\mu_1)^2}{2\sigma^4}.\]</span></span> On déduit que l’EMV de <span class="math inline"><span class="math inline">\(\sigma^2\)</span></span> est donné par <span class="math display"><span class="math display">\[\widehat\sigma^2=\frac{1}{n}\left(\sum_{i\in\mathcal I_0}(x_i-\widehat\mu_0)^2+\sum_{i\in\mathcal I_1}(x_i-\widehat\mu_1)^2\right).\]</span></span>
-</p>
-</div></li>
-<li>Comparer les estimateurs obtenus avec ceux du cours.
-<div class="correction">
-<p>
-Ces estimateurs correspondent à ceux proposés dans le cours, à part pour <span class="math inline"><span class="math inline">\(\widehat\sigma^2\)</span></span> où on divise par <span class="math inline"><span class="math inline">\(n-2\)</span></span> au lieu de <span class="math inline"><span class="math inline">\(n\)</span></span> pour débiaiser.
-</p>
-</div></li>
+<li><p>Quels sont les paramètres à estimer dans le modèle d’analyse discriminante linéaire.</p></li>
+<li><p>Calculer la vraisemblance conditionnelle à <span class="math inline">\(Y\)</span> et en déduire les estimateurs des paramètres des lois gaussiennes.</p></li>
+<li><p>Comparer les estimateurs obtenus avec ceux du cours.</p></li>
 </ol>
 
 <div class="exercise">
@@ -645,18 +334,8 @@ Ces estimateurs correspondent à ceux proposés dans le cours, à part pour <spa
 
 <p>On cherche à expliquer une variable aléatoire <span class="math inline">\(Y\)</span> à valeurs dans <span class="math inline">\(\{0,1\}\)</span> par une variable aléatoire <span class="math inline">\(X\)</span> à valeurs dans <span class="math inline">\(\mathbb R^p\)</span>.</p>
 <ol style="list-style-type: decimal">
-<li>Rappeler le modèle d’analyse discriminante linéaire.
-<div class="correction">
-<p>
-Le modèle <strong>LDA</strong> fait l’hypothèse que <span class="math inline"><span class="math inline">\(X|Y=k\)</span></span> est un vecteur gaussien de loi <span class="math inline"><span class="math inline">\(\mathcal N(\mu_k,\Sigma)\)</span></span> avec <span class="math inline"><span class="math inline">\(\mu_k\in\mathbb R^p\)</span></span> et <span class="math inline"><span class="math inline">\(\Sigma\)</span></span> matrice symétrique définie positive <span class="math inline"><span class="math inline">\(p\times p\)</span></span>.
-</p>
-</div></li>
-<li>Soit <span class="math inline">\(x\in\mathbb R^p\)</span> un nouvel individu. Montrer que la règle qui consiste à affecter <span class="math inline">\(x\)</span> dans le groupe qui maximise <span class="math inline">\(\mathbf P(Y=k|X=x)\)</span> est équivalente à la règle qui consiste à affecter <span class="math inline">\(x\)</span> dans le groupe qui maximise les fonctions linéaires discriminantes (on prendra soin de rappeler la définition des fonctions linéaires discriminantes).
-<div class="correction">
-<p>
-Sous le modèle LDA, maximiser <span class="math inline"><span class="math inline">\(\mathbf P(Y=k|X=x)\)</span></span> est équivalent à maximiser <span class="math inline"><span class="math inline">\(\pi_kf_k(x)\)</span></span> où <span class="math inline"><span class="math inline">\(f_k(x)\)</span></span> est la densité d’un vecteur gaussien <span class="math inline"><span class="math inline">\(\mathcal N(\mu_k,\Sigma)\)</span></span>. Par conséquent cela revient à maximiser <span class="math display"><span class="math display">\[-\frac{1}{2}(x-\mu_k)^t\Sigma^{-1}(x-\mu_k)+\log(\pi_k),\]</span></span> ou encore à chercher la fonction linéaire discriminante <span class="math display"><span class="math display">\[\delta_k(x)=x^t\Sigma^{-1}\mu_k-\frac{1}{2}\mu_k^t\Sigma^{-1}\mu_k+\log\pi_k.\]</span></span> qui prend la plus grande valeur.
-</p>
-</div></li>
+<li><p>Rappeler le modèle d’analyse discriminante linéaire.</p></li>
+<li><p>Soit <span class="math inline">\(x\in\mathbb R^p\)</span> un nouvel individu. Montrer que la règle qui consiste à affecter <span class="math inline">\(x\)</span> dans le groupe qui maximise <span class="math inline">\(\mathbf P(Y=k|X=x)\)</span> est équivalente à la règle qui consiste à affecter <span class="math inline">\(x\)</span> dans le groupe qui maximise les fonctions linéaires discriminantes (on prendra soin de rappeler la définition des fonctions linéaires discriminantes).</p></li>
 </ol>
 
 <div class="exercise">
@@ -672,24 +351,9 @@ projetés sur <span class="math inline">\(a\)</span> soit maximale (cette distan
 </ul>
 <p>Pour un vecteur <span class="math inline">\(u\)</span> de <span class="math inline">\(\mathbb R^2\)</span>, on désigne par <span class="math inline">\(\pi_a(u)\)</span> son projeté sur la droite engendrée par <span class="math inline">\(a\)</span>. Sans perte de généralité on supposera dans un premier temps que <span class="math inline">\(a\)</span> est de norme 1.</p>
 <ol style="list-style-type: decimal">
-<li><p>Rappeler les définitions des variances totale <span class="math inline">\(V\)</span>, intra <span class="math inline">\(W\)</span> et inter <span class="math inline">\(B\)</span> des observations <span class="math inline">\((x_1,y_1),\dots,(x_n,y_n)\)</span>.</p>
-<div class="correction">
-<p>
-On a <span class="math display"><span class="math display">\[V=\frac{1}{n}\sum_{i=1}^n(x_i-g)(x_i-g)^t,\ B=\frac{1}{n}\sum_{k=1}^Kn_k(g_k-g)(g_k-g)^t,\]</span></span> <span class="math display"><span class="math display">\[W=\frac{1}{n}\sum_{k=1}^K\sum_{i:y_i=k}(x_i-g_k)(x_i-g_k)^t.\]</span></span>
-</p>
-</div></li>
-<li><p>Pour <span class="math inline">\(u\)</span> fixé dans <span class="math inline">\(\mathbb R^2\)</span>, exprimer <span class="math inline">\(\pi_a(u)\)</span> en fonction de <span class="math inline">\(u\)</span> et <span class="math inline">\(a\)</span> et en déduire que <span class="math inline">\(\|\pi_a(u)\|^2=a^tuu^ta\)</span>.</p>
-<div class="correction">
-<p>
-On a <span class="math display"><span class="math display">\[\pi_a(u)=\frac{\langle u,a\rangle}{\|a\|^2}a=u^ta a\quad\text{ si }\quad\|a\|a=1.\]</span></span> On déduit <span class="math inline"><span class="math inline">\(\|\pi_a(u)\|^2=a^tuu^ta\)</span></span>.
-</p>
-</div></li>
-<li><p>Exprimer les variances totale <span class="math inline">\(V(a)\)</span>, intra <span class="math inline">\(W(a)\)</span> et inter <span class="math inline">\(B(a)\)</span> projetées sur <span class="math inline">\(a\)</span> en fonction des variances calculées à la question 1.</p>
-<div class="correction">
-<p>
-On a ainsi <span class="math display"><span class="math display">\[V(a)=\frac{1}{n}\sum_{i=1}^n\|\pi_a(x_i-g)\|^2=\frac{1}{n}\sum_{i=1}^na^t(x_i-g)^t(x_i-g)a=a^tVa.\]</span></span> On montre de même que <span class="math inline"><span class="math inline">\(B(a)=a^tBa\)</span></span> et <span class="math inline"><span class="math inline">\(W(a)=a^tWa\)</span></span>.
-</p>
-</div></li>
+<li><p>Rappeler les définitions des variances totale <span class="math inline">\(V\)</span>, intra <span class="math inline">\(W\)</span> et inter <span class="math inline">\(B\)</span> des observations <span class="math inline">\((x_1,y_1),\dots,(x_n,y_n)\)</span>.</p></li>
+<li><p>Pour <span class="math inline">\(u\)</span> fixé dans <span class="math inline">\(\mathbb R^2\)</span>, exprimer <span class="math inline">\(\pi_a(u)\)</span> en fonction de <span class="math inline">\(u\)</span> et <span class="math inline">\(a\)</span> et en déduire que <span class="math inline">\(\|\pi_a(u)\|^2=a^tuu^ta\)</span>.</p></li>
+<li><p>Exprimer les variances totale <span class="math inline">\(V(a)\)</span>, intra <span class="math inline">\(W(a)\)</span> et inter <span class="math inline">\(B(a)\)</span> projetées sur <span class="math inline">\(a\)</span> en fonction des variances calculées à la question 1.</p></li>
 <li><p>On cherche maintenant à maximiser
 <span class="math display">\[J(a)=\frac{B(a)}{W(a)}\]</span>
 ou encore à
@@ -700,56 +364,17 @@ ou encore à
 La méthode des multiplicateurs de Lagrange permet de résoudre un tel problème. La solution du problème de maximisation d’une fonction <span class="math inline">\(f(x)\)</span> sujette à <span class="math inline">\(h(x)=0\)</span> s’obtient en résolvant l’équation
 <span class="math display">\[\frac{\partial L(x,\lambda)}{\partial x}=0,\quad\textrm{où}\quad L(x,\lambda)=f(x)+\lambda h(x).\]</span></p>
 <ol style="list-style-type: lower-alpha">
-<li>Montrer que la solution du problème <a href="lda.html#eq:pbmaxrayleigh">(2.1)</a> est un vecteur propre de <span class="math inline">\(W^{-1}B\)</span> associé à la plus grande valeur propre de <span class="math inline">\(W^{-1}B\)</span>. On note <span class="math inline">\(a^\star\)</span> cette solution.
-<div class="correction">
-<p>
-On écrit le Lagrangien <span class="math display"><span class="math display">\[L(a,\lambda)=B(a)+\lambda W(a)=a^t(B+\lambda W)a,\]</span></span> puis on le dérive par rapport à <span class="math inline"><span class="math inline">\(a\)</span></span> : <span class="math display"><span class="math display">\[\frac{\partial L(a,\lambda)}{\partial a}=2(B+\lambda W)a.\]</span></span> Par conséquent la solution <span class="math inline"><span class="math inline">\(a^\star\)</span></span> vérifie <span class="math inline"><span class="math inline">\(W^{-1}Ba^\star=\lambda a^\star\)</span></span>, c’est donc un vecteur propre de <span class="math inline"><span class="math inline">\(W^{-1}B\)</span></span>. De plus, il est facile de voir que <span class="math inline"><span class="math inline">\(J(a^\star)=\lambda\)</span></span>, par conséquent <span class="math inline"><span class="math inline">\(a^\star\)</span></span> est un vecteur propre associé à la plus grande valeur propre de <span class="math inline"><span class="math inline">\(W^{-1}B\)</span></span>.
-</p>
-</div></li>
-<li>Montrer que <span class="math inline">\(a^\star\)</span> est colinéaire à <span class="math inline">\(W^{-1}(g_1-g_0)\)</span>. On pourra admettre que, dans le cas de 2 groupes, on a
-<span class="math display">\[B=\frac{n_0n_1}{n^2}(g_1-g_0)(g_1-g_0)^t.\]</span>
-<div class="correction">
-<p>
-<span class="math inline"><span class="math inline">\(W^{-1}B\)</span></span> possédant au plus une valeur propre non nulle, il suffit de vérifier que <span class="math inline"><span class="math inline">\(W^{-1}(g_1-g_0)\)</span></span> est vecteur propre de <span class="math inline"><span class="math inline">\(W^{-1}B\)</span></span>. On a <span class="math display"><span class="math display">\[W^{-1}B W^{-1}(g_1-g_0)=\frac{n_0n_1}{n^2} W^{-1}(g_1-g_0)(g_1-g_0)^t W^{-1}(g_1-g_0)=\lambda W^{-1}(g_1-g_0)\]</span></span> avec <span class="math display"><span class="math display">\[\lambda=\frac{n_0n_1}{n^2}(g_1-g_0)^t W^{-1}(g_1-g_0).\]</span></span>
-</p>
-</div></li>
-<li>On considère la règle géométrique d’affectation qui consiste à classer un nouvel individu <span class="math inline">\(x\in\mathbb R^p\)</span> au groupe 1 si son projeté sur <span class="math inline">\(a^\star\)</span> est plus proche de <span class="math inline">\(\pi_{a^\star}(g_1)\)</span> que de <span class="math inline">\(\pi_{a^\star}(g_0)\)</span>. Montrer que <span class="math inline">\(x\)</span> sera affecté au groupe 1 si
+<li><p>Montrer que la solution du problème <a href="lda.html#eq:pbmaxrayleigh">(2.1)</a> est un vecteur propre de <span class="math inline">\(W^{-1}B\)</span> associé à la plus grande valeur propre de <span class="math inline">\(W^{-1}B\)</span>. On note <span class="math inline">\(a^\star\)</span> cette solution.</p></li>
+<li><p>Montrer que <span class="math inline">\(a^\star\)</span> est colinéaire à <span class="math inline">\(W^{-1}(g_1-g_0)\)</span>. On pourra admettre que, dans le cas de 2 groupes, on a
+<span class="math display">\[B=\frac{n_0n_1}{n^2}(g_1-g_0)(g_1-g_0)^t.\]</span></p></li>
+<li><p>On considère la règle géométrique d’affectation qui consiste à classer un nouvel individu <span class="math inline">\(x\in\mathbb R^p\)</span> au groupe 1 si son projeté sur <span class="math inline">\(a^\star\)</span> est plus proche de <span class="math inline">\(\pi_{a^\star}(g_1)\)</span> que de <span class="math inline">\(\pi_{a^\star}(g_0)\)</span>. Montrer que <span class="math inline">\(x\)</span> sera affecté au groupe 1 si
 <span class="math display">\[S(x)=x^tW^{-1}(g_1-g_0)&gt;s\]</span>
-où on exprimera <span class="math inline">\(s\)</span> en fonction de <span class="math inline">\(g_0\)</span>, <span class="math inline">\(g_1\)</span> et <span class="math inline">\(W\)</span>.
-<div class="correction">
-<p>
-Le nouvel <span class="math inline"><span class="math inline">\(x\)</span></span> est affecté au groupe <span class="math inline"><span class="math inline">\(1\)</span></span> si <span class="math inline"><span class="math inline">\(\|\pi_{a^\star}(x-g_1)\|\leq \|\pi_{a^\star}(x-g_0)\|\)</span></span>. Or <span class="math display"><span class="math display">\[\pi_{a^\star}(x-g_1)=\frac{(x-g_1)^ta_1^\star}{\|a_1^\star\|^2} a_1^\star\quad\text{et}\quad \pi_{a^\star}(x-g_0)=\frac{(x-g_0)^ta_1^\star}{\|a_1^\star\|^2} a_1^\star\]</span></span> où <span class="math inline"><span class="math inline">\(a_1^\star=W^{-1}(g_1-g_0)\)</span></span>. Par conséquent, <span class="math inline"><span class="math inline">\(x\)</span></span> est affecté au groupe 1 si <span class="math display"><span class="math display">\[((x-g_1)^ta_1^\star)^2\leq ((x-g_0)^ta_1^\star)^2\Longleftrightarrow -2x^ta_1^\star\times g_1^ta_1^\star+(g_1^ta_1^\star)^2\leq -2x^ta_1^\star\times g_0^ta_1^\star+(g_0^ta_1^\star)^2\]</span></span> ou encore <span class="math display"><span class="math display">\[2x^ta_1^\star(g_0^ta_1^\star-g_1^ta_1^\star)\leq (g_0^ta_1^\star)^2-(g_1^ta_1^\star)^2=(g_0^ta_1^\star+g_1^ta_1^\star)(g_0^ta_1^\star-g_1^ta_1^\star).\]</span></span> Comme <span class="math inline"><span class="math inline">\(g_0^ta_1^\star-g_1^ta_1^\star=-(g_1-g_0)^tW^{-1}(g_1-g_0)\leq 0\)</span></span> on déduit que <span class="math inline"><span class="math inline">\(x\)</span></span> est affecté au groupe 1 si <span class="math display"><span class="math display">\[2x^ta_1^\star\geq g_0^ta_1^\star+g_1^ta_1^\star \Longleftrightarrow x^tW^{-1}(g_1-g_0)\geq \frac{1}{2}(g_1+g_0)^tW^{-1}(g_1-g_0).\]</span></span>
-</p>
-</div></li>
-<li>Montrer que cette règle est équivalente à choisir le groupe qui minimise la distance de Mahalanobis
-<span class="math display">\[d(x,g_k)=(x-g_k)^tW^{-1}(x-g_k),\quad k=0,1.\]</span>
-<div class="correction">
-<p>
-Il est facile de voir que <span class="math inline"><span class="math inline">\(d(x,g_1)\leq d(x,g_0)\)</span></span> si et seulement si <span class="math display"><span class="math display">\[x^tW^{-1}g_1-\frac{1}{2}g_1^tW^{-1}g_1\leq x^tW^{-1}g_0-\frac{1}{2}g_0^tW^{-1}g_0.\]</span></span> D’où le résultat.
-</p>
-</div></li>
-<li>On revient maintenant à l’approche probabiliste de l’analyse discriminante linéaire vue en cours et on considère la règle d’affectation qui consiste à décider "groupe 1’’ si <span class="math inline">\(\mathbf P(Y=1|X=x)\geq 0.5\)</span>. Montrer que dans ce cas, un nouvel individu <span class="math inline">\(x\)</span> est affecter au groupe 1 si :
+où on exprimera <span class="math inline">\(s\)</span> en fonction de <span class="math inline">\(g_0\)</span>, <span class="math inline">\(g_1\)</span> et <span class="math inline">\(W\)</span>.</p></li>
+<li><p>Montrer que cette règle est équivalente à choisir le groupe qui minimise la distance de Mahalanobis
+<span class="math display">\[d(x,g_k)=(x-g_k)^tW^{-1}(x-g_k),\quad k=0,1.\]</span></p></li>
+<li><p>On revient maintenant à l’approche probabiliste de l’analyse discriminante linéaire vue en cours et on considère la règle d’affectation qui consiste à décider "groupe 1’’ si <span class="math inline">\(\mathbf P(Y=1|X=x)\geq 0.5\)</span>. Montrer que dans ce cas, un nouvel individu <span class="math inline">\(x\)</span> est affecter au groupe 1 si :
 <span class="math display">\[S(x)=x^t\Sigma^{-1}(\mu_1-\mu_0)&gt;\frac{1}{2}(\mu_1+\mu_0)^t\Sigma^{-1}(\mu_1-\mu_0)-\log\left(\frac{\pi_1}{\pi_0}\right).\]</span>
-Conclure.
-<div class="correction">
-<p>
-Si on se place dans le modèle Gaussien d’analyse discriminante linéaire, <span class="math inline"><span class="math inline">\(x\)</span></span> est affecté au groupe 1 si <span class="math inline"><span class="math inline">\(\mathbf P(Y=1|X=x)\geq\mathbf P(Y=0|X=x)\)</span></span>, c’est-à-dire <span class="math display"><span class="math display">\[\log(\pi_1)-\frac{1}{2}(x-\mu_1)^t\Sigma^{-1}(x-\mu_1)\geq \log(\pi_0)-\frac{1}{2}(x-\mu_0)^t\Sigma^{-1}(x-\mu_0),\]</span></span> ou encore <span class="math display"><span class="math display">\[x^t\Sigma^{-1}(\mu_1-\mu_0)\geq \frac{1}{2}(\mu_1+\mu_0)^t\Sigma^{-1}(\mu_1-\mu_0)+\log \frac{\pi_0}{\pi_1}.\]</span></span> On conclut en remarquant que si
-</p>
-<ul>
-<li>
-<span class="math inline"><span class="math inline">\(\mu_0\)</span></span> et <span class="math inline"><span class="math inline">\(\mu_1\)</span></span> sont estimés par <span class="math inline"><span class="math inline">\(g_0\)</span></span> et <span class="math inline"><span class="math inline">\(g_1\)</span></span> (ce qui est le cas généralement) ;
-</li>
-<li>
-<span class="math inline"><span class="math inline">\(\Sigma\)</span></span> est, à une constante multiplicative près, estimé par <span class="math inline"><span class="math inline">\(W\)</span></span> (ce qui est le cas généralement) ;
-</li>
-<li>
-les probabilités a priori <span class="math inline"><span class="math inline">\(\pi_0\)</span></span> et <span class="math inline"><span class="math inline">\(\pi_1\)</span></span> sont égales,
-</li>
-</ul>
-<p>
-alors les 2 règles coïncident.
-</p>
-</div></li>
+Conclure.</p></li>
 </ol></li>
 </ol>
 

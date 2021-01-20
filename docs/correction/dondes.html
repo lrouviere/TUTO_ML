@@ -24,7 +24,7 @@
 <meta name="author" content="Laurent Rouvière" />
 
 
-<meta name="date" content="2021-01-19" />
+<meta name="date" content="2021-01-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,18 +53,6 @@
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.2/htmlwidgets.js"></script>
-<link href="libs/vis-4.20.1/vis.css" rel="stylesheet" />
-<script src="libs/vis-4.20.1/vis.min.js"></script>
-<script src="libs/visNetwork-binding-2.0.9/visNetwork.js"></script>
-<script src="libs/FileSaver-1.1.20151003/FileSaver.min.js"></script>
-<script src="libs/Blob-1.0/Blob.js"></script>
-<script src="libs/canvas-toBlob-1.0/canvas-toBlob.js"></script>
-<script src="libs/html2canvas-0.5.0/html2canvas.js"></script>
-<script src="libs/jspdf-1.3.2/jspdf.debug.js"></script>
-<link href="libs/jquery-sparkline-2.1.2/jquery.sparkline.css" rel="stylesheet" />
-<script src="libs/jquery-sparkline-2.1.2/jquery.sparkline.js"></script>
-<script src="libs/sparkline-binding-2.0/sparkline.js"></script>
 
 
 <style type="text/css">
@@ -228,7 +216,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>On parle de <strong>données déséquilibrées</strong> lorsque les deux modalités de la variable cible <span class="math inline">\(Y\)</span> ne sont pas représentées de façon égale dans l’échantillon, ou plus précisément lorsqu’une des deux modalités est fortement majoritaire. Ce contexte est fréquemment rencontré en pratique, on peut citer les cas de détection de fraudes (peu de fraudeurs), de la présence d’une maladie rare (peu de patients atteints), du risque de crédit (peu de mauvais payeurs)… Les algorithmes standards peuvent être mis en difficultés et de nouvelles stratégies doivent être élaborées. Les stratégies classiques permettant de répondre à ce problème consistent à</p>
 <ul>
 <li>utiliser des critères de performance adaptés au déséquilibre ;</li>
-<li>ré-échantilloner les données pour se rapprocher d’une situation d’équilibre.</li>
+<li>ré-échantillonner les données pour se rapprocher d’une situation d’équilibre.</li>
 </ul>
 <p>Nous présentons ces stratégies à travers quelques exercices.</p>
 <div id="critères-de-performance-pour-données-déséquilibrées" class="section level2">
@@ -243,7 +231,7 @@ avec
 <span class="math display">\[\text{Precision}=\mathbf P(Y=1|g(X)=1)\quad\text{et}\quad\text{Recall}=\mathbf P(g(X)=1|Y=1).\]</span></li>
 <li>le <strong>kappa de Cohen</strong>
 <span class="math display">\[\kappa=\frac{\mathbf P(a)-\mathbf P(e)}{1-\mathbf P(e)}\]</span>
-où <span class="math inline">\(\mathbf P(a)\)</span> représente l’accuraci et <span class="math inline">\(\mathbf P(e)\)</span> l’accuracy sous une hypothèse d’indépendance.</li>
+où <span class="math inline">\(\mathbf P(a)\)</span> représente l’accuracy et <span class="math inline">\(\mathbf P(e)\)</span> l’accuracy sous une hypothèse d’indépendance.</li>
 <li>la courbe ROC et l’AUC…</li>
 </ul>
 <p>Comme d’habitude, ces critères sont inconnus et doivent être estimés par des méthodes de ré-échantillonnage de type validation croisée.</p>
@@ -254,113 +242,113 @@ où <span class="math inline">\(\mathbf P(a)\)</span> représente l’accuraci e
 
 <ol style="list-style-type: decimal">
 <li><p>Générer un vecteur d’observations <strong>Y</strong> de taille 500 selon une loi de Bernoulli de paramètre 0.05.</p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="dondes.html#cb225-1"></a><span class="kw">set.seed</span>(<span class="dv">1235</span>)</span>
-<span id="cb225-2"><a href="dondes.html#cb225-2"></a>n &lt;-<span class="st"> </span><span class="dv">500</span></span>
-<span id="cb225-3"><a href="dondes.html#cb225-3"></a>Y &lt;-<span class="st"> </span><span class="kw">rbinom</span>(n,<span class="dv">1</span>,<span class="fl">0.05</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.factor</span>()</span></code></pre></div></li>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="dondes.html#cb144-1"></a><span class="kw">set.seed</span>(<span class="dv">1235</span>)</span>
+<span id="cb144-2"><a href="dondes.html#cb144-2"></a>n &lt;-<span class="st"> </span><span class="dv">500</span></span>
+<span id="cb144-3"><a href="dondes.html#cb144-3"></a>Y &lt;-<span class="st"> </span><span class="kw">rbinom</span>(n,<span class="dv">1</span>,<span class="fl">0.05</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.factor</span>()</span></code></pre></div></li>
 <li><p>Générer un vecteur de prévisions <strong>P1</strong> de taille 500 selon une loi de Bernoulli de paramètre 0.01.</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="dondes.html#cb226-1"></a><span class="kw">set.seed</span>(<span class="dv">987654321</span>)</span>
-<span id="cb226-2"><a href="dondes.html#cb226-2"></a>P1 &lt;-<span class="st"> </span><span class="kw">rbinom</span>(n,<span class="dv">1</span>,<span class="fl">0.01</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">factor</span>(<span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;0&quot;</span>,<span class="st">&quot;1&quot;</span>))</span></code></pre></div></li>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="dondes.html#cb145-1"></a><span class="kw">set.seed</span>(<span class="dv">987654321</span>)</span>
+<span id="cb145-2"><a href="dondes.html#cb145-2"></a>P1 &lt;-<span class="st"> </span><span class="kw">rbinom</span>(n,<span class="dv">1</span>,<span class="fl">0.01</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">factor</span>(<span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;0&quot;</span>,<span class="st">&quot;1&quot;</span>))</span></code></pre></div></li>
 <li><p>Générer un vecteur de prévision <strong>P2</strong> de taille 500 tel que
 <span class="math display">\[\mathcal L(P2|Y=0)=\mathcal B(0.10)\quad\text{et}\quad \mathcal L(P2|Y=1)=\mathcal B(0.85).\]</span></p>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="dondes.html#cb227-1"></a><span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb227-2"><a href="dondes.html#cb227-2"></a>P2 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,n)</span>
-<span id="cb227-3"><a href="dondes.html#cb227-3"></a>P2[Y<span class="op">==</span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(Y<span class="op">==</span><span class="dv">1</span>),<span class="dv">1</span>,<span class="fl">0.85</span>) </span>
-<span id="cb227-4"><a href="dondes.html#cb227-4"></a>P2[Y<span class="op">==</span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(Y<span class="op">==</span><span class="dv">0</span>),<span class="dv">1</span>,<span class="fl">0.1</span>)  </span>
-<span id="cb227-5"><a href="dondes.html#cb227-5"></a>P2 &lt;-<span class="st"> </span><span class="kw">factor</span>(P2,<span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;0&quot;</span>,<span class="st">&quot;1&quot;</span>))</span></code></pre></div></li>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="dondes.html#cb146-1"></a><span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb146-2"><a href="dondes.html#cb146-2"></a>P2 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,n)</span>
+<span id="cb146-3"><a href="dondes.html#cb146-3"></a>P2[Y<span class="op">==</span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(Y<span class="op">==</span><span class="dv">1</span>),<span class="dv">1</span>,<span class="fl">0.85</span>) </span>
+<span id="cb146-4"><a href="dondes.html#cb146-4"></a>P2[Y<span class="op">==</span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(Y<span class="op">==</span><span class="dv">0</span>),<span class="dv">1</span>,<span class="fl">0.1</span>)  </span>
+<span id="cb146-5"><a href="dondes.html#cb146-5"></a>P2 &lt;-<span class="st"> </span><span class="kw">factor</span>(P2,<span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;0&quot;</span>,<span class="st">&quot;1&quot;</span>))</span></code></pre></div></li>
 <li><p>Dresser les tables de contingence de <strong>P1</strong> et <strong>P2</strong> à l’aide de <strong>table</strong>. Commenter.</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="dondes.html#cb228-1"></a><span class="kw">table</span>(P1,Y)</span>
-<span id="cb228-2"><a href="dondes.html#cb228-2"></a>   Y</span>
-<span id="cb228-3"><a href="dondes.html#cb228-3"></a>P1    <span class="dv">0</span>   <span class="dv">1</span></span>
-<span id="cb228-4"><a href="dondes.html#cb228-4"></a>  <span class="dv">0</span> <span class="dv">471</span>  <span class="dv">23</span></span>
-<span id="cb228-5"><a href="dondes.html#cb228-5"></a>  <span class="dv">1</span>   <span class="dv">5</span>   <span class="dv">1</span></span>
-<span id="cb228-6"><a href="dondes.html#cb228-6"></a><span class="kw">table</span>(P2,Y)</span>
-<span id="cb228-7"><a href="dondes.html#cb228-7"></a>   Y</span>
-<span id="cb228-8"><a href="dondes.html#cb228-8"></a>P2    <span class="dv">0</span>   <span class="dv">1</span></span>
-<span id="cb228-9"><a href="dondes.html#cb228-9"></a>  <span class="dv">0</span> <span class="dv">432</span>   <span class="dv">8</span></span>
-<span id="cb228-10"><a href="dondes.html#cb228-10"></a>  <span class="dv">1</span>  <span class="dv">44</span>  <span class="dv">16</span></span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="dondes.html#cb147-1"></a><span class="kw">table</span>(P1,Y)</span>
+<span id="cb147-2"><a href="dondes.html#cb147-2"></a>   Y</span>
+<span id="cb147-3"><a href="dondes.html#cb147-3"></a>P1    <span class="dv">0</span>   <span class="dv">1</span></span>
+<span id="cb147-4"><a href="dondes.html#cb147-4"></a>  <span class="dv">0</span> <span class="dv">471</span>  <span class="dv">23</span></span>
+<span id="cb147-5"><a href="dondes.html#cb147-5"></a>  <span class="dv">1</span>   <span class="dv">5</span>   <span class="dv">1</span></span>
+<span id="cb147-6"><a href="dondes.html#cb147-6"></a><span class="kw">table</span>(P2,Y)</span>
+<span id="cb147-7"><a href="dondes.html#cb147-7"></a>   Y</span>
+<span id="cb147-8"><a href="dondes.html#cb147-8"></a>P2    <span class="dv">0</span>   <span class="dv">1</span></span>
+<span id="cb147-9"><a href="dondes.html#cb147-9"></a>  <span class="dv">0</span> <span class="dv">432</span>   <span class="dv">8</span></span>
+<span id="cb147-10"><a href="dondes.html#cb147-10"></a>  <span class="dv">1</span>  <span class="dv">44</span>  <span class="dv">16</span></span></code></pre></div>
 <div class="corR">
 <p>
 On remarque que <strong>P1</strong> a tendance à prédire très souvent 0 (la classe majoritaire) alors que <strong>P2</strong> est capable d’identifier plus d’invididus de la petite classe. Du point de vue de l’<strong>accuracy</strong> on va privilégier <strong>P1</strong>, néanmoins dans de nombreux cas <strong>P2</strong> est plus pertinent.
 </p>
 </div></li>
 <li><p>Pour <strong>P2</strong>, calculer, avec les fonctions usuelles de <code>R</code>, l’<strong>accuracy</strong>, le <strong>recall</strong> et la <strong>précision</strong>.</p>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="dondes.html#cb229-1"></a>T2 &lt;-<span class="st"> </span><span class="kw">table</span>(P2,Y)</span>
-<span id="cb229-2"><a href="dondes.html#cb229-2"></a>acc &lt;-<span class="st"> </span><span class="kw">sum</span>(T2[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)])<span class="op">/</span><span class="kw">sum</span>(T2)</span>
-<span id="cb229-3"><a href="dondes.html#cb229-3"></a>rec &lt;-<span class="st"> </span>T2[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span><span class="kw">sum</span>(T2[,<span class="dv">2</span>])</span>
-<span id="cb229-4"><a href="dondes.html#cb229-4"></a>prec &lt;-<span class="st"> </span>T2[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span><span class="kw">sum</span>(T2[<span class="dv">2</span>,])</span></code></pre></div>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="dondes.html#cb230-1"></a><span class="kw">c</span>(acc,rec,prec)</span>
-<span id="cb230-2"><a href="dondes.html#cb230-2"></a>[<span class="dv">1</span>] <span class="fl">0.8960000</span> <span class="fl">0.6666667</span> <span class="fl">0.2666667</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="dondes.html#cb148-1"></a>T2 &lt;-<span class="st"> </span><span class="kw">table</span>(P2,Y)</span>
+<span id="cb148-2"><a href="dondes.html#cb148-2"></a>acc &lt;-<span class="st"> </span><span class="kw">sum</span>(T2[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)])<span class="op">/</span><span class="kw">sum</span>(T2)</span>
+<span id="cb148-3"><a href="dondes.html#cb148-3"></a>rec &lt;-<span class="st"> </span>T2[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span><span class="kw">sum</span>(T2[,<span class="dv">2</span>])</span>
+<span id="cb148-4"><a href="dondes.html#cb148-4"></a>prec &lt;-<span class="st"> </span>T2[<span class="dv">2</span>,<span class="dv">2</span>]<span class="op">/</span><span class="kw">sum</span>(T2[<span class="dv">2</span>,])</span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="dondes.html#cb149-1"></a><span class="kw">c</span>(acc,rec,prec)</span>
+<span id="cb149-2"><a href="dondes.html#cb149-2"></a>[<span class="dv">1</span>] <span class="fl">0.8960000</span> <span class="fl">0.6666667</span> <span class="fl">0.2666667</span></span></code></pre></div></li>
 <li><p>En déduire le F1-score.</p>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="dondes.html#cb231-1"></a>F1 &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span>(rec<span class="op">*</span>prec)<span class="op">/</span>(rec<span class="op">+</span>prec)</span>
-<span id="cb231-2"><a href="dondes.html#cb231-2"></a>F1</span>
-<span id="cb231-3"><a href="dondes.html#cb231-3"></a>[<span class="dv">1</span>] <span class="fl">0.3809524</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="dondes.html#cb150-1"></a>F1 &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span>(rec<span class="op">*</span>prec)<span class="op">/</span>(rec<span class="op">+</span>prec)</span>
+<span id="cb150-2"><a href="dondes.html#cb150-2"></a>F1</span>
+<span id="cb150-3"><a href="dondes.html#cb150-3"></a>[<span class="dv">1</span>] <span class="fl">0.3809524</span></span></code></pre></div></li>
 <li><p>Même question pour le <span class="math inline">\(\kappa\)</span> de Cohen.</p>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="dondes.html#cb232-1"></a>rand &lt;-<span class="st"> </span><span class="kw">sum</span>(T2[<span class="dv">1</span>,])<span class="op">/</span>n<span class="op">*</span><span class="kw">sum</span>(T2[,<span class="dv">1</span>])<span class="op">/</span>n<span class="op">+</span><span class="kw">sum</span>(T2[<span class="dv">2</span>,])<span class="op">/</span>n<span class="op">*</span><span class="kw">sum</span>(T2[,<span class="dv">2</span>])<span class="op">/</span>n</span>
-<span id="cb232-2"><a href="dondes.html#cb232-2"></a>kappa &lt;-<span class="st"> </span>(acc<span class="op">-</span>rand)<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>rand)</span>
-<span id="cb232-3"><a href="dondes.html#cb232-3"></a>kappa</span>
-<span id="cb232-4"><a href="dondes.html#cb232-4"></a>[<span class="dv">1</span>] <span class="fl">0.3353783</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="dondes.html#cb151-1"></a>rand &lt;-<span class="st"> </span><span class="kw">sum</span>(T2[<span class="dv">1</span>,])<span class="op">/</span>n<span class="op">*</span><span class="kw">sum</span>(T2[,<span class="dv">1</span>])<span class="op">/</span>n<span class="op">+</span><span class="kw">sum</span>(T2[<span class="dv">2</span>,])<span class="op">/</span>n<span class="op">*</span><span class="kw">sum</span>(T2[,<span class="dv">2</span>])<span class="op">/</span>n</span>
+<span id="cb151-2"><a href="dondes.html#cb151-2"></a>kappa &lt;-<span class="st"> </span>(acc<span class="op">-</span>rand)<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>rand)</span>
+<span id="cb151-3"><a href="dondes.html#cb151-3"></a>kappa</span>
+<span id="cb151-4"><a href="dondes.html#cb151-4"></a>[<span class="dv">1</span>] <span class="fl">0.3353783</span></span></code></pre></div></li>
 <li><p>Retrouver ces indicateurs à l’aide de la fonction <strong>confusionMatrix</strong> de <strong>caret</strong> puis comparer les prévisions <strong>P1</strong> et <strong>P2</strong>.</p>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="dondes.html#cb233-1"></a><span class="kw">confusionMatrix</span>(<span class="dt">data=</span>P1,<span class="dt">reference=</span>Y,<span class="dt">mode=</span><span class="st">&quot;everything&quot;</span>,<span class="dt">positive=</span><span class="st">&quot;1&quot;</span>)</span>
-<span id="cb233-2"><a href="dondes.html#cb233-2"></a>Confusion Matrix and Statistics</span>
-<span id="cb233-3"><a href="dondes.html#cb233-3"></a></span>
-<span id="cb233-4"><a href="dondes.html#cb233-4"></a>          Reference</span>
-<span id="cb233-5"><a href="dondes.html#cb233-5"></a>Prediction   <span class="dv">0</span>   <span class="dv">1</span></span>
-<span id="cb233-6"><a href="dondes.html#cb233-6"></a>         <span class="dv">0</span> <span class="dv">471</span>  <span class="dv">23</span></span>
-<span id="cb233-7"><a href="dondes.html#cb233-7"></a>         <span class="dv">1</span>   <span class="dv">5</span>   <span class="dv">1</span></span>
-<span id="cb233-8"><a href="dondes.html#cb233-8"></a></span>
-<span id="cb233-9"><a href="dondes.html#cb233-9"></a>               Accuracy <span class="op">:</span><span class="st"> </span><span class="fl">0.944</span>           </span>
-<span id="cb233-10"><a href="dondes.html#cb233-10"></a>                 <span class="dv">95</span>% CI <span class="op">:</span><span class="st"> </span>(<span class="fl">0.9201</span>, <span class="fl">0.9625</span>)</span>
-<span id="cb233-11"><a href="dondes.html#cb233-11"></a>    No Information Rate <span class="op">:</span><span class="st"> </span><span class="fl">0.952</span>           </span>
-<span id="cb233-12"><a href="dondes.html#cb233-12"></a>    P<span class="op">-</span>Value [Acc <span class="op">&gt;</span><span class="st"> </span>NIR] <span class="op">:</span><span class="st"> </span><span class="fl">0.827961</span>        </span>
-<span id="cb233-13"><a href="dondes.html#cb233-13"></a></span>
-<span id="cb233-14"><a href="dondes.html#cb233-14"></a>                  Kappa <span class="op">:</span><span class="st"> </span><span class="fl">0.0484</span>          </span>
-<span id="cb233-15"><a href="dondes.html#cb233-15"></a></span>
-<span id="cb233-16"><a href="dondes.html#cb233-16"></a> Mcnemar<span class="st">&#39;s Test P-Value : 0.001315        </span></span>
-<span id="cb233-17"><a href="dondes.html#cb233-17"></a></span>
-<span id="cb233-18"><a href="dondes.html#cb233-18"></a><span class="st">            Sensitivity : 0.04167         </span></span>
-<span id="cb233-19"><a href="dondes.html#cb233-19"></a><span class="st">            Specificity : 0.98950         </span></span>
-<span id="cb233-20"><a href="dondes.html#cb233-20"></a><span class="st">         Pos Pred Value : 0.16667         </span></span>
-<span id="cb233-21"><a href="dondes.html#cb233-21"></a><span class="st">         Neg Pred Value : 0.95344         </span></span>
-<span id="cb233-22"><a href="dondes.html#cb233-22"></a><span class="st">              Precision : 0.16667         </span></span>
-<span id="cb233-23"><a href="dondes.html#cb233-23"></a><span class="st">                 Recall : 0.04167         </span></span>
-<span id="cb233-24"><a href="dondes.html#cb233-24"></a><span class="st">                     F1 : 0.06667         </span></span>
-<span id="cb233-25"><a href="dondes.html#cb233-25"></a><span class="st">             Prevalence : 0.04800         </span></span>
-<span id="cb233-26"><a href="dondes.html#cb233-26"></a><span class="st">         Detection Rate : 0.00200         </span></span>
-<span id="cb233-27"><a href="dondes.html#cb233-27"></a><span class="st">   Detection Prevalence : 0.01200         </span></span>
-<span id="cb233-28"><a href="dondes.html#cb233-28"></a><span class="st">      Balanced Accuracy : 0.51558         </span></span>
-<span id="cb233-29"><a href="dondes.html#cb233-29"></a></span>
-<span id="cb233-30"><a href="dondes.html#cb233-30"></a><span class="st">       &#39;</span>Positive<span class="st">&#39; Class : 1               </span></span>
-<span id="cb233-31"><a href="dondes.html#cb233-31"></a></span>
-<span id="cb233-32"><a href="dondes.html#cb233-32"></a><span class="st">confusionMatrix(data=P2,reference=Y,mode=&quot;everything&quot;,positive=&quot;1&quot;)</span></span>
-<span id="cb233-33"><a href="dondes.html#cb233-33"></a><span class="st">Confusion Matrix and Statistics</span></span>
-<span id="cb233-34"><a href="dondes.html#cb233-34"></a></span>
-<span id="cb233-35"><a href="dondes.html#cb233-35"></a><span class="st">          Reference</span></span>
-<span id="cb233-36"><a href="dondes.html#cb233-36"></a><span class="st">Prediction   0   1</span></span>
-<span id="cb233-37"><a href="dondes.html#cb233-37"></a><span class="st">         0 432   8</span></span>
-<span id="cb233-38"><a href="dondes.html#cb233-38"></a><span class="st">         1  44  16</span></span>
-<span id="cb233-39"><a href="dondes.html#cb233-39"></a></span>
-<span id="cb233-40"><a href="dondes.html#cb233-40"></a><span class="st">               Accuracy : 0.896           </span></span>
-<span id="cb233-41"><a href="dondes.html#cb233-41"></a><span class="st">                 95% CI : (0.8659, 0.9213)</span></span>
-<span id="cb233-42"><a href="dondes.html#cb233-42"></a><span class="st">    No Information Rate : 0.952           </span></span>
-<span id="cb233-43"><a href="dondes.html#cb233-43"></a><span class="st">    P-Value [Acc &gt; NIR] : 1               </span></span>
-<span id="cb233-44"><a href="dondes.html#cb233-44"></a></span>
-<span id="cb233-45"><a href="dondes.html#cb233-45"></a><span class="st">                  Kappa : 0.3354          </span></span>
-<span id="cb233-46"><a href="dondes.html#cb233-46"></a></span>
-<span id="cb233-47"><a href="dondes.html#cb233-47"></a><span class="st"> Mcnemar&#39;</span>s Test P<span class="op">-</span>Value <span class="op">:</span><span class="st"> </span><span class="fl">1.212e-06</span>       </span>
-<span id="cb233-48"><a href="dondes.html#cb233-48"></a></span>
-<span id="cb233-49"><a href="dondes.html#cb233-49"></a>            Sensitivity <span class="op">:</span><span class="st"> </span><span class="fl">0.6667</span>          </span>
-<span id="cb233-50"><a href="dondes.html#cb233-50"></a>            Specificity <span class="op">:</span><span class="st"> </span><span class="fl">0.9076</span>          </span>
-<span id="cb233-51"><a href="dondes.html#cb233-51"></a>         Pos Pred Value <span class="op">:</span><span class="st"> </span><span class="fl">0.2667</span>          </span>
-<span id="cb233-52"><a href="dondes.html#cb233-52"></a>         Neg Pred Value <span class="op">:</span><span class="st"> </span><span class="fl">0.9818</span>          </span>
-<span id="cb233-53"><a href="dondes.html#cb233-53"></a>              Precision <span class="op">:</span><span class="st"> </span><span class="fl">0.2667</span>          </span>
-<span id="cb233-54"><a href="dondes.html#cb233-54"></a>                 Recall <span class="op">:</span><span class="st"> </span><span class="fl">0.6667</span>          </span>
-<span id="cb233-55"><a href="dondes.html#cb233-55"></a>                     F1 <span class="op">:</span><span class="st"> </span><span class="fl">0.3810</span>          </span>
-<span id="cb233-56"><a href="dondes.html#cb233-56"></a>             Prevalence <span class="op">:</span><span class="st"> </span><span class="fl">0.0480</span>          </span>
-<span id="cb233-57"><a href="dondes.html#cb233-57"></a>         Detection Rate <span class="op">:</span><span class="st"> </span><span class="fl">0.0320</span>          </span>
-<span id="cb233-58"><a href="dondes.html#cb233-58"></a>   Detection Prevalence <span class="op">:</span><span class="st"> </span><span class="fl">0.1200</span>          </span>
-<span id="cb233-59"><a href="dondes.html#cb233-59"></a>      Balanced Accuracy <span class="op">:</span><span class="st"> </span><span class="fl">0.7871</span>          </span>
-<span id="cb233-60"><a href="dondes.html#cb233-60"></a></span>
-<span id="cb233-61"><a href="dondes.html#cb233-61"></a>       <span class="st">&#39;Positive&#39;</span> Class <span class="op">:</span><span class="st"> </span><span class="dv">1</span>               </span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="dondes.html#cb152-1"></a><span class="kw">confusionMatrix</span>(<span class="dt">data=</span>P1,<span class="dt">reference=</span>Y,<span class="dt">mode=</span><span class="st">&quot;everything&quot;</span>,<span class="dt">positive=</span><span class="st">&quot;1&quot;</span>)</span>
+<span id="cb152-2"><a href="dondes.html#cb152-2"></a>Confusion Matrix and Statistics</span>
+<span id="cb152-3"><a href="dondes.html#cb152-3"></a></span>
+<span id="cb152-4"><a href="dondes.html#cb152-4"></a>          Reference</span>
+<span id="cb152-5"><a href="dondes.html#cb152-5"></a>Prediction   <span class="dv">0</span>   <span class="dv">1</span></span>
+<span id="cb152-6"><a href="dondes.html#cb152-6"></a>         <span class="dv">0</span> <span class="dv">471</span>  <span class="dv">23</span></span>
+<span id="cb152-7"><a href="dondes.html#cb152-7"></a>         <span class="dv">1</span>   <span class="dv">5</span>   <span class="dv">1</span></span>
+<span id="cb152-8"><a href="dondes.html#cb152-8"></a></span>
+<span id="cb152-9"><a href="dondes.html#cb152-9"></a>               Accuracy <span class="op">:</span><span class="st"> </span><span class="fl">0.944</span>           </span>
+<span id="cb152-10"><a href="dondes.html#cb152-10"></a>                 <span class="dv">95</span>% CI <span class="op">:</span><span class="st"> </span>(<span class="fl">0.9201</span>, <span class="fl">0.9625</span>)</span>
+<span id="cb152-11"><a href="dondes.html#cb152-11"></a>    No Information Rate <span class="op">:</span><span class="st"> </span><span class="fl">0.952</span>           </span>
+<span id="cb152-12"><a href="dondes.html#cb152-12"></a>    P<span class="op">-</span>Value [Acc <span class="op">&gt;</span><span class="st"> </span>NIR] <span class="op">:</span><span class="st"> </span><span class="fl">0.827961</span>        </span>
+<span id="cb152-13"><a href="dondes.html#cb152-13"></a></span>
+<span id="cb152-14"><a href="dondes.html#cb152-14"></a>                  Kappa <span class="op">:</span><span class="st"> </span><span class="fl">0.0484</span>          </span>
+<span id="cb152-15"><a href="dondes.html#cb152-15"></a></span>
+<span id="cb152-16"><a href="dondes.html#cb152-16"></a> Mcnemar<span class="st">&#39;s Test P-Value : 0.001315        </span></span>
+<span id="cb152-17"><a href="dondes.html#cb152-17"></a></span>
+<span id="cb152-18"><a href="dondes.html#cb152-18"></a><span class="st">            Sensitivity : 0.04167         </span></span>
+<span id="cb152-19"><a href="dondes.html#cb152-19"></a><span class="st">            Specificity : 0.98950         </span></span>
+<span id="cb152-20"><a href="dondes.html#cb152-20"></a><span class="st">         Pos Pred Value : 0.16667         </span></span>
+<span id="cb152-21"><a href="dondes.html#cb152-21"></a><span class="st">         Neg Pred Value : 0.95344         </span></span>
+<span id="cb152-22"><a href="dondes.html#cb152-22"></a><span class="st">              Precision : 0.16667         </span></span>
+<span id="cb152-23"><a href="dondes.html#cb152-23"></a><span class="st">                 Recall : 0.04167         </span></span>
+<span id="cb152-24"><a href="dondes.html#cb152-24"></a><span class="st">                     F1 : 0.06667         </span></span>
+<span id="cb152-25"><a href="dondes.html#cb152-25"></a><span class="st">             Prevalence : 0.04800         </span></span>
+<span id="cb152-26"><a href="dondes.html#cb152-26"></a><span class="st">         Detection Rate : 0.00200         </span></span>
+<span id="cb152-27"><a href="dondes.html#cb152-27"></a><span class="st">   Detection Prevalence : 0.01200         </span></span>
+<span id="cb152-28"><a href="dondes.html#cb152-28"></a><span class="st">      Balanced Accuracy : 0.51558         </span></span>
+<span id="cb152-29"><a href="dondes.html#cb152-29"></a></span>
+<span id="cb152-30"><a href="dondes.html#cb152-30"></a><span class="st">       &#39;</span>Positive<span class="st">&#39; Class : 1               </span></span>
+<span id="cb152-31"><a href="dondes.html#cb152-31"></a></span>
+<span id="cb152-32"><a href="dondes.html#cb152-32"></a><span class="st">confusionMatrix(data=P2,reference=Y,mode=&quot;everything&quot;,positive=&quot;1&quot;)</span></span>
+<span id="cb152-33"><a href="dondes.html#cb152-33"></a><span class="st">Confusion Matrix and Statistics</span></span>
+<span id="cb152-34"><a href="dondes.html#cb152-34"></a></span>
+<span id="cb152-35"><a href="dondes.html#cb152-35"></a><span class="st">          Reference</span></span>
+<span id="cb152-36"><a href="dondes.html#cb152-36"></a><span class="st">Prediction   0   1</span></span>
+<span id="cb152-37"><a href="dondes.html#cb152-37"></a><span class="st">         0 432   8</span></span>
+<span id="cb152-38"><a href="dondes.html#cb152-38"></a><span class="st">         1  44  16</span></span>
+<span id="cb152-39"><a href="dondes.html#cb152-39"></a></span>
+<span id="cb152-40"><a href="dondes.html#cb152-40"></a><span class="st">               Accuracy : 0.896           </span></span>
+<span id="cb152-41"><a href="dondes.html#cb152-41"></a><span class="st">                 95% CI : (0.8659, 0.9213)</span></span>
+<span id="cb152-42"><a href="dondes.html#cb152-42"></a><span class="st">    No Information Rate : 0.952           </span></span>
+<span id="cb152-43"><a href="dondes.html#cb152-43"></a><span class="st">    P-Value [Acc &gt; NIR] : 1               </span></span>
+<span id="cb152-44"><a href="dondes.html#cb152-44"></a></span>
+<span id="cb152-45"><a href="dondes.html#cb152-45"></a><span class="st">                  Kappa : 0.3354          </span></span>
+<span id="cb152-46"><a href="dondes.html#cb152-46"></a></span>
+<span id="cb152-47"><a href="dondes.html#cb152-47"></a><span class="st"> Mcnemar&#39;</span>s Test P<span class="op">-</span>Value <span class="op">:</span><span class="st"> </span><span class="fl">1.212e-06</span>       </span>
+<span id="cb152-48"><a href="dondes.html#cb152-48"></a></span>
+<span id="cb152-49"><a href="dondes.html#cb152-49"></a>            Sensitivity <span class="op">:</span><span class="st"> </span><span class="fl">0.6667</span>          </span>
+<span id="cb152-50"><a href="dondes.html#cb152-50"></a>            Specificity <span class="op">:</span><span class="st"> </span><span class="fl">0.9076</span>          </span>
+<span id="cb152-51"><a href="dondes.html#cb152-51"></a>         Pos Pred Value <span class="op">:</span><span class="st"> </span><span class="fl">0.2667</span>          </span>
+<span id="cb152-52"><a href="dondes.html#cb152-52"></a>         Neg Pred Value <span class="op">:</span><span class="st"> </span><span class="fl">0.9818</span>          </span>
+<span id="cb152-53"><a href="dondes.html#cb152-53"></a>              Precision <span class="op">:</span><span class="st"> </span><span class="fl">0.2667</span>          </span>
+<span id="cb152-54"><a href="dondes.html#cb152-54"></a>                 Recall <span class="op">:</span><span class="st"> </span><span class="fl">0.6667</span>          </span>
+<span id="cb152-55"><a href="dondes.html#cb152-55"></a>                     F1 <span class="op">:</span><span class="st"> </span><span class="fl">0.3810</span>          </span>
+<span id="cb152-56"><a href="dondes.html#cb152-56"></a>             Prevalence <span class="op">:</span><span class="st"> </span><span class="fl">0.0480</span>          </span>
+<span id="cb152-57"><a href="dondes.html#cb152-57"></a>         Detection Rate <span class="op">:</span><span class="st"> </span><span class="fl">0.0320</span>          </span>
+<span id="cb152-58"><a href="dondes.html#cb152-58"></a>   Detection Prevalence <span class="op">:</span><span class="st"> </span><span class="fl">0.1200</span>          </span>
+<span id="cb152-59"><a href="dondes.html#cb152-59"></a>      Balanced Accuracy <span class="op">:</span><span class="st"> </span><span class="fl">0.7871</span>          </span>
+<span id="cb152-60"><a href="dondes.html#cb152-60"></a></span>
+<span id="cb152-61"><a href="dondes.html#cb152-61"></a>       <span class="st">&#39;Positive&#39;</span> Class <span class="op">:</span><span class="st"> </span><span class="dv">1</span>               </span></code></pre></div>
 <div class="corR">
 <p>
 L’<strong>accuracy</strong> privilégie clairement <strong>P1</strong> alors que d’autres critères comme le <strong>balanced accuracy</strong>, le <strong>F1-score</strong> ou le <strong>kappa de Cohen</strong> vont sélectionner <strong>P2</strong>. Ces derniers critères sont mieux adaptés pour prendre en considération la capacité à bien identifier la classe minoritaire.
@@ -377,42 +365,42 @@ L’<strong>accuracy</strong> privilégie clairement <strong>P1</strong> alors q
 </div>
 
 <p>On considère le jeu de données <code>df</code> ci-dessous où on cherche à prédire <code>Y</code> par <code>X1</code> et <code>X2</code>.</p>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="dondes.html#cb234-1"></a>n &lt;-<span class="st"> </span><span class="dv">2000</span></span>
-<span id="cb234-2"><a href="dondes.html#cb234-2"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb234-3"><a href="dondes.html#cb234-3"></a>X1 &lt;-<span class="st"> </span><span class="kw">runif</span>(n)</span>
-<span id="cb234-4"><a href="dondes.html#cb234-4"></a><span class="kw">set.seed</span>(<span class="dv">5678</span>)</span>
-<span id="cb234-5"><a href="dondes.html#cb234-5"></a>X2 &lt;-<span class="st"> </span><span class="kw">runif</span>(n)</span>
-<span id="cb234-6"><a href="dondes.html#cb234-6"></a><span class="kw">set.seed</span>(<span class="dv">9012</span>)</span>
-<span id="cb234-7"><a href="dondes.html#cb234-7"></a>R1 &lt;-<span class="st"> </span>X1<span class="op">&lt;=</span><span class="fl">0.25</span></span>
-<span id="cb234-8"><a href="dondes.html#cb234-8"></a>R2 &lt;-<span class="st"> </span>(X1<span class="op">&gt;</span><span class="fl">0.25</span> <span class="op">&amp;</span><span class="st"> </span>X2<span class="op">&gt;=</span><span class="fl">0.75</span>)</span>
-<span id="cb234-9"><a href="dondes.html#cb234-9"></a>R3 &lt;-<span class="st"> </span>(X1<span class="op">&gt;</span><span class="fl">0.25</span> <span class="op">&amp;</span><span class="st"> </span>X2<span class="op">&lt;</span><span class="fl">0.75</span>)</span>
-<span id="cb234-10"><a href="dondes.html#cb234-10"></a>Y &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,n)</span>
-<span id="cb234-11"><a href="dondes.html#cb234-11"></a>Y[R1] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R1),<span class="dv">1</span>,<span class="fl">0.75</span>)</span>
-<span id="cb234-12"><a href="dondes.html#cb234-12"></a>Y[R2] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R2),<span class="dv">1</span>,<span class="fl">0.75</span>)</span>
-<span id="cb234-13"><a href="dondes.html#cb234-13"></a>Y[R3] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R3),<span class="dv">1</span>,<span class="fl">0.25</span>)</span>
-<span id="cb234-14"><a href="dondes.html#cb234-14"></a>df1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(X1,X2,Y)</span>
-<span id="cb234-15"><a href="dondes.html#cb234-15"></a>df1<span class="op">$</span>Y &lt;-<span class="st"> </span><span class="kw">factor</span>(df1<span class="op">$</span>Y)</span>
-<span id="cb234-16"><a href="dondes.html#cb234-16"></a>indDY1 &lt;-<span class="st"> </span><span class="kw">which</span>(df1<span class="op">$</span>Y<span class="op">==</span><span class="dv">1</span>)</span>
-<span id="cb234-17"><a href="dondes.html#cb234-17"></a>df1<span class="fl">.1</span> &lt;-<span class="st"> </span>df1[<span class="op">-</span>indDY1[<span class="dv">1</span><span class="op">:</span><span class="dv">650</span>],]</span>
-<span id="cb234-18"><a href="dondes.html#cb234-18"></a>df1<span class="fl">.2</span> &lt;-<span class="st"> </span>df1<span class="fl">.1</span>[<span class="kw">sample</span>(<span class="kw">nrow</span>(df1<span class="fl">.1</span>),<span class="dv">1000</span>),]</span>
-<span id="cb234-19"><a href="dondes.html#cb234-19"></a>df &lt;-<span class="st"> </span>df1<span class="fl">.2</span>[<span class="kw">sample</span>(<span class="kw">nrow</span>(df1<span class="fl">.2</span>),<span class="dv">100</span>),]</span>
-<span id="cb234-20"><a href="dondes.html#cb234-20"></a><span class="kw">rownames</span>(df) &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
-<span id="cb234-21"><a href="dondes.html#cb234-21"></a>p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X1,<span class="dt">y=</span>X2,<span class="dt">color=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()</span>
-<span id="cb234-22"><a href="dondes.html#cb234-22"></a>p1</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-364-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="dondes.html#cb153-1"></a>n &lt;-<span class="st"> </span><span class="dv">2000</span></span>
+<span id="cb153-2"><a href="dondes.html#cb153-2"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb153-3"><a href="dondes.html#cb153-3"></a>X1 &lt;-<span class="st"> </span><span class="kw">runif</span>(n)</span>
+<span id="cb153-4"><a href="dondes.html#cb153-4"></a><span class="kw">set.seed</span>(<span class="dv">5678</span>)</span>
+<span id="cb153-5"><a href="dondes.html#cb153-5"></a>X2 &lt;-<span class="st"> </span><span class="kw">runif</span>(n)</span>
+<span id="cb153-6"><a href="dondes.html#cb153-6"></a><span class="kw">set.seed</span>(<span class="dv">9012</span>)</span>
+<span id="cb153-7"><a href="dondes.html#cb153-7"></a>R1 &lt;-<span class="st"> </span>X1<span class="op">&lt;=</span><span class="fl">0.25</span></span>
+<span id="cb153-8"><a href="dondes.html#cb153-8"></a>R2 &lt;-<span class="st"> </span>(X1<span class="op">&gt;</span><span class="fl">0.25</span> <span class="op">&amp;</span><span class="st"> </span>X2<span class="op">&gt;=</span><span class="fl">0.75</span>)</span>
+<span id="cb153-9"><a href="dondes.html#cb153-9"></a>R3 &lt;-<span class="st"> </span>(X1<span class="op">&gt;</span><span class="fl">0.25</span> <span class="op">&amp;</span><span class="st"> </span>X2<span class="op">&lt;</span><span class="fl">0.75</span>)</span>
+<span id="cb153-10"><a href="dondes.html#cb153-10"></a>Y &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,n)</span>
+<span id="cb153-11"><a href="dondes.html#cb153-11"></a>Y[R1] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R1),<span class="dv">1</span>,<span class="fl">0.75</span>)</span>
+<span id="cb153-12"><a href="dondes.html#cb153-12"></a>Y[R2] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R2),<span class="dv">1</span>,<span class="fl">0.75</span>)</span>
+<span id="cb153-13"><a href="dondes.html#cb153-13"></a>Y[R3] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R3),<span class="dv">1</span>,<span class="fl">0.25</span>)</span>
+<span id="cb153-14"><a href="dondes.html#cb153-14"></a>df1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(X1,X2,Y)</span>
+<span id="cb153-15"><a href="dondes.html#cb153-15"></a>df1<span class="op">$</span>Y &lt;-<span class="st"> </span><span class="kw">factor</span>(df1<span class="op">$</span>Y)</span>
+<span id="cb153-16"><a href="dondes.html#cb153-16"></a>indDY1 &lt;-<span class="st"> </span><span class="kw">which</span>(df1<span class="op">$</span>Y<span class="op">==</span><span class="dv">1</span>)</span>
+<span id="cb153-17"><a href="dondes.html#cb153-17"></a>df1<span class="fl">.1</span> &lt;-<span class="st"> </span>df1[<span class="op">-</span>indDY1[<span class="dv">1</span><span class="op">:</span><span class="dv">650</span>],]</span>
+<span id="cb153-18"><a href="dondes.html#cb153-18"></a>df1<span class="fl">.2</span> &lt;-<span class="st"> </span>df1<span class="fl">.1</span>[<span class="kw">sample</span>(<span class="kw">nrow</span>(df1<span class="fl">.1</span>),<span class="dv">1000</span>),]</span>
+<span id="cb153-19"><a href="dondes.html#cb153-19"></a>df &lt;-<span class="st"> </span>df1<span class="fl">.2</span>[<span class="kw">sample</span>(<span class="kw">nrow</span>(df1<span class="fl">.2</span>),<span class="dv">100</span>),]</span>
+<span id="cb153-20"><a href="dondes.html#cb153-20"></a><span class="kw">rownames</span>(df) &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb153-21"><a href="dondes.html#cb153-21"></a>p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X1,<span class="dt">y=</span>X2,<span class="dt">color=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()</span>
+<span id="cb153-22"><a href="dondes.html#cb153-22"></a>p1</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-365-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>On a ici 4 fois plus d’observations dans le groupe 0.</p>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="dondes.html#cb235-1"></a><span class="kw">summary</span>(df<span class="op">$</span>Y)</span>
-<span id="cb235-2"><a href="dondes.html#cb235-2"></a> <span class="dv">0</span>  <span class="dv">1</span> </span>
-<span id="cb235-3"><a href="dondes.html#cb235-3"></a><span class="dv">80</span> <span class="dv">20</span> </span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="dondes.html#cb154-1"></a><span class="kw">summary</span>(df<span class="op">$</span>Y)</span>
+<span id="cb154-2"><a href="dondes.html#cb154-2"></a> <span class="dv">0</span>  <span class="dv">1</span> </span>
+<span id="cb154-3"><a href="dondes.html#cb154-3"></a><span class="dv">80</span> <span class="dv">20</span> </span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>On commence par faire du <strong>oversampling</strong> avec la fonction <code>RandOverClassif</code>.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Effectuer le ré-échantillonnage et expliquer.</p>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="dondes.html#cb236-1"></a><span class="kw">library</span>(UBL)</span>
-<span id="cb236-2"><a href="dondes.html#cb236-2"></a>over1 &lt;-<span class="st"> </span><span class="kw">RandOverClassif</span>(Y<span class="op">~</span>.,<span class="dt">dat =</span> df)</span>
-<span id="cb236-3"><a href="dondes.html#cb236-3"></a><span class="kw">summary</span>(over1<span class="op">$</span>Y)</span>
-<span id="cb236-4"><a href="dondes.html#cb236-4"></a> <span class="dv">0</span>  <span class="dv">1</span> </span>
-<span id="cb236-5"><a href="dondes.html#cb236-5"></a><span class="dv">80</span> <span class="dv">80</span> </span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="dondes.html#cb155-1"></a><span class="kw">library</span>(UBL)</span>
+<span id="cb155-2"><a href="dondes.html#cb155-2"></a>over1 &lt;-<span class="st"> </span><span class="kw">RandOverClassif</span>(Y<span class="op">~</span>.,<span class="dt">dat =</span> df)</span>
+<span id="cb155-3"><a href="dondes.html#cb155-3"></a><span class="kw">summary</span>(over1<span class="op">$</span>Y)</span>
+<span id="cb155-4"><a href="dondes.html#cb155-4"></a> <span class="dv">0</span>  <span class="dv">1</span> </span>
+<span id="cb155-5"><a href="dondes.html#cb155-5"></a><span class="dv">80</span> <span class="dv">80</span> </span></code></pre></div>
 <div class="corR">
 <p>
 On duplique des observations du groupe 1 pour atteindre le nombre d’observations du groupe 0.
@@ -424,60 +412,60 @@ On duplique des observations du groupe 1 pour atteindre le nombre d’observatio
 Il suffit de laisser intact le groupe 0 et de multiplier par 3 le nombre d’observations du groupe 1.
 </p>
 </div>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="dondes.html#cb237-1"></a><span class="kw">library</span>(UBL)</span>
-<span id="cb237-2"><a href="dondes.html#cb237-2"></a>over2 &lt;-<span class="st"> </span><span class="kw">RandOverClassif</span>(Y<span class="op">~</span>.,<span class="dt">dat =</span> df,<span class="dt">C.perc=</span><span class="kw">list</span>(<span class="st">&quot;0&quot;</span>=<span class="dv">1</span>,<span class="st">&quot;1&quot;</span>=<span class="dv">3</span>))</span>
-<span id="cb237-3"><a href="dondes.html#cb237-3"></a><span class="kw">summary</span>(over2<span class="op">$</span>Y)</span>
-<span id="cb237-4"><a href="dondes.html#cb237-4"></a> <span class="dv">0</span>  <span class="dv">1</span> </span>
-<span id="cb237-5"><a href="dondes.html#cb237-5"></a><span class="dv">80</span> <span class="dv">60</span> </span></code></pre></div></li>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="dondes.html#cb156-1"></a><span class="kw">library</span>(UBL)</span>
+<span id="cb156-2"><a href="dondes.html#cb156-2"></a>over2 &lt;-<span class="st"> </span><span class="kw">RandOverClassif</span>(Y<span class="op">~</span>.,<span class="dt">dat =</span> df,<span class="dt">C.perc=</span><span class="kw">list</span>(<span class="st">&quot;0&quot;</span>=<span class="dv">1</span>,<span class="st">&quot;1&quot;</span>=<span class="dv">3</span>))</span>
+<span id="cb156-3"><a href="dondes.html#cb156-3"></a><span class="kw">summary</span>(over2<span class="op">$</span>Y)</span>
+<span id="cb156-4"><a href="dondes.html#cb156-4"></a> <span class="dv">0</span>  <span class="dv">1</span> </span>
+<span id="cb156-5"><a href="dondes.html#cb156-5"></a><span class="dv">80</span> <span class="dv">60</span> </span></code></pre></div></li>
 </ol></li>
 <li><p>On s’intéresse maintenant à l’algorithme <strong>SMOTE</strong></p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Exécuter la fonction <strong>SmoteClassif</strong> avec <code>k=3</code> et les les paramètres par défaut</p>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="dondes.html#cb238-1"></a>smote1 &lt;-<span class="st"> </span><span class="kw">SmoteClassif</span>(Y<span class="op">~</span>.,<span class="dt">dat=</span>df,<span class="dt">k=</span><span class="dv">3</span>)</span>
-<span id="cb238-2"><a href="dondes.html#cb238-2"></a><span class="kw">summary</span>(smote1<span class="op">$</span>Y)</span>
-<span id="cb238-3"><a href="dondes.html#cb238-3"></a> <span class="dv">0</span>  <span class="dv">1</span> </span>
-<span id="cb238-4"><a href="dondes.html#cb238-4"></a><span class="dv">50</span> <span class="dv">50</span> </span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="dondes.html#cb157-1"></a>smote1 &lt;-<span class="st"> </span><span class="kw">SmoteClassif</span>(Y<span class="op">~</span>.,<span class="dt">dat=</span>df,<span class="dt">k=</span><span class="dv">3</span>)</span>
+<span id="cb157-2"><a href="dondes.html#cb157-2"></a><span class="kw">summary</span>(smote1<span class="op">$</span>Y)</span>
+<span id="cb157-3"><a href="dondes.html#cb157-3"></a> <span class="dv">0</span>  <span class="dv">1</span> </span>
+<span id="cb157-4"><a href="dondes.html#cb157-4"></a><span class="dv">50</span> <span class="dv">50</span> </span></code></pre></div>
 <div class="corR">
 <p>
 30 observations ont été crées par l’algorithme <strong>SMOTE</strong>. On a également enlevé des observations du groupe 1 pour avoir autant d’observations dans les deux groupes.
 </p>
 </div></li>
 <li><p>Visualiser les <strong>observations smote</strong>.</p>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="dondes.html#cb239-1"></a>new &lt;-<span class="st"> </span><span class="kw">anti_join</span>(smote1,df)</span>
-<span id="cb239-2"><a href="dondes.html#cb239-2"></a>old &lt;-<span class="st"> </span><span class="kw">inner_join</span>(smote1,df)</span>
-<span id="cb239-3"><a href="dondes.html#cb239-3"></a><span class="kw">ggplot</span>(old)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X1,<span class="dt">y=</span>X2)<span class="op">+</span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>Y))<span class="op">+</span></span>
-<span id="cb239-4"><a href="dondes.html#cb239-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data=</span>new,<span class="dt">color=</span><span class="st">&quot;black&quot;</span>)</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-372-1.png" width="672" style="display: block; margin: auto;" /></p></li>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="dondes.html#cb158-1"></a>new &lt;-<span class="st"> </span><span class="kw">anti_join</span>(smote1,df)</span>
+<span id="cb158-2"><a href="dondes.html#cb158-2"></a>old &lt;-<span class="st"> </span><span class="kw">inner_join</span>(smote1,df)</span>
+<span id="cb158-3"><a href="dondes.html#cb158-3"></a><span class="kw">ggplot</span>(old)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X1,<span class="dt">y=</span>X2)<span class="op">+</span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>Y))<span class="op">+</span></span>
+<span id="cb158-4"><a href="dondes.html#cb158-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data=</span>new,<span class="dt">color=</span><span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-373-1.png" width="672" style="display: block; margin: auto;" /></p></li>
 <li><p>Corriger les paramètres de la fonction de manière à avoir 80 observations dans le groupe 0 et 60 dans le groupe 1.</p>
 <div class="corR">
 <p>
 Ici encore il “suffit” de jouer avec l’option <code>C.perc</code>.
 </p>
 </div>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="dondes.html#cb240-1"></a>smote2 &lt;-<span class="st"> </span><span class="kw">SmoteClassif</span>(Y<span class="op">~</span>.,<span class="dt">dat=</span>df,<span class="dt">k=</span><span class="dv">3</span>,<span class="dt">C.perc=</span><span class="kw">list</span>(<span class="st">&quot;0&quot;</span>=<span class="dv">1</span>,<span class="st">&quot;1&quot;</span>=<span class="dv">3</span>))</span>
-<span id="cb240-2"><a href="dondes.html#cb240-2"></a><span class="kw">summary</span>(smote2<span class="op">$</span>Y)</span>
-<span id="cb240-3"><a href="dondes.html#cb240-3"></a> <span class="dv">0</span>  <span class="dv">1</span> </span>
-<span id="cb240-4"><a href="dondes.html#cb240-4"></a><span class="dv">80</span> <span class="dv">60</span> </span></code></pre></div></li>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="dondes.html#cb159-1"></a>smote2 &lt;-<span class="st"> </span><span class="kw">SmoteClassif</span>(Y<span class="op">~</span>.,<span class="dt">dat=</span>df,<span class="dt">k=</span><span class="dv">3</span>,<span class="dt">C.perc=</span><span class="kw">list</span>(<span class="st">&quot;0&quot;</span>=<span class="dv">1</span>,<span class="st">&quot;1&quot;</span>=<span class="dv">3</span>))</span>
+<span id="cb159-2"><a href="dondes.html#cb159-2"></a><span class="kw">summary</span>(smote2<span class="op">$</span>Y)</span>
+<span id="cb159-3"><a href="dondes.html#cb159-3"></a> <span class="dv">0</span>  <span class="dv">1</span> </span>
+<span id="cb159-4"><a href="dondes.html#cb159-4"></a><span class="dv">80</span> <span class="dv">60</span> </span></code></pre></div></li>
 </ol></li>
 <li><p>On souhaite maintenant ré-équilibrer par <strong>random undersampling</strong>. Utiliser la fonction <strong>RandUnderClassif</strong> pour effectuer un tel ré-équilibrage. Ici encore on pourra faire varier les paramètres.</p>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="dondes.html#cb241-1"></a>under1 &lt;-<span class="st"> </span><span class="kw">RandUnderClassif</span>(Y<span class="op">~</span>.,<span class="dt">dat=</span>df)</span>
-<span id="cb241-2"><a href="dondes.html#cb241-2"></a><span class="kw">summary</span>(under1)</span>
-<span id="cb241-3"><a href="dondes.html#cb241-3"></a>       X1                X2           Y     </span>
-<span id="cb241-4"><a href="dondes.html#cb241-4"></a> Min.   <span class="op">:</span><span class="fl">0.01288</span>   Min.   <span class="op">:</span><span class="fl">0.006945</span>   <span class="dv">0</span><span class="op">:</span><span class="dv">20</span>  </span>
-<span id="cb241-5"><a href="dondes.html#cb241-5"></a> 1st Qu.<span class="op">:</span><span class="fl">0.23283</span>   1st Qu.<span class="op">:</span><span class="fl">0.277733</span>   <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>  </span>
-<span id="cb241-6"><a href="dondes.html#cb241-6"></a> Median <span class="op">:</span><span class="fl">0.38112</span>   Median <span class="op">:</span><span class="fl">0.525170</span>         </span>
-<span id="cb241-7"><a href="dondes.html#cb241-7"></a> Mean   <span class="op">:</span><span class="fl">0.42021</span>   Mean   <span class="op">:</span><span class="fl">0.512639</span>         </span>
-<span id="cb241-8"><a href="dondes.html#cb241-8"></a> 3rd Qu.<span class="op">:</span><span class="fl">0.54655</span>   3rd Qu.<span class="op">:</span><span class="fl">0.740836</span>         </span>
-<span id="cb241-9"><a href="dondes.html#cb241-9"></a> Max.   <span class="op">:</span><span class="fl">0.96958</span>   Max.   <span class="op">:</span><span class="fl">0.999183</span>         </span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="dondes.html#cb160-1"></a>under1 &lt;-<span class="st"> </span><span class="kw">RandUnderClassif</span>(Y<span class="op">~</span>.,<span class="dt">dat=</span>df)</span>
+<span id="cb160-2"><a href="dondes.html#cb160-2"></a><span class="kw">summary</span>(under1)</span>
+<span id="cb160-3"><a href="dondes.html#cb160-3"></a>       X1                X2           Y     </span>
+<span id="cb160-4"><a href="dondes.html#cb160-4"></a> Min.   <span class="op">:</span><span class="fl">0.01288</span>   Min.   <span class="op">:</span><span class="fl">0.006945</span>   <span class="dv">0</span><span class="op">:</span><span class="dv">20</span>  </span>
+<span id="cb160-5"><a href="dondes.html#cb160-5"></a> 1st Qu.<span class="op">:</span><span class="fl">0.23283</span>   1st Qu.<span class="op">:</span><span class="fl">0.277733</span>   <span class="dv">1</span><span class="op">:</span><span class="dv">20</span>  </span>
+<span id="cb160-6"><a href="dondes.html#cb160-6"></a> Median <span class="op">:</span><span class="fl">0.38112</span>   Median <span class="op">:</span><span class="fl">0.525170</span>         </span>
+<span id="cb160-7"><a href="dondes.html#cb160-7"></a> Mean   <span class="op">:</span><span class="fl">0.42021</span>   Mean   <span class="op">:</span><span class="fl">0.512639</span>         </span>
+<span id="cb160-8"><a href="dondes.html#cb160-8"></a> 3rd Qu.<span class="op">:</span><span class="fl">0.54655</span>   3rd Qu.<span class="op">:</span><span class="fl">0.740836</span>         </span>
+<span id="cb160-9"><a href="dondes.html#cb160-9"></a> Max.   <span class="op">:</span><span class="fl">0.96958</span>   Max.   <span class="op">:</span><span class="fl">0.999183</span>         </span></code></pre></div>
 <div class="corR">
 <p>
 On supprimer des obseravtions du groupe 0 pour avoir le même nombre d’observations dans les deux groupes. Ici encore on peut contrôler le niveau de ré-équilibrage avec <code>C.perc</code> :
 </p>
 </div>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="dondes.html#cb242-1"></a>under2 &lt;-<span class="st"> </span><span class="kw">RandUnderClassif</span>(Y<span class="op">~</span>.,<span class="dt">dat=</span>df,<span class="dt">C.perc =</span> <span class="kw">list</span>(<span class="st">&quot;0&quot;</span>=<span class="fl">0.5</span>,<span class="st">&quot;1&quot;</span>=<span class="dv">1</span>))</span>
-<span id="cb242-2"><a href="dondes.html#cb242-2"></a><span class="kw">summary</span>(under2<span class="op">$</span>Y)</span>
-<span id="cb242-3"><a href="dondes.html#cb242-3"></a> <span class="dv">0</span>  <span class="dv">1</span> </span>
-<span id="cb242-4"><a href="dondes.html#cb242-4"></a><span class="dv">40</span> <span class="dv">20</span> </span></code></pre></div></li>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="dondes.html#cb161-1"></a>under2 &lt;-<span class="st"> </span><span class="kw">RandUnderClassif</span>(Y<span class="op">~</span>.,<span class="dt">dat=</span>df,<span class="dt">C.perc =</span> <span class="kw">list</span>(<span class="st">&quot;0&quot;</span>=<span class="fl">0.5</span>,<span class="st">&quot;1&quot;</span>=<span class="dv">1</span>))</span>
+<span id="cb161-2"><a href="dondes.html#cb161-2"></a><span class="kw">summary</span>(under2<span class="op">$</span>Y)</span>
+<span id="cb161-3"><a href="dondes.html#cb161-3"></a> <span class="dv">0</span>  <span class="dv">1</span> </span>
+<span id="cb161-4"><a href="dondes.html#cb161-4"></a><span class="dv">40</span> <span class="dv">20</span> </span></code></pre></div></li>
 <li><p>On passe maintenant à l’algorithme <strong>Tomek</strong>.</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Sans utiliser la fonction <strong>TomekClassif</strong> identifier les paires d’observations qui ont un <strong>lien de Tomek</strong>. On pourra utiliser la fonction <strong>nng</strong> du package <code>cccd</code>.</p>
@@ -486,86 +474,86 @@ On supprimer des obseravtions du groupe 0 pour avoir le même nombre d’observa
 On rappelle que deux observations ont un lien de Tomek si elles sont plus proches voisins mutuels et de deux groupes différents. On commence donc par identifier les plus proches voisins mutuels :
 </p>
 </div>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="dondes.html#cb243-1"></a><span class="kw">library</span>(cccd)</span>
-<span id="cb243-2"><a href="dondes.html#cb243-2"></a>unppv &lt;-<span class="st"> </span><span class="kw">nng</span>(<span class="dt">x=</span>df[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>],<span class="dt">k=</span><span class="dv">1</span>,<span class="dt">mutual=</span><span class="ot">TRUE</span>)</span>
-<span id="cb243-3"><a href="dondes.html#cb243-3"></a>graph_mut &lt;-<span class="st"> </span><span class="kw">as_data_frame</span>(unppv)</span>
-<span id="cb243-4"><a href="dondes.html#cb243-4"></a>graph_mut</span>
-<span id="cb243-5"><a href="dondes.html#cb243-5"></a>   from  to</span>
-<span id="cb243-6"><a href="dondes.html#cb243-6"></a><span class="dv">1</span>     <span class="dv">1</span>  <span class="dv">13</span></span>
-<span id="cb243-7"><a href="dondes.html#cb243-7"></a><span class="dv">2</span>     <span class="dv">2</span>  <span class="dv">50</span></span>
-<span id="cb243-8"><a href="dondes.html#cb243-8"></a><span class="dv">3</span>     <span class="dv">3</span>  <span class="dv">54</span></span>
-<span id="cb243-9"><a href="dondes.html#cb243-9"></a><span class="dv">4</span>     <span class="dv">4</span>  <span class="dv">98</span></span>
-<span id="cb243-10"><a href="dondes.html#cb243-10"></a><span class="dv">5</span>     <span class="dv">5</span>  <span class="dv">42</span></span>
-<span id="cb243-11"><a href="dondes.html#cb243-11"></a><span class="dv">6</span>     <span class="dv">6</span>  <span class="dv">35</span></span>
-<span id="cb243-12"><a href="dondes.html#cb243-12"></a><span class="dv">7</span>     <span class="dv">9</span>  <span class="dv">96</span></span>
-<span id="cb243-13"><a href="dondes.html#cb243-13"></a><span class="dv">8</span>    <span class="dv">12</span>  <span class="dv">30</span></span>
-<span id="cb243-14"><a href="dondes.html#cb243-14"></a><span class="dv">9</span>    <span class="dv">16</span>  <span class="dv">41</span></span>
-<span id="cb243-15"><a href="dondes.html#cb243-15"></a><span class="dv">10</span>   <span class="dv">18</span> <span class="dv">100</span></span>
-<span id="cb243-16"><a href="dondes.html#cb243-16"></a><span class="dv">11</span>   <span class="dv">19</span>  <span class="dv">44</span></span>
-<span id="cb243-17"><a href="dondes.html#cb243-17"></a><span class="dv">12</span>   <span class="dv">20</span>  <span class="dv">92</span></span>
-<span id="cb243-18"><a href="dondes.html#cb243-18"></a><span class="dv">13</span>   <span class="dv">24</span>  <span class="dv">28</span></span>
-<span id="cb243-19"><a href="dondes.html#cb243-19"></a><span class="dv">14</span>   <span class="dv">26</span>  <span class="dv">87</span></span>
-<span id="cb243-20"><a href="dondes.html#cb243-20"></a><span class="dv">15</span>   <span class="dv">27</span>  <span class="dv">91</span></span>
-<span id="cb243-21"><a href="dondes.html#cb243-21"></a><span class="dv">16</span>   <span class="dv">29</span>  <span class="dv">64</span></span>
-<span id="cb243-22"><a href="dondes.html#cb243-22"></a><span class="dv">17</span>   <span class="dv">31</span>  <span class="dv">82</span></span>
-<span id="cb243-23"><a href="dondes.html#cb243-23"></a><span class="dv">18</span>   <span class="dv">32</span>  <span class="dv">94</span></span>
-<span id="cb243-24"><a href="dondes.html#cb243-24"></a><span class="dv">19</span>   <span class="dv">33</span>  <span class="dv">69</span></span>
-<span id="cb243-25"><a href="dondes.html#cb243-25"></a><span class="dv">20</span>   <span class="dv">36</span>  <span class="dv">68</span></span>
-<span id="cb243-26"><a href="dondes.html#cb243-26"></a><span class="dv">21</span>   <span class="dv">37</span>  <span class="dv">99</span></span>
-<span id="cb243-27"><a href="dondes.html#cb243-27"></a><span class="dv">22</span>   <span class="dv">40</span>  <span class="dv">62</span></span>
-<span id="cb243-28"><a href="dondes.html#cb243-28"></a><span class="dv">23</span>   <span class="dv">45</span>  <span class="dv">55</span></span>
-<span id="cb243-29"><a href="dondes.html#cb243-29"></a><span class="dv">24</span>   <span class="dv">48</span>  <span class="dv">51</span></span>
-<span id="cb243-30"><a href="dondes.html#cb243-30"></a><span class="dv">25</span>   <span class="dv">52</span>  <span class="dv">66</span></span>
-<span id="cb243-31"><a href="dondes.html#cb243-31"></a><span class="dv">26</span>   <span class="dv">56</span>  <span class="dv">58</span></span>
-<span id="cb243-32"><a href="dondes.html#cb243-32"></a><span class="dv">27</span>   <span class="dv">65</span>  <span class="dv">75</span></span>
-<span id="cb243-33"><a href="dondes.html#cb243-33"></a><span class="dv">28</span>   <span class="dv">67</span>  <span class="dv">77</span></span>
-<span id="cb243-34"><a href="dondes.html#cb243-34"></a><span class="dv">29</span>   <span class="dv">72</span>  <span class="dv">86</span></span>
-<span id="cb243-35"><a href="dondes.html#cb243-35"></a><span class="dv">30</span>   <span class="dv">73</span>  <span class="dv">93</span></span>
-<span id="cb243-36"><a href="dondes.html#cb243-36"></a><span class="dv">31</span>   <span class="dv">74</span>  <span class="dv">89</span></span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="dondes.html#cb162-1"></a><span class="kw">library</span>(cccd)</span>
+<span id="cb162-2"><a href="dondes.html#cb162-2"></a>unppv &lt;-<span class="st"> </span><span class="kw">nng</span>(<span class="dt">x=</span>df[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>],<span class="dt">k=</span><span class="dv">1</span>,<span class="dt">mutual=</span><span class="ot">TRUE</span>)</span>
+<span id="cb162-3"><a href="dondes.html#cb162-3"></a>graph_mut &lt;-<span class="st"> </span><span class="kw">as_data_frame</span>(unppv)</span>
+<span id="cb162-4"><a href="dondes.html#cb162-4"></a>graph_mut</span>
+<span id="cb162-5"><a href="dondes.html#cb162-5"></a>   from  to</span>
+<span id="cb162-6"><a href="dondes.html#cb162-6"></a><span class="dv">1</span>     <span class="dv">1</span>  <span class="dv">13</span></span>
+<span id="cb162-7"><a href="dondes.html#cb162-7"></a><span class="dv">2</span>     <span class="dv">2</span>  <span class="dv">50</span></span>
+<span id="cb162-8"><a href="dondes.html#cb162-8"></a><span class="dv">3</span>     <span class="dv">3</span>  <span class="dv">54</span></span>
+<span id="cb162-9"><a href="dondes.html#cb162-9"></a><span class="dv">4</span>     <span class="dv">4</span>  <span class="dv">98</span></span>
+<span id="cb162-10"><a href="dondes.html#cb162-10"></a><span class="dv">5</span>     <span class="dv">5</span>  <span class="dv">42</span></span>
+<span id="cb162-11"><a href="dondes.html#cb162-11"></a><span class="dv">6</span>     <span class="dv">6</span>  <span class="dv">35</span></span>
+<span id="cb162-12"><a href="dondes.html#cb162-12"></a><span class="dv">7</span>     <span class="dv">9</span>  <span class="dv">96</span></span>
+<span id="cb162-13"><a href="dondes.html#cb162-13"></a><span class="dv">8</span>    <span class="dv">12</span>  <span class="dv">30</span></span>
+<span id="cb162-14"><a href="dondes.html#cb162-14"></a><span class="dv">9</span>    <span class="dv">16</span>  <span class="dv">41</span></span>
+<span id="cb162-15"><a href="dondes.html#cb162-15"></a><span class="dv">10</span>   <span class="dv">18</span> <span class="dv">100</span></span>
+<span id="cb162-16"><a href="dondes.html#cb162-16"></a><span class="dv">11</span>   <span class="dv">19</span>  <span class="dv">44</span></span>
+<span id="cb162-17"><a href="dondes.html#cb162-17"></a><span class="dv">12</span>   <span class="dv">20</span>  <span class="dv">92</span></span>
+<span id="cb162-18"><a href="dondes.html#cb162-18"></a><span class="dv">13</span>   <span class="dv">24</span>  <span class="dv">28</span></span>
+<span id="cb162-19"><a href="dondes.html#cb162-19"></a><span class="dv">14</span>   <span class="dv">26</span>  <span class="dv">87</span></span>
+<span id="cb162-20"><a href="dondes.html#cb162-20"></a><span class="dv">15</span>   <span class="dv">27</span>  <span class="dv">91</span></span>
+<span id="cb162-21"><a href="dondes.html#cb162-21"></a><span class="dv">16</span>   <span class="dv">29</span>  <span class="dv">64</span></span>
+<span id="cb162-22"><a href="dondes.html#cb162-22"></a><span class="dv">17</span>   <span class="dv">31</span>  <span class="dv">82</span></span>
+<span id="cb162-23"><a href="dondes.html#cb162-23"></a><span class="dv">18</span>   <span class="dv">32</span>  <span class="dv">94</span></span>
+<span id="cb162-24"><a href="dondes.html#cb162-24"></a><span class="dv">19</span>   <span class="dv">33</span>  <span class="dv">69</span></span>
+<span id="cb162-25"><a href="dondes.html#cb162-25"></a><span class="dv">20</span>   <span class="dv">36</span>  <span class="dv">68</span></span>
+<span id="cb162-26"><a href="dondes.html#cb162-26"></a><span class="dv">21</span>   <span class="dv">37</span>  <span class="dv">99</span></span>
+<span id="cb162-27"><a href="dondes.html#cb162-27"></a><span class="dv">22</span>   <span class="dv">40</span>  <span class="dv">62</span></span>
+<span id="cb162-28"><a href="dondes.html#cb162-28"></a><span class="dv">23</span>   <span class="dv">45</span>  <span class="dv">55</span></span>
+<span id="cb162-29"><a href="dondes.html#cb162-29"></a><span class="dv">24</span>   <span class="dv">48</span>  <span class="dv">51</span></span>
+<span id="cb162-30"><a href="dondes.html#cb162-30"></a><span class="dv">25</span>   <span class="dv">52</span>  <span class="dv">66</span></span>
+<span id="cb162-31"><a href="dondes.html#cb162-31"></a><span class="dv">26</span>   <span class="dv">56</span>  <span class="dv">58</span></span>
+<span id="cb162-32"><a href="dondes.html#cb162-32"></a><span class="dv">27</span>   <span class="dv">65</span>  <span class="dv">75</span></span>
+<span id="cb162-33"><a href="dondes.html#cb162-33"></a><span class="dv">28</span>   <span class="dv">67</span>  <span class="dv">77</span></span>
+<span id="cb162-34"><a href="dondes.html#cb162-34"></a><span class="dv">29</span>   <span class="dv">72</span>  <span class="dv">86</span></span>
+<span id="cb162-35"><a href="dondes.html#cb162-35"></a><span class="dv">30</span>   <span class="dv">73</span>  <span class="dv">93</span></span>
+<span id="cb162-36"><a href="dondes.html#cb162-36"></a><span class="dv">31</span>   <span class="dv">74</span>  <span class="dv">89</span></span></code></pre></div>
 <div class="corR">
 <p>
 Puis on récupère les groupes de ces observations afin de ne conserver que les paires qui proviennent de groupes différents :
 </p>
 </div>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="dondes.html#cb244-1"></a>Yfrom &lt;-<span class="st"> </span>df<span class="op">$</span>Y[graph_mut<span class="op">$</span>from]</span>
-<span id="cb244-2"><a href="dondes.html#cb244-2"></a>Yto &lt;-<span class="st"> </span>df<span class="op">$</span>Y[graph_mut<span class="op">$</span>to]</span>
-<span id="cb244-3"><a href="dondes.html#cb244-3"></a>tomek_link &lt;-<span class="st"> </span>graph_mut <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Yfrom<span class="op">!=</span>Yto)</span>
-<span id="cb244-4"><a href="dondes.html#cb244-4"></a>tomek_link</span>
-<span id="cb244-5"><a href="dondes.html#cb244-5"></a>  from  to</span>
-<span id="cb244-6"><a href="dondes.html#cb244-6"></a><span class="dv">1</span>    <span class="dv">4</span>  <span class="dv">98</span></span>
-<span id="cb244-7"><a href="dondes.html#cb244-7"></a><span class="dv">2</span>   <span class="dv">16</span>  <span class="dv">41</span></span>
-<span id="cb244-8"><a href="dondes.html#cb244-8"></a><span class="dv">3</span>   <span class="dv">18</span> <span class="dv">100</span></span>
-<span id="cb244-9"><a href="dondes.html#cb244-9"></a><span class="dv">4</span>   <span class="dv">19</span>  <span class="dv">44</span></span>
-<span id="cb244-10"><a href="dondes.html#cb244-10"></a><span class="dv">5</span>   <span class="dv">26</span>  <span class="dv">87</span></span>
-<span id="cb244-11"><a href="dondes.html#cb244-11"></a><span class="dv">6</span>   <span class="dv">29</span>  <span class="dv">64</span></span>
-<span id="cb244-12"><a href="dondes.html#cb244-12"></a><span class="dv">7</span>   <span class="dv">45</span>  <span class="dv">55</span></span>
-<span id="cb244-13"><a href="dondes.html#cb244-13"></a><span class="dv">8</span>   <span class="dv">72</span>  <span class="dv">86</span></span>
-<span id="cb244-14"><a href="dondes.html#cb244-14"></a><span class="dv">9</span>   <span class="dv">74</span>  <span class="dv">89</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="dondes.html#cb163-1"></a>Yfrom &lt;-<span class="st"> </span>df<span class="op">$</span>Y[graph_mut<span class="op">$</span>from]</span>
+<span id="cb163-2"><a href="dondes.html#cb163-2"></a>Yto &lt;-<span class="st"> </span>df<span class="op">$</span>Y[graph_mut<span class="op">$</span>to]</span>
+<span id="cb163-3"><a href="dondes.html#cb163-3"></a>tomek_link &lt;-<span class="st"> </span>graph_mut <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Yfrom<span class="op">!=</span>Yto)</span>
+<span id="cb163-4"><a href="dondes.html#cb163-4"></a>tomek_link</span>
+<span id="cb163-5"><a href="dondes.html#cb163-5"></a>  from  to</span>
+<span id="cb163-6"><a href="dondes.html#cb163-6"></a><span class="dv">1</span>    <span class="dv">4</span>  <span class="dv">98</span></span>
+<span id="cb163-7"><a href="dondes.html#cb163-7"></a><span class="dv">2</span>   <span class="dv">16</span>  <span class="dv">41</span></span>
+<span id="cb163-8"><a href="dondes.html#cb163-8"></a><span class="dv">3</span>   <span class="dv">18</span> <span class="dv">100</span></span>
+<span id="cb163-9"><a href="dondes.html#cb163-9"></a><span class="dv">4</span>   <span class="dv">19</span>  <span class="dv">44</span></span>
+<span id="cb163-10"><a href="dondes.html#cb163-10"></a><span class="dv">5</span>   <span class="dv">26</span>  <span class="dv">87</span></span>
+<span id="cb163-11"><a href="dondes.html#cb163-11"></a><span class="dv">6</span>   <span class="dv">29</span>  <span class="dv">64</span></span>
+<span id="cb163-12"><a href="dondes.html#cb163-12"></a><span class="dv">7</span>   <span class="dv">45</span>  <span class="dv">55</span></span>
+<span id="cb163-13"><a href="dondes.html#cb163-13"></a><span class="dv">8</span>   <span class="dv">72</span>  <span class="dv">86</span></span>
+<span id="cb163-14"><a href="dondes.html#cb163-14"></a><span class="dv">9</span>   <span class="dv">74</span>  <span class="dv">89</span></span></code></pre></div></li>
 <li><p>Retrouver ces paires à l’aide de la fonction Tomek LinK.</p>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="dondes.html#cb245-1"></a>tomek1 &lt;-<span class="st"> </span><span class="kw">TomekClassif</span>(Y<span class="op">~</span>.,<span class="dt">dat=</span>df)</span>
-<span id="cb245-2"><a href="dondes.html#cb245-2"></a>tomek1[[<span class="dv">2</span>]]</span>
-<span id="cb245-3"><a href="dondes.html#cb245-3"></a> [<span class="dv">1</span>]   <span class="dv">4</span>  <span class="dv">98</span>  <span class="dv">16</span>  <span class="dv">41</span>  <span class="dv">18</span> <span class="dv">100</span>  <span class="dv">19</span>  <span class="dv">44</span>  <span class="dv">26</span>  <span class="dv">87</span>  <span class="dv">29</span>  <span class="dv">64</span>  <span class="dv">45</span>  <span class="dv">55</span></span>
-<span id="cb245-4"><a href="dondes.html#cb245-4"></a>[<span class="dv">15</span>]  <span class="dv">72</span>  <span class="dv">86</span>  <span class="dv">74</span>  <span class="dv">89</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="dondes.html#cb164-1"></a>tomek1 &lt;-<span class="st"> </span><span class="kw">TomekClassif</span>(Y<span class="op">~</span>.,<span class="dt">dat=</span>df)</span>
+<span id="cb164-2"><a href="dondes.html#cb164-2"></a>tomek1[[<span class="dv">2</span>]]</span>
+<span id="cb164-3"><a href="dondes.html#cb164-3"></a> [<span class="dv">1</span>]   <span class="dv">4</span>  <span class="dv">98</span>  <span class="dv">16</span>  <span class="dv">41</span>  <span class="dv">18</span> <span class="dv">100</span>  <span class="dv">19</span>  <span class="dv">44</span>  <span class="dv">26</span>  <span class="dv">87</span>  <span class="dv">29</span>  <span class="dv">64</span>  <span class="dv">45</span>  <span class="dv">55</span></span>
+<span id="cb164-4"><a href="dondes.html#cb164-4"></a>[<span class="dv">15</span>]  <span class="dv">72</span>  <span class="dv">86</span>  <span class="dv">74</span>  <span class="dv">89</span></span></code></pre></div></li>
 <li><p>Visualiser les observations supprimées. On prendra soin d’expliquer l’option <code>rem</code> de <strong>TomekClassif</strong>.</p>
 <div class="corR">
 <p>
 On dispose de deux stratégies. On peut enlever les paires entières qui sont <strong>T-link</strong> avec l’option par défaut
 </p>
 </div>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="dondes.html#cb246-1"></a><span class="kw">ggplot</span>(tomek1[[<span class="dv">1</span>]])<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X1,<span class="dt">y=</span>X2,<span class="dt">color=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span></span>
-<span id="cb246-2"><a href="dondes.html#cb246-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data=</span>df[tomek1[[<span class="dv">2</span>]],],<span class="dt">shape=</span><span class="dv">17</span>,<span class="dt">size=</span><span class="dv">2</span>)</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-384-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="dondes.html#cb165-1"></a><span class="kw">ggplot</span>(tomek1[[<span class="dv">1</span>]])<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X1,<span class="dt">y=</span>X2,<span class="dt">color=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span></span>
+<span id="cb165-2"><a href="dondes.html#cb165-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data=</span>df[tomek1[[<span class="dv">2</span>]],],<span class="dt">shape=</span><span class="dv">17</span>,<span class="dt">size=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-385-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="corR">
 <p>
 On peut également ne supprimer que l’élelément du <strong>T-link</strong> du groupe majoritaire avec l’option <code>rem=“maj”</code> :
 </p>
 </div>
-<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="dondes.html#cb247-1"></a>tomek2 &lt;-<span class="st"> </span><span class="kw">TomekClassif</span>(Y<span class="op">~</span>.,<span class="dt">dat=</span>df,<span class="dt">rem=</span><span class="st">&quot;maj&quot;</span>)</span>
-<span id="cb247-2"><a href="dondes.html#cb247-2"></a>tomek2[[<span class="dv">2</span>]]</span>
-<span id="cb247-3"><a href="dondes.html#cb247-3"></a>[<span class="dv">1</span>]   <span class="dv">4</span>  <span class="dv">41</span> <span class="dv">100</span>  <span class="dv">19</span>  <span class="dv">87</span>  <span class="dv">29</span>  <span class="dv">55</span>  <span class="dv">86</span>  <span class="dv">89</span></span>
-<span id="cb247-4"><a href="dondes.html#cb247-4"></a><span class="kw">ggplot</span>(tomek2[[<span class="dv">1</span>]])<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X1,<span class="dt">y=</span>X2,<span class="dt">color=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span></span>
-<span id="cb247-5"><a href="dondes.html#cb247-5"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data=</span>df[tomek2[[<span class="dv">2</span>]],],<span class="dt">shape=</span><span class="dv">17</span>,<span class="dt">size=</span><span class="dv">2</span>)</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-386-1.png" width="672" style="display: block; margin: auto;" /></p></li>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="dondes.html#cb166-1"></a>tomek2 &lt;-<span class="st"> </span><span class="kw">TomekClassif</span>(Y<span class="op">~</span>.,<span class="dt">dat=</span>df,<span class="dt">rem=</span><span class="st">&quot;maj&quot;</span>)</span>
+<span id="cb166-2"><a href="dondes.html#cb166-2"></a>tomek2[[<span class="dv">2</span>]]</span>
+<span id="cb166-3"><a href="dondes.html#cb166-3"></a>[<span class="dv">1</span>]   <span class="dv">4</span>  <span class="dv">41</span> <span class="dv">100</span>  <span class="dv">19</span>  <span class="dv">87</span>  <span class="dv">29</span>  <span class="dv">55</span>  <span class="dv">86</span>  <span class="dv">89</span></span>
+<span id="cb166-4"><a href="dondes.html#cb166-4"></a><span class="kw">ggplot</span>(tomek2[[<span class="dv">1</span>]])<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X1,<span class="dt">y=</span>X2,<span class="dt">color=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span></span>
+<span id="cb166-5"><a href="dondes.html#cb166-5"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data=</span>df[tomek2[[<span class="dv">2</span>]],],<span class="dt">shape=</span><span class="dv">17</span>,<span class="dt">size=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-387-1.png" width="672" style="display: block; margin: auto;" /></p></li>
 </ol></li>
 </ol>
 
@@ -574,151 +562,151 @@ On peut également ne supprimer que l’élelément du <strong>T-link</strong> d
 </div>
 
 <p>On considère 3 jeux de données <code>df1</code>, <code>df2</code> et <code>df3</code>.</p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="dondes.html#cb248-1"></a>n &lt;-<span class="st"> </span><span class="dv">2000</span></span>
-<span id="cb248-2"><a href="dondes.html#cb248-2"></a><span class="kw">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb248-3"><a href="dondes.html#cb248-3"></a>X1 &lt;-<span class="st"> </span><span class="kw">runif</span>(n)</span>
-<span id="cb248-4"><a href="dondes.html#cb248-4"></a><span class="kw">set.seed</span>(<span class="dv">5678</span>)</span>
-<span id="cb248-5"><a href="dondes.html#cb248-5"></a>X2 &lt;-<span class="st"> </span><span class="kw">runif</span>(n)</span>
-<span id="cb248-6"><a href="dondes.html#cb248-6"></a><span class="kw">set.seed</span>(<span class="dv">9012</span>)</span>
-<span id="cb248-7"><a href="dondes.html#cb248-7"></a>R1 &lt;-<span class="st"> </span>X1<span class="op">&lt;=</span><span class="fl">0.25</span></span>
-<span id="cb248-8"><a href="dondes.html#cb248-8"></a>R2 &lt;-<span class="st"> </span>(X1<span class="op">&gt;</span><span class="fl">0.25</span> <span class="op">&amp;</span><span class="st"> </span>X2<span class="op">&gt;=</span><span class="fl">0.75</span>)</span>
-<span id="cb248-9"><a href="dondes.html#cb248-9"></a>R3 &lt;-<span class="st"> </span>(X1<span class="op">&gt;</span><span class="fl">0.25</span> <span class="op">&amp;</span><span class="st"> </span>X2<span class="op">&lt;</span><span class="fl">0.75</span>)</span>
-<span id="cb248-10"><a href="dondes.html#cb248-10"></a>Y &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,n)</span>
-<span id="cb248-11"><a href="dondes.html#cb248-11"></a>Y[R1] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R1),<span class="dv">1</span>,<span class="fl">0.75</span>)</span>
-<span id="cb248-12"><a href="dondes.html#cb248-12"></a>Y[R2] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R2),<span class="dv">1</span>,<span class="fl">0.75</span>)</span>
-<span id="cb248-13"><a href="dondes.html#cb248-13"></a>Y[R3] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R3),<span class="dv">1</span>,<span class="fl">0.25</span>)</span>
-<span id="cb248-14"><a href="dondes.html#cb248-14"></a>df1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(X1,X2,Y)</span>
-<span id="cb248-15"><a href="dondes.html#cb248-15"></a>df1<span class="op">$</span>Y &lt;-<span class="st"> </span><span class="kw">factor</span>(df1<span class="op">$</span>Y)</span>
-<span id="cb248-16"><a href="dondes.html#cb248-16"></a>indDY1 &lt;-<span class="st"> </span><span class="kw">which</span>(df1<span class="op">$</span>Y<span class="op">==</span><span class="dv">1</span>)</span>
-<span id="cb248-17"><a href="dondes.html#cb248-17"></a>df2 &lt;-<span class="st"> </span>df1[<span class="op">-</span>indDY1[<span class="dv">1</span><span class="op">:</span><span class="dv">400</span>],]</span>
-<span id="cb248-18"><a href="dondes.html#cb248-18"></a>df3 &lt;-<span class="st"> </span>df1[<span class="op">-</span>indDY1[<span class="dv">1</span><span class="op">:</span><span class="dv">700</span>],]</span>
-<span id="cb248-19"><a href="dondes.html#cb248-19"></a>df1 &lt;-<span class="st"> </span>df1[<span class="kw">sample</span>(<span class="kw">nrow</span>(df1),<span class="dv">1000</span>),]</span>
-<span id="cb248-20"><a href="dondes.html#cb248-20"></a>df2 &lt;-<span class="st"> </span>df2[<span class="kw">sample</span>(<span class="kw">nrow</span>(df2),<span class="dv">1000</span>),]</span>
-<span id="cb248-21"><a href="dondes.html#cb248-21"></a>df3 &lt;-<span class="st"> </span>df3[<span class="kw">sample</span>(<span class="kw">nrow</span>(df3),<span class="dv">1000</span>),]</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="dondes.html#cb167-1"></a>n &lt;-<span class="st"> </span><span class="dv">2000</span></span>
+<span id="cb167-2"><a href="dondes.html#cb167-2"></a><span class="kw">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb167-3"><a href="dondes.html#cb167-3"></a>X1 &lt;-<span class="st"> </span><span class="kw">runif</span>(n)</span>
+<span id="cb167-4"><a href="dondes.html#cb167-4"></a><span class="kw">set.seed</span>(<span class="dv">5678</span>)</span>
+<span id="cb167-5"><a href="dondes.html#cb167-5"></a>X2 &lt;-<span class="st"> </span><span class="kw">runif</span>(n)</span>
+<span id="cb167-6"><a href="dondes.html#cb167-6"></a><span class="kw">set.seed</span>(<span class="dv">9012</span>)</span>
+<span id="cb167-7"><a href="dondes.html#cb167-7"></a>R1 &lt;-<span class="st"> </span>X1<span class="op">&lt;=</span><span class="fl">0.25</span></span>
+<span id="cb167-8"><a href="dondes.html#cb167-8"></a>R2 &lt;-<span class="st"> </span>(X1<span class="op">&gt;</span><span class="fl">0.25</span> <span class="op">&amp;</span><span class="st"> </span>X2<span class="op">&gt;=</span><span class="fl">0.75</span>)</span>
+<span id="cb167-9"><a href="dondes.html#cb167-9"></a>R3 &lt;-<span class="st"> </span>(X1<span class="op">&gt;</span><span class="fl">0.25</span> <span class="op">&amp;</span><span class="st"> </span>X2<span class="op">&lt;</span><span class="fl">0.75</span>)</span>
+<span id="cb167-10"><a href="dondes.html#cb167-10"></a>Y &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,n)</span>
+<span id="cb167-11"><a href="dondes.html#cb167-11"></a>Y[R1] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R1),<span class="dv">1</span>,<span class="fl">0.75</span>)</span>
+<span id="cb167-12"><a href="dondes.html#cb167-12"></a>Y[R2] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R2),<span class="dv">1</span>,<span class="fl">0.75</span>)</span>
+<span id="cb167-13"><a href="dondes.html#cb167-13"></a>Y[R3] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R3),<span class="dv">1</span>,<span class="fl">0.25</span>)</span>
+<span id="cb167-14"><a href="dondes.html#cb167-14"></a>df1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(X1,X2,Y)</span>
+<span id="cb167-15"><a href="dondes.html#cb167-15"></a>df1<span class="op">$</span>Y &lt;-<span class="st"> </span><span class="kw">factor</span>(df1<span class="op">$</span>Y)</span>
+<span id="cb167-16"><a href="dondes.html#cb167-16"></a>indDY1 &lt;-<span class="st"> </span><span class="kw">which</span>(df1<span class="op">$</span>Y<span class="op">==</span><span class="dv">1</span>)</span>
+<span id="cb167-17"><a href="dondes.html#cb167-17"></a>df2 &lt;-<span class="st"> </span>df1[<span class="op">-</span>indDY1[<span class="dv">1</span><span class="op">:</span><span class="dv">400</span>],]</span>
+<span id="cb167-18"><a href="dondes.html#cb167-18"></a>df3 &lt;-<span class="st"> </span>df1[<span class="op">-</span>indDY1[<span class="dv">1</span><span class="op">:</span><span class="dv">700</span>],]</span>
+<span id="cb167-19"><a href="dondes.html#cb167-19"></a>df1 &lt;-<span class="st"> </span>df1[<span class="kw">sample</span>(<span class="kw">nrow</span>(df1),<span class="dv">1000</span>),]</span>
+<span id="cb167-20"><a href="dondes.html#cb167-20"></a>df2 &lt;-<span class="st"> </span>df2[<span class="kw">sample</span>(<span class="kw">nrow</span>(df2),<span class="dv">1000</span>),]</span>
+<span id="cb167-21"><a href="dondes.html#cb167-21"></a>df3 &lt;-<span class="st"> </span>df3[<span class="kw">sample</span>(<span class="kw">nrow</span>(df3),<span class="dv">1000</span>),]</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>Comparer la distribution de <strong>Y</strong> pour ces trois jeux de données et visualiser les observations.</p>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="dondes.html#cb249-1"></a><span class="kw">summary</span>(df1<span class="op">$</span>Y)</span>
-<span id="cb249-2"><a href="dondes.html#cb249-2"></a>  <span class="dv">0</span>   <span class="dv">1</span> </span>
-<span id="cb249-3"><a href="dondes.html#cb249-3"></a><span class="dv">559</span> <span class="dv">441</span> </span>
-<span id="cb249-4"><a href="dondes.html#cb249-4"></a><span class="kw">summary</span>(df2<span class="op">$</span>Y)</span>
-<span id="cb249-5"><a href="dondes.html#cb249-5"></a>  <span class="dv">0</span>   <span class="dv">1</span> </span>
-<span id="cb249-6"><a href="dondes.html#cb249-6"></a><span class="dv">692</span> <span class="dv">308</span> </span>
-<span id="cb249-7"><a href="dondes.html#cb249-7"></a><span class="kw">summary</span>(df3<span class="op">$</span>Y)</span>
-<span id="cb249-8"><a href="dondes.html#cb249-8"></a>  <span class="dv">0</span>   <span class="dv">1</span> </span>
-<span id="cb249-9"><a href="dondes.html#cb249-9"></a><span class="dv">842</span> <span class="dv">158</span> </span></code></pre></div>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="dondes.html#cb250-1"></a><span class="kw">ggplot</span>(df1)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X1,<span class="dt">y=</span>X2,<span class="dt">color=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-389-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="dondes.html#cb251-1"></a><span class="kw">ggplot</span>(df2)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X1,<span class="dt">y=</span>X2,<span class="dt">color=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-389-2.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="dondes.html#cb252-1"></a><span class="kw">ggplot</span>(df3)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X1,<span class="dt">y=</span>X2,<span class="dt">color=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-389-3.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="dondes.html#cb168-1"></a><span class="kw">summary</span>(df1<span class="op">$</span>Y)</span>
+<span id="cb168-2"><a href="dondes.html#cb168-2"></a>  <span class="dv">0</span>   <span class="dv">1</span> </span>
+<span id="cb168-3"><a href="dondes.html#cb168-3"></a><span class="dv">559</span> <span class="dv">441</span> </span>
+<span id="cb168-4"><a href="dondes.html#cb168-4"></a><span class="kw">summary</span>(df2<span class="op">$</span>Y)</span>
+<span id="cb168-5"><a href="dondes.html#cb168-5"></a>  <span class="dv">0</span>   <span class="dv">1</span> </span>
+<span id="cb168-6"><a href="dondes.html#cb168-6"></a><span class="dv">692</span> <span class="dv">308</span> </span>
+<span id="cb168-7"><a href="dondes.html#cb168-7"></a><span class="kw">summary</span>(df3<span class="op">$</span>Y)</span>
+<span id="cb168-8"><a href="dondes.html#cb168-8"></a>  <span class="dv">0</span>   <span class="dv">1</span> </span>
+<span id="cb168-9"><a href="dondes.html#cb168-9"></a><span class="dv">842</span> <span class="dv">158</span> </span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="dondes.html#cb169-1"></a><span class="kw">ggplot</span>(df1)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X1,<span class="dt">y=</span>X2,<span class="dt">color=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-390-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="dondes.html#cb170-1"></a><span class="kw">ggplot</span>(df2)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X1,<span class="dt">y=</span>X2,<span class="dt">color=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-390-2.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="dondes.html#cb171-1"></a><span class="kw">ggplot</span>(df3)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X1,<span class="dt">y=</span>X2,<span class="dt">color=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-390-3.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="corR">
 <p>
 Les trois échantillons sont de même taille. Le groupe 0 est toujours plus important que le groupe 1 mais le déséquilibre est plus prononcé pour l’échantillon 2 et surtout l’échantillon 3.
 </p>
 </div></li>
 <li><p>On sépare ces 3 échantillons en un échantillon d’apprentissage et un échantillon test.</p>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="dondes.html#cb253-1"></a><span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb253-2"><a href="dondes.html#cb253-2"></a>a1 &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df1),<span class="dt">p=</span><span class="dv">2</span><span class="op">/</span><span class="dv">3</span>)</span>
-<span id="cb253-3"><a href="dondes.html#cb253-3"></a>a2 &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df2),<span class="dt">p=</span><span class="dv">2</span><span class="op">/</span><span class="dv">3</span>)</span>
-<span id="cb253-4"><a href="dondes.html#cb253-4"></a>a3 &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df3),<span class="dt">p=</span><span class="dv">2</span><span class="op">/</span><span class="dv">3</span>)</span>
-<span id="cb253-5"><a href="dondes.html#cb253-5"></a>train1 &lt;-<span class="st"> </span>df1[a1<span class="op">$</span>Resample1,]</span>
-<span id="cb253-6"><a href="dondes.html#cb253-6"></a>train2 &lt;-<span class="st"> </span>df2[a2<span class="op">$</span>Resample1,]</span>
-<span id="cb253-7"><a href="dondes.html#cb253-7"></a>train3 &lt;-<span class="st"> </span>df3[a3<span class="op">$</span>Resample1,]</span>
-<span id="cb253-8"><a href="dondes.html#cb253-8"></a>test1 &lt;-<span class="st"> </span>df1[<span class="op">-</span>a1<span class="op">$</span>Resample1,]</span>
-<span id="cb253-9"><a href="dondes.html#cb253-9"></a>test2 &lt;-<span class="st"> </span>df2[<span class="op">-</span>a2<span class="op">$</span>Resample1,]</span>
-<span id="cb253-10"><a href="dondes.html#cb253-10"></a>test3 &lt;-<span class="st"> </span>df3[<span class="op">-</span>a3<span class="op">$</span>Resample1,]</span></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="dondes.html#cb172-1"></a><span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb172-2"><a href="dondes.html#cb172-2"></a>a1 &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df1),<span class="dt">p=</span><span class="dv">2</span><span class="op">/</span><span class="dv">3</span>)</span>
+<span id="cb172-3"><a href="dondes.html#cb172-3"></a>a2 &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df2),<span class="dt">p=</span><span class="dv">2</span><span class="op">/</span><span class="dv">3</span>)</span>
+<span id="cb172-4"><a href="dondes.html#cb172-4"></a>a3 &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df3),<span class="dt">p=</span><span class="dv">2</span><span class="op">/</span><span class="dv">3</span>)</span>
+<span id="cb172-5"><a href="dondes.html#cb172-5"></a>train1 &lt;-<span class="st"> </span>df1[a1<span class="op">$</span>Resample1,]</span>
+<span id="cb172-6"><a href="dondes.html#cb172-6"></a>train2 &lt;-<span class="st"> </span>df2[a2<span class="op">$</span>Resample1,]</span>
+<span id="cb172-7"><a href="dondes.html#cb172-7"></a>train3 &lt;-<span class="st"> </span>df3[a3<span class="op">$</span>Resample1,]</span>
+<span id="cb172-8"><a href="dondes.html#cb172-8"></a>test1 &lt;-<span class="st"> </span>df1[<span class="op">-</span>a1<span class="op">$</span>Resample1,]</span>
+<span id="cb172-9"><a href="dondes.html#cb172-9"></a>test2 &lt;-<span class="st"> </span>df2[<span class="op">-</span>a2<span class="op">$</span>Resample1,]</span>
+<span id="cb172-10"><a href="dondes.html#cb172-10"></a>test3 &lt;-<span class="st"> </span>df3[<span class="op">-</span>a3<span class="op">$</span>Resample1,]</span></code></pre></div>
 <p>Ajuster une forêt aléatoire sur les 3 échantillon d’apprentissage, calculer les labels prédits sur les échantillons tests et estimer les différents indicateurs vus en cours à l’aide de <strong>confusionMatrix</strong>.</p>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="dondes.html#cb254-1"></a><span class="kw">library</span>(randomForest)</span>
-<span id="cb254-2"><a href="dondes.html#cb254-2"></a>rf1 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>train1)</span>
-<span id="cb254-3"><a href="dondes.html#cb254-3"></a>rf2 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>train2)</span>
-<span id="cb254-4"><a href="dondes.html#cb254-4"></a>rf3 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>train3)</span>
-<span id="cb254-5"><a href="dondes.html#cb254-5"></a>p1 &lt;-<span class="st"> </span><span class="kw">predict</span>(rf1,<span class="dt">newdata=</span>test1)</span>
-<span id="cb254-6"><a href="dondes.html#cb254-6"></a>p2 &lt;-<span class="st"> </span><span class="kw">predict</span>(rf2,<span class="dt">newdata=</span>test2)</span>
-<span id="cb254-7"><a href="dondes.html#cb254-7"></a>p3 &lt;-<span class="st"> </span><span class="kw">predict</span>(rf3,<span class="dt">newdata=</span>test3)</span></code></pre></div>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="dondes.html#cb255-1"></a><span class="kw">confusionMatrix</span>(<span class="dt">data=</span>p1,<span class="dt">reference=</span>test1<span class="op">$</span>Y)</span>
-<span id="cb255-2"><a href="dondes.html#cb255-2"></a>Confusion Matrix and Statistics</span>
-<span id="cb255-3"><a href="dondes.html#cb255-3"></a></span>
-<span id="cb255-4"><a href="dondes.html#cb255-4"></a>          Reference</span>
-<span id="cb255-5"><a href="dondes.html#cb255-5"></a>Prediction   <span class="dv">0</span>   <span class="dv">1</span></span>
-<span id="cb255-6"><a href="dondes.html#cb255-6"></a>         <span class="dv">0</span> <span class="dv">141</span>  <span class="dv">67</span></span>
-<span id="cb255-7"><a href="dondes.html#cb255-7"></a>         <span class="dv">1</span>  <span class="dv">43</span>  <span class="dv">81</span></span>
-<span id="cb255-8"><a href="dondes.html#cb255-8"></a></span>
-<span id="cb255-9"><a href="dondes.html#cb255-9"></a>               Accuracy <span class="op">:</span><span class="st"> </span><span class="fl">0.6687</span>          </span>
-<span id="cb255-10"><a href="dondes.html#cb255-10"></a>                 <span class="dv">95</span>% CI <span class="op">:</span><span class="st"> </span>(<span class="fl">0.6152</span>, <span class="fl">0.7191</span>)</span>
-<span id="cb255-11"><a href="dondes.html#cb255-11"></a>    No Information Rate <span class="op">:</span><span class="st"> </span><span class="fl">0.5542</span>          </span>
-<span id="cb255-12"><a href="dondes.html#cb255-12"></a>    P<span class="op">-</span>Value [Acc <span class="op">&gt;</span><span class="st"> </span>NIR] <span class="op">:</span><span class="st"> </span><span class="fl">1.385e-05</span>       </span>
-<span id="cb255-13"><a href="dondes.html#cb255-13"></a></span>
-<span id="cb255-14"><a href="dondes.html#cb255-14"></a>                  Kappa <span class="op">:</span><span class="st"> </span><span class="fl">0.3187</span>          </span>
-<span id="cb255-15"><a href="dondes.html#cb255-15"></a></span>
-<span id="cb255-16"><a href="dondes.html#cb255-16"></a> Mcnemar<span class="st">&#39;s Test P-Value : 0.02831         </span></span>
-<span id="cb255-17"><a href="dondes.html#cb255-17"></a></span>
-<span id="cb255-18"><a href="dondes.html#cb255-18"></a><span class="st">            Sensitivity : 0.7663          </span></span>
-<span id="cb255-19"><a href="dondes.html#cb255-19"></a><span class="st">            Specificity : 0.5473          </span></span>
-<span id="cb255-20"><a href="dondes.html#cb255-20"></a><span class="st">         Pos Pred Value : 0.6779          </span></span>
-<span id="cb255-21"><a href="dondes.html#cb255-21"></a><span class="st">         Neg Pred Value : 0.6532          </span></span>
-<span id="cb255-22"><a href="dondes.html#cb255-22"></a><span class="st">             Prevalence : 0.5542          </span></span>
-<span id="cb255-23"><a href="dondes.html#cb255-23"></a><span class="st">         Detection Rate : 0.4247          </span></span>
-<span id="cb255-24"><a href="dondes.html#cb255-24"></a><span class="st">   Detection Prevalence : 0.6265          </span></span>
-<span id="cb255-25"><a href="dondes.html#cb255-25"></a><span class="st">      Balanced Accuracy : 0.6568          </span></span>
-<span id="cb255-26"><a href="dondes.html#cb255-26"></a></span>
-<span id="cb255-27"><a href="dondes.html#cb255-27"></a><span class="st">       &#39;</span>Positive<span class="st">&#39; Class : 0               </span></span>
-<span id="cb255-28"><a href="dondes.html#cb255-28"></a></span>
-<span id="cb255-29"><a href="dondes.html#cb255-29"></a><span class="st">confusionMatrix(data=p2,reference=test2$Y)</span></span>
-<span id="cb255-30"><a href="dondes.html#cb255-30"></a><span class="st">Confusion Matrix and Statistics</span></span>
-<span id="cb255-31"><a href="dondes.html#cb255-31"></a></span>
-<span id="cb255-32"><a href="dondes.html#cb255-32"></a><span class="st">          Reference</span></span>
-<span id="cb255-33"><a href="dondes.html#cb255-33"></a><span class="st">Prediction   0   1</span></span>
-<span id="cb255-34"><a href="dondes.html#cb255-34"></a><span class="st">         0 196  48</span></span>
-<span id="cb255-35"><a href="dondes.html#cb255-35"></a><span class="st">         1  37  51</span></span>
-<span id="cb255-36"><a href="dondes.html#cb255-36"></a></span>
-<span id="cb255-37"><a href="dondes.html#cb255-37"></a><span class="st">               Accuracy : 0.744           </span></span>
-<span id="cb255-38"><a href="dondes.html#cb255-38"></a><span class="st">                 95% CI : (0.6935, 0.7901)</span></span>
-<span id="cb255-39"><a href="dondes.html#cb255-39"></a><span class="st">    No Information Rate : 0.7018          </span></span>
-<span id="cb255-40"><a href="dondes.html#cb255-40"></a><span class="st">    P-Value [Acc &gt; NIR] : 0.05113         </span></span>
-<span id="cb255-41"><a href="dondes.html#cb255-41"></a></span>
-<span id="cb255-42"><a href="dondes.html#cb255-42"></a><span class="st">                  Kappa : 0.3681          </span></span>
-<span id="cb255-43"><a href="dondes.html#cb255-43"></a></span>
-<span id="cb255-44"><a href="dondes.html#cb255-44"></a><span class="st"> Mcnemar&#39;</span>s Test P<span class="op">-</span>Value <span class="op">:</span><span class="st"> </span><span class="fl">0.27808</span>         </span>
-<span id="cb255-45"><a href="dondes.html#cb255-45"></a></span>
-<span id="cb255-46"><a href="dondes.html#cb255-46"></a>            Sensitivity <span class="op">:</span><span class="st"> </span><span class="fl">0.8412</span>          </span>
-<span id="cb255-47"><a href="dondes.html#cb255-47"></a>            Specificity <span class="op">:</span><span class="st"> </span><span class="fl">0.5152</span>          </span>
-<span id="cb255-48"><a href="dondes.html#cb255-48"></a>         Pos Pred Value <span class="op">:</span><span class="st"> </span><span class="fl">0.8033</span>          </span>
-<span id="cb255-49"><a href="dondes.html#cb255-49"></a>         Neg Pred Value <span class="op">:</span><span class="st"> </span><span class="fl">0.5795</span>          </span>
-<span id="cb255-50"><a href="dondes.html#cb255-50"></a>             Prevalence <span class="op">:</span><span class="st"> </span><span class="fl">0.7018</span>          </span>
-<span id="cb255-51"><a href="dondes.html#cb255-51"></a>         Detection Rate <span class="op">:</span><span class="st"> </span><span class="fl">0.5904</span>          </span>
-<span id="cb255-52"><a href="dondes.html#cb255-52"></a>   Detection Prevalence <span class="op">:</span><span class="st"> </span><span class="fl">0.7349</span>          </span>
-<span id="cb255-53"><a href="dondes.html#cb255-53"></a>      Balanced Accuracy <span class="op">:</span><span class="st"> </span><span class="fl">0.6782</span>          </span>
-<span id="cb255-54"><a href="dondes.html#cb255-54"></a></span>
-<span id="cb255-55"><a href="dondes.html#cb255-55"></a>       <span class="st">&#39;Positive&#39;</span> Class <span class="op">:</span><span class="st"> </span><span class="dv">0</span>               </span>
-<span id="cb255-56"><a href="dondes.html#cb255-56"></a></span>
-<span id="cb255-57"><a href="dondes.html#cb255-57"></a><span class="kw">confusionMatrix</span>(<span class="dt">data=</span>p3,<span class="dt">reference=</span>test3<span class="op">$</span>Y)</span>
-<span id="cb255-58"><a href="dondes.html#cb255-58"></a>Confusion Matrix and Statistics</span>
-<span id="cb255-59"><a href="dondes.html#cb255-59"></a></span>
-<span id="cb255-60"><a href="dondes.html#cb255-60"></a>          Reference</span>
-<span id="cb255-61"><a href="dondes.html#cb255-61"></a>Prediction   <span class="dv">0</span>   <span class="dv">1</span></span>
-<span id="cb255-62"><a href="dondes.html#cb255-62"></a>         <span class="dv">0</span> <span class="dv">253</span>  <span class="dv">47</span></span>
-<span id="cb255-63"><a href="dondes.html#cb255-63"></a>         <span class="dv">1</span>  <span class="dv">21</span>  <span class="dv">11</span></span>
-<span id="cb255-64"><a href="dondes.html#cb255-64"></a></span>
-<span id="cb255-65"><a href="dondes.html#cb255-65"></a>               Accuracy <span class="op">:</span><span class="st"> </span><span class="fl">0.7952</span>          </span>
-<span id="cb255-66"><a href="dondes.html#cb255-66"></a>                 <span class="dv">95</span>% CI <span class="op">:</span><span class="st"> </span>(<span class="fl">0.7477</span>, <span class="fl">0.8373</span>)</span>
-<span id="cb255-67"><a href="dondes.html#cb255-67"></a>    No Information Rate <span class="op">:</span><span class="st"> </span><span class="fl">0.8253</span>          </span>
-<span id="cb255-68"><a href="dondes.html#cb255-68"></a>    P<span class="op">-</span>Value [Acc <span class="op">&gt;</span><span class="st"> </span>NIR] <span class="op">:</span><span class="st"> </span><span class="fl">0.933101</span>        </span>
-<span id="cb255-69"><a href="dondes.html#cb255-69"></a></span>
-<span id="cb255-70"><a href="dondes.html#cb255-70"></a>                  Kappa <span class="op">:</span><span class="st"> </span><span class="fl">0.1373</span>          </span>
-<span id="cb255-71"><a href="dondes.html#cb255-71"></a></span>
-<span id="cb255-72"><a href="dondes.html#cb255-72"></a> Mcnemar<span class="st">&#39;s Test P-Value : 0.002432        </span></span>
-<span id="cb255-73"><a href="dondes.html#cb255-73"></a></span>
-<span id="cb255-74"><a href="dondes.html#cb255-74"></a><span class="st">            Sensitivity : 0.9234          </span></span>
-<span id="cb255-75"><a href="dondes.html#cb255-75"></a><span class="st">            Specificity : 0.1897          </span></span>
-<span id="cb255-76"><a href="dondes.html#cb255-76"></a><span class="st">         Pos Pred Value : 0.8433          </span></span>
-<span id="cb255-77"><a href="dondes.html#cb255-77"></a><span class="st">         Neg Pred Value : 0.3438          </span></span>
-<span id="cb255-78"><a href="dondes.html#cb255-78"></a><span class="st">             Prevalence : 0.8253          </span></span>
-<span id="cb255-79"><a href="dondes.html#cb255-79"></a><span class="st">         Detection Rate : 0.7620          </span></span>
-<span id="cb255-80"><a href="dondes.html#cb255-80"></a><span class="st">   Detection Prevalence : 0.9036          </span></span>
-<span id="cb255-81"><a href="dondes.html#cb255-81"></a><span class="st">      Balanced Accuracy : 0.5565          </span></span>
-<span id="cb255-82"><a href="dondes.html#cb255-82"></a></span>
-<span id="cb255-83"><a href="dondes.html#cb255-83"></a><span class="st">       &#39;</span>Positive<span class="st">&#39; Class : 0               </span></span></code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="dondes.html#cb173-1"></a><span class="kw">library</span>(randomForest)</span>
+<span id="cb173-2"><a href="dondes.html#cb173-2"></a>rf1 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>train1)</span>
+<span id="cb173-3"><a href="dondes.html#cb173-3"></a>rf2 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>train2)</span>
+<span id="cb173-4"><a href="dondes.html#cb173-4"></a>rf3 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>train3)</span>
+<span id="cb173-5"><a href="dondes.html#cb173-5"></a>p1 &lt;-<span class="st"> </span><span class="kw">predict</span>(rf1,<span class="dt">newdata=</span>test1)</span>
+<span id="cb173-6"><a href="dondes.html#cb173-6"></a>p2 &lt;-<span class="st"> </span><span class="kw">predict</span>(rf2,<span class="dt">newdata=</span>test2)</span>
+<span id="cb173-7"><a href="dondes.html#cb173-7"></a>p3 &lt;-<span class="st"> </span><span class="kw">predict</span>(rf3,<span class="dt">newdata=</span>test3)</span></code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="dondes.html#cb174-1"></a><span class="kw">confusionMatrix</span>(<span class="dt">data=</span>p1,<span class="dt">reference=</span>test1<span class="op">$</span>Y)</span>
+<span id="cb174-2"><a href="dondes.html#cb174-2"></a>Confusion Matrix and Statistics</span>
+<span id="cb174-3"><a href="dondes.html#cb174-3"></a></span>
+<span id="cb174-4"><a href="dondes.html#cb174-4"></a>          Reference</span>
+<span id="cb174-5"><a href="dondes.html#cb174-5"></a>Prediction   <span class="dv">0</span>   <span class="dv">1</span></span>
+<span id="cb174-6"><a href="dondes.html#cb174-6"></a>         <span class="dv">0</span> <span class="dv">141</span>  <span class="dv">67</span></span>
+<span id="cb174-7"><a href="dondes.html#cb174-7"></a>         <span class="dv">1</span>  <span class="dv">43</span>  <span class="dv">81</span></span>
+<span id="cb174-8"><a href="dondes.html#cb174-8"></a></span>
+<span id="cb174-9"><a href="dondes.html#cb174-9"></a>               Accuracy <span class="op">:</span><span class="st"> </span><span class="fl">0.6687</span>          </span>
+<span id="cb174-10"><a href="dondes.html#cb174-10"></a>                 <span class="dv">95</span>% CI <span class="op">:</span><span class="st"> </span>(<span class="fl">0.6152</span>, <span class="fl">0.7191</span>)</span>
+<span id="cb174-11"><a href="dondes.html#cb174-11"></a>    No Information Rate <span class="op">:</span><span class="st"> </span><span class="fl">0.5542</span>          </span>
+<span id="cb174-12"><a href="dondes.html#cb174-12"></a>    P<span class="op">-</span>Value [Acc <span class="op">&gt;</span><span class="st"> </span>NIR] <span class="op">:</span><span class="st"> </span><span class="fl">1.385e-05</span>       </span>
+<span id="cb174-13"><a href="dondes.html#cb174-13"></a></span>
+<span id="cb174-14"><a href="dondes.html#cb174-14"></a>                  Kappa <span class="op">:</span><span class="st"> </span><span class="fl">0.3187</span>          </span>
+<span id="cb174-15"><a href="dondes.html#cb174-15"></a></span>
+<span id="cb174-16"><a href="dondes.html#cb174-16"></a> Mcnemar<span class="st">&#39;s Test P-Value : 0.02831         </span></span>
+<span id="cb174-17"><a href="dondes.html#cb174-17"></a></span>
+<span id="cb174-18"><a href="dondes.html#cb174-18"></a><span class="st">            Sensitivity : 0.7663          </span></span>
+<span id="cb174-19"><a href="dondes.html#cb174-19"></a><span class="st">            Specificity : 0.5473          </span></span>
+<span id="cb174-20"><a href="dondes.html#cb174-20"></a><span class="st">         Pos Pred Value : 0.6779          </span></span>
+<span id="cb174-21"><a href="dondes.html#cb174-21"></a><span class="st">         Neg Pred Value : 0.6532          </span></span>
+<span id="cb174-22"><a href="dondes.html#cb174-22"></a><span class="st">             Prevalence : 0.5542          </span></span>
+<span id="cb174-23"><a href="dondes.html#cb174-23"></a><span class="st">         Detection Rate : 0.4247          </span></span>
+<span id="cb174-24"><a href="dondes.html#cb174-24"></a><span class="st">   Detection Prevalence : 0.6265          </span></span>
+<span id="cb174-25"><a href="dondes.html#cb174-25"></a><span class="st">      Balanced Accuracy : 0.6568          </span></span>
+<span id="cb174-26"><a href="dondes.html#cb174-26"></a></span>
+<span id="cb174-27"><a href="dondes.html#cb174-27"></a><span class="st">       &#39;</span>Positive<span class="st">&#39; Class : 0               </span></span>
+<span id="cb174-28"><a href="dondes.html#cb174-28"></a></span>
+<span id="cb174-29"><a href="dondes.html#cb174-29"></a><span class="st">confusionMatrix(data=p2,reference=test2$Y)</span></span>
+<span id="cb174-30"><a href="dondes.html#cb174-30"></a><span class="st">Confusion Matrix and Statistics</span></span>
+<span id="cb174-31"><a href="dondes.html#cb174-31"></a></span>
+<span id="cb174-32"><a href="dondes.html#cb174-32"></a><span class="st">          Reference</span></span>
+<span id="cb174-33"><a href="dondes.html#cb174-33"></a><span class="st">Prediction   0   1</span></span>
+<span id="cb174-34"><a href="dondes.html#cb174-34"></a><span class="st">         0 196  48</span></span>
+<span id="cb174-35"><a href="dondes.html#cb174-35"></a><span class="st">         1  37  51</span></span>
+<span id="cb174-36"><a href="dondes.html#cb174-36"></a></span>
+<span id="cb174-37"><a href="dondes.html#cb174-37"></a><span class="st">               Accuracy : 0.744           </span></span>
+<span id="cb174-38"><a href="dondes.html#cb174-38"></a><span class="st">                 95% CI : (0.6935, 0.7901)</span></span>
+<span id="cb174-39"><a href="dondes.html#cb174-39"></a><span class="st">    No Information Rate : 0.7018          </span></span>
+<span id="cb174-40"><a href="dondes.html#cb174-40"></a><span class="st">    P-Value [Acc &gt; NIR] : 0.05113         </span></span>
+<span id="cb174-41"><a href="dondes.html#cb174-41"></a></span>
+<span id="cb174-42"><a href="dondes.html#cb174-42"></a><span class="st">                  Kappa : 0.3681          </span></span>
+<span id="cb174-43"><a href="dondes.html#cb174-43"></a></span>
+<span id="cb174-44"><a href="dondes.html#cb174-44"></a><span class="st"> Mcnemar&#39;</span>s Test P<span class="op">-</span>Value <span class="op">:</span><span class="st"> </span><span class="fl">0.27808</span>         </span>
+<span id="cb174-45"><a href="dondes.html#cb174-45"></a></span>
+<span id="cb174-46"><a href="dondes.html#cb174-46"></a>            Sensitivity <span class="op">:</span><span class="st"> </span><span class="fl">0.8412</span>          </span>
+<span id="cb174-47"><a href="dondes.html#cb174-47"></a>            Specificity <span class="op">:</span><span class="st"> </span><span class="fl">0.5152</span>          </span>
+<span id="cb174-48"><a href="dondes.html#cb174-48"></a>         Pos Pred Value <span class="op">:</span><span class="st"> </span><span class="fl">0.8033</span>          </span>
+<span id="cb174-49"><a href="dondes.html#cb174-49"></a>         Neg Pred Value <span class="op">:</span><span class="st"> </span><span class="fl">0.5795</span>          </span>
+<span id="cb174-50"><a href="dondes.html#cb174-50"></a>             Prevalence <span class="op">:</span><span class="st"> </span><span class="fl">0.7018</span>          </span>
+<span id="cb174-51"><a href="dondes.html#cb174-51"></a>         Detection Rate <span class="op">:</span><span class="st"> </span><span class="fl">0.5904</span>          </span>
+<span id="cb174-52"><a href="dondes.html#cb174-52"></a>   Detection Prevalence <span class="op">:</span><span class="st"> </span><span class="fl">0.7349</span>          </span>
+<span id="cb174-53"><a href="dondes.html#cb174-53"></a>      Balanced Accuracy <span class="op">:</span><span class="st"> </span><span class="fl">0.6782</span>          </span>
+<span id="cb174-54"><a href="dondes.html#cb174-54"></a></span>
+<span id="cb174-55"><a href="dondes.html#cb174-55"></a>       <span class="st">&#39;Positive&#39;</span> Class <span class="op">:</span><span class="st"> </span><span class="dv">0</span>               </span>
+<span id="cb174-56"><a href="dondes.html#cb174-56"></a></span>
+<span id="cb174-57"><a href="dondes.html#cb174-57"></a><span class="kw">confusionMatrix</span>(<span class="dt">data=</span>p3,<span class="dt">reference=</span>test3<span class="op">$</span>Y)</span>
+<span id="cb174-58"><a href="dondes.html#cb174-58"></a>Confusion Matrix and Statistics</span>
+<span id="cb174-59"><a href="dondes.html#cb174-59"></a></span>
+<span id="cb174-60"><a href="dondes.html#cb174-60"></a>          Reference</span>
+<span id="cb174-61"><a href="dondes.html#cb174-61"></a>Prediction   <span class="dv">0</span>   <span class="dv">1</span></span>
+<span id="cb174-62"><a href="dondes.html#cb174-62"></a>         <span class="dv">0</span> <span class="dv">253</span>  <span class="dv">47</span></span>
+<span id="cb174-63"><a href="dondes.html#cb174-63"></a>         <span class="dv">1</span>  <span class="dv">21</span>  <span class="dv">11</span></span>
+<span id="cb174-64"><a href="dondes.html#cb174-64"></a></span>
+<span id="cb174-65"><a href="dondes.html#cb174-65"></a>               Accuracy <span class="op">:</span><span class="st"> </span><span class="fl">0.7952</span>          </span>
+<span id="cb174-66"><a href="dondes.html#cb174-66"></a>                 <span class="dv">95</span>% CI <span class="op">:</span><span class="st"> </span>(<span class="fl">0.7477</span>, <span class="fl">0.8373</span>)</span>
+<span id="cb174-67"><a href="dondes.html#cb174-67"></a>    No Information Rate <span class="op">:</span><span class="st"> </span><span class="fl">0.8253</span>          </span>
+<span id="cb174-68"><a href="dondes.html#cb174-68"></a>    P<span class="op">-</span>Value [Acc <span class="op">&gt;</span><span class="st"> </span>NIR] <span class="op">:</span><span class="st"> </span><span class="fl">0.933101</span>        </span>
+<span id="cb174-69"><a href="dondes.html#cb174-69"></a></span>
+<span id="cb174-70"><a href="dondes.html#cb174-70"></a>                  Kappa <span class="op">:</span><span class="st"> </span><span class="fl">0.1373</span>          </span>
+<span id="cb174-71"><a href="dondes.html#cb174-71"></a></span>
+<span id="cb174-72"><a href="dondes.html#cb174-72"></a> Mcnemar<span class="st">&#39;s Test P-Value : 0.002432        </span></span>
+<span id="cb174-73"><a href="dondes.html#cb174-73"></a></span>
+<span id="cb174-74"><a href="dondes.html#cb174-74"></a><span class="st">            Sensitivity : 0.9234          </span></span>
+<span id="cb174-75"><a href="dondes.html#cb174-75"></a><span class="st">            Specificity : 0.1897          </span></span>
+<span id="cb174-76"><a href="dondes.html#cb174-76"></a><span class="st">         Pos Pred Value : 0.8433          </span></span>
+<span id="cb174-77"><a href="dondes.html#cb174-77"></a><span class="st">         Neg Pred Value : 0.3438          </span></span>
+<span id="cb174-78"><a href="dondes.html#cb174-78"></a><span class="st">             Prevalence : 0.8253          </span></span>
+<span id="cb174-79"><a href="dondes.html#cb174-79"></a><span class="st">         Detection Rate : 0.7620          </span></span>
+<span id="cb174-80"><a href="dondes.html#cb174-80"></a><span class="st">   Detection Prevalence : 0.9036          </span></span>
+<span id="cb174-81"><a href="dondes.html#cb174-81"></a><span class="st">      Balanced Accuracy : 0.5565          </span></span>
+<span id="cb174-82"><a href="dondes.html#cb174-82"></a></span>
+<span id="cb174-83"><a href="dondes.html#cb174-83"></a><span class="st">       &#39;</span>Positive<span class="st">&#39; Class : 0               </span></span></code></pre></div>
 <div class="corR">
 <p>
 On remarque que l’accuracy est meilleur pour le 3ème échantillon, contrairement à des indicateurs tels que le <span class="math inline"><span class="math inline">\(\kappa\)</span></span> de Cohen ou le <strong>balanced accuracy</strong>.
@@ -730,44 +718,44 @@ On remarque que l’accuracy est meilleur pour le 3ème échantillon, contrairem
 Le ré-équilibrage doit porter <strong>uniquement</strong> sur l’échantillon d’apprentissage. On propose d’utiliser le radom oversampling, smote, le random undersampling et tomek.
 </p>
 </div>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="dondes.html#cb256-1"></a>train3.under &lt;-<span class="st"> </span><span class="kw">RandUnderClassif</span>(Y<span class="op">~</span>.,<span class="dt">dat=</span>train3)</span>
-<span id="cb256-2"><a href="dondes.html#cb256-2"></a>train3.over &lt;-<span class="st"> </span><span class="kw">RandOverClassif</span>(Y<span class="op">~</span>.,<span class="dt">dat=</span>train3)</span>
-<span id="cb256-3"><a href="dondes.html#cb256-3"></a>train3.smote &lt;-<span class="st"> </span><span class="kw">SmoteClassif</span>(Y<span class="op">~</span>.,<span class="dt">dat=</span>train3)</span>
-<span id="cb256-4"><a href="dondes.html#cb256-4"></a>train3.tomek &lt;-<span class="st"> </span><span class="kw">TomekClassif</span>(Y<span class="op">~</span>.,<span class="dt">dat=</span>train3)[[<span class="dv">1</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="dondes.html#cb175-1"></a>train3.under &lt;-<span class="st"> </span><span class="kw">RandUnderClassif</span>(Y<span class="op">~</span>.,<span class="dt">dat=</span>train3)</span>
+<span id="cb175-2"><a href="dondes.html#cb175-2"></a>train3.over &lt;-<span class="st"> </span><span class="kw">RandOverClassif</span>(Y<span class="op">~</span>.,<span class="dt">dat=</span>train3)</span>
+<span id="cb175-3"><a href="dondes.html#cb175-3"></a>train3.smote &lt;-<span class="st"> </span><span class="kw">SmoteClassif</span>(Y<span class="op">~</span>.,<span class="dt">dat=</span>train3)</span>
+<span id="cb175-4"><a href="dondes.html#cb175-4"></a>train3.tomek &lt;-<span class="st"> </span><span class="kw">TomekClassif</span>(Y<span class="op">~</span>.,<span class="dt">dat=</span>train3)[[<span class="dv">1</span>]]</span></code></pre></div>
 <div class="corR">
 <p>
 On entraîne les forêts aléatoires sur ces nouveaux échantillons et on prédit les individus de l’échantillon test
 </p>
 </div>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="dondes.html#cb257-1"></a>rf3.under &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>train3.under)</span>
-<span id="cb257-2"><a href="dondes.html#cb257-2"></a>rf3.over &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>train3.over)</span>
-<span id="cb257-3"><a href="dondes.html#cb257-3"></a>rf3.smote &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>train3.smote)</span>
-<span id="cb257-4"><a href="dondes.html#cb257-4"></a>rf3.tomek &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>train3.tomek)</span>
-<span id="cb257-5"><a href="dondes.html#cb257-5"></a>p3.under &lt;-<span class="st"> </span><span class="kw">predict</span>(rf3.under,<span class="dt">newdata=</span>test3)</span>
-<span id="cb257-6"><a href="dondes.html#cb257-6"></a>p3.over &lt;-<span class="st"> </span><span class="kw">predict</span>(rf3.over,<span class="dt">newdata=</span>test3)</span>
-<span id="cb257-7"><a href="dondes.html#cb257-7"></a>p3.smote &lt;-<span class="st"> </span><span class="kw">predict</span>(rf3.smote,<span class="dt">newdata=</span>test3)</span>
-<span id="cb257-8"><a href="dondes.html#cb257-8"></a>p3.tomek &lt;-<span class="st"> </span><span class="kw">predict</span>(rf3.tomek,<span class="dt">newdata=</span>test3)</span>
-<span id="cb257-9"><a href="dondes.html#cb257-9"></a>mat_prev &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">aucun=</span>p3,<span class="dt">under=</span>p3.under,<span class="dt">over=</span>p3.over,<span class="dt">smote=</span>p3.smote,<span class="dt">tomek=</span>p3.tomek,<span class="dt">obs=</span>test3<span class="op">$</span>Y)</span></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="dondes.html#cb176-1"></a>rf3.under &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>train3.under)</span>
+<span id="cb176-2"><a href="dondes.html#cb176-2"></a>rf3.over &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>train3.over)</span>
+<span id="cb176-3"><a href="dondes.html#cb176-3"></a>rf3.smote &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>train3.smote)</span>
+<span id="cb176-4"><a href="dondes.html#cb176-4"></a>rf3.tomek &lt;-<span class="st"> </span><span class="kw">randomForest</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>train3.tomek)</span>
+<span id="cb176-5"><a href="dondes.html#cb176-5"></a>p3.under &lt;-<span class="st"> </span><span class="kw">predict</span>(rf3.under,<span class="dt">newdata=</span>test3)</span>
+<span id="cb176-6"><a href="dondes.html#cb176-6"></a>p3.over &lt;-<span class="st"> </span><span class="kw">predict</span>(rf3.over,<span class="dt">newdata=</span>test3)</span>
+<span id="cb176-7"><a href="dondes.html#cb176-7"></a>p3.smote &lt;-<span class="st"> </span><span class="kw">predict</span>(rf3.smote,<span class="dt">newdata=</span>test3)</span>
+<span id="cb176-8"><a href="dondes.html#cb176-8"></a>p3.tomek &lt;-<span class="st"> </span><span class="kw">predict</span>(rf3.tomek,<span class="dt">newdata=</span>test3)</span>
+<span id="cb176-9"><a href="dondes.html#cb176-9"></a>mat_prev &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">aucun=</span>p3,<span class="dt">under=</span>p3.under,<span class="dt">over=</span>p3.over,<span class="dt">smote=</span>p3.smote,<span class="dt">tomek=</span>p3.tomek,<span class="dt">obs=</span>test3<span class="op">$</span>Y)</span></code></pre></div>
 <div class="corR">
 <p>
 On en déduit les critères
 </p>
 </div>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="dondes.html#cb258-1"></a>monba &lt;-<span class="st"> </span><span class="cf">function</span>(prev,obs){<span class="kw">confusionMatrix</span>(prev,obs,<span class="dt">positive=</span><span class="st">&quot;1&quot;</span>)<span class="op">$</span>byClass[<span class="dv">11</span>]}</span>
-<span id="cb258-2"><a href="dondes.html#cb258-2"></a>monF1 &lt;-<span class="st"> </span><span class="cf">function</span>(prev,obs){<span class="kw">confusionMatrix</span>(prev,obs,<span class="dt">positive=</span><span class="st">&quot;1&quot;</span>)<span class="op">$</span>byClass[<span class="dv">7</span>]}</span>
-<span id="cb258-3"><a href="dondes.html#cb258-3"></a>monkappa &lt;-<span class="st"> </span><span class="cf">function</span>(prev,obs){<span class="kw">confusionMatrix</span>(prev,obs,<span class="dt">positive=</span><span class="st">&quot;1&quot;</span>)<span class="op">$</span>overall[<span class="dv">2</span>]}</span>
-<span id="cb258-4"><a href="dondes.html#cb258-4"></a></span>
-<span id="cb258-5"><a href="dondes.html#cb258-5"></a>mat_prev <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(<span class="op">-</span>obs,<span class="dt">names_to=</span><span class="st">&quot;method&quot;</span>,<span class="dt">values_to=</span><span class="st">&quot;prev&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(method,<span class="dt">.add=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb258-6"><a href="dondes.html#cb258-6"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">Acc=</span><span class="kw">mean</span>(obs<span class="op">==</span>prev),<span class="dt">BA=</span><span class="kw">monba</span>(prev,obs),<span class="dt">F1=</span><span class="kw">monF1</span>(prev,obs),<span class="dt">kapp=</span><span class="kw">monkappa</span>(prev,obs),<span class="dt">.groups=</span><span class="st">&quot;keep&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb258-7"><a href="dondes.html#cb258-7"></a><span class="st">  </span><span class="kw">summarize_all</span>(<span class="op">~</span><span class="kw">round</span>(.,<span class="dv">3</span>))</span>
-<span id="cb258-8"><a href="dondes.html#cb258-8"></a><span class="co"># A tibble: 5 x 5</span></span>
-<span id="cb258-9"><a href="dondes.html#cb258-9"></a>  method   Acc    BA    F1  kapp</span>
-<span id="cb258-10"><a href="dondes.html#cb258-10"></a>  <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
-<span id="cb258-11"><a href="dondes.html#cb258-11"></a><span class="dv">1</span> aucun  <span class="fl">0.795</span> <span class="fl">0.557</span> <span class="fl">0.244</span> <span class="fl">0.137</span></span>
-<span id="cb258-12"><a href="dondes.html#cb258-12"></a><span class="dv">2</span> over   <span class="fl">0.792</span> <span class="fl">0.629</span> <span class="fl">0.389</span> <span class="fl">0.264</span></span>
-<span id="cb258-13"><a href="dondes.html#cb258-13"></a><span class="dv">3</span> smote  <span class="fl">0.699</span> <span class="fl">0.634</span> <span class="fl">0.383</span> <span class="fl">0.204</span></span>
-<span id="cb258-14"><a href="dondes.html#cb258-14"></a><span class="dv">4</span> tomek  <span class="fl">0.819</span> <span class="fl">0.564</span> <span class="fl">0.25</span>  <span class="fl">0.17</span> </span>
-<span id="cb258-15"><a href="dondes.html#cb258-15"></a><span class="dv">5</span> under  <span class="fl">0.675</span> <span class="fl">0.687</span> <span class="fl">0.432</span> <span class="fl">0.249</span></span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="dondes.html#cb177-1"></a>monba &lt;-<span class="st"> </span><span class="cf">function</span>(prev,obs){<span class="kw">confusionMatrix</span>(prev,obs,<span class="dt">positive=</span><span class="st">&quot;1&quot;</span>)<span class="op">$</span>byClass[<span class="dv">11</span>]}</span>
+<span id="cb177-2"><a href="dondes.html#cb177-2"></a>monF1 &lt;-<span class="st"> </span><span class="cf">function</span>(prev,obs){<span class="kw">confusionMatrix</span>(prev,obs,<span class="dt">positive=</span><span class="st">&quot;1&quot;</span>)<span class="op">$</span>byClass[<span class="dv">7</span>]}</span>
+<span id="cb177-3"><a href="dondes.html#cb177-3"></a>monkappa &lt;-<span class="st"> </span><span class="cf">function</span>(prev,obs){<span class="kw">confusionMatrix</span>(prev,obs,<span class="dt">positive=</span><span class="st">&quot;1&quot;</span>)<span class="op">$</span>overall[<span class="dv">2</span>]}</span>
+<span id="cb177-4"><a href="dondes.html#cb177-4"></a></span>
+<span id="cb177-5"><a href="dondes.html#cb177-5"></a>mat_prev <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(<span class="op">-</span>obs,<span class="dt">names_to=</span><span class="st">&quot;method&quot;</span>,<span class="dt">values_to=</span><span class="st">&quot;prev&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(method,<span class="dt">.add=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb177-6"><a href="dondes.html#cb177-6"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">Acc=</span><span class="kw">mean</span>(obs<span class="op">==</span>prev),<span class="dt">BA=</span><span class="kw">monba</span>(prev,obs),<span class="dt">F1=</span><span class="kw">monF1</span>(prev,obs),<span class="dt">kapp=</span><span class="kw">monkappa</span>(prev,obs),<span class="dt">.groups=</span><span class="st">&quot;keep&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb177-7"><a href="dondes.html#cb177-7"></a><span class="st">  </span><span class="kw">summarize_all</span>(<span class="op">~</span><span class="kw">round</span>(.,<span class="dv">3</span>))</span>
+<span id="cb177-8"><a href="dondes.html#cb177-8"></a><span class="co"># A tibble: 5 x 5</span></span>
+<span id="cb177-9"><a href="dondes.html#cb177-9"></a>  method   Acc    BA    F1  kapp</span>
+<span id="cb177-10"><a href="dondes.html#cb177-10"></a>  <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
+<span id="cb177-11"><a href="dondes.html#cb177-11"></a><span class="dv">1</span> aucun  <span class="fl">0.795</span> <span class="fl">0.557</span> <span class="fl">0.244</span> <span class="fl">0.137</span></span>
+<span id="cb177-12"><a href="dondes.html#cb177-12"></a><span class="dv">2</span> over   <span class="fl">0.792</span> <span class="fl">0.629</span> <span class="fl">0.389</span> <span class="fl">0.264</span></span>
+<span id="cb177-13"><a href="dondes.html#cb177-13"></a><span class="dv">3</span> smote  <span class="fl">0.699</span> <span class="fl">0.634</span> <span class="fl">0.383</span> <span class="fl">0.204</span></span>
+<span id="cb177-14"><a href="dondes.html#cb177-14"></a><span class="dv">4</span> tomek  <span class="fl">0.819</span> <span class="fl">0.564</span> <span class="fl">0.25</span>  <span class="fl">0.17</span> </span>
+<span id="cb177-15"><a href="dondes.html#cb177-15"></a><span class="dv">5</span> under  <span class="fl">0.675</span> <span class="fl">0.687</span> <span class="fl">0.432</span> <span class="fl">0.249</span></span></code></pre></div>
 <div class="corR">
 <p>
 L’accuracy est sans surprise meilleur lorsqu’on ne ré-équilibre pas. Cependant les méthodes de ré-équilibrage permettent ici d’améliorer (plus ou moins) les autres critères.
@@ -822,25 +810,25 @@ On a <span class="math display"><span class="math display">\[\text{logit}\, p_\b
 Pour simplifier on va construire un jeu de données qui correspond au résultat :
 </p>
 </div>
-<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="dondes.html#cb259-1"></a>X&lt;-<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">500</span>)</span>
-<span id="cb259-2"><a href="dondes.html#cb259-2"></a>X[<span class="dv">1</span><span class="op">:</span><span class="dv">256</span>]&lt;-<span class="st">&quot;fumeur&quot;</span></span>
-<span id="cb259-3"><a href="dondes.html#cb259-3"></a>X[<span class="dv">257</span><span class="op">:</span><span class="dv">500</span>]&lt;-<span class="st">&quot;non_fumeur&quot;</span></span>
-<span id="cb259-4"><a href="dondes.html#cb259-4"></a>Y&lt;-<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">500</span>)</span>
-<span id="cb259-5"><a href="dondes.html#cb259-5"></a>Y[<span class="dv">1</span><span class="op">:</span><span class="dv">48</span>]&lt;-<span class="dv">0</span></span>
-<span id="cb259-6"><a href="dondes.html#cb259-6"></a>Y[<span class="dv">257</span><span class="op">:</span><span class="dv">458</span>]&lt;-<span class="dv">0</span></span>
-<span id="cb259-7"><a href="dondes.html#cb259-7"></a>Y&lt;-<span class="kw">factor</span>(Y)</span>
-<span id="cb259-8"><a href="dondes.html#cb259-8"></a>X&lt;-<span class="kw">factor</span>(X)</span>
-<span id="cb259-9"><a href="dondes.html#cb259-9"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(Y,X)</span>
-<span id="cb259-10"><a href="dondes.html#cb259-10"></a>model&lt;-<span class="kw">glm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df,<span class="dt">family=</span>binomial)</span></code></pre></div>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="dondes.html#cb178-1"></a>X&lt;-<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">500</span>)</span>
+<span id="cb178-2"><a href="dondes.html#cb178-2"></a>X[<span class="dv">1</span><span class="op">:</span><span class="dv">256</span>]&lt;-<span class="st">&quot;fumeur&quot;</span></span>
+<span id="cb178-3"><a href="dondes.html#cb178-3"></a>X[<span class="dv">257</span><span class="op">:</span><span class="dv">500</span>]&lt;-<span class="st">&quot;non_fumeur&quot;</span></span>
+<span id="cb178-4"><a href="dondes.html#cb178-4"></a>Y&lt;-<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">500</span>)</span>
+<span id="cb178-5"><a href="dondes.html#cb178-5"></a>Y[<span class="dv">1</span><span class="op">:</span><span class="dv">48</span>]&lt;-<span class="dv">0</span></span>
+<span id="cb178-6"><a href="dondes.html#cb178-6"></a>Y[<span class="dv">257</span><span class="op">:</span><span class="dv">458</span>]&lt;-<span class="dv">0</span></span>
+<span id="cb178-7"><a href="dondes.html#cb178-7"></a>Y&lt;-<span class="kw">factor</span>(Y)</span>
+<span id="cb178-8"><a href="dondes.html#cb178-8"></a>X&lt;-<span class="kw">factor</span>(X)</span>
+<span id="cb178-9"><a href="dondes.html#cb178-9"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(Y,X)</span>
+<span id="cb178-10"><a href="dondes.html#cb178-10"></a>model&lt;-<span class="kw">glm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df,<span class="dt">family=</span>binomial)</span></code></pre></div>
 <div class="corR">
 <p>
 On peut maintenant estimer le modèle logistique et obtenir les prévisions demandées :
 </p>
 </div>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="dondes.html#cb260-1"></a>newX &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X=</span><span class="kw">c</span>(<span class="st">&quot;fumeur&quot;</span>,<span class="st">&quot;non_fumeur&quot;</span>))</span>
-<span id="cb260-2"><a href="dondes.html#cb260-2"></a><span class="kw">predict</span>(model,<span class="dt">newdata=</span>newX,<span class="dt">type=</span><span class="st">&quot;response&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">3</span>)</span>
-<span id="cb260-3"><a href="dondes.html#cb260-3"></a>    <span class="dv">1</span>     <span class="dv">2</span> </span>
-<span id="cb260-4"><a href="dondes.html#cb260-4"></a><span class="fl">0.812</span> <span class="fl">0.172</span> </span></code></pre></div></li>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="dondes.html#cb179-1"></a>newX &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X=</span><span class="kw">c</span>(<span class="st">&quot;fumeur&quot;</span>,<span class="st">&quot;non_fumeur&quot;</span>))</span>
+<span id="cb179-2"><a href="dondes.html#cb179-2"></a><span class="kw">predict</span>(model,<span class="dt">newdata=</span>newX,<span class="dt">type=</span><span class="st">&quot;response&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">3</span>)</span>
+<span id="cb179-3"><a href="dondes.html#cb179-3"></a>    <span class="dv">1</span>     <span class="dv">2</span> </span>
+<span id="cb179-4"><a href="dondes.html#cb179-4"></a><span class="fl">0.812</span> <span class="fl">0.172</span> </span></code></pre></div></li>
 <li><p>Comment interpréter ces deux probabilités ? Est-ce qu’elles estiment la probabilité d’être atteint pour un individu quelconque dans la population ?</p>
 <div class="corR">
 <p>
@@ -853,31 +841,31 @@ Non ! On a échantillonné de manière à avoir autant de patients malades que n
 On rappelle que <span class="math display"><span class="math display">\[\tau_1=\mathbf P(S=1|Y=1)=\frac{\mathbf P(Y=1|S=1)\mathbf P(S=1)}{\mathbf P(Y=1)}.\]</span></span> Comme <span class="math inline"><span class="math inline">\(\mathbf P(Y=1|S=1)=\mathbf P(Y=0|S=1)=1/2\)</span></span>, on déduit <span class="math display"><span class="math display">\[\frac{\tau_1}{\tau_0}=\frac{\mathbf P(Y=0)}{\mathbf P(Y=1)}=\frac{\pi_0}{\pi_1}=\frac{0.005}{0.995}.\]</span></span> On obtient ainsi les probabilités demandées avec
 </p>
 </div>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="dondes.html#cb261-1"></a>beta&lt;-model<span class="op">$</span>coefficients</span>
-<span id="cb261-2"><a href="dondes.html#cb261-2"></a>pi1&lt;-<span class="fl">0.005</span></span>
-<span id="cb261-3"><a href="dondes.html#cb261-3"></a>pi0&lt;-<span class="fl">0.995</span></span>
-<span id="cb261-4"><a href="dondes.html#cb261-4"></a>beta1_cor &lt;-beta[<span class="dv">1</span>]<span class="op">-</span><span class="kw">log</span>(pi0<span class="op">/</span>pi1)</span>
-<span id="cb261-5"><a href="dondes.html#cb261-5"></a></span>
-<span id="cb261-6"><a href="dondes.html#cb261-6"></a>p1F &lt;-<span class="st"> </span><span class="kw">exp</span>(beta1_cor)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(beta1_cor))</span>
-<span id="cb261-7"><a href="dondes.html#cb261-7"></a>p1NF &lt;-<span class="st"> </span><span class="kw">exp</span>(beta1_cor<span class="op">+</span>beta[<span class="dv">2</span>])<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(beta1_cor<span class="op">+</span>beta[<span class="dv">2</span>]))</span>
-<span id="cb261-8"><a href="dondes.html#cb261-8"></a>p1F</span>
-<span id="cb261-9"><a href="dondes.html#cb261-9"></a>(Intercept) </span>
-<span id="cb261-10"><a href="dondes.html#cb261-10"></a> <span class="fl">0.02131148</span> </span>
-<span id="cb261-11"><a href="dondes.html#cb261-11"></a>p1NF</span>
-<span id="cb261-12"><a href="dondes.html#cb261-12"></a>(Intercept) </span>
-<span id="cb261-13"><a href="dondes.html#cb261-13"></a><span class="fl">0.001043738</span> </span></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="dondes.html#cb180-1"></a>beta&lt;-model<span class="op">$</span>coefficients</span>
+<span id="cb180-2"><a href="dondes.html#cb180-2"></a>pi1&lt;-<span class="fl">0.005</span></span>
+<span id="cb180-3"><a href="dondes.html#cb180-3"></a>pi0&lt;-<span class="fl">0.995</span></span>
+<span id="cb180-4"><a href="dondes.html#cb180-4"></a>beta1_cor &lt;-beta[<span class="dv">1</span>]<span class="op">-</span><span class="kw">log</span>(pi0<span class="op">/</span>pi1)</span>
+<span id="cb180-5"><a href="dondes.html#cb180-5"></a></span>
+<span id="cb180-6"><a href="dondes.html#cb180-6"></a>p1F &lt;-<span class="st"> </span><span class="kw">exp</span>(beta1_cor)<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(beta1_cor))</span>
+<span id="cb180-7"><a href="dondes.html#cb180-7"></a>p1NF &lt;-<span class="st"> </span><span class="kw">exp</span>(beta1_cor<span class="op">+</span>beta[<span class="dv">2</span>])<span class="op">/</span>(<span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(beta1_cor<span class="op">+</span>beta[<span class="dv">2</span>]))</span>
+<span id="cb180-8"><a href="dondes.html#cb180-8"></a>p1F</span>
+<span id="cb180-9"><a href="dondes.html#cb180-9"></a>(Intercept) </span>
+<span id="cb180-10"><a href="dondes.html#cb180-10"></a> <span class="fl">0.02131148</span> </span>
+<span id="cb180-11"><a href="dondes.html#cb180-11"></a>p1NF</span>
+<span id="cb180-12"><a href="dondes.html#cb180-12"></a>(Intercept) </span>
+<span id="cb180-13"><a href="dondes.html#cb180-13"></a><span class="fl">0.001043738</span> </span></code></pre></div>
 <div class="corR">
 <p>
 On peut retrouver les paramètres du modèle corrigé en utilisant l’option <code>offset</code>
 </p>
 </div>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="dondes.html#cb262-1"></a>mod_cor &lt;-<span class="st"> </span><span class="kw">glm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df,<span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>,<span class="dt">offset =</span> <span class="kw">rep</span>(<span class="kw">log</span>(pi0<span class="op">/</span>pi1),<span class="kw">nrow</span>(df)))</span>
-<span id="cb262-2"><a href="dondes.html#cb262-2"></a><span class="kw">coef</span>(mod_cor)</span>
-<span id="cb262-3"><a href="dondes.html#cb262-3"></a>(Intercept) Xnon_fumeur </span>
-<span id="cb262-4"><a href="dondes.html#cb262-4"></a>  <span class="fl">-3.826968</span>   <span class="fl">-3.036935</span> </span>
-<span id="cb262-5"><a href="dondes.html#cb262-5"></a><span class="kw">c</span>(beta1_cor,beta[<span class="dv">2</span>])</span>
-<span id="cb262-6"><a href="dondes.html#cb262-6"></a>(Intercept) Xnon_fumeur </span>
-<span id="cb262-7"><a href="dondes.html#cb262-7"></a>  <span class="fl">-3.826968</span>   <span class="fl">-3.036935</span> </span></code></pre></div></li>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="dondes.html#cb181-1"></a>mod_cor &lt;-<span class="st"> </span><span class="kw">glm</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df,<span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>,<span class="dt">offset =</span> <span class="kw">rep</span>(<span class="kw">log</span>(pi0<span class="op">/</span>pi1),<span class="kw">nrow</span>(df)))</span>
+<span id="cb181-2"><a href="dondes.html#cb181-2"></a><span class="kw">coef</span>(mod_cor)</span>
+<span id="cb181-3"><a href="dondes.html#cb181-3"></a>(Intercept) Xnon_fumeur </span>
+<span id="cb181-4"><a href="dondes.html#cb181-4"></a>  <span class="fl">-3.826968</span>   <span class="fl">-3.036935</span> </span>
+<span id="cb181-5"><a href="dondes.html#cb181-5"></a><span class="kw">c</span>(beta1_cor,beta[<span class="dv">2</span>])</span>
+<span id="cb181-6"><a href="dondes.html#cb181-6"></a>(Intercept) Xnon_fumeur </span>
+<span id="cb181-7"><a href="dondes.html#cb181-7"></a>  <span class="fl">-3.826968</span>   <span class="fl">-3.036935</span> </span></code></pre></div></li>
 </ol>
 
 </div>
