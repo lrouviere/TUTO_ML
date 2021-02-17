@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapitre 1 Estimation du risque avec caret | Machine learning</title>
+  <meta name="description" content="Chapitre 1 Estimation du risque avec caret | Machine learning" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapitre 1 Estimation du risque avec caret | Machine learning" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapitre 1 Estimation du risque avec caret | Machine learning" />
+  
+  
+  
+
+<meta name="author" content="Laurent Rouvière" />
+
+
+<meta name="date" content="2021-02-17" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="lda.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Machine Learning<br> <br> L. Rouvière</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Présentation</a></li>
+<li class="part"><span><b>I Algorithmes de référence</b></span></li>
+<li class="chapter" data-level="1" data-path="caret.html"><a href="caret.html"><i class="fa fa-check"></i><b>1</b> Estimation du risque avec caret</a><ul>
+<li class="chapter" data-level="1.1" data-path="caret.html"><a href="caret.html#notion-de-risque-en-apprentissage-supervisé"><i class="fa fa-check"></i><b>1.1</b> Notion de risque en apprentissage supervisé</a></li>
+<li class="chapter" data-level="1.2" data-path="caret.html"><a href="caret.html#la-validation-croisée"><i class="fa fa-check"></i><b>1.2</b> La validation croisée</a></li>
+<li class="chapter" data-level="1.3" data-path="caret.html"><a href="caret.html#le-package-caret"><i class="fa fa-check"></i><b>1.3</b> Le package caret</a></li>
+<li class="chapter" data-level="1.4" data-path="caret.html"><a href="caret.html#la-courbe-roc"><i class="fa fa-check"></i><b>1.4</b> La courbe ROC</a></li>
+<li class="chapter" data-level="1.5" data-path="caret.html"><a href="caret.html#compléments"><i class="fa fa-check"></i><b>1.5</b> Compléments</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="caret.html"><a href="caret.html#calcul-parallèle"><i class="fa fa-check"></i><b>1.5.1</b> Calcul parallèle</a></li>
+<li class="chapter" data-level="1.5.2" data-path="caret.html"><a href="caret.html#répéter-les-méthodes-de-rééchantillonnage"><i class="fa fa-check"></i><b>1.5.2</b> Répéter les méthodes de rééchantillonnage</a></li>
+<li class="chapter" data-level="1.5.3" data-path="caret.html"><a href="caret.html#modifier-le-risque"><i class="fa fa-check"></i><b>1.5.3</b> Modifier le risque</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="lda.html"><a href="lda.html"><i class="fa fa-check"></i><b>2</b> Analyse discriminante linéaire</a><ul>
+<li class="chapter" data-level="2.1" data-path="lda.html"><a href="lda.html#prise-en-main-lda-et-qda-sur-les-iris-de-fisher"><i class="fa fa-check"></i><b>2.1</b> Prise en main : LDA et QDA sur les iris de Fisher</a></li>
+<li class="chapter" data-level="2.2" data-path="lda.html"><a href="lda.html#un-cas-avec-beaucoup-de-classes"><i class="fa fa-check"></i><b>2.2</b> Un cas avec beaucoup de classes</a></li>
+<li class="chapter" data-level="2.3" data-path="lda.html"><a href="lda.html#grande-dimension-reconnaissance-de-phonèmes"><i class="fa fa-check"></i><b>2.3</b> Grande dimension : reconnaissance de phonèmes</a></li>
+<li class="chapter" data-level="2.4" data-path="lda.html"><a href="lda.html#exercices"><i class="fa fa-check"></i><b>2.4</b> Exercices</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="arbres.html"><a href="arbres.html"><i class="fa fa-check"></i><b>3</b> Arbres</a><ul>
+<li class="chapter" data-level="3.1" data-path="arbres.html"><a href="arbres.html#coupures-cart-en-fonction-de-la-nature-des-variables"><i class="fa fa-check"></i><b>3.1</b> Coupures CART en fonction de la nature des variables</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="arbres.html"><a href="arbres.html#arbres-de-régression"><i class="fa fa-check"></i><b>3.1.1</b> Arbres de régression</a></li>
+<li class="chapter" data-level="3.1.2" data-path="arbres.html"><a href="arbres.html#arbres-de-classification"><i class="fa fa-check"></i><b>3.1.2</b> Arbres de classification</a></li>
+<li class="chapter" data-level="3.1.3" data-path="arbres.html"><a href="arbres.html#entrée-qualitative"><i class="fa fa-check"></i><b>3.1.3</b> Entrée qualitative</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="arbres.html"><a href="arbres.html#élagage"><i class="fa fa-check"></i><b>3.2</b> Élagage</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="arbres.html"><a href="arbres.html#élagage-pour-un-problème-de-régression"><i class="fa fa-check"></i><b>3.2.1</b> Élagage pour un problème de régression</a></li>
+<li class="chapter" data-level="3.2.2" data-path="arbres.html"><a href="arbres.html#élagage-en-classification-binaire-et-matrice-de-coût"><i class="fa fa-check"></i><b>3.2.2</b> Élagage en classification binaire et matrice de coût</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Algorithmes avancés</b></span></li>
+<li class="chapter" data-level="4" data-path="SVM.html"><a href="SVM.html"><i class="fa fa-check"></i><b>4</b> Support Vector Machine (SVM)</a><ul>
+<li class="chapter" data-level="4.1" data-path="SVM.html"><a href="SVM.html#cas-séparable"><i class="fa fa-check"></i><b>4.1</b> Cas séparable</a></li>
+<li class="chapter" data-level="4.2" data-path="SVM.html"><a href="SVM.html#cas-non-séparable"><i class="fa fa-check"></i><b>4.2</b> Cas non séparable</a></li>
+<li class="chapter" data-level="4.3" data-path="SVM.html"><a href="SVM.html#lastuce-du-noyau"><i class="fa fa-check"></i><b>4.3</b> L’astuce du noyau</a></li>
+<li class="chapter" data-level="4.4" data-path="SVM.html"><a href="SVM.html#support-vector-régression"><i class="fa fa-check"></i><b>4.4</b> Support vector régression</a></li>
+<li class="chapter" data-level="4.5" data-path="SVM.html"><a href="SVM.html#svm-sur-les-données-spam"><i class="fa fa-check"></i><b>4.5</b> SVM sur les données spam</a></li>
+<li class="chapter" data-level="4.6" data-path="SVM.html"><a href="SVM.html#exercices-1"><i class="fa fa-check"></i><b>4.6</b> Exercices</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="agregation.html"><a href="agregation.html"><i class="fa fa-check"></i><b>5</b> Agrégation : forêts aléatoires et gradient boosting</a><ul>
+<li class="chapter" data-level="5.1" data-path="agregation.html"><a href="agregation.html#forets"><i class="fa fa-check"></i><b>5.1</b> Forêts aléatoires</a></li>
+<li class="chapter" data-level="5.2" data-path="agregation.html"><a href="agregation.html#boosting"><i class="fa fa-check"></i><b>5.2</b> Gradient boosting</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="agregation.html"><a href="agregation.html#un-exemple-simple-en-régression"><i class="fa fa-check"></i><b>5.2.1</b> Un exemple simple en régression</a></li>
+<li class="chapter" data-level="5.2.2" data-path="agregation.html"><a href="agregation.html#adaboost-et-logitboost-pour-la-classification-binaire."><i class="fa fa-check"></i><b>5.2.2</b> Adaboost et logitboost pour la classification binaire.</a></li>
+<li class="chapter" data-level="5.2.3" data-path="agregation.html"><a href="agregation.html#exo:grad-boost"><i class="fa fa-check"></i><b>5.2.3</b> Exercices</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="deep.html"><a href="deep.html"><i class="fa fa-check"></i><b>6</b> Réseaux de neurones avec Keras</a></li>
+<li class="chapter" data-level="7" data-path="dondes.html"><a href="dondes.html"><i class="fa fa-check"></i><b>7</b> Données déséquilibrées</a><ul>
+<li class="chapter" data-level="7.1" data-path="dondes.html"><a href="dondes.html#critères-de-performance-pour-données-déséquilibrées"><i class="fa fa-check"></i><b>7.1</b> Critères de performance pour données déséquilibrées</a></li>
+<li class="chapter" data-level="7.2" data-path="dondes.html"><a href="dondes.html#ré-équilibrage"><i class="fa fa-check"></i><b>7.2</b> Ré-équilibrage</a></li>
+<li class="chapter" data-level="7.3" data-path="dondes.html"><a href="dondes.html#exercices-supplémentaires"><i class="fa fa-check"></i><b>7.3</b> Exercices supplémentaires</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="comp-algo.html"><a href="comp-algo.html"><i class="fa fa-check"></i><b>8</b> Comparaison d’algorithmes</a></li>
+<li class="chapter" data-level="" data-path="références.html"><a href="références.html"><i class="fa fa-check"></i>Références</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Machine learning</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="caret" class="section level1">
+<h1><span class="header-section-number">Chapitre 1</span> Estimation du risque avec caret</h1>
+<div id="notion-de-risque-en-apprentissage-supervisé" class="section level2">
+<h2><span class="header-section-number">1.1</span> Notion de risque en apprentissage supervisé</h2>
+<p>L’apprentissage supervisé consiste à expliquer ou prédire une sortie <span class="math inline">\(y\in\mathcal Y\)</span> par des entrées <span class="math inline">\(x\in\mathcal X\)</span> (le plus souvent <span class="math inline">\(\mathcal X=\mathbb R^p\)</span>). Cela revient à trouver un <strong>algorithme</strong> ou <strong>machine</strong> représenté par une fonction
+<span class="math display">\[f:\mathcal X\to\mathcal Y\]</span>
+qui à une nouvelle observation <span class="math inline">\(x\)</span> associe la prévision <span class="math inline">\(f(x)\)</span>. Bien entendu le problème consiste à chercher le <strong>meilleur algorithme</strong> pour le cas d’intérêt. Cette notion nécessite de meilleur algorithme la définition de <strong>critères</strong> que l’on va chercher à optimiser. Les critères sont le plus souvent définis à partir du fonction de perte
+<span class="math display">\[\begin{align*}
+\ell:\mathcal Y \times\mathcal Y &amp; \mapsto \mathbb R^+ \\
+(y,y^\prime) &amp; \to\ell(y,y^\prime)
+\end{align*}\]</span>
+où <span class="math inline">\(\ell(y,y^\prime)\)</span> représentera l’erreur (ou la perte) pour la prévision <span class="math inline">\(y^\prime\)</span> par rapport à l’observation <span class="math inline">\(y\)</span>. Si on représente le phénomène d’intérêt par un couple aléatoire <span class="math inline">\((X,Y)\)</span> à valeurs dans <span class="math inline">\(\mathcal X\times\mathcal Y\)</span>, on mesurera la performance d’un algorithme <span class="math inline">\(f\)</span> par son risque
+<span class="math display">\[\mathcal R(f)=\mathbf E[\ell(Y,f(X))].\]</span>
+Trouver le meilleur algorithme revient alors à trouver <span class="math inline">\(f\)</span> qui minimise <span class="math inline">\(\mathcal R(f)\)</span>. Bien entendu, ce cadre possède une utilité limitée en pratique puisqu’on ne connaît jamais la loi de <span class="math inline">\((X,Y)\)</span>, on ne pourra donc jamais calculé le <strong>vrai risque</strong> d’un algorithme <span class="math inline">\(f\)</span>. Tout le problème va donc être de trouver l’algorithme qui a le plus petit risque à partir de <span class="math inline">\(n\)</span> observations <span class="math inline">\((x_1,y_1),\dots,(x_n,y_n)\)</span>.</p>
+<p>Nous verrons dans les chapitres suivants plusieurs façons de construire des algorithmes mais, dans tous les cas, un algorithme est représenté par une fonction
+<span class="math display">\[f_n:\mathcal X\times(\mathcal X\times\mathcal Y)^n\to\mathcal Y\]</span>
+qui, pour une nouvelle donnée <span class="math inline">\(x\)</span>, renverra la prévision <span class="math inline">\(f_n(x)\)</span> calculée à partir de l’échantillon qui vit dans <span class="math inline">\((\mathcal X\times\mathcal Y)^n\)</span>. Dès lors la question qui se pose est de calculer (ou plutôt d’estimer) le risque (inconnu) <span class="math inline">\(\mathcal R(f_n)\)</span> d’un algorithme <span class="math inline">\(f_n\)</span>. Les techniques classiques reposent sur des algorithmes de type validation croisée. Nous les mettons en œuvre dans cette partie pour un algorithme simple : les <strong><span class="math inline">\(k\)</span> plus proches voisins</strong>. On commencera par programmer ces techniques “à la main” puis on utilisera le package <strong>caret</strong> qui permet de calculer des risques pour quasiment tous les algorithmes que l’on retrouver en apprentissage supervisé.</p>
+</div>
+<div id="la-validation-croisée" class="section level2">
+<h2><span class="header-section-number">1.2</span> La validation croisée</h2>
+<p>On cherche à expliquer une variable binaire <span class="math inline">\(Y\)</span> par deux variables quantitatives <span class="math inline">\(X_1\)</span> et <span class="math inline">\(X_2\)</span> à l’aide du jeu de données suivant</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="caret.html#cb1-1"></a>n &lt;-<span class="st"> </span><span class="dv">2000</span></span>
+<span id="cb1-2"><a href="caret.html#cb1-2"></a><span class="kw">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb1-3"><a href="caret.html#cb1-3"></a>X1 &lt;-<span class="st"> </span><span class="kw">runif</span>(n)</span>
+<span id="cb1-4"><a href="caret.html#cb1-4"></a>X2 &lt;-<span class="st"> </span><span class="kw">runif</span>(n)</span>
+<span id="cb1-5"><a href="caret.html#cb1-5"></a><span class="kw">set.seed</span>(<span class="dv">9012</span>)</span>
+<span id="cb1-6"><a href="caret.html#cb1-6"></a>R1 &lt;-<span class="st"> </span>X1<span class="op">&lt;=</span><span class="fl">0.25</span></span>
+<span id="cb1-7"><a href="caret.html#cb1-7"></a>R2 &lt;-<span class="st"> </span>(X1<span class="op">&gt;</span><span class="fl">0.25</span> <span class="op">&amp;</span><span class="st"> </span>X2<span class="op">&gt;=</span><span class="fl">0.75</span>)</span>
+<span id="cb1-8"><a href="caret.html#cb1-8"></a>R3 &lt;-<span class="st"> </span>(X1<span class="op">&gt;</span><span class="fl">0.25</span> <span class="op">&amp;</span><span class="st"> </span>X2<span class="op">&lt;</span><span class="fl">0.75</span>)</span>
+<span id="cb1-9"><a href="caret.html#cb1-9"></a>Y &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,n)</span>
+<span id="cb1-10"><a href="caret.html#cb1-10"></a>Y[R1] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R1),<span class="dv">1</span>,<span class="fl">0.25</span>)</span>
+<span id="cb1-11"><a href="caret.html#cb1-11"></a>Y[R2] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R2),<span class="dv">1</span>,<span class="fl">0.25</span>)</span>
+<span id="cb1-12"><a href="caret.html#cb1-12"></a>Y[R3] &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="kw">sum</span>(R3),<span class="dv">1</span>,<span class="fl">0.75</span>)</span>
+<span id="cb1-13"><a href="caret.html#cb1-13"></a>donnees &lt;-<span class="st"> </span><span class="kw">data.frame</span>(X1,X2,Y)</span>
+<span id="cb1-14"><a href="caret.html#cb1-14"></a>donnees<span class="op">$</span>Y &lt;-<span class="st"> </span><span class="kw">as.factor</span>(donnees<span class="op">$</span>Y)</span>
+<span id="cb1-15"><a href="caret.html#cb1-15"></a><span class="kw">ggplot</span>(donnees)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X1,<span class="dt">y=</span>X2,<span class="dt">color=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>On considère la perte indicatrice : <span class="math inline">\(\ell(y,y^\prime)=\mathbf 1_{y\neq y^\prime}\)</span>, le risque d’un algorithme <span class="math inline">\(f\)</span> est donc
+<span class="math display">\[\mathcal R(f)=\mathbf E[\mathbf 1_{Y\neq f(X)}]=\mathbf P(Y\neq f(X)),\]</span>
+il est appelé <strong>probabilité d’erreur</strong> ou <strong>erreur de classification</strong>.</p>
+<ol style="list-style-type: decimal">
+<li><p>Séparer le jeu de données en un échantillon d’apprentissage <strong>dapp</strong> de taille 1500 et un échantillon test <strong>dtest</strong> de taille 500.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="caret.html#cb2-1"></a><span class="kw">set.seed</span>(<span class="dv">234</span>)</span>
+<span id="cb2-2"><a href="caret.html#cb2-2"></a>indapp &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(donnees),<span class="dv">1500</span>)</span>
+<span id="cb2-3"><a href="caret.html#cb2-3"></a>dapp &lt;-<span class="st"> </span>donnees[indapp,]</span>
+<span id="cb2-4"><a href="caret.html#cb2-4"></a>dtest &lt;-<span class="st"> </span>donnees[<span class="op">-</span>indapp,]</span></code></pre></div></li>
+<li><p>On considère la règle de classification des <span class="math inline">\(k\)</span> plus proches voisins. Pour un entier <span class="math inline">\(k\)</span> plus petit que <span class="math inline">\(n\)</span> et un nouvel individu <span class="math inline">\(x\)</span>, cette règle affecte à <span class="math inline">\(x\)</span> le label majoritaire des <span class="math inline">\(k\)</span> plus proches voisins de <span class="math inline">\(x\)</span>. Sur <strong>R</strong> on utilise la fonction <strong>knn</strong> du package <strong>class</strong>. On peut par exemple obtenir les prévisions des individus de l’échantillon test de la règle des 3 plus proches voisins avec</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="caret.html#cb3-1"></a><span class="kw">library</span>(class)</span>
+<span id="cb3-2"><a href="caret.html#cb3-2"></a>knn3 &lt;-<span class="st"> </span><span class="kw">knn</span>(dapp[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>],dtest[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>],<span class="dt">cl=</span>dapp<span class="op">$</span>Y,<span class="dt">k=</span><span class="dv">3</span>)</span></code></pre></div>
+<p>Calculer l’erreur de classification de la règle des 3 plus proches voisins sur les données test (procédure <strong>validation hold out</strong>).</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="caret.html#cb4-1"></a><span class="kw">mean</span>(knn3<span class="op">!=</span>dtest<span class="op">$</span>Y)</span>
+<span id="cb4-2"><a href="caret.html#cb4-2"></a>[<span class="dv">1</span>] <span class="fl">0.338</span></span></code></pre></div></li>
+<li><p>Expliquer la fonction <strong>knn.cv</strong>.</p>
+<div class="corR">
+<p>
+Cette fonction permet, pour la règle des plus proches voisins, de prédire le groupe de chaque individu par <strong>validation croisée leave-one-out</strong> : <span class="math display"><span class="math display">\[\widehat y_i=g_{k,i}(x_i),\quad i=1,\dots,n\]</span></span> où <span class="math inline"><span class="math inline">\(g_{k,i}\)</span></span> désigne la règle de <span class="math inline"><span class="math inline">\(k\)</span></span> plus proche voisins construites à partir de l’échantillon amputé de la <span class="math inline"><span class="math inline">\(i\)</span></span>ème observation.
+</p>
+</div></li>
+<li><p>Calculer l’erreur de classification de la règle des 3 plus proches voisins par validation croisée <strong>leave-one-out</strong>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="caret.html#cb5-1"></a>prev_cv &lt;-<span class="st"> </span><span class="kw">knn.cv</span>(donnees[,<span class="op">-</span><span class="dv">3</span>],<span class="dt">cl=</span>donnees<span class="op">$</span>Y,<span class="dt">k=</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="corR">
+<p>
+On peut alors estimer l’erreur de la règle des 10 ppv par <span class="math display"><span class="math display">\[\frac{1}{n}\sum_{i=1}^n1_{g_{k,i}(x_i)\neq y_i}.\]</span></span>
+</p>
+</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="caret.html#cb6-1"></a><span class="kw">mean</span>(prev_cv<span class="op">!=</span>donnees<span class="op">$</span>Y)</span>
+<span id="cb6-2"><a href="caret.html#cb6-2"></a>[<span class="dv">1</span>] <span class="fl">0.334</span></span></code></pre></div></li>
+<li><p>On considère le vecteur de plus proches voisins suivant :</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="caret.html#cb7-1"></a>K_cand &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">500</span>,<span class="dt">by=</span><span class="dv">20</span>)</span></code></pre></div>
+<p>Sélectionner une valeur de <span class="math inline">\(k\)</span> dans ce vecteur à l’aide d’une <strong>validation hold out</strong> et d’un <strong>leave-one-out</strong> :</p>
+<ul>
+<li><p>On calcule l’erreur de classification par <strong>validation hold out</strong> pour chaque valeur de <span class="math inline">\(k\)</span> :</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="caret.html#cb8-1"></a>err.ho &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,<span class="kw">length</span>(K_cand))</span>
+<span id="cb8-2"><a href="caret.html#cb8-2"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(K_cand)){</span>
+<span id="cb8-3"><a href="caret.html#cb8-3"></a>  knni &lt;-<span class="st"> </span><span class="kw">knn</span>(dapp[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>],dtest[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>],<span class="dt">cl=</span>dapp<span class="op">$</span>Y,<span class="dt">k=</span>K_cand[i])</span>
+<span id="cb8-4"><a href="caret.html#cb8-4"></a>  err.ho[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(knni<span class="op">!=</span>dtest<span class="op">$</span>Y)</span>
+<span id="cb8-5"><a href="caret.html#cb8-5"></a>}</span></code></pre></div>
+<div class="corR">
+<p>
+Puis on choisit la valeur de <span class="math inline"><span class="math inline">\(k\)</span></span> pour laquelle l’erreur est minimale.
+</p>
+</div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="caret.html#cb9-1"></a>K_cand[<span class="kw">which.min</span>(err.ho)]</span>
+<span id="cb9-2"><a href="caret.html#cb9-2"></a>[<span class="dv">1</span>] <span class="dv">41</span></span></code></pre></div></li>
+<li><p>On de même chose avec la <strong>validation croisée leave-one-out</strong> :</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="caret.html#cb10-1"></a>err.loo &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,<span class="kw">length</span>(K_cand))</span>
+<span id="cb10-2"><a href="caret.html#cb10-2"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(K_cand)){</span>
+<span id="cb10-3"><a href="caret.html#cb10-3"></a>  knni &lt;-<span class="st"> </span><span class="kw">knn.cv</span>(donnees[,<span class="op">-</span><span class="dv">3</span>],<span class="dt">cl=</span>donnees<span class="op">$</span>Y,<span class="dt">k=</span>K_cand[i])</span>
+<span id="cb10-4"><a href="caret.html#cb10-4"></a>  err.loo[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(knni<span class="op">!=</span>donnees<span class="op">$</span>Y)</span>
+<span id="cb10-5"><a href="caret.html#cb10-5"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="caret.html#cb11-1"></a>K_cand[<span class="kw">which.min</span>(err.loo)]</span>
+<span id="cb11-2"><a href="caret.html#cb11-2"></a>[<span class="dv">1</span>] <span class="dv">121</span></span></code></pre></div></li>
+</ul></li>
+<li><p>Faire la même chose à l’aide d’une validation croisée 10 blocs. On pourra construire les blocs avec</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="caret.html#cb12-1"></a><span class="kw">set.seed</span>(<span class="dv">2345</span>)</span>
+<span id="cb12-2"><a href="caret.html#cb12-2"></a>blocs &lt;-<span class="st"> </span>caret<span class="op">::</span><span class="kw">createFolds</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(donnees),<span class="dv">10</span>,<span class="dt">returnTrain =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="caret.html#cb13-1"></a>err.cv &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,<span class="kw">length</span>(K_cand))</span>
+<span id="cb13-2"><a href="caret.html#cb13-2"></a>prev &lt;-<span class="st"> </span>donnees<span class="op">$</span>Y</span>
+<span id="cb13-3"><a href="caret.html#cb13-3"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(K_cand)){</span>
+<span id="cb13-4"><a href="caret.html#cb13-4"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(blocs)){</span>
+<span id="cb13-5"><a href="caret.html#cb13-5"></a>    train &lt;-<span class="st"> </span>donnees[blocs[[j]],]</span>
+<span id="cb13-6"><a href="caret.html#cb13-6"></a>    test &lt;-<span class="st"> </span>donnees[<span class="op">-</span>blocs[[j]],]</span>
+<span id="cb13-7"><a href="caret.html#cb13-7"></a>    prev[<span class="op">-</span>blocs[[j]]] &lt;-<span class="st"> </span><span class="kw">knn</span>(train[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>],test[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>],<span class="dt">cl=</span>train<span class="op">$</span>Y,<span class="dt">k=</span>K_cand[i])</span>
+<span id="cb13-8"><a href="caret.html#cb13-8"></a>  }</span>
+<span id="cb13-9"><a href="caret.html#cb13-9"></a>  err.cv[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(prev<span class="op">!=</span>donnees<span class="op">$</span>Y)</span>
+<span id="cb13-10"><a href="caret.html#cb13-10"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="caret.html#cb14-1"></a>K_cand[<span class="kw">which.min</span>(err.cv)]</span>
+<span id="cb14-2"><a href="caret.html#cb14-2"></a>[<span class="dv">1</span>] <span class="dv">101</span></span></code></pre></div></li>
+</ol>
+</div>
+<div id="le-package-caret" class="section level2">
+<h2><span class="header-section-number">1.3</span> Le package caret</h2>
+<p>Dans la partie précédente, nous avons utiliser des méthodes de validation croisée pour sélectionner le nombre de voisins dans l’algorithme des plus proches voisins. L’approche revenait à</p>
+<ul>
+<li>estimer un risque pour une grille de valeurs candidates de <span class="math inline">\(k\)</span></li>
+<li>choisir la valeur de <span class="math inline">\(k\)</span> qui minimise le risque estimé.</li>
+</ul>
+<p>Cette pratique est courante en machine learning : on la retrouve fréquemment pour calibrer les algorithmes. Le protocole est toujours le même, pour un méthode donnée il faut spécifier :</p>
+<ul>
+<li>une grille de valeurs pour les paramètres</li>
+<li>un risque</li>
+<li>un algorithme pour estimer le risque.</li>
+</ul>
+<p>Le package <strong>caret</strong> permet d’appliquer ce protocole pour plus de 200 algorithmes machine learning. On pourra trouver une documentation complète à cette url <a href="http://topepo.github.io/caret/index.html" class="uri">http://topepo.github.io/caret/index.html</a>. Deux fonctions sont à utiliser :</p>
+<ul>
+<li><strong>traincontrol</strong> qui permettra notamment de spécifier l’algorithme pour estimer le risque ainsi que les paramètres de cet algorithme ;</li>
+<li><strong>train</strong> dans laquelle on renseignera les données, la grille de candidats…</li>
+</ul>
+<p>On reprend les données de la partie précédente.</p>
+<ol style="list-style-type: decimal">
+<li><p>Expliquer les sorties des commandes</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="caret.html#cb15-1"></a><span class="kw">library</span>(caret)</span>
+<span id="cb15-2"><a href="caret.html#cb15-2"></a><span class="kw">set.seed</span>(<span class="dv">321</span>)</span>
+<span id="cb15-3"><a href="caret.html#cb15-3"></a>ctrl1 &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method=</span><span class="st">&quot;LGOCV&quot;</span>,<span class="dt">number=</span><span class="dv">1</span>)</span>
+<span id="cb15-4"><a href="caret.html#cb15-4"></a>KK &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">k=</span>K_cand)</span>
+<span id="cb15-5"><a href="caret.html#cb15-5"></a>caret.ho &lt;-<span class="st"> </span><span class="kw">train</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>donnees,<span class="dt">method=</span><span class="st">&quot;knn&quot;</span>,<span class="dt">trControl=</span>ctrl1,<span class="dt">tuneGrid=</span>KK)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="caret.html#cb16-1"></a>caret.ho</span>
+<span id="cb16-2"><a href="caret.html#cb16-2"></a>k<span class="op">-</span>Nearest Neighbors </span>
+<span id="cb16-3"><a href="caret.html#cb16-3"></a></span>
+<span id="cb16-4"><a href="caret.html#cb16-4"></a><span class="dv">2000</span> samples</span>
+<span id="cb16-5"><a href="caret.html#cb16-5"></a>   <span class="dv">2</span> predictor</span>
+<span id="cb16-6"><a href="caret.html#cb16-6"></a>   <span class="dv">2</span> classes<span class="op">:</span><span class="st"> &#39;0&#39;</span>, <span class="st">&#39;1&#39;</span> </span>
+<span id="cb16-7"><a href="caret.html#cb16-7"></a></span>
+<span id="cb16-8"><a href="caret.html#cb16-8"></a>No pre<span class="op">-</span>processing</span>
+<span id="cb16-9"><a href="caret.html#cb16-9"></a>Resampling<span class="op">:</span><span class="st"> </span>Repeated Train<span class="op">/</span>Test Splits <span class="kw">Estimated</span> (<span class="dv">1</span> reps, <span class="dv">75</span>%) </span>
+<span id="cb16-10"><a href="caret.html#cb16-10"></a>Summary of sample sizes<span class="op">:</span><span class="st"> </span><span class="dv">1500</span> </span>
+<span id="cb16-11"><a href="caret.html#cb16-11"></a>Resampling results across tuning parameters<span class="op">:</span></span>
+<span id="cb16-12"><a href="caret.html#cb16-12"></a></span>
+<span id="cb16-13"><a href="caret.html#cb16-13"></a><span class="st">  </span>k    Accuracy  Kappa    </span>
+<span id="cb16-14"><a href="caret.html#cb16-14"></a>    <span class="dv">1</span>  <span class="fl">0.602</span>     <span class="fl">0.1956346</span></span>
+<span id="cb16-15"><a href="caret.html#cb16-15"></a>   <span class="dv">21</span>  <span class="fl">0.690</span>     <span class="fl">0.3649415</span></span>
+<span id="cb16-16"><a href="caret.html#cb16-16"></a>   <span class="dv">41</span>  <span class="fl">0.694</span>     <span class="fl">0.3736696</span></span>
+<span id="cb16-17"><a href="caret.html#cb16-17"></a>   <span class="dv">61</span>  <span class="fl">0.706</span>     <span class="fl">0.3992546</span></span>
+<span id="cb16-18"><a href="caret.html#cb16-18"></a>   <span class="dv">81</span>  <span class="fl">0.700</span>     <span class="fl">0.3867338</span></span>
+<span id="cb16-19"><a href="caret.html#cb16-19"></a>  <span class="dv">101</span>  <span class="fl">0.712</span>     <span class="fl">0.4122641</span></span>
+<span id="cb16-20"><a href="caret.html#cb16-20"></a>  <span class="dv">121</span>  <span class="fl">0.700</span>     <span class="fl">0.3882944</span></span>
+<span id="cb16-21"><a href="caret.html#cb16-21"></a>  <span class="dv">141</span>  <span class="fl">0.706</span>     <span class="fl">0.4017971</span></span>
+<span id="cb16-22"><a href="caret.html#cb16-22"></a>  <span class="dv">161</span>  <span class="fl">0.700</span>     <span class="fl">0.3903629</span></span>
+<span id="cb16-23"><a href="caret.html#cb16-23"></a>  <span class="dv">181</span>  <span class="fl">0.702</span>     <span class="fl">0.3941710</span></span>
+<span id="cb16-24"><a href="caret.html#cb16-24"></a>  <span class="dv">201</span>  <span class="fl">0.700</span>     <span class="fl">0.3898471</span></span>
+<span id="cb16-25"><a href="caret.html#cb16-25"></a>  <span class="dv">221</span>  <span class="fl">0.696</span>     <span class="fl">0.3806637</span></span>
+<span id="cb16-26"><a href="caret.html#cb16-26"></a>  <span class="dv">241</span>  <span class="fl">0.692</span>     <span class="fl">0.3714491</span></span>
+<span id="cb16-27"><a href="caret.html#cb16-27"></a>  <span class="dv">261</span>  <span class="fl">0.698</span>     <span class="fl">0.3829078</span></span>
+<span id="cb16-28"><a href="caret.html#cb16-28"></a>  <span class="dv">281</span>  <span class="fl">0.692</span>     <span class="fl">0.3693074</span></span>
+<span id="cb16-29"><a href="caret.html#cb16-29"></a>  <span class="dv">301</span>  <span class="fl">0.696</span>     <span class="fl">0.3764358</span></span>
+<span id="cb16-30"><a href="caret.html#cb16-30"></a>  <span class="dv">321</span>  <span class="fl">0.682</span>     <span class="fl">0.3474407</span></span>
+<span id="cb16-31"><a href="caret.html#cb16-31"></a>  <span class="dv">341</span>  <span class="fl">0.682</span>     <span class="fl">0.3468831</span></span>
+<span id="cb16-32"><a href="caret.html#cb16-32"></a>  <span class="dv">361</span>  <span class="fl">0.678</span>     <span class="fl">0.3352601</span></span>
+<span id="cb16-33"><a href="caret.html#cb16-33"></a>  <span class="dv">381</span>  <span class="fl">0.672</span>     <span class="fl">0.3214167</span></span>
+<span id="cb16-34"><a href="caret.html#cb16-34"></a>  <span class="dv">401</span>  <span class="fl">0.668</span>     <span class="fl">0.3113633</span></span>
+<span id="cb16-35"><a href="caret.html#cb16-35"></a>  <span class="dv">421</span>  <span class="fl">0.666</span>     <span class="fl">0.3057172</span></span>
+<span id="cb16-36"><a href="caret.html#cb16-36"></a>  <span class="dv">441</span>  <span class="fl">0.658</span>     <span class="fl">0.2853800</span></span>
+<span id="cb16-37"><a href="caret.html#cb16-37"></a>  <span class="dv">461</span>  <span class="fl">0.658</span>     <span class="fl">0.2841354</span></span>
+<span id="cb16-38"><a href="caret.html#cb16-38"></a>  <span class="dv">481</span>  <span class="fl">0.654</span>     <span class="fl">0.2732314</span></span>
+<span id="cb16-39"><a href="caret.html#cb16-39"></a></span>
+<span id="cb16-40"><a href="caret.html#cb16-40"></a>Accuracy was used to select the optimal model using</span>
+<span id="cb16-41"><a href="caret.html#cb16-41"></a> the largest value.</span>
+<span id="cb16-42"><a href="caret.html#cb16-42"></a>The final value used <span class="cf">for</span> the model was k =<span class="st"> </span><span class="fl">101.</span></span>
+<span id="cb16-43"><a href="caret.html#cb16-43"></a><span class="kw">plot</span>(caret.ho)</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="corR">
+<p>
+On obtient ici l’<strong>accuracy</strong> (1 moins l’erreur de classification) pour chaque valeur de <span class="math inline"><span class="math inline">\(k\)</span></span> calculé par validation hold out. Cette technique a été précisée dans la fonction <strong>trainControl</strong> via l’option <code>method=“LGOCV”</code>. Un autre indicateur est calculé : le <strong>kappa de Cohen</strong>. Cet indicateur peut se révéler pertinent en présence de données déséquilibrées, on pourra trouver de l’information sur cet indicateur dans ce document <a href="https://lrouviere.github.io/INP-HB/cours_don_des.pdf" class="uri">https://lrouviere.github.io/INP-HB/cours_don_des.pdf</a>
+</p>
+</div></li>
+<li><p>En modifiant les paramètres du code précédent, retrouver les résultats de la validation hold out de la partie précédente. On pourra utiliser l’option <code>index</code> dans la fonction <strong>trainControl</strong>.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="caret.html#cb17-1"></a>ctrl2 &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method=</span><span class="st">&quot;LGOCV&quot;</span>,<span class="dt">number=</span><span class="dv">1</span>,<span class="dt">index=</span><span class="kw">list</span>(indapp))</span>
+<span id="cb17-2"><a href="caret.html#cb17-2"></a>caret.ho2 &lt;-<span class="st"> </span><span class="kw">train</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>donnees,<span class="dt">method=</span><span class="st">&quot;knn&quot;</span>,<span class="dt">trControl=</span>ctrl2,<span class="dt">tuneGrid=</span>KK)</span></code></pre></div>
+<div class="corR">
+<p>
+On retrouve bien la même valeur de <span class="math inline"><span class="math inline">\(k\)</span></span>.
+</p>
+</div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="caret.html#cb18-1"></a>caret.ho2<span class="op">$</span>bestTune</span>
+<span id="cb18-2"><a href="caret.html#cb18-2"></a>   k</span>
+<span id="cb18-3"><a href="caret.html#cb18-3"></a><span class="dv">3</span> <span class="dv">41</span></span></code></pre></div></li>
+<li><p>Utiliser <strong>caret</strong> pour sélectionner <span class="math inline">\(k\)</span> par validation croisée leave-one-out.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="caret.html#cb19-1"></a>ctrl3 &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method=</span><span class="st">&quot;LOOCV&quot;</span>,<span class="dt">number=</span><span class="dv">1</span>)</span>
+<span id="cb19-2"><a href="caret.html#cb19-2"></a>caret.loo &lt;-<span class="st"> </span><span class="kw">train</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>donnees,<span class="dt">method=</span><span class="st">&quot;knn&quot;</span>,<span class="dt">trControl=</span>ctrl3,<span class="dt">tuneGrid=</span>KK)</span>
+<span id="cb19-3"><a href="caret.html#cb19-3"></a>caret.loo<span class="op">$</span>bestTune</span></code></pre></div>
+<div class="corR">
+<p>
+On remarque que le temps de calcul ets beaucoup plus long qu’avec la fonction <strong>knn.cv</strong>. Cela vient du fait que <strong>train</strong> recalcule l’algorithme des kppv <span class="math inline"><span class="math inline">\(n\)</span></span> fois tandis que <strong>knn.cv</strong> utilise une astuce matricielle pour faire la validation croisée leave-one-out. Heureusement, on a quand même le même résultat :
+</p>
+</div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="caret.html#cb20-1"></a>caret.loo<span class="op">$</span>bestTune</span>
+<span id="cb20-2"><a href="caret.html#cb20-2"></a>    k</span>
+<span id="cb20-3"><a href="caret.html#cb20-3"></a><span class="dv">7</span> <span class="dv">121</span></span></code></pre></div></li>
+<li><p>Faire de même pour la validation croisée 10 blocs en gardant les mêmes blocs que dans la partie précédente.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="caret.html#cb21-1"></a>ctrl4 &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method=</span><span class="st">&quot;cv&quot;</span>,<span class="dt">index=</span>blocs)</span>
+<span id="cb21-2"><a href="caret.html#cb21-2"></a>caret.cv &lt;-<span class="st"> </span><span class="kw">train</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>donnees,<span class="dt">method=</span><span class="st">&quot;knn&quot;</span>,<span class="dt">trControl=</span>ctrl4,<span class="dt">tuneGrid=</span>KK)</span></code></pre></div>
+<div class="corR">
+<p>
+Là encore, on retrouve bien la même valeur :
+</p>
+</div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="caret.html#cb22-1"></a>caret.cv<span class="op">$</span>bestTune</span>
+<span id="cb22-2"><a href="caret.html#cb22-2"></a>    k</span>
+<span id="cb22-3"><a href="caret.html#cb22-3"></a><span class="dv">6</span> <span class="dv">101</span></span></code></pre></div></li>
+</ol>
+</div>
+<div id="la-courbe-roc" class="section level2">
+<h2><span class="header-section-number">1.4</span> La courbe ROC</h2>
+<p>C’est un critère fréquemment utilisé pour mesurer la performance d’un <strong>score</strong>. Etant donné <span class="math inline">\((X,Y)\)</span> un couple aléatoire à valeurs dans <span class="math inline">\(\mathcal X\times \{-1,1\}\)</span>, on rappelle qu’un score est une fonction <span class="math inline">\(S:\mathcal X\to\mathbb R\)</span>. Dans la plupart des cas, un score s’obtient en estimant la probabilité <span class="math inline">\(\mathbf P(Y=1|X=x)\)</span>. Pour un seuil <span class="math inline">\(s\in\mathbb R\)</span> fixé, un score possède deux types d’erreur
+<span class="math display">\[\alpha(s)=\mathbf P(S(X)\geq s|Y=-1)\quad\text{et}\quad\beta(s)=\mathbf P(S(X)&lt; s|Y=1).\]</span>
+La courbe ROC est la <strong>courbe paramétrée</strong> définie par :
+<span class="math display">\[\left\{
+\begin{array}{l}
+x(s)=\alpha(s)=\mathbf P(S(X)&gt;s|Y=-1) \\
+y(s)=1-\beta(s)=\mathbf P(S(X)\geq s|Y=1)
+\end{array}\right.\]</span>
+Elle permet donc de visualiser sur une seul graphe 2D ces deux erreurs pour toutes les valeurs de seuil <span class="math inline">\(s\)</span>.</p>
+
+<div class="exercise">
+<span id="exr:exo-ROC-par-vs-alea" class="exercise"><strong>Exercice 1.1  (Étude de la courbe ROC)  </strong></span>
+</div>
+
+<p>On considère dans cet exercice une fonction de score <span class="math inline">\(S\)</span> que l’on suppose absolument continue.</p>
+<ol style="list-style-type: decimal">
+<li><p>Montrer que la courbe ROC vit dans le carré <span class="math inline">\([0,1]^2\)</span>.</p>
+<div class="correction">
+<p>
+On note <span class="math inline"><span class="math inline">\(x(-\infty)=\lim_{n\to -\infty}x(s)\)</span></span>. On a <span class="math display"><span class="math display">\[x(-\infty)=\lim_{n\to -\infty}\mathbf P(S(X)&gt;s|Y=-1)=1.\]</span></span> De même on montre facilement <span class="math inline"><span class="math inline">\(y(-\infty)=1\)</span></span>, <span class="math inline"><span class="math inline">\(x(\infty)=0\)</span></span> et <span class="math inline"><span class="math inline">\(y(\infty)=0\)</span></span>. On déduit donc que la courbe ROC part du point <span class="math inline"><span class="math inline">\((1,1)\)</span></span> pour arriver au point <span class="math inline"><span class="math inline">\((0,0)\)</span></span> sans quitter le carré <span class="math inline"><span class="math inline">\([0,1]^2\)</span></span>.
+</p>
+</div></li>
+<li><p>On suppose dans cette question que <span class="math inline">\(S\)</span> est <strong>parfait</strong>, ce qui revient à dire qu’il sépare parfaitement les 2 groupes. Mathématiquement on traduit cela par l’existence d’un seuil <span class="math inline">\(s^\star\in\mathbb R\)</span> tel que
+<span class="math display">\[\mathbf P(Y=1|S(X)\geq s^\star)=1\quad\textrm{et}\quad\mathbf P(Y=-1|S(X)&lt;s^\star)=1.\]</span>
+Analyser la courbe ROC du score parfait.</p>
+<div class="correction">
+<p>
+Il est facile de voir que <span class="math inline"><span class="math inline">\(\alpha(s^\star)=\beta(s^\star)=0\)</span></span>. Par conséquent la courbe ROC du score parfait passe par le point <span class="math inline"><span class="math inline">\((0,1)\)</span></span>. On déduit que la courbe ROC du score parfait est l’union des segments <span class="math display"><span class="math display">\[[(0,0),(1,0)]\quad\text{et}\quad[(1,0),(1,1)].\]</span></span>
+</p>
+</div></li>
+<li><p>On suppose dans cette question que <span class="math inline">\(S\)</span> est <strong>aléatoire</strong> dans le sens où <span class="math inline">\(S(X)\)</span> est indépendante de <span class="math inline">\(Y\)</span> (cela revient à dire que les notes <span class="math inline">\(S(X)\)</span> n’ont aucun lien avec le groupe). Analyser la courbe ROC d’un tel score.</p>
+<div class="correction">
+<p>
+En utilisant l’indépendance et l’absolu continuité de <span class="math inline"><span class="math inline">\(S(X)\)</span></span> on a <span class="math display"><span class="math display">\[x(s)=\mathbf P(S(X)&gt;s|Y=-1)=\mathbf P(S(X)&gt;s)=\mathbf P(S(X)\geq s)=\mathbf P(S(X)\geq s|Y=1)=y(s),\]</span></span> On déduit que la courbe ROC est la première bissectrice.
+</p>
+</div></li>
+</ol>
+
+<div class="exercise">
+<span id="exr:exo-ROC-avecR" class="exercise"><strong>Exercice 1.2  (Courbe ROC avec R)  </strong></span>
+</div>
+
+<p>On dispose de 4 fonctions de score <span class="math inline">\(S_j(x)\)</span> dont on souhaite visualiser les courbes ROC à partir des valeurs de score calculés sur un échantillon. On trouvera dans le tableau <code>df</code> les scores <span class="math inline">\(S_j(X_i),i=1,\dots,n\)</span> ainsi que les observations des groupes <span class="math inline">\(Y_i\)</span></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="caret.html#cb23-1"></a><span class="kw">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb23-2"><a href="caret.html#cb23-2"></a>n &lt;-<span class="st"> </span><span class="dv">200</span></span>
+<span id="cb23-3"><a href="caret.html#cb23-3"></a>Y &lt;-<span class="st"> </span><span class="kw">rbinom</span>(n,<span class="dv">1</span>,<span class="fl">0.5</span>)</span>
+<span id="cb23-4"><a href="caret.html#cb23-4"></a>S1 &lt;-<span class="st"> </span><span class="kw">runif</span>(n)</span>
+<span id="cb23-5"><a href="caret.html#cb23-5"></a>S2 &lt;-<span class="st"> </span>S1</span>
+<span id="cb23-6"><a href="caret.html#cb23-6"></a>S2[Y<span class="op">==</span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="kw">sum</span>(Y<span class="op">==</span><span class="dv">1</span>),<span class="fl">0.6</span>,<span class="dv">1</span>)</span>
+<span id="cb23-7"><a href="caret.html#cb23-7"></a>S2[Y<span class="op">==</span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="kw">sum</span>(Y<span class="op">==</span><span class="dv">0</span>),<span class="dv">0</span>,<span class="fl">0.6</span>)</span>
+<span id="cb23-8"><a href="caret.html#cb23-8"></a>S3 &lt;-<span class="st"> </span>S2</span>
+<span id="cb23-9"><a href="caret.html#cb23-9"></a>S3[Y<span class="op">==</span><span class="dv">1</span>][<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">10</span>,<span class="dv">0</span>,<span class="fl">0.6</span>)</span>
+<span id="cb23-10"><a href="caret.html#cb23-10"></a>S3[Y<span class="op">==</span><span class="dv">0</span>][<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">10</span>,<span class="fl">0.6</span>,<span class="dv">1</span>)</span>
+<span id="cb23-11"><a href="caret.html#cb23-11"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(S1,S2,S3,<span class="dt">Y=</span>Y)</span>
+<span id="cb23-12"><a href="caret.html#cb23-12"></a><span class="kw">head</span>(df)</span>
+<span id="cb23-13"><a href="caret.html#cb23-13"></a>         S1        S2          S3 Y</span>
+<span id="cb23-14"><a href="caret.html#cb23-14"></a><span class="dv">1</span> <span class="fl">0.5885923</span> <span class="fl">0.6301922</span> <span class="fl">0.419557838</span> <span class="dv">1</span></span>
+<span id="cb23-15"><a href="caret.html#cb23-15"></a><span class="dv">2</span> <span class="fl">0.8925918</span> <span class="fl">0.7897537</span> <span class="fl">0.006244182</span> <span class="dv">1</span></span>
+<span id="cb23-16"><a href="caret.html#cb23-16"></a><span class="dv">3</span> <span class="fl">0.1237949</span> <span class="fl">0.7058358</span> <span class="fl">0.302344248</span> <span class="dv">1</span></span>
+<span id="cb23-17"><a href="caret.html#cb23-17"></a><span class="dv">4</span> <span class="fl">0.5133090</span> <span class="fl">0.6922984</span> <span class="fl">0.438635526</span> <span class="dv">1</span></span>
+<span id="cb23-18"><a href="caret.html#cb23-18"></a><span class="dv">5</span> <span class="fl">0.6636402</span> <span class="fl">0.2034380</span> <span class="fl">0.806095919</span> <span class="dv">0</span></span>
+<span id="cb23-19"><a href="caret.html#cb23-19"></a><span class="dv">6</span> <span class="fl">0.7655420</span> <span class="fl">0.4036820</span> <span class="fl">0.665537030</span> <span class="dv">0</span></span></code></pre></div>
+<ol style="list-style-type: decimal">
+<li><p>Visualiser, pour chaque score, les valeurs de score en fonction de <span class="math inline">\(Y\)</span>. Commenter</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="caret.html#cb24-1"></a>df1 &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(<span class="op">-</span>Y,<span class="dt">names_to=</span><span class="st">&quot;Score&quot;</span>,<span class="dt">values_to=</span><span class="st">&quot;valeurs&quot;</span>)</span>
+<span id="cb24-2"><a href="caret.html#cb24-2"></a><span class="kw">ggplot</span>(df1)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>valeurs,<span class="dt">y=</span>Score,<span class="dt">color=</span><span class="kw">as.factor</span>(Y))<span class="op">+</span><span class="kw">geom_point</span>()</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="corR">
+<p>
+On remarque que <strong>S2</strong> sépare parfaitement les deux groupes. La séparation de <strong>S3</strong> est satisfaisante mais pas parfaite. <strong>S1</strong> semble qunt à lui ordonner les observations indépendamment du groupe (proche du score aléatoire).
+</p>
+</div></li>
+<li><p>Visualiser sur un même graphe les trois courbes ROC. On pourra utiliser d’abord utiliser la fonction <strong>roc</strong> du package <strong>pROC</strong> puis la fonction <strong>geom_roc</strong> du <strong>plotROC</strong>.</p>
+<div class="corR">
+<p>
+Avec <strong>pROC</strong> on peut comobiner les fonction <strong>roc</strong> et <strong>plot</strong>.
+</p>
+</div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="caret.html#cb25-1"></a><span class="kw">library</span>(pROC)</span>
+<span id="cb25-2"><a href="caret.html#cb25-2"></a>roc.obj &lt;-<span class="st"> </span><span class="kw">roc</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>df)</span>
+<span id="cb25-3"><a href="caret.html#cb25-3"></a><span class="kw">plot</span>(roc.obj[[<span class="dv">1</span>]]) </span>
+<span id="cb25-4"><a href="caret.html#cb25-4"></a><span class="kw">plot</span>(roc.obj[[<span class="dv">2</span>]],<span class="dt">add=</span><span class="ot">TRUE</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb25-5"><a href="caret.html#cb25-5"></a><span class="kw">plot</span>(roc.obj[[<span class="dv">3</span>]],<span class="dt">add=</span><span class="ot">TRUE</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb25-6"><a href="caret.html#cb25-6"></a><span class="kw">legend</span>(<span class="st">&quot;bottomright&quot;</span>,<span class="dt">legend=</span><span class="kw">c</span>(<span class="st">&quot;S1&quot;</span>,<span class="st">&quot;S2&quot;</span>,<span class="st">&quot;S3&quot;</span>),<span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;black&quot;</span>,<span class="st">&quot;red&quot;</span>,<span class="st">&quot;blue&quot;</span>),<span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">cex=</span><span class="fl">0.5</span>)</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="corR">
+<p>
+<strong>pROC</strong> possède également une fonction <strong>ggroc</strong> qui permet d’obtenir les courbes ROC en <strong>ggplot</strong>.
+</p>
+</div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="caret.html#cb26-1"></a>pROC<span class="op">::</span><span class="kw">ggroc</span>(roc.obj)<span class="op">+</span><span class="kw">labs</span>(<span class="dt">color=</span><span class="st">&quot;Score&quot;</span>)</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="corR">
+<p>
+Enfin <strong>plotROC</strong> possède le verbe <strong>geom_roc</strong> :
+</p>
+</div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="caret.html#cb27-1"></a><span class="kw">library</span>(plotROC)</span>
+<span id="cb27-2"><a href="caret.html#cb27-2"></a><span class="kw">ggplot</span>(df1)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">d=</span>Y,<span class="dt">m=</span>valeurs,<span class="dt">color=</span>Score)<span class="op">+</span><span class="kw">geom_roc</span>(<span class="dt">n.cuts=</span><span class="dv">0</span>)</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p></li>
+<li><p>Calculer les <code>AUC</code> à l’aide de la fonction <strong>auc</strong>.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="caret.html#cb28-1"></a><span class="kw">lapply</span>(roc.obj,auc)</span>
+<span id="cb28-2"><a href="caret.html#cb28-2"></a><span class="op">$</span>S1</span>
+<span id="cb28-3"><a href="caret.html#cb28-3"></a>Area under the curve<span class="op">:</span><span class="st"> </span><span class="fl">0.5785</span></span>
+<span id="cb28-4"><a href="caret.html#cb28-4"></a></span>
+<span id="cb28-5"><a href="caret.html#cb28-5"></a><span class="op">$</span>S2</span>
+<span id="cb28-6"><a href="caret.html#cb28-6"></a>Area under the curve<span class="op">:</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb28-7"><a href="caret.html#cb28-7"></a></span>
+<span id="cb28-8"><a href="caret.html#cb28-8"></a><span class="op">$</span>S3</span>
+<span id="cb28-9"><a href="caret.html#cb28-9"></a>Area under the curve<span class="op">:</span><span class="st"> </span><span class="fl">0.9148</span></span></code></pre></div>
+<div class="corR">
+<p>
+On peut aussi les obtenir avec la syntaxe <strong>dplyr</strong>
+</p>
+</div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="caret.html#cb29-1"></a>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Y=</span><span class="kw">as.factor</span>(Y)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize_at</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="op">~</span><span class="kw">auc</span>(Y,.)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">3</span>)</span>
+<span id="cb29-2"><a href="caret.html#cb29-2"></a>     S1 S2    S3</span>
+<span id="cb29-3"><a href="caret.html#cb29-3"></a><span class="dv">1</span> <span class="fl">0.579</span>  <span class="dv">1</span> <span class="fl">0.915</span></span>
+<span id="cb29-4"><a href="caret.html#cb29-4"></a>df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">Y=</span><span class="kw">as.factor</span>(Y)) <span class="op">%&gt;%</span><span class="st">  </span><span class="kw">group_by</span>(Score) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb29-5"><a href="caret.html#cb29-5"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">AUC=</span><span class="kw">round</span>(<span class="kw">as.numeric</span>(<span class="kw">auc</span>(Y,valeurs)),<span class="dv">3</span>)) </span>
+<span id="cb29-6"><a href="caret.html#cb29-6"></a><span class="co"># A tibble: 3 x 2</span></span>
+<span id="cb29-7"><a href="caret.html#cb29-7"></a>  Score   AUC</span>
+<span id="cb29-8"><a href="caret.html#cb29-8"></a><span class="op">*</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
+<span id="cb29-9"><a href="caret.html#cb29-9"></a><span class="dv">1</span> S1    <span class="fl">0.579</span></span>
+<span id="cb29-10"><a href="caret.html#cb29-10"></a><span class="dv">2</span> S2    <span class="dv">1</span>    </span>
+<span id="cb29-11"><a href="caret.html#cb29-11"></a><span class="dv">3</span> S3    <span class="fl">0.915</span></span></code></pre></div></li>
+<li><p>On rappelle que l’AUC vérifier la propriété suivante : si <span class="math inline">\((X_1,Y_1)\)</span> et <span class="math inline">\((X_2,Y_2)\)</span> sont indépendantes et de même loi que <span class="math inline">\((X,Y)\)</span>, on a
+<span class="math display">\[AUC(S)=\mathbf P(S(X_1)\geq S(X_2)|(Y_1,Y_2)=(1,-1)).\]</span>
+Utiliser cette propriété pour retrouver l’AUC de S3.</p>
+<div class="corR">
+<p>
+On peut estimer l’AUC en calculant, parmi les paires qui vérifient <span class="math inline"><span class="math inline">\((Y_1,Y_2)=(1,-1)\)</span></span>, la proportion de paires qui vérifient <span class="math inline"><span class="math inline">\(S(X_1)&lt;S(X_2)\)</span></span>. Si on note <span class="math display"><span class="math display">\[\mathcal I=\{(i,j),y_i=1,y_j=0\},\]</span></span> alors l’estimateur s’écrit <span class="math display"><span class="math display">\[\widehat{AUC}(S)=\frac{1}{|\mathcal I|}\sum_{(i,j)\in\mathcal I}\mathbf 1_{S(X_i)&gt;S(S_j)}.\]</span></span>
+</p>
+</div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="caret.html#cb30-1"></a>D0 &lt;-<span class="st"> </span><span class="kw">which</span>(df<span class="op">$</span>Y<span class="op">==</span><span class="dv">0</span>)</span>
+<span id="cb30-2"><a href="caret.html#cb30-2"></a>D1 &lt;-<span class="st"> </span><span class="kw">which</span>(df<span class="op">$</span>Y<span class="op">==</span><span class="dv">1</span>)</span>
+<span id="cb30-3"><a href="caret.html#cb30-3"></a>S30 &lt;-<span class="st"> </span>S3[D0]</span>
+<span id="cb30-4"><a href="caret.html#cb30-4"></a>S31 &lt;-<span class="st"> </span>S3[D1]</span>
+<span id="cb30-5"><a href="caret.html#cb30-5"></a>S3<span class="fl">.01</span> &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">S30=</span>S30,<span class="dt">S31=</span>S31)</span>
+<span id="cb30-6"><a href="caret.html#cb30-6"></a><span class="kw">mean</span>(S3<span class="fl">.01</span><span class="op">$</span>S31<span class="op">&gt;</span>S3<span class="fl">.01</span><span class="op">$</span>S30)</span>
+<span id="cb30-7"><a href="caret.html#cb30-7"></a>[<span class="dv">1</span>] <span class="fl">0.9147727</span></span></code></pre></div></li>
+</ol>
+</div>
+<div id="compléments" class="section level2">
+<h2><span class="header-section-number">1.5</span> Compléments</h2>
+<div id="calcul-parallèle" class="section level3">
+<h3><span class="header-section-number">1.5.1</span> Calcul parallèle</h3>
+<p>Les validations croisées peuvent se révéler coûteuses en temps de calcul. On utilise souvent des techniques de parallélisation pour améliorer les performances computationnelles. Ces techniques sont relativement facile à mettre en œuvre avec <strong>caret</strong>, on peut par exemple utiliser la librairie <strong>doParallel</strong> pour utiliser plusieurs cœurs de la machine. On compare les temps de calculs pour une même validation croisée 10 blocs exécutée avec 1 cœur et 4 cœurs :</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="caret.html#cb31-1"></a><span class="kw">library</span>(doParallel)</span>
+<span id="cb31-2"><a href="caret.html#cb31-2"></a>ctrl4 &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method=</span><span class="st">&quot;cv&quot;</span>,<span class="dt">index=</span>blocs)</span>
+<span id="cb31-3"><a href="caret.html#cb31-3"></a>cl &lt;-<span class="st"> </span><span class="kw">makePSOCKcluster</span>(<span class="dv">1</span>)</span>
+<span id="cb31-4"><a href="caret.html#cb31-4"></a><span class="kw">registerDoParallel</span>(cl)</span>
+<span id="cb31-5"><a href="caret.html#cb31-5"></a>temps1 &lt;-<span class="st"> </span><span class="kw">system.time</span>(ee3 &lt;-<span class="st"> </span><span class="kw">train</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>donnees,<span class="dt">method=</span><span class="st">&quot;knn&quot;</span>,</span>
+<span id="cb31-6"><a href="caret.html#cb31-6"></a>                                   <span class="dt">trControl=</span>ctrl4,<span class="dt">tuneGrid=</span>KK))</span>
+<span id="cb31-7"><a href="caret.html#cb31-7"></a><span class="kw">stopCluster</span>(cl)</span>
+<span id="cb31-8"><a href="caret.html#cb31-8"></a>cl &lt;-<span class="st"> </span><span class="kw">makePSOCKcluster</span>(<span class="dv">4</span>)</span>
+<span id="cb31-9"><a href="caret.html#cb31-9"></a><span class="kw">registerDoParallel</span>(cl)</span>
+<span id="cb31-10"><a href="caret.html#cb31-10"></a>temps4 &lt;-<span class="st"> </span><span class="kw">system.time</span>(ee3 &lt;-<span class="st"> </span><span class="kw">train</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>donnees,<span class="dt">method=</span><span class="st">&quot;knn&quot;</span>,</span>
+<span id="cb31-11"><a href="caret.html#cb31-11"></a>                                   <span class="dt">trControl=</span>ctrl4,<span class="dt">tuneGrid=</span>KK))</span>
+<span id="cb31-12"><a href="caret.html#cb31-12"></a><span class="kw">stopCluster</span>(cl)</span></code></pre></div>
+<p>On compare ces deux temps de calcul</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="caret.html#cb32-1"></a>temps1</span>
+<span id="cb32-2"><a href="caret.html#cb32-2"></a>   user  system elapsed </span>
+<span id="cb32-3"><a href="caret.html#cb32-3"></a> <span class="fl">12.985</span>   <span class="fl">0.062</span>  <span class="fl">13.124</span> </span>
+<span id="cb32-4"><a href="caret.html#cb32-4"></a>temps4</span>
+<span id="cb32-5"><a href="caret.html#cb32-5"></a>   user  system elapsed </span>
+<span id="cb32-6"><a href="caret.html#cb32-6"></a>  <span class="fl">0.625</span>   <span class="fl">0.018</span>   <span class="fl">5.935</span> </span></code></pre></div>
+<p>Sans surprise, l’exécution est beaucoup plus rapide avec 4 cœurs.</p>
+</div>
+<div id="répéter-les-méthodes-de-rééchantillonnage" class="section level3">
+<h3><span class="header-section-number">1.5.2</span> Répéter les méthodes de rééchantillonnage</h3>
+<p>Les méthodes d’estimation du risque présentées dans cette partie (hold out, validation croisée) sont basées sur du <strong>rééchantillonnage</strong>. Elles peuvent se révéler sensible à la manière de couper l’échantillon. C’est pourquoi il est recommandé de les <strong>répéter plusieurs fois</strong> et de moyenner les erreurs sur les répétitions. Ces répétitions sont très faciles à mettre en œuvre avec <strong>caret</strong>, par exemple pour</p>
+<ul>
+<li><p>la validation hold out on utilise l’option <code>number</code>:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="caret.html#cb33-1"></a>ctrl &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method=</span><span class="st">&quot;LGOCV&quot;</span>,<span class="dt">number=</span><span class="dv">5</span>)</span>
+<span id="cb33-2"><a href="caret.html#cb33-2"></a>caret.ho.rep &lt;-<span class="st"> </span><span class="kw">train</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>donnees,<span class="dt">method=</span><span class="st">&quot;knn&quot;</span>,<span class="dt">trControl=</span>ctrl,<span class="dt">tuneGrid=</span>KK)</span></code></pre></div></li>
+<li><p>la validation croisée on utilise les options <code>repeatedcv</code> et <code>repeats</code> :</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="caret.html#cb34-1"></a>ctrl &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method=</span><span class="st">&quot;repeatedcv&quot;</span>,<span class="dt">repeats=</span><span class="dv">5</span>)</span>
+<span id="cb34-2"><a href="caret.html#cb34-2"></a>caret.ho.rep &lt;-<span class="st"> </span><span class="kw">train</span>(Y<span class="op">~</span>.,<span class="dt">data=</span>donnees,<span class="dt">method=</span><span class="st">&quot;knn&quot;</span>,<span class="dt">trControl=</span>ctrl,<span class="dt">tuneGrid=</span>KK)</span></code></pre></div></li>
+</ul>
+</div>
+<div id="modifier-le-risque" class="section level3">
+<h3><span class="header-section-number">1.5.3</span> Modifier le risque</h3>
+<p>Enfin nous avons uniquement considéré l’erreur de classification. Il est bien entendu possible d’utiliser d’autres <strong>risques</strong> pour évaluer les performances. C’est l’option <code>metric</code> de la fonction <strong>train</strong> qui permet généralement de spécifier le risque, si on est par exemple intéressé par l’<strong>aire sur la courbe ROC (AUC)</strong> on fera :</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="caret.html#cb35-1"></a>donnees1 &lt;-<span class="st"> </span>donnees</span>
+<span id="cb35-2"><a href="caret.html#cb35-2"></a><span class="kw">names</span>(donnees1)[<span class="dv">3</span>] &lt;-<span class="st"> &quot;Class&quot;</span></span>
+<span id="cb35-3"><a href="caret.html#cb35-3"></a><span class="kw">levels</span>(donnees1<span class="op">$</span>Class) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;G0&quot;</span>,<span class="st">&quot;G1&quot;</span>)</span>
+<span id="cb35-4"><a href="caret.html#cb35-4"></a>ctrl &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method=</span><span class="st">&quot;LGOCV&quot;</span>,<span class="dt">number=</span><span class="dv">1</span>,<span class="dt">classProbs=</span><span class="ot">TRUE</span>,<span class="dt">summary=</span>twoClassSummary)</span>
+<span id="cb35-5"><a href="caret.html#cb35-5"></a>caret.auc &lt;-<span class="st"> </span><span class="kw">train</span>(Class<span class="op">~</span>.,<span class="dt">data=</span>donnees1,<span class="dt">method=</span><span class="st">&quot;knn&quot;</span>,<span class="dt">trControl=</span>ctrl,</span>
+<span id="cb35-6"><a href="caret.html#cb35-6"></a>                   <span class="dt">tuneGrid=</span>KK,<span class="dt">metric=</span><span class="st">&quot;ROC&quot;</span>)</span></code></pre></div>
+<p>On obtient ici pour chaque valeur de <span class="math inline">\(k\)</span>, l’AUC ainsi que les sensibilité et spécificité :</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="caret.html#cb36-1"></a>caret.auc</span>
+<span id="cb36-2"><a href="caret.html#cb36-2"></a>k<span class="op">-</span>Nearest Neighbors </span>
+<span id="cb36-3"><a href="caret.html#cb36-3"></a></span>
+<span id="cb36-4"><a href="caret.html#cb36-4"></a><span class="dv">2000</span> samples</span>
+<span id="cb36-5"><a href="caret.html#cb36-5"></a>   <span class="dv">2</span> predictor</span>
+<span id="cb36-6"><a href="caret.html#cb36-6"></a>   <span class="dv">2</span> classes<span class="op">:</span><span class="st"> &#39;G0&#39;</span>, <span class="st">&#39;G1&#39;</span> </span>
+<span id="cb36-7"><a href="caret.html#cb36-7"></a></span>
+<span id="cb36-8"><a href="caret.html#cb36-8"></a>No pre<span class="op">-</span>processing</span>
+<span id="cb36-9"><a href="caret.html#cb36-9"></a>Resampling<span class="op">:</span><span class="st"> </span>Repeated Train<span class="op">/</span>Test Splits <span class="kw">Estimated</span> (<span class="dv">1</span> reps, <span class="dv">75</span>%) </span>
+<span id="cb36-10"><a href="caret.html#cb36-10"></a>Summary of sample sizes<span class="op">:</span><span class="st"> </span><span class="dv">1500</span> </span>
+<span id="cb36-11"><a href="caret.html#cb36-11"></a>Resampling results across tuning parameters<span class="op">:</span></span>
+<span id="cb36-12"><a href="caret.html#cb36-12"></a></span>
+<span id="cb36-13"><a href="caret.html#cb36-13"></a><span class="st">  </span>k    ROC        Sens       Spec     </span>
+<span id="cb36-14"><a href="caret.html#cb36-14"></a>    <span class="dv">1</span>  <span class="fl">0.6338315</span>  <span class="fl">0.5937500</span>  <span class="fl">0.6739130</span></span>
+<span id="cb36-15"><a href="caret.html#cb36-15"></a>   <span class="dv">21</span>  <span class="fl">0.7488031</span>  <span class="fl">0.6473214</span>  <span class="fl">0.8152174</span></span>
+<span id="cb36-16"><a href="caret.html#cb36-16"></a>   <span class="dv">41</span>  <span class="fl">0.7599072</span>  <span class="fl">0.6696429</span>  <span class="fl">0.8115942</span></span>
+<span id="cb36-17"><a href="caret.html#cb36-17"></a>   <span class="dv">61</span>  <span class="fl">0.7554590</span>  <span class="fl">0.6785714</span>  <span class="fl">0.8188406</span></span>
+<span id="cb36-18"><a href="caret.html#cb36-18"></a>   <span class="dv">81</span>  <span class="fl">0.7586698</span>  <span class="fl">0.6875000</span>  <span class="fl">0.8224638</span></span>
+<span id="cb36-19"><a href="caret.html#cb36-19"></a>  <span class="dv">101</span>  <span class="fl">0.7628025</span>  <span class="fl">0.6785714</span>  <span class="fl">0.8333333</span></span>
+<span id="cb36-20"><a href="caret.html#cb36-20"></a>  <span class="dv">121</span>  <span class="fl">0.7603196</span>  <span class="fl">0.6830357</span>  <span class="fl">0.8333333</span></span>
+<span id="cb36-21"><a href="caret.html#cb36-21"></a>  <span class="dv">141</span>  <span class="fl">0.7605703</span>  <span class="fl">0.6830357</span>  <span class="fl">0.8297101</span></span>
+<span id="cb36-22"><a href="caret.html#cb36-22"></a>  <span class="dv">161</span>  <span class="fl">0.7625194</span>  <span class="fl">0.6875000</span>  <span class="fl">0.8224638</span></span>
+<span id="cb36-23"><a href="caret.html#cb36-23"></a>  <span class="dv">181</span>  <span class="fl">0.7616945</span>  <span class="fl">0.6875000</span>  <span class="fl">0.8188406</span></span>
+<span id="cb36-24"><a href="caret.html#cb36-24"></a>  <span class="dv">201</span>  <span class="fl">0.7609990</span>  <span class="fl">0.6830357</span>  <span class="fl">0.8188406</span></span>
+<span id="cb36-25"><a href="caret.html#cb36-25"></a>  <span class="dv">221</span>  <span class="fl">0.7582411</span>  <span class="fl">0.6696429</span>  <span class="fl">0.8188406</span></span>
+<span id="cb36-26"><a href="caret.html#cb36-26"></a>  <span class="dv">241</span>  <span class="fl">0.7567854</span>  <span class="fl">0.6607143</span>  <span class="fl">0.8224638</span></span>
+<span id="cb36-27"><a href="caret.html#cb36-27"></a>  <span class="dv">261</span>  <span class="fl">0.7563406</span>  <span class="fl">0.6473214</span>  <span class="fl">0.8188406</span></span>
+<span id="cb36-28"><a href="caret.html#cb36-28"></a>  <span class="dv">281</span>  <span class="fl">0.7546260</span>  <span class="fl">0.6383929</span>  <span class="fl">0.8297101</span></span>
+<span id="cb36-29"><a href="caret.html#cb36-29"></a>  <span class="dv">301</span>  <span class="fl">0.7530328</span>  <span class="fl">0.6294643</span>  <span class="fl">0.8333333</span></span>
+<span id="cb36-30"><a href="caret.html#cb36-30"></a>  <span class="dv">321</span>  <span class="fl">0.7554914</span>  <span class="fl">0.6205357</span>  <span class="fl">0.8297101</span></span>
+<span id="cb36-31"><a href="caret.html#cb36-31"></a>  <span class="dv">341</span>  <span class="fl">0.7530166</span>  <span class="fl">0.6205357</span>  <span class="fl">0.8369565</span></span>
+<span id="cb36-32"><a href="caret.html#cb36-32"></a>  <span class="dv">361</span>  <span class="fl">0.7518925</span>  <span class="fl">0.5848214</span>  <span class="fl">0.8405797</span></span>
+<span id="cb36-33"><a href="caret.html#cb36-33"></a>  <span class="dv">381</span>  <span class="fl">0.7500970</span>  <span class="fl">0.5357143</span>  <span class="fl">0.8550725</span></span>
+<span id="cb36-34"><a href="caret.html#cb36-34"></a>  <span class="dv">401</span>  <span class="fl">0.7472179</span>  <span class="fl">0.5133929</span>  <span class="fl">0.8586957</span></span>
+<span id="cb36-35"><a href="caret.html#cb36-35"></a>  <span class="dv">421</span>  <span class="fl">0.7472907</span>  <span class="fl">0.4866071</span>  <span class="fl">0.8695652</span></span>
+<span id="cb36-36"><a href="caret.html#cb36-36"></a>  <span class="dv">441</span>  <span class="fl">0.7432550</span>  <span class="fl">0.4732143</span>  <span class="fl">0.8768116</span></span>
+<span id="cb36-37"><a href="caret.html#cb36-37"></a>  <span class="dv">461</span>  <span class="fl">0.7429720</span>  <span class="fl">0.4598214</span>  <span class="fl">0.8840580</span></span>
+<span id="cb36-38"><a href="caret.html#cb36-38"></a>  <span class="dv">481</span>  <span class="fl">0.7404487</span>  <span class="fl">0.4241071</span>  <span class="fl">0.8876812</span></span>
+<span id="cb36-39"><a href="caret.html#cb36-39"></a></span>
+<span id="cb36-40"><a href="caret.html#cb36-40"></a>ROC was used to select the optimal model using the</span>
+<span id="cb36-41"><a href="caret.html#cb36-41"></a> largest value.</span>
+<span id="cb36-42"><a href="caret.html#cb36-42"></a>The final value used <span class="cf">for</span> the model was k =<span class="st"> </span><span class="fl">101.</span></span></code></pre></div>
+<p>Et on choisira la valeur de <span class="math inline">\(k\)</span> qui maximise l’AUC :</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="caret.html#cb37-1"></a>caret.auc<span class="op">$</span>bestTune</span>
+<span id="cb37-2"><a href="caret.html#cb37-2"></a>    k</span>
+<span id="cb37-3"><a href="caret.html#cb37-3"></a><span class="dv">6</span> <span class="dv">101</span></span></code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lda.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["TUTO_ML.pdf"],
+"toc": {
+"collapse": "subsection",
+"sharing": {
+"facebook": true,
+"github": true,
+"twitter": true
+}
+},
+"highlight": "tango"
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
