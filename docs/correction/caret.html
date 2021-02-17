@@ -563,7 +563,7 @@ On peut aussi les obtenir avec la syntaxe <strong>dplyr</strong>
 Utiliser cette propriété pour retrouver l’AUC de S3.</p>
 <div class="corR">
 <p>
-On peut estimer l’AUC en calculant, parmi les paires qui vérifient <span class="math inline"><span class="math inline">\((Y,Y′)=(0,1)\)</span></span>, la proportion de paires qui vérifient <span class="math inline"><span class="math inline">\(S(X)&lt;S(X′)\)</span></span>. Si on note <span class="math display"><span class="math display">\[\mathcal I=\{(i,j),y_i=1,y_j=0\},\]</span></span> alors l’estimateur s’écrit <span class="math display"><span class="math display">\[\widehat{AUC}(S)=\frac{1}{|\mathcal I|}\sum_{(i,j)\in\mathcal I}\mathbf 1_{S(X_i)&gt;S(S_j)}.\]</span></span>
+On peut estimer l’AUC en calculant, parmi les paires qui vérifient <span class="math inline"><span class="math inline">\((Y_1,Y_2)=(1,-1)\)</span></span>, la proportion de paires qui vérifient <span class="math inline"><span class="math inline">\(S(X_1)&lt;S(X_2)\)</span></span>. Si on note <span class="math display"><span class="math display">\[\mathcal I=\{(i,j),y_i=1,y_j=0\},\]</span></span> alors l’estimateur s’écrit <span class="math display"><span class="math display">\[\widehat{AUC}(S)=\frac{1}{|\mathcal I|}\sum_{(i,j)\in\mathcal I}\mathbf 1_{S(X_i)&gt;S(S_j)}.\]</span></span>
 </p>
 </div>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="caret.html#cb30-1"></a>D0 &lt;-<span class="st"> </span><span class="kw">which</span>(df<span class="op">$</span>Y<span class="op">==</span><span class="dv">0</span>)</span>
