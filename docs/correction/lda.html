@@ -232,7 +232,7 @@ Le lien entre ces deux approches est établi dans l’exercice <a href="lda.html
 <div id="prise-en-main-lda-et-qda-sur-les-iris-de-fisher" class="section level2">
 <h2><span class="header-section-number">2.1</span> Prise en main : LDA et QDA sur les iris de Fisher</h2>
 <p>On considère les données sur les iris de Fisher.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="lda.html#cb38-1"></a><span class="kw">data</span>(iris)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="lda.html#cb18-1"></a><span class="kw">data</span>(iris)</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>A l’aide de la fonction <strong>PCA</strong> du package <strong>FactoMineR</strong>, réaliser une ACP en utilisant comme variables actives les 4 variables quantitatives du jeu de données. On mettra la variable <code>Species</code> comme variable qualitative supplémentaire (option <code>quali.sup</code>).</p></li>
 <li><p>Représenter le nuage des individus sur les 2 premiers axes de l’ACP en utilisant une couleur différente pour chaque espèce d’iris (option <code>habillage</code>).</p></li>
@@ -241,30 +241,30 @@ Le lien entre ces deux approches est établi dans l’exercice <a href="lda.html
 <li><p>Rappeler comment sont obtenues les coordonnées des individus sur chaque axe. En déduire une interprétation de la position des individus.</p></li>
 <li><p>Comparer les représentations des questions 2 et 4.</p></li>
 <li><p>Expliquer les sorties des commandes suivantes (<code>mod.lda</code> est l’objet construit avec la fonction <strong>lda</strong>).</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="lda.html#cb39-1"></a>score &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.lda)<span class="op">$</span>x</span>
-<span id="cb39-2"><a href="lda.html#cb39-2"></a><span class="kw">ldahist</span>(score[,<span class="dv">1</span>],iris[,<span class="dv">5</span>])    </span>
-<span id="cb39-3"><a href="lda.html#cb39-3"></a><span class="kw">ldahist</span>(score[,<span class="dv">2</span>],iris[,<span class="dv">5</span>])    </span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="lda.html#cb19-1"></a>score &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.lda)<span class="op">$</span>x</span>
+<span id="cb19-2"><a href="lda.html#cb19-2"></a><span class="kw">ldahist</span>(score[,<span class="dv">1</span>],iris[,<span class="dv">5</span>])    </span>
+<span id="cb19-3"><a href="lda.html#cb19-3"></a><span class="kw">ldahist</span>(score[,<span class="dv">2</span>],iris[,<span class="dv">5</span>])    </span></code></pre></div>
 <p>````</p></li>
 <li><p>Exécuter et analyser les sorties de la commande</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="lda.html#cb40-1"></a>mod.lda2 &lt;-<span class="st"> </span><span class="kw">lda</span>(Species<span class="op">~</span>.,<span class="dt">data=</span>iris,<span class="dt">CV=</span><span class="ot">TRUE</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="lda.html#cb20-1"></a>mod.lda2 &lt;-<span class="st"> </span><span class="kw">lda</span>(Species<span class="op">~</span>.,<span class="dt">data=</span>iris,<span class="dt">CV=</span><span class="ot">TRUE</span>)</span></code></pre></div></li>
 <li><p>Comparer, en terme d’erreur de prévision, les performances de LDA et QDA.</p></li>
 </ol>
 </div>
 <div id="un-cas-avec-beaucoup-de-classes" class="section level2">
 <h2><span class="header-section-number">2.2</span> Un cas avec beaucoup de classes</h2>
 <p>On considère les jeux de données <strong>Vowel</strong> (training et test) qui se trouvent à cet <a href="https://statweb.stanford.edu/~hastie/ElemStatLearn/">url</a>. On peut les importer avec</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="lda.html#cb41-1"></a>dapp &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://web.stanford.edu/~hastie/ElemStatLearn/datasets/vowel.train&quot;</span>)[,<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb41-2"><a href="lda.html#cb41-2"></a>dtest &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://web.stanford.edu/~hastie/ElemStatLearn/datasets/vowel.test&quot;</span>)[,<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="lda.html#cb21-1"></a>dapp &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://web.stanford.edu/~hastie/ElemStatLearn/datasets/vowel.train&quot;</span>)[,<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb21-2"><a href="lda.html#cb21-2"></a>dtest &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://web.stanford.edu/~hastie/ElemStatLearn/datasets/vowel.test&quot;</span>)[,<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>Expliquer le problème.</p></li>
 <li><p>Effectuer une analyse discriminante linéaire (uniquement avec les données d’apprentissage) et visualiser les individus sur les 2 premiers axes de l’analyse discriminante. On pourra utiliser <strong>predict</strong>.</p></li>
 <li><p>La fonction suivante permet de choisir les axes à visualiser, ainsi que les centres de gravité projetés des groupes.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="lda.html#cb42-1"></a>repres_axes &lt;-<span class="st"> </span><span class="cf">function</span>(prev,cdg,<span class="dt">axe1=</span><span class="dv">1</span>,<span class="dt">axe2=</span><span class="dv">2</span>){</span>
-<span id="cb42-2"><a href="lda.html#cb42-2"></a>  cdg &lt;-<span class="st"> </span>prev <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(y) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_all</span>(mean)</span>
-<span id="cb42-3"><a href="lda.html#cb42-3"></a>  nom1 &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;LD&quot;</span>,<span class="kw">as.character</span>(axe1),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb42-4"><a href="lda.html#cb42-4"></a>  nom2 &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;LD&quot;</span>,<span class="kw">as.character</span>(axe2),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb42-5"><a href="lda.html#cb42-5"></a>  <span class="kw">ggplot</span>(prev)<span class="op">+</span><span class="kw">aes_string</span>(<span class="dt">x=</span><span class="kw">as.name</span>(nom1),<span class="dt">y=</span><span class="kw">as.name</span>(nom2))<span class="op">+</span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>y))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">data=</span>cdg,<span class="kw">aes</span>(<span class="dt">color=</span>y),<span class="dt">shape=</span><span class="dv">17</span>,<span class="dt">size=</span><span class="dv">4</span>)<span class="op">+</span><span class="kw">theme_classic</span>()</span>
-<span id="cb42-6"><a href="lda.html#cb42-6"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="lda.html#cb22-1"></a>repres_axes &lt;-<span class="st"> </span><span class="cf">function</span>(prev,cdg,<span class="dt">axe1=</span><span class="dv">1</span>,<span class="dt">axe2=</span><span class="dv">2</span>){</span>
+<span id="cb22-2"><a href="lda.html#cb22-2"></a>  cdg &lt;-<span class="st"> </span>prev <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(y) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_all</span>(mean)</span>
+<span id="cb22-3"><a href="lda.html#cb22-3"></a>  nom1 &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;LD&quot;</span>,<span class="kw">as.character</span>(axe1),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb22-4"><a href="lda.html#cb22-4"></a>  nom2 &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;LD&quot;</span>,<span class="kw">as.character</span>(axe2),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb22-5"><a href="lda.html#cb22-5"></a>  <span class="kw">ggplot</span>(prev)<span class="op">+</span><span class="kw">aes_string</span>(<span class="dt">x=</span><span class="kw">as.name</span>(nom1),<span class="dt">y=</span><span class="kw">as.name</span>(nom2))<span class="op">+</span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>y))<span class="op">+</span><span class="kw">geom_point</span>(<span class="dt">data=</span>cdg,<span class="kw">aes</span>(<span class="dt">color=</span>y),<span class="dt">shape=</span><span class="dv">17</span>,<span class="dt">size=</span><span class="dv">4</span>)<span class="op">+</span><span class="kw">theme_classic</span>()</span>
+<span id="cb22-6"><a href="lda.html#cb22-6"></a>}</span></code></pre></div>
 <p>Étudier la pertinence des axes.</p></li>
 <li><p>Représenter les individus sur le premier plan factoriel de l’ACP, on utilisera une couleur différente pour chaque groupe. On pourra utiliser le package <strong>FactoMineR</strong>.</p></li>
 <li><p>Comparer cette projection avec celle obtenue par l’analyse discriminante linéaire.</p></li>
@@ -276,9 +276,9 @@ Le lien entre ces deux approches est établi dans l’exercice <a href="lda.html
 <div id="grande-dimension-reconnaissance-de-phonèmes" class="section level2">
 <h2><span class="header-section-number">2.3</span> Grande dimension : reconnaissance de phonèmes</h2>
 <p>On considère le jeu de données <strong>phoneme</strong> téléchargeable à l’url <a href="https://github.com/cran/ElemStatLearn/blob/master/data/phoneme.RData">https://github.com/cran/ElemStatLearn/blob/master/data/phoneme.RData</a>.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="lda.html#cb43-1"></a><span class="kw">load</span>(<span class="st">&quot;data/phoneme.RData&quot;</span>)</span>
-<span id="cb43-2"><a href="lda.html#cb43-2"></a><span class="kw">data</span>(phoneme)</span>
-<span id="cb43-3"><a href="lda.html#cb43-3"></a>donnees &lt;-<span class="st"> </span>phoneme[,<span class="op">-</span><span class="dv">258</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="lda.html#cb23-1"></a><span class="kw">load</span>(<span class="st">&quot;data/phoneme.RData&quot;</span>)</span>
+<span id="cb23-2"><a href="lda.html#cb23-2"></a><span class="kw">data</span>(phoneme)</span>
+<span id="cb23-3"><a href="lda.html#cb23-3"></a>donnees &lt;-<span class="st"> </span>phoneme[,<span class="op">-</span><span class="dv">258</span>]</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>Expliquer le problème et représenter pour chaque groupe la courbe moyenne.</p></li>
 <li><p>Séparer les données en un échantillon d’apprentissage de taille 3000 et un échantillon test de taille 1509.</p></li>
