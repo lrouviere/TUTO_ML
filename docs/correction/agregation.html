@@ -24,7 +24,7 @@
 <meta name="author" content="Laurent Rouvière" />
 
 
-<meta name="date" content="2021-02-17" />
+<meta name="date" content="2021-03-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   
 <link rel="prev" href="SVM.html"/>
 <link rel="next" href="deep.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,22 +51,21 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -85,7 +85,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -136,36 +136,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Présentation</a></li>
 <li class="part"><span><b>I Algorithmes de référence</b></span></li>
-<li class="chapter" data-level="1" data-path="caret.html"><a href="caret.html"><i class="fa fa-check"></i><b>1</b> Estimation du risque avec caret</a><ul>
+<li class="chapter" data-level="1" data-path="caret.html"><a href="caret.html"><i class="fa fa-check"></i><b>1</b> Estimation du risque avec caret</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="caret.html"><a href="caret.html#notion-de-risque-en-apprentissage-supervisé"><i class="fa fa-check"></i><b>1.1</b> Notion de risque en apprentissage supervisé</a></li>
 <li class="chapter" data-level="1.2" data-path="caret.html"><a href="caret.html#la-validation-croisée"><i class="fa fa-check"></i><b>1.2</b> La validation croisée</a></li>
 <li class="chapter" data-level="1.3" data-path="caret.html"><a href="caret.html#le-package-caret"><i class="fa fa-check"></i><b>1.3</b> Le package caret</a></li>
 <li class="chapter" data-level="1.4" data-path="caret.html"><a href="caret.html#la-courbe-roc"><i class="fa fa-check"></i><b>1.4</b> La courbe ROC</a></li>
-<li class="chapter" data-level="1.5" data-path="caret.html"><a href="caret.html#compléments"><i class="fa fa-check"></i><b>1.5</b> Compléments</a><ul>
+<li class="chapter" data-level="1.5" data-path="caret.html"><a href="caret.html#compléments"><i class="fa fa-check"></i><b>1.5</b> Compléments</a>
+<ul>
 <li class="chapter" data-level="1.5.1" data-path="caret.html"><a href="caret.html#calcul-parallèle"><i class="fa fa-check"></i><b>1.5.1</b> Calcul parallèle</a></li>
 <li class="chapter" data-level="1.5.2" data-path="caret.html"><a href="caret.html#répéter-les-méthodes-de-rééchantillonnage"><i class="fa fa-check"></i><b>1.5.2</b> Répéter les méthodes de rééchantillonnage</a></li>
 <li class="chapter" data-level="1.5.3" data-path="caret.html"><a href="caret.html#modifier-le-risque"><i class="fa fa-check"></i><b>1.5.3</b> Modifier le risque</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="lda.html"><a href="lda.html"><i class="fa fa-check"></i><b>2</b> Analyse discriminante linéaire</a><ul>
+<li class="chapter" data-level="2" data-path="lda.html"><a href="lda.html"><i class="fa fa-check"></i><b>2</b> Analyse discriminante linéaire</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="lda.html"><a href="lda.html#prise-en-main-lda-et-qda-sur-les-iris-de-fisher"><i class="fa fa-check"></i><b>2.1</b> Prise en main : LDA et QDA sur les iris de Fisher</a></li>
 <li class="chapter" data-level="2.2" data-path="lda.html"><a href="lda.html#un-cas-avec-beaucoup-de-classes"><i class="fa fa-check"></i><b>2.2</b> Un cas avec beaucoup de classes</a></li>
 <li class="chapter" data-level="2.3" data-path="lda.html"><a href="lda.html#grande-dimension-reconnaissance-de-phonèmes"><i class="fa fa-check"></i><b>2.3</b> Grande dimension : reconnaissance de phonèmes</a></li>
 <li class="chapter" data-level="2.4" data-path="lda.html"><a href="lda.html#exercices"><i class="fa fa-check"></i><b>2.4</b> Exercices</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="arbres.html"><a href="arbres.html"><i class="fa fa-check"></i><b>3</b> Arbres</a><ul>
-<li class="chapter" data-level="3.1" data-path="arbres.html"><a href="arbres.html#coupures-cart-en-fonction-de-la-nature-des-variables"><i class="fa fa-check"></i><b>3.1</b> Coupures CART en fonction de la nature des variables</a><ul>
+<li class="chapter" data-level="3" data-path="arbres.html"><a href="arbres.html"><i class="fa fa-check"></i><b>3</b> Arbres</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="arbres.html"><a href="arbres.html#coupures-cart-en-fonction-de-la-nature-des-variables"><i class="fa fa-check"></i><b>3.1</b> Coupures CART en fonction de la nature des variables</a>
+<ul>
 <li class="chapter" data-level="3.1.1" data-path="arbres.html"><a href="arbres.html#arbres-de-régression"><i class="fa fa-check"></i><b>3.1.1</b> Arbres de régression</a></li>
 <li class="chapter" data-level="3.1.2" data-path="arbres.html"><a href="arbres.html#arbres-de-classification"><i class="fa fa-check"></i><b>3.1.2</b> Arbres de classification</a></li>
 <li class="chapter" data-level="3.1.3" data-path="arbres.html"><a href="arbres.html#entrée-qualitative"><i class="fa fa-check"></i><b>3.1.3</b> Entrée qualitative</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="arbres.html"><a href="arbres.html#élagage"><i class="fa fa-check"></i><b>3.2</b> Élagage</a><ul>
+<li class="chapter" data-level="3.2" data-path="arbres.html"><a href="arbres.html#élagage"><i class="fa fa-check"></i><b>3.2</b> Élagage</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="arbres.html"><a href="arbres.html#élagage-pour-un-problème-de-régression"><i class="fa fa-check"></i><b>3.2.1</b> Élagage pour un problème de régression</a></li>
 <li class="chapter" data-level="3.2.2" data-path="arbres.html"><a href="arbres.html#élagage-en-classification-binaire-et-matrice-de-coût"><i class="fa fa-check"></i><b>3.2.2</b> Élagage en classification binaire et matrice de coût</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>II Algorithmes avancés</b></span></li>
-<li class="chapter" data-level="4" data-path="SVM.html"><a href="SVM.html"><i class="fa fa-check"></i><b>4</b> Support Vector Machine (SVM)</a><ul>
+<li class="chapter" data-level="4" data-path="SVM.html"><a href="SVM.html"><i class="fa fa-check"></i><b>4</b> Support Vector Machine (SVM)</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="SVM.html"><a href="SVM.html#cas-séparable"><i class="fa fa-check"></i><b>4.1</b> Cas séparable</a></li>
 <li class="chapter" data-level="4.2" data-path="SVM.html"><a href="SVM.html#cas-non-séparable"><i class="fa fa-check"></i><b>4.2</b> Cas non séparable</a></li>
 <li class="chapter" data-level="4.3" data-path="SVM.html"><a href="SVM.html#lastuce-du-noyau"><i class="fa fa-check"></i><b>4.3</b> L’astuce du noyau</a></li>
@@ -173,16 +180,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5" data-path="SVM.html"><a href="SVM.html#svm-sur-les-données-spam"><i class="fa fa-check"></i><b>4.5</b> SVM sur les données spam</a></li>
 <li class="chapter" data-level="4.6" data-path="SVM.html"><a href="SVM.html#exercices-1"><i class="fa fa-check"></i><b>4.6</b> Exercices</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="agregation.html"><a href="agregation.html"><i class="fa fa-check"></i><b>5</b> Agrégation : forêts aléatoires et gradient boosting</a><ul>
+<li class="chapter" data-level="5" data-path="agregation.html"><a href="agregation.html"><i class="fa fa-check"></i><b>5</b> Agrégation : forêts aléatoires et gradient boosting</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="agregation.html"><a href="agregation.html#forets"><i class="fa fa-check"></i><b>5.1</b> Forêts aléatoires</a></li>
-<li class="chapter" data-level="5.2" data-path="agregation.html"><a href="agregation.html#boosting"><i class="fa fa-check"></i><b>5.2</b> Gradient boosting</a><ul>
+<li class="chapter" data-level="5.2" data-path="agregation.html"><a href="agregation.html#boosting"><i class="fa fa-check"></i><b>5.2</b> Gradient boosting</a>
+<ul>
 <li class="chapter" data-level="5.2.1" data-path="agregation.html"><a href="agregation.html#un-exemple-simple-en-régression"><i class="fa fa-check"></i><b>5.2.1</b> Un exemple simple en régression</a></li>
 <li class="chapter" data-level="5.2.2" data-path="agregation.html"><a href="agregation.html#adaboost-et-logitboost-pour-la-classification-binaire."><i class="fa fa-check"></i><b>5.2.2</b> Adaboost et logitboost pour la classification binaire.</a></li>
 <li class="chapter" data-level="5.2.3" data-path="agregation.html"><a href="agregation.html#exo:grad-boost"><i class="fa fa-check"></i><b>5.2.3</b> Exercices</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="deep.html"><a href="deep.html"><i class="fa fa-check"></i><b>6</b> Réseaux de neurones avec Keras</a></li>
-<li class="chapter" data-level="7" data-path="dondes.html"><a href="dondes.html"><i class="fa fa-check"></i><b>7</b> Données déséquilibrées</a><ul>
+<li class="chapter" data-level="7" data-path="dondes.html"><a href="dondes.html"><i class="fa fa-check"></i><b>7</b> Données déséquilibrées</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="dondes.html"><a href="dondes.html#critères-de-performance-pour-données-déséquilibrées"><i class="fa fa-check"></i><b>7.1</b> Critères de performance pour données déséquilibrées</a></li>
 <li class="chapter" data-level="7.2" data-path="dondes.html"><a href="dondes.html#ré-équilibrage"><i class="fa fa-check"></i><b>7.2</b> Ré-équilibrage</a></li>
 <li class="chapter" data-level="7.3" data-path="dondes.html"><a href="dondes.html#exercices-supplémentaires"><i class="fa fa-check"></i><b>7.3</b> Exercices supplémentaires</a></li>
@@ -209,12 +219,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="agregation" class="section level1">
+<div id="agregation" class="section level1" number="5">
 <h1><span class="header-section-number">Chapitre 5</span> Agrégation : forêts aléatoires et gradient boosting</h1>
 <p>Les méthodes par arbres présentées précédemment sont des algorithmes qui possèdent tout un tas de qualités (facile à mettre en œuvre, interprétable…). Ce sont néanmoins rarement les algorithmes qui se révèlent les plus performants. Les méthodes d’agrégation d’arbres présentées dans cette partie sont souvent beaucoup plus pertinentes, notamment en terme de qualité de prédiction. Elles consistent à construire un très grand nombre d’arbres “simples” : <span class="math inline">\(g_1,\dots,g_B\)</span> et à les agréger en faisant la moyenne :
 <span class="math display">\[\frac{1}{B}\sum_{k=1}^Bg_k(x).\]</span>
-Les forêts aléatoires <span class="citation">(Breiman <a href="#ref-bre01" role="doc-biblioref">2001</a>)</span> et le gradient boosting <span class="citation">(Friedman <a href="#ref-fri01" role="doc-biblioref">2001</a>)</span> utilisent ce procédé d’agrégation.</p>
-<div id="forets" class="section level2">
+Les forêts aléatoires <span class="citation">(<a href="références.html#ref-bre01" role="doc-biblioref">Breiman 2001</a>)</span> et le gradient boosting <span class="citation">(<a href="références.html#ref-fri01" role="doc-biblioref">Friedman 2001</a>)</span> utilisent ce procédé d’agrégation.</p>
+<div id="forets" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> Forêts aléatoires</h2>
 <p>L’algorithme des forêts aléatoires consiste à construire des arbres sur des échantillons bootstrap et à les agréger. Il peut s’écrire de la façon suivante :</p>
 <div class="correction">
@@ -248,10 +258,10 @@ Construire un <em>arbre CART sur cet échantillon bootstrap</em>, chaque coupure
 </p>
 </div>
 <p>Cet algorithme peut être utilisé sur <strong>R</strong> avec la fonction <strong>randomForest</strong> du package <strong>randomForest</strong>. Nous la présentons à travers l’exemple du jeu de données <strong>spam</strong> du package <strong>kernlab</strong>.</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="agregation.html#cb72-1"></a><span class="kw">library</span>(kernlab)</span>
-<span id="cb72-2"><a href="agregation.html#cb72-2"></a><span class="kw">data</span>(spam)</span>
-<span id="cb72-3"><a href="agregation.html#cb72-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb72-4"><a href="agregation.html#cb72-4"></a>spam &lt;-<span class="st"> </span>spam[<span class="kw">sample</span>(<span class="kw">nrow</span>(spam)),]</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="agregation.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kernlab)</span>
+<span id="cb102-2"><a href="agregation.html#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(spam)</span>
+<span id="cb102-3"><a href="agregation.html#cb102-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb102-4"><a href="agregation.html#cb102-4" aria-hidden="true" tabindex="-1"></a>spam <span class="ot">&lt;-</span> spam[<span class="fu">sample</span>(<span class="fu">nrow</span>(spam)),]</span></code></pre></div>
 <p>Le problème est d’expliquer la variable binaire <strong>type</strong> par les autres.</p>
 <ol style="list-style-type: decimal">
 <li><p>A l’aide de la fonction <strong>randomForest</strong> du package <strong>randomForest</strong>, ajuster une forêt aléatoire pour répondre au problème posé.</p></li>
@@ -262,14 +272,14 @@ Construire un <em>arbre CART sur cet échantillon bootstrap</em>, chaque coupure
 <li><p>La fonction <strong>ranger</strong> du package <strong>ranger</strong> permet également de calculer des forêts aléatoires. Comparer les temps de calcul de cette fonction avec <strong>randomForest</strong></p></li>
 </ol>
 </div>
-<div id="boosting" class="section level2">
+<div id="boosting" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Gradient boosting</h2>
 <p>Les algorithmes de gradient boosting permettent de minimiser des pertes empiriques de la forme
 <span class="math display">\[\frac{1}{n}\sum_{i=1}^n\ell(y_i,f(x_i)).\]</span>
-où <span class="math inline">\(\ell:\mathbb R\times\mathbb R\to\mathbb R\)</span> est une fonction de coût convexe en son second argument. Il existe plusieurs type d’algorithmes boosting. Un des plus connus et utilisés a été proposé par <span class="citation">Friedman (<a href="#ref-fri01" role="doc-biblioref">2001</a>)</span>, c’est la version que nous étudions dans cette partie.</p>
+où <span class="math inline">\(\ell:\mathbb R\times\mathbb R\to\mathbb R\)</span> est une fonction de coût convexe en son second argument. Il existe plusieurs type d’algorithmes boosting. Un des plus connus et utilisés a été proposé par <span class="citation"><a href="références.html#ref-fri01" role="doc-biblioref">Friedman</a> (<a href="références.html#ref-fri01" role="doc-biblioref">2001</a>)</span>, c’est la version que nous étudions dans cette partie.</p>
 <p>Cette approche propose de chercher la meilleure combinaison linéaire d’arbres binaires, c’est-à-dire que l’on recherche <span class="math inline">\(g(x)=\sum_{m=1}^M\alpha_mh_m(x)\)</span> qui minimise
 <span class="math display">\[\mathcal R_n(g)=\frac{1}{n}\sum_{i=1}^n\ell(y_i,g(x_i)).\]</span>
-Optimiser sur toutes les combinaisons d’arbres binaires se révélant souvent trop compliqué, <span class="citation">Friedman (<a href="#ref-fri01" role="doc-biblioref">2001</a>)</span> utilise une descente de gradient pour construire la combinaison d’abres de façon récursive. L’algorithme est le suivant :</p>
+Optimiser sur toutes les combinaisons d’arbres binaires se révélant souvent trop compliqué, <span class="citation"><a href="références.html#ref-fri01" role="doc-biblioref">Friedman</a> (<a href="références.html#ref-fri01" role="doc-biblioref">2001</a>)</span> utilise une descente de gradient pour construire la combinaison d’abres de façon récursive. L’algorithme est le suivant :</p>
 
 <div class="correction">
 <p><strong>Entrées</strong> :</p>
@@ -291,23 +301,22 @@ Optimiser sur toutes les combinaisons d’arbres binaires se révélant souvent 
 </ol>
 <strong>Sortie</strong> : la suite <span class="math inline">\((g_m(x))_m\)</span>.
 </div>
-
-<p>Sur <strong>R</strong> On peut utiliser différents packages pour faire du gradient boosting. Nous utilisons ici le package <strong>gbm</strong> <span class="citation">(Ridgeway <a href="#ref-rid06" role="doc-biblioref">2006</a>)</span>.</p>
-<div id="un-exemple-simple-en-régression" class="section level3">
+<p>Sur <strong>R</strong> On peut utiliser différents packages pour faire du gradient boosting. Nous utilisons ici le package <strong>gbm</strong> <span class="citation">(<a href="références.html#ref-rid06" role="doc-biblioref">Ridgeway 2006</a>)</span>.</p>
+<div id="un-exemple-simple-en-régression" class="section level3" number="5.2.1">
 <h3><span class="header-section-number">5.2.1</span> Un exemple simple en régression</h3>
 <p>On considère un jeu de données <span class="math inline">\((x_i,y_i),i=1,\dots,200\)</span> issu d’un modèle de régression
 <span class="math display">\[y_i=m(x_i)+\varepsilon_i\]</span>
 où la vraie fonction de régression est la fonction <strong>sinus</strong> (mais on va faire comme si on ne le savait pas).</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="agregation.html#cb73-1"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi,<span class="dv">2</span><span class="op">*</span>pi,<span class="dt">by=</span><span class="fl">0.01</span>)</span>
-<span id="cb73-2"><a href="agregation.html#cb73-2"></a>y &lt;-<span class="st"> </span><span class="kw">sin</span>(x)</span>
-<span id="cb73-3"><a href="agregation.html#cb73-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb73-4"><a href="agregation.html#cb73-4"></a>X &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">200</span>,<span class="op">-</span><span class="dv">2</span><span class="op">*</span>pi,<span class="dv">2</span><span class="op">*</span>pi)</span>
-<span id="cb73-5"><a href="agregation.html#cb73-5"></a>Y &lt;-<span class="st"> </span><span class="kw">sin</span>(X)<span class="op">+</span><span class="kw">rnorm</span>(<span class="dv">200</span>,<span class="dt">sd=</span><span class="fl">0.2</span>)</span>
-<span id="cb73-6"><a href="agregation.html#cb73-6"></a>df1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(X,Y)</span>
-<span id="cb73-7"><a href="agregation.html#cb73-7"></a>df2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">X=</span>x,<span class="dt">Y=</span>y)</span>
-<span id="cb73-8"><a href="agregation.html#cb73-8"></a>p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(df1)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>X,<span class="dt">y=</span>Y)<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">data=</span>df2,<span class="dt">size=</span><span class="dv">1</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="op">+</span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>)</span>
-<span id="cb73-9"><a href="agregation.html#cb73-9"></a>p1</span></code></pre></div>
-<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-303-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="agregation.html#cb103-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">2</span><span class="sc">*</span>pi,<span class="dv">2</span><span class="sc">*</span>pi,<span class="at">by=</span><span class="fl">0.01</span>)</span>
+<span id="cb103-2"><a href="agregation.html#cb103-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">sin</span>(x)</span>
+<span id="cb103-3"><a href="agregation.html#cb103-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb103-4"><a href="agregation.html#cb103-4" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">200</span>,<span class="sc">-</span><span class="dv">2</span><span class="sc">*</span>pi,<span class="dv">2</span><span class="sc">*</span>pi)</span>
+<span id="cb103-5"><a href="agregation.html#cb103-5" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">sin</span>(X)<span class="sc">+</span><span class="fu">rnorm</span>(<span class="dv">200</span>,<span class="at">sd=</span><span class="fl">0.2</span>)</span>
+<span id="cb103-6"><a href="agregation.html#cb103-6" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(X,Y)</span>
+<span id="cb103-7"><a href="agregation.html#cb103-7" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">X=</span>x,<span class="at">Y=</span>y)</span>
+<span id="cb103-8"><a href="agregation.html#cb103-8" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df1)<span class="sc">+</span><span class="fu">aes</span>(<span class="at">x=</span>X,<span class="at">y=</span>Y)<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">data=</span>df2,<span class="at">size=</span><span class="dv">1</span>)<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;&quot;</span>)</span>
+<span id="cb103-9"><a href="agregation.html#cb103-9" aria-hidden="true" tabindex="-1"></a>p1</span></code></pre></div>
+<p><img src="TUTO_ML_files/figure-html/unnamed-chunk-304-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ol style="list-style-type: decimal">
 <li><p>Rappeler ce que siginifie le <span class="math inline">\(L_2\)</span>-boosting.</p></li>
 <li><p>A l’aide de la fonction <strong>gbm</strong> du package <strong>gbm</strong> construire un algorithme de <span class="math inline">\(L_2\)</span>-boosting. On utilisera 500000 itérations et gardera les autres valeurs par défaut de paramètres.</p></li>
@@ -316,17 +325,17 @@ où la vraie fonction de régression est la fonction <strong>sinus</strong> (mai
 <li><p>Sélectionner le nombre d’itérations par la procédure de votre choix.</p></li>
 </ol>
 </div>
-<div id="adaboost-et-logitboost-pour-la-classification-binaire." class="section level3">
+<div id="adaboost-et-logitboost-pour-la-classification-binaire." class="section level3" number="5.2.2">
 <h3><span class="header-section-number">5.2.2</span> Adaboost et logitboost pour la classification binaire.</h3>
 <p>On considère le jeu de données <strong>spam</strong> du package <strong>kernlab</strong>.</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="agregation.html#cb74-1"></a><span class="kw">library</span>(kernlab)</span>
-<span id="cb74-2"><a href="agregation.html#cb74-2"></a><span class="kw">data</span>(spam)</span>
-<span id="cb74-3"><a href="agregation.html#cb74-3"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb74-4"><a href="agregation.html#cb74-4"></a>spam &lt;-<span class="st"> </span>spam[<span class="kw">sample</span>(<span class="kw">nrow</span>(spam)),]</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="agregation.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kernlab)</span>
+<span id="cb104-2"><a href="agregation.html#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(spam)</span>
+<span id="cb104-3"><a href="agregation.html#cb104-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb104-4"><a href="agregation.html#cb104-4" aria-hidden="true" tabindex="-1"></a>spam <span class="ot">&lt;-</span> spam[<span class="fu">sample</span>(<span class="fu">nrow</span>(spam)),]</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>Exécuter la commande</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="agregation.html#cb75-1"></a>model_ada1 &lt;-<span class="st"> </span><span class="kw">gbm</span>(type<span class="op">~</span>.,<span class="dt">data=</span>spam,<span class="dt">distribution=</span><span class="st">&quot;adaboost&quot;</span>,<span class="dt">interaction.depth=</span><span class="dv">2</span>,</span>
-<span id="cb75-2"><a href="agregation.html#cb75-2"></a>              <span class="dt">shrinkage=</span><span class="fl">0.05</span>,<span class="dt">n.trees=</span><span class="dv">500</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="agregation.html#cb105-1" aria-hidden="true" tabindex="-1"></a>model_ada1 <span class="ot">&lt;-</span> <span class="fu">gbm</span>(type<span class="sc">~</span>.,<span class="at">data=</span>spam,<span class="at">distribution=</span><span class="st">&quot;adaboost&quot;</span>,<span class="at">interaction.depth=</span><span class="dv">2</span>,</span>
+<span id="cb105-2"><a href="agregation.html#cb105-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">shrinkage=</span><span class="fl">0.05</span>,<span class="at">n.trees=</span><span class="dv">500</span>)</span></code></pre></div></li>
 <li><p>Proposer une correction permettant de faire fonctionner l’algorithme.</p></li>
 <li><p>Expliciter le modèle ajusté par la commande précédente.</p></li>
 <li><p>Effectuer un <strong>summary</strong> du modèle ajusté. Expliquer la sortie.</p></li>
@@ -336,7 +345,7 @@ où la vraie fonction de régression est la fonction <strong>sinus</strong> (mai
 <li><p>Expliquer la différence entre <strong>adaboost</strong> et <strong>logitboost</strong> et précisez comment on peut mettre en œuvre ce dernier algorithme.</p></li>
 </ol>
 </div>
-<div id="exo:grad-boost" class="section level3">
+<div id="exo:grad-boost" class="section level3" number="5.2.3">
 <h3><span class="header-section-number">5.2.3</span> Exercices</h3>
 <ol style="list-style-type: decimal">
 <li><p>Rappeler la fonction de risque adaboost.</p></li>
@@ -346,18 +355,6 @@ où la vraie fonction de régression est la fonction <strong>sinus</strong> (mai
 </ol>
 
 </div>
-</div>
-</div>
-<h3>Références</h3>
-<div id="refs" class="references">
-<div id="ref-bre01">
-<p>Breiman, L. 2001. “Random Forests.” <em>Machine Learning</em> 45: 5–32.</p>
-</div>
-<div id="ref-fri01">
-<p>Friedman, J. H. 2001. “Greedy Function Approximation: A Gradient Boosting Machine.” <em>Annals of Statistics</em> 29: 1189–1232.</p>
-</div>
-<div id="ref-rid06">
-<p>Ridgeway, G. 2006. “Generalized Boosted Models: A Guide to the Gbm Package.”</p>
 </div>
 </div>
             </section>
