@@ -24,7 +24,7 @@
 <meta name="author" content="Laurent Rouvière" />
 
 
-<meta name="date" content="2021-03-18" />
+<meta name="date" content="2021-04-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,6 @@
   
 <link rel="prev" href="caret.html"/>
 <link rel="next" href="arbres.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,21 +50,34 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="libs/vis-4.20.1/vis.css" rel="stylesheet" />
+<script src="libs/vis-4.20.1/vis.min.js"></script>
+<script src="libs/visNetwork-binding-2.0.9/visNetwork.js"></script>
+<script src="libs/FileSaver-1.1.20151003/FileSaver.min.js"></script>
+<script src="libs/Blob-1.0/Blob.js"></script>
+<script src="libs/canvas-toBlob-1.0/canvas-toBlob.js"></script>
+<script src="libs/html2canvas-0.5.0/html2canvas.js"></script>
+<script src="libs/jspdf-1.3.2/jspdf.debug.js"></script>
+<link href="libs/jquery-sparkline-2.1.2/jquery.sparkline.css" rel="stylesheet" />
+<script src="libs/jquery-sparkline-2.1.2/jquery.sparkline.js"></script>
+<script src="libs/sparkline-binding-2.0/sparkline.js"></script>
 
 
 <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -85,7 +97,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -136,43 +148,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Présentation</a></li>
 <li class="part"><span><b>I Algorithmes de référence</b></span></li>
-<li class="chapter" data-level="1" data-path="caret.html"><a href="caret.html"><i class="fa fa-check"></i><b>1</b> Estimation du risque avec caret</a>
-<ul>
+<li class="chapter" data-level="1" data-path="caret.html"><a href="caret.html"><i class="fa fa-check"></i><b>1</b> Estimation du risque avec caret</a><ul>
 <li class="chapter" data-level="1.1" data-path="caret.html"><a href="caret.html#notion-de-risque-en-apprentissage-supervisé"><i class="fa fa-check"></i><b>1.1</b> Notion de risque en apprentissage supervisé</a></li>
 <li class="chapter" data-level="1.2" data-path="caret.html"><a href="caret.html#la-validation-croisée"><i class="fa fa-check"></i><b>1.2</b> La validation croisée</a></li>
 <li class="chapter" data-level="1.3" data-path="caret.html"><a href="caret.html#le-package-caret"><i class="fa fa-check"></i><b>1.3</b> Le package caret</a></li>
 <li class="chapter" data-level="1.4" data-path="caret.html"><a href="caret.html#la-courbe-roc"><i class="fa fa-check"></i><b>1.4</b> La courbe ROC</a></li>
-<li class="chapter" data-level="1.5" data-path="caret.html"><a href="caret.html#compléments"><i class="fa fa-check"></i><b>1.5</b> Compléments</a>
-<ul>
+<li class="chapter" data-level="1.5" data-path="caret.html"><a href="caret.html#compléments"><i class="fa fa-check"></i><b>1.5</b> Compléments</a><ul>
 <li class="chapter" data-level="1.5.1" data-path="caret.html"><a href="caret.html#calcul-parallèle"><i class="fa fa-check"></i><b>1.5.1</b> Calcul parallèle</a></li>
 <li class="chapter" data-level="1.5.2" data-path="caret.html"><a href="caret.html#répéter-les-méthodes-de-rééchantillonnage"><i class="fa fa-check"></i><b>1.5.2</b> Répéter les méthodes de rééchantillonnage</a></li>
 <li class="chapter" data-level="1.5.3" data-path="caret.html"><a href="caret.html#modifier-le-risque"><i class="fa fa-check"></i><b>1.5.3</b> Modifier le risque</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="lda.html"><a href="lda.html"><i class="fa fa-check"></i><b>2</b> Analyse discriminante linéaire</a>
-<ul>
+<li class="chapter" data-level="2" data-path="lda.html"><a href="lda.html"><i class="fa fa-check"></i><b>2</b> Analyse discriminante linéaire</a><ul>
 <li class="chapter" data-level="2.1" data-path="lda.html"><a href="lda.html#prise-en-main-lda-et-qda-sur-les-iris-de-fisher"><i class="fa fa-check"></i><b>2.1</b> Prise en main : LDA et QDA sur les iris de Fisher</a></li>
 <li class="chapter" data-level="2.2" data-path="lda.html"><a href="lda.html#un-cas-avec-beaucoup-de-classes"><i class="fa fa-check"></i><b>2.2</b> Un cas avec beaucoup de classes</a></li>
 <li class="chapter" data-level="2.3" data-path="lda.html"><a href="lda.html#grande-dimension-reconnaissance-de-phonèmes"><i class="fa fa-check"></i><b>2.3</b> Grande dimension : reconnaissance de phonèmes</a></li>
 <li class="chapter" data-level="2.4" data-path="lda.html"><a href="lda.html#exercices"><i class="fa fa-check"></i><b>2.4</b> Exercices</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="arbres.html"><a href="arbres.html"><i class="fa fa-check"></i><b>3</b> Arbres</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="arbres.html"><a href="arbres.html#coupures-cart-en-fonction-de-la-nature-des-variables"><i class="fa fa-check"></i><b>3.1</b> Coupures CART en fonction de la nature des variables</a>
-<ul>
+<li class="chapter" data-level="3" data-path="arbres.html"><a href="arbres.html"><i class="fa fa-check"></i><b>3</b> Arbres</a><ul>
+<li class="chapter" data-level="3.1" data-path="arbres.html"><a href="arbres.html#coupures-cart-en-fonction-de-la-nature-des-variables"><i class="fa fa-check"></i><b>3.1</b> Coupures CART en fonction de la nature des variables</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="arbres.html"><a href="arbres.html#arbres-de-régression"><i class="fa fa-check"></i><b>3.1.1</b> Arbres de régression</a></li>
 <li class="chapter" data-level="3.1.2" data-path="arbres.html"><a href="arbres.html#arbres-de-classification"><i class="fa fa-check"></i><b>3.1.2</b> Arbres de classification</a></li>
 <li class="chapter" data-level="3.1.3" data-path="arbres.html"><a href="arbres.html#entrée-qualitative"><i class="fa fa-check"></i><b>3.1.3</b> Entrée qualitative</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="arbres.html"><a href="arbres.html#élagage"><i class="fa fa-check"></i><b>3.2</b> Élagage</a>
-<ul>
+<li class="chapter" data-level="3.2" data-path="arbres.html"><a href="arbres.html#élagage"><i class="fa fa-check"></i><b>3.2</b> Élagage</a><ul>
 <li class="chapter" data-level="3.2.1" data-path="arbres.html"><a href="arbres.html#élagage-pour-un-problème-de-régression"><i class="fa fa-check"></i><b>3.2.1</b> Élagage pour un problème de régression</a></li>
 <li class="chapter" data-level="3.2.2" data-path="arbres.html"><a href="arbres.html#élagage-en-classification-binaire-et-matrice-de-coût"><i class="fa fa-check"></i><b>3.2.2</b> Élagage en classification binaire et matrice de coût</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>II Algorithmes avancés</b></span></li>
-<li class="chapter" data-level="4" data-path="SVM.html"><a href="SVM.html"><i class="fa fa-check"></i><b>4</b> Support Vector Machine (SVM)</a>
-<ul>
+<li class="chapter" data-level="4" data-path="SVM.html"><a href="SVM.html"><i class="fa fa-check"></i><b>4</b> Support Vector Machine (SVM)</a><ul>
 <li class="chapter" data-level="4.1" data-path="SVM.html"><a href="SVM.html#cas-séparable"><i class="fa fa-check"></i><b>4.1</b> Cas séparable</a></li>
 <li class="chapter" data-level="4.2" data-path="SVM.html"><a href="SVM.html#cas-non-séparable"><i class="fa fa-check"></i><b>4.2</b> Cas non séparable</a></li>
 <li class="chapter" data-level="4.3" data-path="SVM.html"><a href="SVM.html#lastuce-du-noyau"><i class="fa fa-check"></i><b>4.3</b> L’astuce du noyau</a></li>
@@ -180,19 +185,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5" data-path="SVM.html"><a href="SVM.html#svm-sur-les-données-spam"><i class="fa fa-check"></i><b>4.5</b> SVM sur les données spam</a></li>
 <li class="chapter" data-level="4.6" data-path="SVM.html"><a href="SVM.html#exercices-1"><i class="fa fa-check"></i><b>4.6</b> Exercices</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="agregation.html"><a href="agregation.html"><i class="fa fa-check"></i><b>5</b> Agrégation : forêts aléatoires et gradient boosting</a>
-<ul>
+<li class="chapter" data-level="5" data-path="agregation.html"><a href="agregation.html"><i class="fa fa-check"></i><b>5</b> Agrégation : forêts aléatoires et gradient boosting</a><ul>
 <li class="chapter" data-level="5.1" data-path="agregation.html"><a href="agregation.html#forets"><i class="fa fa-check"></i><b>5.1</b> Forêts aléatoires</a></li>
-<li class="chapter" data-level="5.2" data-path="agregation.html"><a href="agregation.html#boosting"><i class="fa fa-check"></i><b>5.2</b> Gradient boosting</a>
-<ul>
+<li class="chapter" data-level="5.2" data-path="agregation.html"><a href="agregation.html#boosting"><i class="fa fa-check"></i><b>5.2</b> Gradient boosting</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="agregation.html"><a href="agregation.html#un-exemple-simple-en-régression"><i class="fa fa-check"></i><b>5.2.1</b> Un exemple simple en régression</a></li>
 <li class="chapter" data-level="5.2.2" data-path="agregation.html"><a href="agregation.html#adaboost-et-logitboost-pour-la-classification-binaire."><i class="fa fa-check"></i><b>5.2.2</b> Adaboost et logitboost pour la classification binaire.</a></li>
 <li class="chapter" data-level="5.2.3" data-path="agregation.html"><a href="agregation.html#exo:grad-boost"><i class="fa fa-check"></i><b>5.2.3</b> Exercices</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="deep.html"><a href="deep.html"><i class="fa fa-check"></i><b>6</b> Réseaux de neurones avec Keras</a></li>
-<li class="chapter" data-level="7" data-path="dondes.html"><a href="dondes.html"><i class="fa fa-check"></i><b>7</b> Données déséquilibrées</a>
-<ul>
+<li class="chapter" data-level="7" data-path="dondes.html"><a href="dondes.html"><i class="fa fa-check"></i><b>7</b> Données déséquilibrées</a><ul>
 <li class="chapter" data-level="7.1" data-path="dondes.html"><a href="dondes.html#critères-de-performance-pour-données-déséquilibrées"><i class="fa fa-check"></i><b>7.1</b> Critères de performance pour données déséquilibrées</a></li>
 <li class="chapter" data-level="7.2" data-path="dondes.html"><a href="dondes.html#ré-équilibrage"><i class="fa fa-check"></i><b>7.2</b> Ré-équilibrage</a></li>
 <li class="chapter" data-level="7.3" data-path="dondes.html"><a href="dondes.html#exercices-supplémentaires"><i class="fa fa-check"></i><b>7.3</b> Exercices supplémentaires</a></li>
@@ -219,7 +221,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="lda" class="section level1" number="2">
+<div id="lda" class="section level1">
 <h1><span class="header-section-number">Chapitre 2</span> Analyse discriminante linéaire</h1>
 <p>L’analyse discriminante linéaire est un algorithme de référence en classification supervisée. Il peut être appréhendé de deux façons complémentaires :</p>
 <ul>
@@ -239,23 +241,23 @@ où <span class="math inline">\(B\)</span> et <span class="math inline">\(W\)</s
 <p>L’approche <strong>modèle</strong> fait l’hypothèse que les vecteurs <span class="math inline">\(X|Y=k,k=0,1\)</span> sont des vecteurs gaussiens d’espérance <span class="math inline">\(\mu_k\in\mathbb R^d\)</span> et de matrice de variance covariance <span class="math inline">\(\Sigma\)</span>. Ces paramètres sont estimés par maximum de vraisemblance et on déduit les probablités a posteriori par la <strong>formule de Bayes</strong> :
 <span class="math display">\[\mathbf P(Y=k|X=x)=\frac{\pi_kf_{X|Y=k}(x)}{f(x)}\]</span>
 Le lien entre ces deux approches est établi dans l’exercice <a href="lda.html#exr:exo-calcul-axes-lda">2.4</a>. Nous proposons dans cette partie quelques exercices pour mettre en œuvre et analyser des analyses discriminantes avec <strong>R</strong>.</p>
-<div id="prise-en-main-lda-et-qda-sur-les-iris-de-fisher" class="section level2" number="2.1">
+<div id="prise-en-main-lda-et-qda-sur-les-iris-de-fisher" class="section level2">
 <h2><span class="header-section-number">2.1</span> Prise en main : LDA et QDA sur les iris de Fisher</h2>
 <p>On considère les données sur les iris de Fisher.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="lda.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="lda.html#cb38-1"></a><span class="kw">data</span>(iris)</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>A l’aide de la fonction <strong>PCA</strong> du package <strong>FactoMineR</strong>, réaliser une ACP en utilisant comme variables actives les 4 variables quantitatives du jeu de données. On mettra la variable <code>Species</code> comme variable qualitative supplémentaire (option <code>quali.sup</code>).</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="lda.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FactoMineR)</span>
-<span id="cb39-2"><a href="lda.html#cb39-2" aria-hidden="true" tabindex="-1"></a>res.PCA <span class="ot">&lt;-</span> <span class="fu">PCA</span>(iris,<span class="at">quali.sup=</span><span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="lda.html#cb39-1"></a><span class="kw">library</span>(FactoMineR)</span>
+<span id="cb39-2"><a href="lda.html#cb39-2"></a>res.PCA &lt;-<span class="st"> </span><span class="kw">PCA</span>(iris,<span class="dt">quali.sup=</span><span class="dv">5</span>)</span></code></pre></div>
 <p><img src="TUTO_ML_files/figure-html/unnamed-chunk-56-1.png" width="672" style="display: block; margin: auto;" /><img src="TUTO_ML_files/figure-html/unnamed-chunk-56-2.png" width="672" style="display: block; margin: auto;" /></p></li>
 <li><p>Représenter le nuage des individus sur les 2 premiers axes de l’ACP en utilisant une couleur différente pour chaque espèce d’iris (option <code>habillage</code>).</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="lda.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(res.PCA,<span class="at">habillage=</span><span class="st">&quot;Species&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="lda.html#cb40-1"></a><span class="kw">plot</span>(res.PCA,<span class="dt">habillage=</span><span class="st">&quot;Species&quot;</span>)</span></code></pre></div>
 <p><img src="TUTO_ML_files/figure-html/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto;" /></p></li>
 <li><p>A l’aide de la fonction <strong>lda</strong> du package <strong>MASS</strong>, effectuer une analyse discriminante linéaire permettant d’expliquer l’espèce par les 4 autres variables explicatives.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="lda.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb41-2"><a href="lda.html#cb41-2" aria-hidden="true" tabindex="-1"></a>mod.lda <span class="ot">&lt;-</span> <span class="fu">lda</span>(Species<span class="sc">~</span>.,<span class="at">data=</span>iris)</span></code></pre></div></li>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="lda.html#cb41-1"></a><span class="kw">library</span>(MASS)</span>
+<span id="cb41-2"><a href="lda.html#cb41-2"></a>mod.lda &lt;-<span class="st"> </span><span class="kw">lda</span>(Species<span class="op">~</span>.,<span class="dt">data=</span>iris)</span></code></pre></div></li>
 <li><p>Représenter le nuage des individus sur les deux premiers axes de l’analyse discriminante linéaire (en utilisant une couleur différente pour chaque espèce d’iris).</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="lda.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod.lda,<span class="at">abbrev=</span><span class="dv">2</span>,<span class="at">col=</span><span class="fu">as.numeric</span>(iris<span class="sc">$</span>Species))</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="lda.html#cb42-1"></a><span class="kw">plot</span>(mod.lda,<span class="dt">abbrev=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="kw">as.numeric</span>(iris<span class="op">$</span>Species))</span></code></pre></div>
 <p><img src="TUTO_ML_files/figure-html/unnamed-chunk-59-1.png" width="672" style="display: block; margin: auto;" /></p></li>
 <li><p>Rappeler comment sont obtenues les coordonnées des individus sur chaque axe. En déduire une interprétation de la position des individus.</p>
 <div class="corR">
@@ -263,12 +265,12 @@ Le lien entre ces deux approches est établi dans l’exercice <a href="lda.html
 Les coodonnées se déduisent en projetant les observations sur les variables discriminantes. On peut récupérer ces dernières dans
 </p>
 </div>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="lda.html#cb43-1" aria-hidden="true" tabindex="-1"></a>mod.lda<span class="sc">$</span>scaling</span>
-<span id="cb43-2"><a href="lda.html#cb43-2" aria-hidden="true" tabindex="-1"></a>                    LD1         LD2</span>
-<span id="cb43-3"><a href="lda.html#cb43-3" aria-hidden="true" tabindex="-1"></a>Sepal.Length  <span class="fl">0.8293776</span>  <span class="fl">0.02410215</span></span>
-<span id="cb43-4"><a href="lda.html#cb43-4" aria-hidden="true" tabindex="-1"></a>Sepal.Width   <span class="fl">1.5344731</span>  <span class="fl">2.16452123</span></span>
-<span id="cb43-5"><a href="lda.html#cb43-5" aria-hidden="true" tabindex="-1"></a>Petal.Length <span class="sc">-</span><span class="fl">2.2012117</span> <span class="sc">-</span><span class="fl">0.93192121</span></span>
-<span id="cb43-6"><a href="lda.html#cb43-6" aria-hidden="true" tabindex="-1"></a>Petal.Width  <span class="sc">-</span><span class="fl">2.8104603</span>  <span class="fl">2.83918785</span></span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="lda.html#cb43-1"></a>mod.lda<span class="op">$</span>scaling</span>
+<span id="cb43-2"><a href="lda.html#cb43-2"></a>                    LD1         LD2</span>
+<span id="cb43-3"><a href="lda.html#cb43-3"></a>Sepal.Length  <span class="fl">0.8293776</span>  <span class="fl">0.02410215</span></span>
+<span id="cb43-4"><a href="lda.html#cb43-4"></a>Sepal.Width   <span class="fl">1.5344731</span>  <span class="fl">2.16452123</span></span>
+<span id="cb43-5"><a href="lda.html#cb43-5"></a>Petal.Length <span class="fl">-2.2012117</span> <span class="fl">-0.93192121</span></span>
+<span id="cb43-6"><a href="lda.html#cb43-6"></a>Petal.Width  <span class="fl">-2.8104603</span>  <span class="fl">2.83918785</span></span></code></pre></div>
 <div class="corR">
 <p>
 on déduit que l’axe 1 oppose les individus ayant des grosses Sépales (à droite) à ceux ayant des grosses pétales (à gauche).
@@ -281,65 +283,65 @@ Pour le problème considéré, la représentation de la question 4 parait plus p
 </p>
 </div></li>
 <li><p>Expliquer les sorties des commandes suivantes (<code>mod.lda</code> est l’objet construit avec la fonction <strong>lda</strong>).</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="lda.html#cb44-1" aria-hidden="true" tabindex="-1"></a>score <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod.lda)<span class="sc">$</span>x</span>
-<span id="cb44-2"><a href="lda.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ldahist</span>(score[,<span class="dv">1</span>],iris[,<span class="dv">5</span>])    </span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="lda.html#cb44-1"></a>score &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.lda)<span class="op">$</span>x</span>
+<span id="cb44-2"><a href="lda.html#cb44-2"></a><span class="kw">ldahist</span>(score[,<span class="dv">1</span>],iris[,<span class="dv">5</span>])    </span></code></pre></div>
 <p><img src="TUTO_ML_files/figure-html/unnamed-chunk-65-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="lda.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ldahist</span>(score[,<span class="dv">2</span>],iris[,<span class="dv">5</span>])    </span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="lda.html#cb45-1"></a><span class="kw">ldahist</span>(score[,<span class="dv">2</span>],iris[,<span class="dv">5</span>])    </span></code></pre></div>
 <p><img src="TUTO_ML_files/figure-html/unnamed-chunk-65-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p><em>Score contient les coordonnées des projections des individus sur les axes de l’analyse discriminante. On obtient ensuite les histogrammes correspondants aux distributions des coordonnées pour chaque groupe. On visualise clairement que le premier axe est très discriminant. C’est renforcé par la sortie :</em></p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb46-1"><a href="lda.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="an">Proportion of trace:</span></span>
-<span id="cb46-2"><a href="lda.html#cb46-2" aria-hidden="true" tabindex="-1"></a>   LD1    LD2 </span>
-<span id="cb46-3"><a href="lda.html#cb46-3" aria-hidden="true" tabindex="-1"></a>0.9912 0.0088</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb46-1"><a href="lda.html#cb46-1"></a>Proportion of trace:</span>
+<span id="cb46-2"><a href="lda.html#cb46-2"></a>   LD1    LD2 </span>
+<span id="cb46-3"><a href="lda.html#cb46-3"></a>0.9912 0.0088</span></code></pre></div>
 <div class="corR">
 <p>
 qui restitue, en proportion, la valeur du coefficient de Rayleigh de chaque axe discriminant.
 </p>
 </div></li>
 <li><p>Exécuter et analyser les sorties de la commande</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="lda.html#cb47-1" aria-hidden="true" tabindex="-1"></a>mod.lda2 <span class="ot">&lt;-</span> <span class="fu">lda</span>(Species<span class="sc">~</span>.,<span class="at">data=</span>iris,<span class="at">CV=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="lda.html#cb47-1"></a>mod.lda2 &lt;-<span class="st"> </span><span class="kw">lda</span>(Species<span class="op">~</span>.,<span class="dt">data=</span>iris,<span class="dt">CV=</span><span class="ot">TRUE</span>)</span></code></pre></div>
 <div class="corR">
 <p>
 Une validation croisée est ici effectuée pour prédire les probabilités a posteriori ainsi que les groupes de chaque observation. On peut obtenir ces prévisions avec
 </p>
 </div>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="lda.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mod.lda2<span class="sc">$</span>class)</span>
-<span id="cb48-2"><a href="lda.html#cb48-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] setosa setosa setosa setosa setosa setosa</span>
-<span id="cb48-3"><a href="lda.html#cb48-3" aria-hidden="true" tabindex="-1"></a>Levels<span class="sc">:</span> setosa versicolor virginica</span>
-<span id="cb48-4"><a href="lda.html#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mod.lda2<span class="sc">$</span>posterior)</span>
-<span id="cb48-5"><a href="lda.html#cb48-5" aria-hidden="true" tabindex="-1"></a>  setosa   versicolor    virginica</span>
-<span id="cb48-6"><a href="lda.html#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>      <span class="dv">1</span> <span class="fl">5.087494e-22</span> <span class="fl">4.385241e-42</span></span>
-<span id="cb48-7"><a href="lda.html#cb48-7" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>      <span class="dv">1</span> <span class="fl">9.588256e-18</span> <span class="fl">8.888069e-37</span></span>
-<span id="cb48-8"><a href="lda.html#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>      <span class="dv">1</span> <span class="fl">1.983745e-19</span> <span class="fl">8.606982e-39</span></span>
-<span id="cb48-9"><a href="lda.html#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>      <span class="dv">1</span> <span class="fl">1.505573e-16</span> <span class="fl">5.101765e-35</span></span>
-<span id="cb48-10"><a href="lda.html#cb48-10" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>      <span class="dv">1</span> <span class="fl">2.075670e-22</span> <span class="fl">1.739832e-42</span></span>
-<span id="cb48-11"><a href="lda.html#cb48-11" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>      <span class="dv">1</span> <span class="fl">5.332271e-21</span> <span class="fl">8.674906e-40</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="lda.html#cb48-1"></a><span class="kw">head</span>(mod.lda2<span class="op">$</span>class)</span>
+<span id="cb48-2"><a href="lda.html#cb48-2"></a>[<span class="dv">1</span>] setosa setosa setosa setosa setosa setosa</span>
+<span id="cb48-3"><a href="lda.html#cb48-3"></a>Levels<span class="op">:</span><span class="st"> </span>setosa versicolor virginica</span>
+<span id="cb48-4"><a href="lda.html#cb48-4"></a><span class="kw">head</span>(mod.lda2<span class="op">$</span>posterior)</span>
+<span id="cb48-5"><a href="lda.html#cb48-5"></a>  setosa   versicolor    virginica</span>
+<span id="cb48-6"><a href="lda.html#cb48-6"></a><span class="dv">1</span>      <span class="dv">1</span> <span class="fl">5.087494e-22</span> <span class="fl">4.385241e-42</span></span>
+<span id="cb48-7"><a href="lda.html#cb48-7"></a><span class="dv">2</span>      <span class="dv">1</span> <span class="fl">9.588256e-18</span> <span class="fl">8.888069e-37</span></span>
+<span id="cb48-8"><a href="lda.html#cb48-8"></a><span class="dv">3</span>      <span class="dv">1</span> <span class="fl">1.983745e-19</span> <span class="fl">8.606982e-39</span></span>
+<span id="cb48-9"><a href="lda.html#cb48-9"></a><span class="dv">4</span>      <span class="dv">1</span> <span class="fl">1.505573e-16</span> <span class="fl">5.101765e-35</span></span>
+<span id="cb48-10"><a href="lda.html#cb48-10"></a><span class="dv">5</span>      <span class="dv">1</span> <span class="fl">2.075670e-22</span> <span class="fl">1.739832e-42</span></span>
+<span id="cb48-11"><a href="lda.html#cb48-11"></a><span class="dv">6</span>      <span class="dv">1</span> <span class="fl">5.332271e-21</span> <span class="fl">8.674906e-40</span></span></code></pre></div></li>
 <li><p>Comparer, en terme d’erreur de prévision, les performances de LDA et QDA.</p>
 <div class="corR">
 <p>
 Il suffit de confronter les valeurs prédites aux valeurs observées :
 </p>
 </div>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="lda.html#cb49-1" aria-hidden="true" tabindex="-1"></a>mod.qda <span class="ot">&lt;-</span> <span class="fu">qda</span>(Species<span class="sc">~</span>.,<span class="at">data=</span>iris,<span class="at">CV=</span><span class="cn">TRUE</span>)</span>
-<span id="cb49-2"><a href="lda.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mod.lda2<span class="sc">$</span>class<span class="sc">!=</span>iris<span class="sc">$</span>Species)</span>
-<span id="cb49-3"><a href="lda.html#cb49-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.02</span></span>
-<span id="cb49-4"><a href="lda.html#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mod.qda<span class="sc">$</span>class<span class="sc">!=</span>iris<span class="sc">$</span>Species)</span>
-<span id="cb49-5"><a href="lda.html#cb49-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.02666667</span></span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="lda.html#cb49-1"></a>mod.qda &lt;-<span class="st"> </span><span class="kw">qda</span>(Species<span class="op">~</span>.,<span class="dt">data=</span>iris,<span class="dt">CV=</span><span class="ot">TRUE</span>)</span>
+<span id="cb49-2"><a href="lda.html#cb49-2"></a><span class="kw">mean</span>(mod.lda2<span class="op">$</span>class<span class="op">!=</span>iris<span class="op">$</span>Species)</span>
+<span id="cb49-3"><a href="lda.html#cb49-3"></a>[<span class="dv">1</span>] <span class="fl">0.02</span></span>
+<span id="cb49-4"><a href="lda.html#cb49-4"></a><span class="kw">mean</span>(mod.qda<span class="op">$</span>class<span class="op">!=</span>iris<span class="op">$</span>Species)</span>
+<span id="cb49-5"><a href="lda.html#cb49-5"></a>[<span class="dv">1</span>] <span class="fl">0.02666667</span></span></code></pre></div>
 <div class="corR">
 <p>
 On peut retrouver ces résultats avec une syntaxe <strong>dplyr</strong> :
 </p>
 </div>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="lda.html#cb50-1" aria-hidden="true" tabindex="-1"></a>prev <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">LDA=</span>mod.lda2<span class="sc">$</span>class,<span class="at">QDA=</span>mod.qda<span class="sc">$</span>class,<span class="at">obs=</span>iris<span class="sc">$</span>Species)</span>
-<span id="cb50-2"><a href="lda.html#cb50-2" aria-hidden="true" tabindex="-1"></a>prev <span class="sc">%&gt;%</span> <span class="fu">summarise_at</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="sc">~</span><span class="fu">mean</span>((.<span class="sc">!=</span>obs)))</span>
-<span id="cb50-3"><a href="lda.html#cb50-3" aria-hidden="true" tabindex="-1"></a>   LDA        QDA</span>
-<span id="cb50-4"><a href="lda.html#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="fl">0.02</span> <span class="fl">0.02666667</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="lda.html#cb50-1"></a>prev &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">LDA=</span>mod.lda2<span class="op">$</span>class,<span class="dt">QDA=</span>mod.qda<span class="op">$</span>class,<span class="dt">obs=</span>iris<span class="op">$</span>Species)</span>
+<span id="cb50-2"><a href="lda.html#cb50-2"></a>prev <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_at</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,<span class="op">~</span><span class="kw">mean</span>((.<span class="op">!=</span>obs)))</span>
+<span id="cb50-3"><a href="lda.html#cb50-3"></a>   LDA        QDA</span>
+<span id="cb50-4"><a href="lda.html#cb50-4"></a><span class="dv">1</span> <span class="fl">0.02</span> <span class="fl">0.02666667</span></span></code></pre></div></li>
 </ol>
 </div>
-<div id="un-cas-avec-beaucoup-de-classes" class="section level2" number="2.2">
+<div id="un-cas-avec-beaucoup-de-classes" class="section level2">
 <h2><span class="header-section-number">2.2</span> Un cas avec beaucoup de classes</h2>
 <p>On considère les jeux de données <strong>Vowel</strong> (training et test) qui se trouvent à cet <a href="https://statweb.stanford.edu/~hastie/ElemStatLearn/">url</a>. On peut les importer avec</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="lda.html#cb51-1" aria-hidden="true" tabindex="-1"></a>dapp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://web.stanford.edu/~hastie/ElemStatLearn/datasets/vowel.train&quot;</span>)[,<span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb51-2"><a href="lda.html#cb51-2" aria-hidden="true" tabindex="-1"></a>dtest <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://web.stanford.edu/~hastie/ElemStatLearn/datasets/vowel.test&quot;</span>)[,<span class="sc">-</span><span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="lda.html#cb51-1"></a>dapp &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://web.stanford.edu/~hastie/ElemStatLearn/datasets/vowel.train&quot;</span>)[,<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb51-2"><a href="lda.html#cb51-2"></a>dtest &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://web.stanford.edu/~hastie/ElemStatLearn/datasets/vowel.test&quot;</span>)[,<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>Expliquer le problème.</p>
 <div class="corR">
@@ -347,53 +349,53 @@ On peut retrouver ces résultats avec une syntaxe <strong>dplyr</strong> :
 Il s’agit d’expliquer la variable <code>y</code> qui admet 11 modalités par les 9 autres variables qui sont toutes quantitatives. On transforme donc la variable cible en facteur :
 </p>
 </div>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="lda.html#cb52-1" aria-hidden="true" tabindex="-1"></a>dapp<span class="sc">$</span>y <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dapp<span class="sc">$</span>y)</span>
-<span id="cb52-2"><a href="lda.html#cb52-2" aria-hidden="true" tabindex="-1"></a>dtest<span class="sc">$</span>y <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dtest<span class="sc">$</span>y)</span></code></pre></div></li>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="lda.html#cb52-1"></a>dapp<span class="op">$</span>y &lt;-<span class="st"> </span><span class="kw">as.factor</span>(dapp<span class="op">$</span>y)</span>
+<span id="cb52-2"><a href="lda.html#cb52-2"></a>dtest<span class="op">$</span>y &lt;-<span class="st"> </span><span class="kw">as.factor</span>(dtest<span class="op">$</span>y)</span></code></pre></div></li>
 <li><p>Effectuer une analyse discriminante linéaire (uniquement avec les données d’apprentissage) et visualiser les individus sur les 2 premiers axes de l’analyse discriminante. On pourra utiliser <strong>predict</strong>.</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="lda.html#cb53-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lda</span>(y<span class="sc">~</span>.,<span class="at">data=</span>dapp)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="lda.html#cb53-1"></a>mod &lt;-<span class="st"> </span><span class="kw">lda</span>(y<span class="op">~</span>.,<span class="dt">data=</span>dapp)</span></code></pre></div>
 <div class="corR">
 <p>
 Il faut ici récupérer les coordonnées des individus sur chaque axe :
 </p>
 </div>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="lda.html#cb54-1" aria-hidden="true" tabindex="-1"></a>prev <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">predict</span>(mod)<span class="sc">$</span>x) <span class="sc">%&gt;%</span></span>
-<span id="cb54-2"><a href="lda.html#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y=</span>dapp<span class="sc">$</span>y)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="lda.html#cb54-1"></a>prev &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">predict</span>(mod)<span class="op">$</span>x) <span class="op">%&gt;%</span></span>
+<span id="cb54-2"><a href="lda.html#cb54-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">y=</span>dapp<span class="op">$</span>y)</span></code></pre></div>
 <div class="corR">
 <p>
 On peut ainsi obtenir le graphe demandé.
 </p>
 </div>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="lda.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(prev)<span class="sc">+</span><span class="fu">aes</span>(<span class="at">x=</span>LD1,<span class="at">y=</span>LD2,<span class="at">color=</span>y)<span class="sc">+</span><span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="lda.html#cb55-1"></a><span class="kw">ggplot</span>(prev)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span>LD1,<span class="dt">y=</span>LD2,<span class="dt">color=</span>y)<span class="op">+</span><span class="kw">geom_point</span>()</span></code></pre></div>
 <p><img src="TUTO_ML_files/figure-html/unnamed-chunk-84-1.png" width="672" style="display: block; margin: auto;" /></p></li>
 <li><p>La fonction suivante permet de choisir les axes à visualiser, ainsi que les centres de gravité projetés des groupes.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="lda.html#cb56-1" aria-hidden="true" tabindex="-1"></a>repres_axes <span class="ot">&lt;-</span> <span class="cf">function</span>(prev,cdg,<span class="at">axe1=</span><span class="dv">1</span>,<span class="at">axe2=</span><span class="dv">2</span>){</span>
-<span id="cb56-2"><a href="lda.html#cb56-2" aria-hidden="true" tabindex="-1"></a>  cdg <span class="ot">&lt;-</span> prev <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(y) <span class="sc">%&gt;%</span> <span class="fu">summarise_all</span>(mean)</span>
-<span id="cb56-3"><a href="lda.html#cb56-3" aria-hidden="true" tabindex="-1"></a>  nom1 <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;LD&quot;</span>,<span class="fu">as.character</span>(axe1),<span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb56-4"><a href="lda.html#cb56-4" aria-hidden="true" tabindex="-1"></a>  nom2 <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;LD&quot;</span>,<span class="fu">as.character</span>(axe2),<span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb56-5"><a href="lda.html#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(prev)<span class="sc">+</span><span class="fu">aes_string</span>(<span class="at">x=</span><span class="fu">as.name</span>(nom1),<span class="at">y=</span><span class="fu">as.name</span>(nom2))<span class="sc">+</span></span>
-<span id="cb56-6"><a href="lda.html#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color=</span>y))<span class="sc">+</span></span>
-<span id="cb56-7"><a href="lda.html#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>(<span class="at">data=</span>cdg,<span class="fu">aes</span>(<span class="at">color=</span>y),<span class="at">shape=</span><span class="dv">17</span>,<span class="at">size=</span><span class="dv">4</span>)<span class="sc">+</span></span>
-<span id="cb56-8"><a href="lda.html#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_classic</span>()</span>
-<span id="cb56-9"><a href="lda.html#cb56-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="lda.html#cb56-1"></a>repres_axes &lt;-<span class="st"> </span><span class="cf">function</span>(prev,cdg,<span class="dt">axe1=</span><span class="dv">1</span>,<span class="dt">axe2=</span><span class="dv">2</span>){</span>
+<span id="cb56-2"><a href="lda.html#cb56-2"></a>  cdg &lt;-<span class="st"> </span>prev <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(y) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_all</span>(mean)</span>
+<span id="cb56-3"><a href="lda.html#cb56-3"></a>  nom1 &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;LD&quot;</span>,<span class="kw">as.character</span>(axe1),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb56-4"><a href="lda.html#cb56-4"></a>  nom2 &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;LD&quot;</span>,<span class="kw">as.character</span>(axe2),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb56-5"><a href="lda.html#cb56-5"></a>  <span class="kw">ggplot</span>(prev)<span class="op">+</span><span class="kw">aes_string</span>(<span class="dt">x=</span><span class="kw">as.name</span>(nom1),<span class="dt">y=</span><span class="kw">as.name</span>(nom2))<span class="op">+</span></span>
+<span id="cb56-6"><a href="lda.html#cb56-6"></a><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color=</span>y))<span class="op">+</span></span>
+<span id="cb56-7"><a href="lda.html#cb56-7"></a><span class="kw">geom_point</span>(<span class="dt">data=</span>cdg,<span class="kw">aes</span>(<span class="dt">color=</span>y),<span class="dt">shape=</span><span class="dv">17</span>,<span class="dt">size=</span><span class="dv">4</span>)<span class="op">+</span></span>
+<span id="cb56-8"><a href="lda.html#cb56-8"></a><span class="kw">theme_classic</span>()</span>
+<span id="cb56-9"><a href="lda.html#cb56-9"></a>}</span></code></pre></div>
 <p>Étudier la pertinence des axes.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="lda.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">repres_axes</span>(prev,cdg,<span class="dv">1</span>,<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="lda.html#cb57-1"></a><span class="kw">repres_axes</span>(prev,cdg,<span class="dv">1</span>,<span class="dv">2</span>)</span></code></pre></div>
 <p><img src="TUTO_ML_files/figure-html/unnamed-chunk-86-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="lda.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">repres_axes</span>(prev,cdg,<span class="dv">3</span>,<span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="lda.html#cb58-1"></a><span class="kw">repres_axes</span>(prev,cdg,<span class="dv">3</span>,<span class="dv">4</span>)</span></code></pre></div>
 <p><img src="TUTO_ML_files/figure-html/unnamed-chunk-86-2.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="lda.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">repres_axes</span>(prev,cdg,<span class="dv">5</span>,<span class="dv">6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="lda.html#cb59-1"></a><span class="kw">repres_axes</span>(prev,cdg,<span class="dv">5</span>,<span class="dv">6</span>)</span></code></pre></div>
 <p><img src="TUTO_ML_files/figure-html/unnamed-chunk-86-3.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="corR">
 <p>
 Les groupes sont mieux séparés sur les premiers axes de l’analyse, ce qui est logique. On peut le vérifier en étudiant la sortie <strong>Proportion of trace</strong> de la fonction <strong>lda</strong> que l’on peut retrouver avec
 </p>
 </div>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="lda.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(mod<span class="sc">$</span>svd<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>(<span class="fu">sum</span>(mod<span class="sc">$</span>svd<span class="sc">^</span><span class="dv">2</span>)),<span class="dv">4</span>)</span>
-<span id="cb60-2"><a href="lda.html#cb60-2" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="fl">0.5617</span> <span class="fl">0.3518</span> <span class="fl">0.0445</span> <span class="fl">0.0191</span> <span class="fl">0.0107</span> <span class="fl">0.0083</span> <span class="fl">0.0026</span> <span class="fl">0.0011</span></span>
-<span id="cb60-3"><a href="lda.html#cb60-3" aria-hidden="true" tabindex="-1"></a> [<span class="dv">9</span>] <span class="fl">0.0001</span> <span class="fl">0.0001</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="lda.html#cb60-1"></a><span class="kw">round</span>(mod<span class="op">$</span>svd<span class="op">^</span><span class="dv">2</span><span class="op">/</span>(<span class="kw">sum</span>(mod<span class="op">$</span>svd<span class="op">^</span><span class="dv">2</span>)),<span class="dv">4</span>)</span>
+<span id="cb60-2"><a href="lda.html#cb60-2"></a> [<span class="dv">1</span>] <span class="fl">0.5617</span> <span class="fl">0.3518</span> <span class="fl">0.0445</span> <span class="fl">0.0191</span> <span class="fl">0.0107</span> <span class="fl">0.0083</span> <span class="fl">0.0026</span> <span class="fl">0.0011</span></span>
+<span id="cb60-3"><a href="lda.html#cb60-3"></a> [<span class="dv">9</span>] <span class="fl">0.0001</span> <span class="fl">0.0001</span></span></code></pre></div></li>
 <li><p>Représenter les individus sur le premier plan factoriel de l’ACP, on utilisera une couleur différente pour chaque groupe. On pourra utiliser le package <strong>FactoMineR</strong>.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="lda.html#cb61-1" aria-hidden="true" tabindex="-1"></a>acp <span class="ot">&lt;-</span> <span class="fu">PCA</span>(dapp,<span class="at">quali.sup=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="lda.html#cb61-1"></a>acp &lt;-<span class="st"> </span><span class="kw">PCA</span>(dapp,<span class="dt">quali.sup=</span><span class="dv">1</span>)</span></code></pre></div>
 <p><img src="TUTO_ML_files/figure-html/unnamed-chunk-90-1.png" width="672" style="display: block; margin: auto;" /><img src="TUTO_ML_files/figure-html/unnamed-chunk-90-2.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="lda.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(acp,<span class="at">habillage=</span><span class="st">&quot;y&quot;</span>,<span class="at">label=</span><span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="lda.html#cb62-1"></a><span class="kw">plot</span>(acp,<span class="dt">habillage=</span><span class="st">&quot;y&quot;</span>,<span class="dt">label=</span><span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <p><img src="TUTO_ML_files/figure-html/unnamed-chunk-90-3.png" width="672" style="display: block; margin: auto;" /></p></li>
 <li><p>Comparer cette projection avec celle obtenue par l’analyse discriminante linéaire.</p>
 <div class="corR">
@@ -402,11 +404,11 @@ La projection de l’ACP semble moins séparer les groupes que l’analyse discr
 </p>
 </div></li>
 <li><p>Évaluer la performance de la <strong>lda</strong> sur les données test. Comparer avec l’analyse discriminante quadratique.</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="lda.html#cb63-1" aria-hidden="true" tabindex="-1"></a>mod.qda <span class="ot">&lt;-</span> <span class="fu">qda</span>(y<span class="sc">~</span>.,<span class="at">data=</span>dapp)</span>
-<span id="cb63-2"><a href="lda.html#cb63-2" aria-hidden="true" tabindex="-1"></a>preva <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">LDA=</span><span class="fu">predict</span>(mod,<span class="at">newdata=</span>dtest)<span class="sc">$</span>class,<span class="at">QDA=</span><span class="fu">predict</span>(mod.qda,<span class="at">newdata=</span>dtest)<span class="sc">$</span>class,<span class="at">y=</span>dtest<span class="sc">$</span>y) </span>
-<span id="cb63-3"><a href="lda.html#cb63-3" aria-hidden="true" tabindex="-1"></a>preva <span class="sc">%&gt;%</span> <span class="fu">summarise_at</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="sc">~</span><span class="fu">mean</span>(y<span class="sc">!=</span>.))</span>
-<span id="cb63-4"><a href="lda.html#cb63-4" aria-hidden="true" tabindex="-1"></a>        LDA       QDA</span>
-<span id="cb63-5"><a href="lda.html#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="fl">0.5562771</span> <span class="fl">0.5281385</span></span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="lda.html#cb63-1"></a>mod.qda &lt;-<span class="st"> </span><span class="kw">qda</span>(y<span class="op">~</span>.,<span class="dt">data=</span>dapp)</span>
+<span id="cb63-2"><a href="lda.html#cb63-2"></a>preva &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">LDA=</span><span class="kw">predict</span>(mod,<span class="dt">newdata=</span>dtest)<span class="op">$</span>class,<span class="dt">QDA=</span><span class="kw">predict</span>(mod.qda,<span class="dt">newdata=</span>dtest)<span class="op">$</span>class,<span class="dt">y=</span>dtest<span class="op">$</span>y) </span>
+<span id="cb63-3"><a href="lda.html#cb63-3"></a>preva <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_at</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,<span class="op">~</span><span class="kw">mean</span>(y<span class="op">!=</span>.))</span>
+<span id="cb63-4"><a href="lda.html#cb63-4"></a>        LDA       QDA</span>
+<span id="cb63-5"><a href="lda.html#cb63-5"></a><span class="dv">1</span> <span class="fl">0.5562771</span> <span class="fl">0.5281385</span></span></code></pre></div>
 <div class="corR">
 <p>
 QDA est légèrement plus performante pour le critère étudié.
@@ -424,20 +426,20 @@ Au lieu de projeter sur tous les axes, on considère uniquement les projections 
 Cette option permet en effet d’utiliser uniquement les premiers axes de l’analyse discriminante. On peut ainsi estimer la probabilité d’erreur en fonction de la dimension de l’espace sur lequel on projette :
 </p>
 </div>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="lda.html#cb64-1" aria-hidden="true" tabindex="-1"></a>prev_lab <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod,<span class="at">newdata=</span>dtest)<span class="sc">$</span>class </span>
-<span id="cb64-2"><a href="lda.html#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(prev_lab<span class="sc">!=</span>dtest<span class="sc">$</span>y)</span>
-<span id="cb64-3"><a href="lda.html#cb64-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.5562771</span></span>
-<span id="cb64-4"><a href="lda.html#cb64-4" aria-hidden="true" tabindex="-1"></a>PREV <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>,<span class="at">ncol=</span><span class="dv">10</span>,<span class="at">nrow=</span><span class="fu">nrow</span>(dtest)) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
-<span id="cb64-5"><a href="lda.html#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>){</span>
-<span id="cb64-6"><a href="lda.html#cb64-6" aria-hidden="true" tabindex="-1"></a>  PREV[,i] <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod,<span class="at">newdata=</span>dtest,<span class="at">dimen=</span>i)<span class="sc">$</span>class</span>
-<span id="cb64-7"><a href="lda.html#cb64-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb64-8"><a href="lda.html#cb64-8" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(PREV) <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;P&quot;</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb64-9"><a href="lda.html#cb64-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-10"><a href="lda.html#cb64-10" aria-hidden="true" tabindex="-1"></a>PREV <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">y=</span>dtest<span class="sc">$</span>y) <span class="sc">%&gt;%</span> <span class="fu">summarise_at</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,<span class="sc">~</span><span class="fu">mean</span>(y<span class="sc">!=</span>.)) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
-<span id="cb64-11"><a href="lda.html#cb64-11" aria-hidden="true" tabindex="-1"></a>     P1    P2    P3    P4    P5    P6    P7    P8    P9</span>
-<span id="cb64-12"><a href="lda.html#cb64-12" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="fl">0.699</span> <span class="fl">0.491</span> <span class="fl">0.496</span> <span class="fl">0.511</span> <span class="fl">0.515</span> <span class="fl">0.554</span> <span class="fl">0.554</span> <span class="fl">0.556</span> <span class="fl">0.552</span></span>
-<span id="cb64-13"><a href="lda.html#cb64-13" aria-hidden="true" tabindex="-1"></a>    P10</span>
-<span id="cb64-14"><a href="lda.html#cb64-14" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="fl">0.556</span></span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="lda.html#cb64-1"></a>prev_lab &lt;-<span class="st"> </span><span class="kw">predict</span>(mod,<span class="dt">newdata=</span>dtest)<span class="op">$</span>class </span>
+<span id="cb64-2"><a href="lda.html#cb64-2"></a><span class="kw">mean</span>(prev_lab<span class="op">!=</span>dtest<span class="op">$</span>y)</span>
+<span id="cb64-3"><a href="lda.html#cb64-3"></a>[<span class="dv">1</span>] <span class="fl">0.5562771</span></span>
+<span id="cb64-4"><a href="lda.html#cb64-4"></a>PREV &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>,<span class="dt">ncol=</span><span class="dv">10</span>,<span class="dt">nrow=</span><span class="kw">nrow</span>(dtest)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()</span>
+<span id="cb64-5"><a href="lda.html#cb64-5"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>){</span>
+<span id="cb64-6"><a href="lda.html#cb64-6"></a>  PREV[,i] &lt;-<span class="st"> </span><span class="kw">predict</span>(mod,<span class="dt">newdata=</span>dtest,<span class="dt">dimen=</span>i)<span class="op">$</span>class</span>
+<span id="cb64-7"><a href="lda.html#cb64-7"></a>}</span>
+<span id="cb64-8"><a href="lda.html#cb64-8"></a><span class="kw">names</span>(PREV) &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;P&quot;</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb64-9"><a href="lda.html#cb64-9"></a></span>
+<span id="cb64-10"><a href="lda.html#cb64-10"></a>PREV <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">y=</span>dtest<span class="op">$</span>y) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_at</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,<span class="op">~</span><span class="kw">mean</span>(y<span class="op">!=</span>.)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">3</span>)</span>
+<span id="cb64-11"><a href="lda.html#cb64-11"></a>     P1    P2    P3    P4    P5    P6    P7    P8    P9</span>
+<span id="cb64-12"><a href="lda.html#cb64-12"></a><span class="dv">1</span> <span class="fl">0.699</span> <span class="fl">0.491</span> <span class="fl">0.496</span> <span class="fl">0.511</span> <span class="fl">0.515</span> <span class="fl">0.554</span> <span class="fl">0.554</span> <span class="fl">0.556</span> <span class="fl">0.552</span></span>
+<span id="cb64-13"><a href="lda.html#cb64-13"></a>    P10</span>
+<span id="cb64-14"><a href="lda.html#cb64-14"></a><span class="dv">1</span> <span class="fl">0.556</span></span></code></pre></div>
 <div class="corR">
 <p>
 On remarque que l’erreur est minimale en projetant uniquement sur les deux premiers axes. Cette erreur est de plus comparable avec celle obtenue pour <strong>QDA</strong>.
@@ -445,12 +447,12 @@ On remarque que l’erreur est minimale en projetant uniquement sur les deux pre
 </div></li>
 </ol>
 </div>
-<div id="grande-dimension-reconnaissance-de-phonèmes" class="section level2" number="2.3">
+<div id="grande-dimension-reconnaissance-de-phonèmes" class="section level2">
 <h2><span class="header-section-number">2.3</span> Grande dimension : reconnaissance de phonèmes</h2>
 <p>On considère le jeu de données <strong>phoneme</strong> téléchargeable à l’url <a href="https://github.com/cran/ElemStatLearn/blob/master/data/phoneme.RData">https://github.com/cran/ElemStatLearn/blob/master/data/phoneme.RData</a>.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="lda.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;data/phoneme.RData&quot;</span>)</span>
-<span id="cb65-2"><a href="lda.html#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(phoneme)</span>
-<span id="cb65-3"><a href="lda.html#cb65-3" aria-hidden="true" tabindex="-1"></a>donnees <span class="ot">&lt;-</span> phoneme[,<span class="sc">-</span><span class="dv">258</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="lda.html#cb65-1"></a><span class="kw">load</span>(<span class="st">&quot;data/phoneme.RData&quot;</span>)</span>
+<span id="cb65-2"><a href="lda.html#cb65-2"></a><span class="kw">data</span>(phoneme)</span>
+<span id="cb65-3"><a href="lda.html#cb65-3"></a>donnees &lt;-<span class="st"> </span>phoneme[,<span class="op">-</span><span class="dv">258</span>]</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>Expliquer le problème et représenter pour chaque groupe la courbe moyenne.</p>
 <div class="corR">
@@ -458,79 +460,79 @@ On remarque que l’erreur est minimale en projetant uniquement sur les deux pre
 Il s’agit d’expliquer un son parmi 5 à partir de courbes discrétisées en 256 points. On peut tracer la courbe moyenne pour chaque groupe avec :
 </p>
 </div>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="lda.html#cb66-1" aria-hidden="true" tabindex="-1"></a>moy_groupe <span class="ot">&lt;-</span> donnees <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(g) <span class="sc">%&gt;%</span> <span class="fu">summarise_all</span>(mean)</span>
-<span id="cb66-2"><a href="lda.html#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(moy_groupe)[<span class="dv">2</span><span class="sc">:</span><span class="dv">257</span>] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">256</span>)</span>
-<span id="cb66-3"><a href="lda.html#cb66-3" aria-hidden="true" tabindex="-1"></a>moy_plot <span class="ot">&lt;-</span> moy_groupe <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="sc">-</span>g,<span class="at">names_to=</span><span class="st">&quot;x&quot;</span>,<span class="at">values_to=</span><span class="st">&quot;values&quot;</span>)</span>
-<span id="cb66-4"><a href="lda.html#cb66-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(moy_plot)<span class="sc">+</span><span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as.numeric</span>(x),<span class="at">y=</span>values,<span class="at">color=</span>g)<span class="sc">+</span><span class="fu">geom_line</span>(<span class="at">size=</span><span class="dv">1</span>)<span class="sc">+</span><span class="fu">xlab</span>(<span class="st">&quot;x&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="lda.html#cb66-1"></a>moy_groupe &lt;-<span class="st"> </span>donnees <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(g) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_all</span>(mean)</span>
+<span id="cb66-2"><a href="lda.html#cb66-2"></a><span class="kw">names</span>(moy_groupe)[<span class="dv">2</span><span class="op">:</span><span class="dv">257</span>] &lt;-<span class="st"> </span><span class="kw">as.character</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">256</span>)</span>
+<span id="cb66-3"><a href="lda.html#cb66-3"></a>moy_plot &lt;-<span class="st"> </span>moy_groupe <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pivot_longer</span>(<span class="op">-</span>g,<span class="dt">names_to=</span><span class="st">&quot;x&quot;</span>,<span class="dt">values_to=</span><span class="st">&quot;values&quot;</span>)</span>
+<span id="cb66-4"><a href="lda.html#cb66-4"></a><span class="kw">ggplot</span>(moy_plot)<span class="op">+</span><span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">as.numeric</span>(x),<span class="dt">y=</span>values,<span class="dt">color=</span>g)<span class="op">+</span><span class="kw">geom_line</span>(<span class="dt">size=</span><span class="dv">1</span>)<span class="op">+</span><span class="kw">xlab</span>(<span class="st">&quot;x&quot;</span>)</span></code></pre></div>
 <p><img src="TUTO_ML_files/figure-html/unnamed-chunk-100-1.png" width="672" style="display: block; margin: auto;" /></p></li>
 <li><p>Séparer les données en un échantillon d’apprentissage de taille 3000 et un échantillon test de taille 1509.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="lda.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb67-2"><a href="lda.html#cb67-2" aria-hidden="true" tabindex="-1"></a>perm <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(donnees))</span>
-<span id="cb67-3"><a href="lda.html#cb67-3" aria-hidden="true" tabindex="-1"></a>dapp <span class="ot">&lt;-</span> donnees[perm[<span class="dv">1</span><span class="sc">:</span><span class="dv">3000</span>],]</span>
-<span id="cb67-4"><a href="lda.html#cb67-4" aria-hidden="true" tabindex="-1"></a>dtest <span class="ot">&lt;-</span> phoneme[perm[<span class="dv">3001</span><span class="sc">:</span><span class="dv">4509</span>],]</span></code></pre></div></li>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="lda.html#cb67-1"></a><span class="kw">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb67-2"><a href="lda.html#cb67-2"></a>perm &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">nrow</span>(donnees))</span>
+<span id="cb67-3"><a href="lda.html#cb67-3"></a>dapp &lt;-<span class="st"> </span>donnees[perm[<span class="dv">1</span><span class="op">:</span><span class="dv">3000</span>],]</span>
+<span id="cb67-4"><a href="lda.html#cb67-4"></a>dtest &lt;-<span class="st"> </span>phoneme[perm[<span class="dv">3001</span><span class="op">:</span><span class="dv">4509</span>],]</span></code></pre></div></li>
 <li><p>Effectuer une analyse discriminante linéaire et une analyse discriminante quadratique sur les données d’apprentissage uniquement. Évaluer les performances de ces deux approches sur les données test.</p>
 <div class="corR">
 <p>
 On calcule tout d’abord <strong>lda</strong> et <strong>qda</strong> sur les données d’apprentissage :
 </p>
 </div>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="lda.html#cb68-1" aria-hidden="true" tabindex="-1"></a>lda.pho <span class="ot">&lt;-</span> <span class="fu">lda</span>(g<span class="sc">~</span>.,<span class="at">data=</span>dapp)</span>
-<span id="cb68-2"><a href="lda.html#cb68-2" aria-hidden="true" tabindex="-1"></a>qda.pho <span class="ot">&lt;-</span> <span class="fu">qda</span>(g<span class="sc">~</span>.,<span class="at">data=</span>dapp)</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="lda.html#cb68-1"></a>lda.pho &lt;-<span class="st"> </span><span class="kw">lda</span>(g<span class="op">~</span>.,<span class="dt">data=</span>dapp)</span>
+<span id="cb68-2"><a href="lda.html#cb68-2"></a>qda.pho &lt;-<span class="st"> </span><span class="kw">qda</span>(g<span class="op">~</span>.,<span class="dt">data=</span>dapp)</span></code></pre></div>
 <div class="corR">
 <p>
 On prédit les individus de l’échantillon test pour en déduire l’erreur :
 </p>
 </div>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="lda.html#cb69-1" aria-hidden="true" tabindex="-1"></a>prev.pho <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">LDA=</span><span class="fu">predict</span>(lda.pho,<span class="at">newdata=</span>dtest)<span class="sc">$</span>class,<span class="at">QDA=</span><span class="fu">predict</span>(qda.pho,<span class="at">newdata=</span>dtest)<span class="sc">$</span>class,<span class="at">obs=</span>dtest<span class="sc">$</span>g)</span>
-<span id="cb69-2"><a href="lda.html#cb69-2" aria-hidden="true" tabindex="-1"></a>prev.pho <span class="sc">%&gt;%</span> <span class="fu">summarise_at</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="sc">~</span><span class="fu">mean</span>(obs<span class="sc">!=</span>.)) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
-<span id="cb69-3"><a href="lda.html#cb69-3" aria-hidden="true" tabindex="-1"></a>   LDA   QDA</span>
-<span id="cb69-4"><a href="lda.html#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="fl">0.07</span> <span class="fl">0.176</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="lda.html#cb69-1"></a>prev.pho &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">LDA=</span><span class="kw">predict</span>(lda.pho,<span class="dt">newdata=</span>dtest)<span class="op">$</span>class,<span class="dt">QDA=</span><span class="kw">predict</span>(qda.pho,<span class="dt">newdata=</span>dtest)<span class="op">$</span>class,<span class="dt">obs=</span>dtest<span class="op">$</span>g)</span>
+<span id="cb69-2"><a href="lda.html#cb69-2"></a>prev.pho <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_at</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,<span class="op">~</span><span class="kw">mean</span>(obs<span class="op">!=</span>.)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">3</span>)</span>
+<span id="cb69-3"><a href="lda.html#cb69-3"></a>   LDA   QDA</span>
+<span id="cb69-4"><a href="lda.html#cb69-4"></a><span class="dv">1</span> <span class="fl">0.07</span> <span class="fl">0.176</span></span></code></pre></div></li>
 <li><p>Quels peuvent être les intérêts d’effectuer une analyse discriminante régularisée dans ce contexte ? Effectuer une telle analyse à l’aide de la fonction <strong>rda</strong> du package <strong>klaR</strong>.</p>
 <div class="corR">
 <p>
 Le nombre de variables est élevé, par conséquent on se retrouve avec beaucoup de paramètres à estimer. De plus, les données étant fonctionnelles, on a de la corrélation entre les les variables explicatives (ce qui est rarement bon pour bien estimer). On fait la <strong>rda</strong> sur les données d’apprentissage :
 </p>
 </div>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="lda.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(klaR)</span>
-<span id="cb70-2"><a href="lda.html#cb70-2" aria-hidden="true" tabindex="-1"></a>rda.pho <span class="ot">&lt;-</span> <span class="fu">rda</span>(g<span class="sc">~</span>.,<span class="at">data=</span>dapp)</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="lda.html#cb70-1"></a><span class="kw">library</span>(klaR)</span>
+<span id="cb70-2"><a href="lda.html#cb70-2"></a>rda.pho &lt;-<span class="st"> </span><span class="kw">rda</span>(g<span class="op">~</span>.,<span class="dt">data=</span>dapp)</span></code></pre></div>
 <div class="corR">
 <p>
 On prédit le test et on compare avec les autres modèles :
 </p>
 </div>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="lda.html#cb71-1" aria-hidden="true" tabindex="-1"></a>prev2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(rda.pho,<span class="at">newdata=</span>dtest)<span class="sc">$</span>class</span>
-<span id="cb71-2"><a href="lda.html#cb71-2" aria-hidden="true" tabindex="-1"></a>prev.pho <span class="ot">&lt;-</span> prev.pho <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">RDA=</span>prev2)</span>
-<span id="cb71-3"><a href="lda.html#cb71-3" aria-hidden="true" tabindex="-1"></a>prev.pho <span class="sc">%&gt;%</span> <span class="fu">summarise_at</span>(<span class="fu">vars</span>(<span class="sc">-</span><span class="dv">3</span>),<span class="sc">~</span><span class="fu">mean</span>(obs<span class="sc">!=</span>.)) </span>
-<span id="cb71-4"><a href="lda.html#cb71-4" aria-hidden="true" tabindex="-1"></a>        LDA      QDA        RDA</span>
-<span id="cb71-5"><a href="lda.html#cb71-5" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="fl">0.0702452</span> <span class="fl">0.175613</span> <span class="fl">0.05897946</span></span></code></pre></div></li>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="lda.html#cb71-1"></a>prev2 &lt;-<span class="st"> </span><span class="kw">predict</span>(rda.pho,<span class="dt">newdata=</span>dtest)<span class="op">$</span>class</span>
+<span id="cb71-2"><a href="lda.html#cb71-2"></a>prev.pho &lt;-<span class="st"> </span>prev.pho <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">RDA=</span>prev2)</span>
+<span id="cb71-3"><a href="lda.html#cb71-3"></a>prev.pho <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_at</span>(<span class="kw">vars</span>(<span class="op">-</span><span class="dv">3</span>),<span class="op">~</span><span class="kw">mean</span>(obs<span class="op">!=</span>.)) </span>
+<span id="cb71-4"><a href="lda.html#cb71-4"></a>        LDA      QDA        RDA</span>
+<span id="cb71-5"><a href="lda.html#cb71-5"></a><span class="dv">1</span> <span class="fl">0.0702452</span> <span class="fl">0.175613</span> <span class="fl">0.05897946</span></span></code></pre></div></li>
 <li><p>Sélectionner les paramètres de régularisation à l’aide du package <strong>caret</strong>. Comparer le nouveau modèle aux précédents.</p>
 <div class="corR">
 <p>
 On définit deux grilles de longueur 5 pour les paramètres <code>lambda</code> et <code>gamma</code>, et on fait une validation croisée 5 blocs pour sélectionner les paramètres. On parallélise sur 4 cœurs pour réduire le temps de calcul.
 </p>
 </div>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="lda.html#cb72-1" aria-hidden="true" tabindex="-1"></a>gamma <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="at">by=</span><span class="fl">0.25</span>)</span>
-<span id="cb72-2"><a href="lda.html#cb72-2" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="at">by=</span><span class="fl">0.25</span>)</span>
-<span id="cb72-3"><a href="lda.html#cb72-3" aria-hidden="true" tabindex="-1"></a>grille <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">lambda=</span>lambda,<span class="at">gamma=</span>gamma)</span>
-<span id="cb72-4"><a href="lda.html#cb72-4" aria-hidden="true" tabindex="-1"></a>ctrl1 <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method=</span><span class="st">&quot;cv&quot;</span>,<span class="at">number=</span><span class="dv">5</span>)</span>
-<span id="cb72-5"><a href="lda.html#cb72-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(doMC)</span>
-<span id="cb72-6"><a href="lda.html#cb72-6" aria-hidden="true" tabindex="-1"></a><span class="fu">registerDoMC</span>(<span class="dv">4</span>)</span>
-<span id="cb72-7"><a href="lda.html#cb72-7" aria-hidden="true" tabindex="-1"></a>rda.pho2 <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">train</span>(g<span class="sc">~</span>.,<span class="at">data=</span>donnees,<span class="at">method=</span><span class="st">&quot;rda&quot;</span>,</span>
-<span id="cb72-8"><a href="lda.html#cb72-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">trControl=</span>ctrl1,<span class="at">tuneGrid=</span>grille)</span>
-<span id="cb72-9"><a href="lda.html#cb72-9" aria-hidden="true" tabindex="-1"></a><span class="fu">registerDoMC</span>(<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="lda.html#cb72-1"></a>gamma &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">by=</span><span class="fl">0.25</span>)</span>
+<span id="cb72-2"><a href="lda.html#cb72-2"></a>lambda &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">by=</span><span class="fl">0.25</span>)</span>
+<span id="cb72-3"><a href="lda.html#cb72-3"></a>grille &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">lambda=</span>lambda,<span class="dt">gamma=</span>gamma)</span>
+<span id="cb72-4"><a href="lda.html#cb72-4"></a>ctrl1 &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method=</span><span class="st">&quot;cv&quot;</span>,<span class="dt">number=</span><span class="dv">5</span>)</span>
+<span id="cb72-5"><a href="lda.html#cb72-5"></a><span class="kw">library</span>(doMC)</span>
+<span id="cb72-6"><a href="lda.html#cb72-6"></a><span class="kw">registerDoMC</span>(<span class="dv">4</span>)</span>
+<span id="cb72-7"><a href="lda.html#cb72-7"></a>rda.pho2 &lt;-<span class="st"> </span>caret<span class="op">::</span><span class="kw">train</span>(g<span class="op">~</span>.,<span class="dt">data=</span>donnees,<span class="dt">method=</span><span class="st">&quot;rda&quot;</span>,</span>
+<span id="cb72-8"><a href="lda.html#cb72-8"></a>                     <span class="dt">trControl=</span>ctrl1,<span class="dt">tuneGrid=</span>grille)</span>
+<span id="cb72-9"><a href="lda.html#cb72-9"></a><span class="kw">registerDoMC</span>(<span class="dv">1</span>)</span></code></pre></div>
 <div class="corR">
 <p>
 On évalue et compare les performances :
 </p>
 </div>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="lda.html#cb73-1" aria-hidden="true" tabindex="-1"></a>caret<span class="sc">::</span><span class="fu">getTrainPerf</span>(rda.pho2)</span>
-<span id="cb73-2"><a href="lda.html#cb73-2" aria-hidden="true" tabindex="-1"></a>  TrainAccuracy TrainKappa method</span>
-<span id="cb73-3"><a href="lda.html#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>     <span class="fl">0.9288063</span>  <span class="fl">0.9101211</span>    rda</span>
-<span id="cb73-4"><a href="lda.html#cb73-4" aria-hidden="true" tabindex="-1"></a>prev3 <span class="ot">&lt;-</span> <span class="fu">predict</span>(rda.pho2,<span class="at">newdata=</span>dtest)</span>
-<span id="cb73-5"><a href="lda.html#cb73-5" aria-hidden="true" tabindex="-1"></a>prev.pho <span class="ot">&lt;-</span> prev.pho <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">RDA2=</span>prev3)</span>
-<span id="cb73-6"><a href="lda.html#cb73-6" aria-hidden="true" tabindex="-1"></a>prev.pho <span class="sc">%&gt;%</span> <span class="fu">summarise_at</span>(<span class="fu">vars</span>(<span class="sc">-</span><span class="dv">3</span>),<span class="sc">~</span><span class="fu">mean</span>(obs<span class="sc">!=</span>.)) <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">3</span>)</span>
-<span id="cb73-7"><a href="lda.html#cb73-7" aria-hidden="true" tabindex="-1"></a>   LDA   QDA   RDA  RDA2</span>
-<span id="cb73-8"><a href="lda.html#cb73-8" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="fl">0.07</span> <span class="fl">0.176</span> <span class="fl">0.059</span> <span class="fl">0.043</span></span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="lda.html#cb73-1"></a>caret<span class="op">::</span><span class="kw">getTrainPerf</span>(rda.pho2)</span>
+<span id="cb73-2"><a href="lda.html#cb73-2"></a>  TrainAccuracy TrainKappa method</span>
+<span id="cb73-3"><a href="lda.html#cb73-3"></a><span class="dv">1</span>     <span class="fl">0.9288063</span>  <span class="fl">0.9101211</span>    rda</span>
+<span id="cb73-4"><a href="lda.html#cb73-4"></a>prev3 &lt;-<span class="st"> </span><span class="kw">predict</span>(rda.pho2,<span class="dt">newdata=</span>dtest)</span>
+<span id="cb73-5"><a href="lda.html#cb73-5"></a>prev.pho &lt;-<span class="st"> </span>prev.pho <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">RDA2=</span>prev3)</span>
+<span id="cb73-6"><a href="lda.html#cb73-6"></a>prev.pho <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise_at</span>(<span class="kw">vars</span>(<span class="op">-</span><span class="dv">3</span>),<span class="op">~</span><span class="kw">mean</span>(obs<span class="op">!=</span>.)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">3</span>)</span>
+<span id="cb73-7"><a href="lda.html#cb73-7"></a>   LDA   QDA   RDA  RDA2</span>
+<span id="cb73-8"><a href="lda.html#cb73-8"></a><span class="dv">1</span> <span class="fl">0.07</span> <span class="fl">0.176</span> <span class="fl">0.059</span> <span class="fl">0.043</span></span></code></pre></div>
 <div class="corR">
 <p>
 La régularisation a permis d’améliorer les performances.
@@ -538,12 +540,13 @@ La régularisation a permis d’améliorer les performances.
 </div></li>
 </ol>
 </div>
-<div id="exercices" class="section level2" number="2.4">
+<div id="exercices" class="section level2">
 <h2><span class="header-section-number">2.4</span> Exercices</h2>
 
 <div class="exercise">
 <span id="exr:exo-preuve-bayse" class="exercise"><strong>Exercice 2.1  (Optimalité de la règle de Bayes)  </strong></span>
 </div>
+
 <p>On dispose de <span class="math inline">\(n\)</span> observations <span class="math inline">\((x_1,y_1),\dots,(x_n,y_n)\)</span> telles que <span class="math inline">\(x_i\in\mathbb R^p\)</span> et <span class="math inline">\(y_i\in\{0,1\}\)</span> pour <span class="math inline">\(i=1,\dots,n\)</span>. On souhaite expliquer les sorties <span class="math inline">\(y_i\)</span> par les entrées <span class="math inline">\(x_i\)</span>.</p>
 <ol style="list-style-type: decimal">
 <li><p>Rappeler la définition d’une règle de prévision.</p>
@@ -611,6 +614,7 @@ Si <span class="math inline"><span class="math inline">\(x\leq 0\)</span></span>
 <div class="exercise">
 <span id="exr:exo-evm-lda" class="exercise"><strong>Exercice 2.2  (MV pour LDA)  </strong></span>
 </div>
+
 <p>On cherche à expliquer une variable aléatoire <span class="math inline">\(Y\)</span> à valeurs dans <span class="math inline">\(\{0,1\}\)</span> par une variable aléatoire <span class="math inline">\(X\)</span> à valeurs dans <span class="math inline">\(\mathbb R\)</span>.</p>
 <ol style="list-style-type: decimal">
 <li>Quels sont les paramètres à estimer dans le modèle d’analyse discriminante linéaire.
@@ -639,6 +643,7 @@ Ces estimateurs correspondent à ceux proposés dans le cours, à part pour <spa
 <div class="exercise">
 <span id="exr:exo-fondiscri-lda" class="exercise"><strong>Exercice 2.3  (Fonctions linéaires discriminantes)  </strong></span>
 </div>
+
 <p>On cherche à expliquer une variable aléatoire <span class="math inline">\(Y\)</span> à valeurs dans <span class="math inline">\(\{0,1\}\)</span> par une variable aléatoire <span class="math inline">\(X\)</span> à valeurs dans <span class="math inline">\(\mathbb R^p\)</span>.</p>
 <ol style="list-style-type: decimal">
 <li>Rappeler le modèle d’analyse discriminante linéaire.
@@ -658,7 +663,8 @@ Sous le modèle LDA, maximiser <span class="math inline"><span class="math inlin
 <div class="exercise">
 <span id="exr:exo-calcul-axes-lda" class="exercise"><strong>Exercice 2.4  (Approche géométrique de la LDA)  </strong></span>
 </div>
-<p>On considère un <span class="math inline">\(n\)</span>-échantillon i.i.d. <span class="math inline">\((x_1,y_1),\dots,(x_n,y_n)\)</span> où <span class="math inline">\(x_i\)</span> est à valeurs dans <span class="math inline">\(\mathbb R^2\)</span> et <span class="math inline">\(y_i\)</span> dans <span class="math inline">\(\{0,1\}\)</span>. On cherche une droite vectorielle <span class="math inline">\(a\)</span> telle que les projections de chaque groupe sur <span class="math inline">\(a\)</span> soient séparées “au mieux.” Dit autrement, on cherche <span class="math inline">\(a\)</span> telle que</p>
+
+<p>On considère un <span class="math inline">\(n\)</span>-échantillon i.i.d. <span class="math inline">\((x_1,y_1),\dots,(x_n,y_n)\)</span> où <span class="math inline">\(x_i\)</span> est à valeurs dans <span class="math inline">\(\mathbb R^2\)</span> et <span class="math inline">\(y_i\)</span> dans <span class="math inline">\(\{0,1\}\)</span>. On cherche une droite vectorielle <span class="math inline">\(a\)</span> telle que les projections de chaque groupe sur <span class="math inline">\(a\)</span> soient séparées “au mieux”. Dit autrement, on cherche <span class="math inline">\(a\)</span> telle que</p>
 <ul>
 <li>la distance entre les centres de gravité
 <span class="math display">\[g_0=\frac{1}{\mbox{card}\{i:y_i=0\}}\sum_{i:y_i=0}x_i\quad\textrm{et}\quad g_1=\frac{1}{\mbox{card}\{i:y_i=1\}}\sum_{i:y_i=1}x_i\]</span>
